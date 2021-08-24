@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -22,44 +20,103 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Welcome to Flutter',
-        home: Home() //画面遷移をする部分を下のように別のクラスで定義し、それを読み込む
+        home: MyHomePage() //画面遷移をする部分を下のように別のクラスで定義し、それを読み込む
     );
   }
 }
 
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
-class Home extends StatelessWidget {
+// SingleTickerProviderStateMixinを使用。後述
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  // ページ切り替え用のコントローラを定義
+  late PageController _pageController;
 
-  final _tab = <Tab> [
-    Tab( text:'Add'),
-    Tab( text:'total'),
-    Tab( text: 'archive',)
-  ];
+  // ページインデックス保存用
+  int _screen = 0;
 
+  // ページ下部に並べるナビゲーションメニューの一覧
+  List<BottomNavigationBarItem> myBottomNavBarItems() {
+    return [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.book),
+        title: const Text('add'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.cloud),
+        title: const Text('total'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.cake),
+        title: const Text('archive'),
+      ),
+    ];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // コントローラ作成
+    _pageController = PageController(
+      initialPage: _screen,
+    );
+  }
+
+  @override
+  void dispose() {
+    // コントローラ破棄
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: _tab.length,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
-          title: Text("Clothes"),
-          bottom: TabBar(
-            tabs: _tab,
-          ),
+    return Scaffold(
+      backgroundColor: Colors.blue[900],
+      // Appbar
+      appBar: AppBar(
+        backgroundColor: Colors.blue[900],
+        title: Text(
+          '',
+          style: TextStyle(fontSize: 16),
         ),
-        body: TabBarView(
-          children: <Widget>[
+      ),
+      // ),
+
+      body: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() {
+              _screen = index;
+            });
+          },
+          children: [
             FirstPage(),
             SecondPage(),
             ThirdPage(),
-          ],
-        ),
+          ]),
+
+
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _screen,
+        onTap: (index) {
+          setState(() {
+            _screen = index;
+            _pageController.animateToPage(index,
+                duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+          });
+        },
+        items: myBottomNavBarItems(),
       ),
     );
   }
 }
+
 
 class FirstPage extends StatelessWidget {
   @override
@@ -93,12 +150,55 @@ class FirstPage extends StatelessWidget {
 }
 
 class SecondPage extends StatelessWidget {
+
+  final _tab = <Tab> [
+    Tab( text:'Buy'),
+    Tab( text:'Sell'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: _tab.length,
+      child: Scaffold(
+        appBar: AppBar(
+          flexibleSpace: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TabBar(
+                  tabs: _tab,
+                )
+              ],
+            ),
+          ),
+          ),
+
+        body: TabBarView(
+          children: <Widget>[
+            buyTotal(),
+            sellTotal(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class buyTotal extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+   return Scaffold(
+
+   );
+  }
+}
+
+class sellTotal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-      ),
+
     );
   }
 }
@@ -128,29 +228,33 @@ class ThirdPage extends StatelessWidget {
 
         return
            GridView.count(
-            crossAxisCount: 2,
+            crossAxisCount: 4,
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String,dynamic> data = document.data()! as Map<String,dynamic>;
-              return Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    new BoxShadow(
-                      color: Colors.grey,
-                      offset: new Offset(5.0, 5.0),
-                      blurRadius: 10.0,
-                    )
-                  ],
-                ),
-                child: Column(
-                    children: <Widget>[
-                      Image.network(data['imageURL']),
-                      Text(data['brands']),
-                      Text('¥'+data['price']),
-                    ]
-                ),
-              );
+              return  Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      new BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(5.0, 5.0),
+                        blurRadius: 10.0,
+                      )
+                    ],
+                  ),
+
+                    child: SingleChildScrollView(
+                      child: Column(
+                            children: <Widget>[
+                              Image.network(data['imageURL']),
+                              Text(data['brands']),
+                              Text('¥'+data['price']),
+                            ]
+                        ),
+                    ),
+
+                );
             }).toList(),
           );
       },
