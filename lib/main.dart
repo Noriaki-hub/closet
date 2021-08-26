@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'addClothes.dart';
-
+import 'totalPrice.dart';
 
 
 void main()
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Welcome to Flutter',
-        home: MyHomePage() //画面遷移をする部分を下のように別のクラスで定義し、それを読み込む
+        home: MyHomePage()
     );
   }
 }
@@ -33,13 +33,12 @@ class MyHomePage extends StatefulWidget {
 // SingleTickerProviderStateMixinを使用。後述
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
-  // ページ切り替え用のコントローラを定義
+
   late PageController _pageController;
 
   // ページインデックス保存用
   int _screen = 0;
 
-  // ページ下部に並べるナビゲーションメニューの一覧
   List<BottomNavigationBarItem> myBottomNavBarItems() {
     return [
       BottomNavigationBarItem(
@@ -162,6 +161,7 @@ class SecondPage extends StatelessWidget {
       length: _tab.length,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blue[900],
           flexibleSpace: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -185,23 +185,7 @@ class SecondPage extends StatelessWidget {
   }
 }
 
-class buyTotal extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-   return Scaffold(
 
-   );
-  }
-}
-
-class sellTotal extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-
-    );
-  }
-}
 
 
 
@@ -228,7 +212,7 @@ class ThirdPage extends StatelessWidget {
 
         return
            GridView.count(
-            crossAxisCount: 4,
+            crossAxisCount: 2,
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String,dynamic> data = document.data()! as Map<String,dynamic>;
               return  Container(

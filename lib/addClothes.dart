@@ -58,6 +58,7 @@ class _BuyPage extends State<BuyPage> {
         'category': category,
         'price': price,
         'imageURL': imageURL,
+        'updateAt': Timestamp.now(),
       },
     );
   }
