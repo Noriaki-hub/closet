@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.cake),
-        title: const Text('archive'),
+        title: const Text('closet'),
       ),
     ];
   }
