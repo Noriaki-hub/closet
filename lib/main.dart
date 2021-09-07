@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'addClothes.dart';
 import 'totalPrice.dart';
+import 'chooseCategory.dart';
 
 
 void main()
 async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(MyApp());
+
 }
 
 
@@ -133,14 +135,6 @@ class FirstPage extends StatelessWidget {
               );
             }
             ),
-            RaisedButton(onPressed: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SellPage(),
-                  )
-              );
-            }
-            ),
           ],
         ),
       ),
@@ -176,7 +170,7 @@ class SecondPage extends StatelessWidget {
 
         body: TabBarView(
           children: <Widget>[
-            buyTotal(),
+            BuyTotal(),
             sellTotal(),
           ],
         ),
@@ -192,7 +186,7 @@ class SecondPage extends StatelessWidget {
 class ThirdPage extends StatelessWidget {
 
   final Stream<QuerySnapshot> _usersStream =
-  FirebaseFirestore.instance.collection('clothes').snapshots();
+  FirebaseFirestore.instance.collectionGroup('closet').snapshots();
 
 
   @override
