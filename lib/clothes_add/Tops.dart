@@ -11,19 +11,20 @@ async {
   await Firebase.initializeApp();
 }
 
-class Accessories extends StatefulWidget {
+class Tops extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _Accessories();
+    return _Tops();
   }
 }
 
-class _Accessories extends State<Accessories> {
+class _Tops extends State<Tops> {
 
   String brands = "";
   String price = "";
-
+  String category = "Tops";
+  String closetGet = 'ok';
 
   File? imageFile;
   final picker = ImagePicker();
@@ -47,14 +48,16 @@ class _Accessories extends State<Accessories> {
 
 
 
-  Future uploadFirebaseAccessories() async {
+  Future uploadFirebaseTops() async {
     final imageURL = await _uploadImageFile();
-    FirebaseFirestore.instance.collection('accessories').add(
+    FirebaseFirestore.instance.collection('clothes').add(
       {
         'brands': brands,
         'price': price,
+        'category' : category,
         'imageURL': imageURL,
         'updateAt': Timestamp.now(),
+        'closetGet' : closetGet,
       },
     );
   }
@@ -156,7 +159,7 @@ class _Accessories extends State<Accessories> {
                     children: [
                       FlatButton(
                         onPressed: () async{
-                          await uploadFirebaseAccessories ();
+                          await uploadFirebaseTops ();
                           Navigator.popUntil(context, (route) => route.isFirst);
                         },
                         child: Text("hang"),
@@ -171,6 +174,7 @@ class _Accessories extends State<Accessories> {
                       )
                     ],
                   )
+
                 ],
               )
           )
@@ -179,4 +183,5 @@ class _Accessories extends State<Accessories> {
   }
 
 }
+
 

@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'totalPrice.dart';
-import 'chooseCategory.dart';
+import 'totalPricePage/totalPrice.dart';
+import 'clothes_add/chooseCategory.dart';
+import 'login_page.dart';
 
 
 void main()
@@ -21,15 +22,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Welcome to Flutter',
-        home: MyHomePage()
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MyHomePage(),
     );
   }
 }
 
+
 class MyHomePage extends StatefulWidget {
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
+
 }
 
 // SingleTickerProviderStateMixinを使用。後述
@@ -81,8 +89,7 @@ class _MyHomePageState extends State<MyHomePage>
       // Appbar
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
-        title: Text(
-          '',
+        title: Text("",
           style: TextStyle(fontSize: 16),
         ),
       ),
@@ -102,7 +109,6 @@ class _MyHomePageState extends State<MyHomePage>
           ]),
 
 
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _screen,
         onTap: (index) {
@@ -119,7 +125,11 @@ class _MyHomePageState extends State<MyHomePage>
 }
 
 
+
+
+
 class FirstPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,6 +141,14 @@ class FirstPage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => BuyPage(),
+                  )
+              );
+            }
+            ),
+            RaisedButton(onPressed: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage(),
                   )
               );
             }
@@ -186,7 +204,7 @@ class SecondPage extends StatelessWidget {
 class ThirdPage extends StatelessWidget {
 
   final Stream<QuerySnapshot> _usersStream =
-  FirebaseFirestore.instance.collectionGroup('closet').snapshots();
+  FirebaseFirestore.instance.collection('clothes').where('closetGet', isEqualTo: 'ok').snapshots();
 
 
   @override
@@ -201,7 +219,7 @@ class ThirdPage extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return CircularProgressIndicator();
         }
 
         return
