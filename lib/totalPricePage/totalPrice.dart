@@ -79,6 +79,7 @@ class BuyTotal extends StatelessWidget {
 
                 Consumer<TopsTotal>(builder: (context, model, child) {
                   final List<Clothes>? topsclothes2 = model.topsclothes2;
+
                   if (topsclothes2 == null) {
                     return CircularProgressIndicator();
                   }

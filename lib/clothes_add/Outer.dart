@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:image_picker/image_picker.dart';
@@ -50,7 +51,9 @@ class _Outer extends State<Outer> {
 
   Future uploadFirebaseOuter() async {
     final imageURL = await _uploadImageFile();
-    FirebaseFirestore.instance.collection('clothes').add(
+    final users= FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    users.doc(user!.uid).collection('clothes').add(
       {
         'brands': brands,
         'price': price,

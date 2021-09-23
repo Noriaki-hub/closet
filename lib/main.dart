@@ -1,9 +1,12 @@
+import 'package:closet_app_xxx/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'auth/login_screen.dart';
 import 'totalPricePage/totalPrice.dart';
 import 'clothes_add/chooseCategory.dart';
-import 'login_page.dart';
+
 
 
 void main()
@@ -27,13 +30,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: LoginScreen(),
     );
   }
 }
 
 
 class MyHomePage extends StatefulWidget {
+
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -53,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage>
     return [
       BottomNavigationBarItem(
         icon: Icon(Icons.book),
-        title: const Text('add'),
+        title: const Text('Home'),
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.cloud),
@@ -103,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage>
             });
           },
           children: [
-            FirstPage(),
+            HomeScreen(),
             SecondPage(),
             ThirdPage(),
           ]),
@@ -128,37 +132,7 @@ class _MyHomePageState extends State<MyHomePage>
 
 
 
-class FirstPage extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          children: [
-            RaisedButton(onPressed: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BuyPage(),
-                  )
-              );
-            }
-            ),
-            RaisedButton(onPressed: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage(),
-                  )
-              );
-            }
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class SecondPage extends StatelessWidget {
 
@@ -203,59 +177,64 @@ class SecondPage extends StatelessWidget {
 
 class ThirdPage extends StatelessWidget {
 
-  final Stream<QuerySnapshot> _usersStream =
-  FirebaseFirestore.instance.collection('clothes').where('closetGet', isEqualTo: 'ok').snapshots();
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid).collection('clothes').where(
+      'closetGet', isEqualTo: 'ok').snapshots();
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Center(
-        child: StreamBuilder<QuerySnapshot>(
-      stream: _usersStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
+        body: Center(
+          child: StreamBuilder<QuerySnapshot>(
+            stream: _usersStream,
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong');
+              }
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              }
 
-        return
-           GridView.count(
-            crossAxisCount: 2,
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String,dynamic> data = document.data()! as Map<String,dynamic>;
-              return  Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      new BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(5.0, 5.0),
-                        blurRadius: 10.0,
-                      )
-                    ],
-                  ),
+              return
+                GridView.count(
+                  crossAxisCount: 2,
+                  children: snapshot.data!.docs.map((
+                      DocumentSnapshot document) {
+                    Map<String, dynamic> data = document.data()! as Map<
+                        String,
+                        dynamic>;
+                    return Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          new BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(5.0, 5.0),
+                            blurRadius: 10.0,
+                          )
+                        ],
+                      ),
 
-                    child: SingleChildScrollView(
-                      child: Column(
+                      child: SingleChildScrollView(
+                        child: Column(
                             children: <Widget>[
                               Image.network(data['imageURL']),
                               Text(data['brands']),
-                              Text('¥'+data['price']),
+                              Text('¥' + data['price']),
                             ]
                         ),
-                    ),
-
+                      ),
+                    );
+                  }).toList(),
                 );
-            }).toList(),
-          );
-      },
-    ),
-    )
+            },
+          ),
+        )
     );
-    }
+  }
 }

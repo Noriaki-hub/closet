@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,17 +48,18 @@ class _Tops extends State<Tops> {
   }
 
 
-
   Future uploadFirebaseTops() async {
     final imageURL = await _uploadImageFile();
-    FirebaseFirestore.instance.collection('clothes').add(
+    final users= FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    users.doc(user!.uid).collection('clothes').add(
       {
         'brands': brands,
         'price': price,
-        'category' : category,
+        'category': category,
         'imageURL': imageURL,
         'updateAt': Timestamp.now(),
-        'closetGet' : closetGet,
+        'closetGet': closetGet,
       },
     );
   }
@@ -97,7 +99,7 @@ class _Tops extends State<Tops> {
                             )
                         ),
                       )
-                          :Container(
+                          : Container(
                         height: 200,
                         width: 200,
                         decoration: BoxDecoration(
@@ -136,7 +138,7 @@ class _Tops extends State<Tops> {
 
 
                   TextField(
-                    onChanged: (text){
+                    onChanged: (text) {
                       brands = text;
                     },
                     decoration: InputDecoration(
@@ -145,7 +147,7 @@ class _Tops extends State<Tops> {
                   ),
 
                   TextField(
-                    onChanged: (text){
+                    onChanged: (text) {
                       price = text;
                     },
                     decoration: InputDecoration(
@@ -158,8 +160,8 @@ class _Tops extends State<Tops> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       FlatButton(
-                        onPressed: () async{
-                          await uploadFirebaseTops ();
+                        onPressed: () async {
+                          await uploadFirebaseTops();
                           Navigator.popUntil(context, (route) => route.isFirst);
                         },
                         child: Text("hang"),
@@ -174,14 +176,12 @@ class _Tops extends State<Tops> {
                       )
                     ],
                   )
-
                 ],
               )
           )
       ),
     );
   }
-
 }
 
 

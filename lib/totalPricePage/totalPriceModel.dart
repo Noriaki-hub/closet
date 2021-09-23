@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../clothes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,8 +9,9 @@ class TotalPriceModel extends ChangeNotifier {
   List<Clothes>? clothes2;
 
   void fetchClothesList() async {
-    final QuerySnapshot snapshot = await FirebaseFirestore.instance.collection(
-        'clothes').get();
+    final users= FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').get();
 
     final List<Clothes> clothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -33,8 +36,10 @@ class TopsTotal extends ChangeNotifier {
   List<Clothes>? topsclothes2;
 
   void fetchClothesListTops() async {
-    final QuerySnapshot snapshot = await FirebaseFirestore.instance.collection(
-        'clothes').where('category', isEqualTo: 'Tops').get();
+    final users= FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
+        .where('category', isEqualTo: 'Tops').get();
 
     final List<Clothes> topsclothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -59,8 +64,10 @@ class BottomsTotal extends ChangeNotifier {
   List<Clothes>? bottomsclothes2;
 
   void fetchClothesListBottoms() async {
-    final QuerySnapshot snapshot = await FirebaseFirestore.instance.collection(
-        'clothes').where('category', isEqualTo: 'Bottoms').get();
+    final users= FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
+        .where('category', isEqualTo: 'Bottoms').get();
 
     final List<Clothes> bottomsclothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -84,8 +91,10 @@ class OuterTotal extends ChangeNotifier {
   List<Clothes>? outerclothes2;
 
   void fetchClothesListOuter() async {
-    final QuerySnapshot snapshot = await FirebaseFirestore.instance.collection(
-        'clothes').where('category', isEqualTo: 'Bottoms').get();
+    final users= FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
+        .where('category', isEqualTo: 'Outer').get();
 
     final List<Clothes> outerclothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -109,8 +118,10 @@ class FootwearTotal extends ChangeNotifier {
   List<Clothes>? footwearclothes2;
 
   void fetchClothesListFootwear() async {
-    final QuerySnapshot snapshot = await FirebaseFirestore.instance.collection(
-        'clothes').where('category', isEqualTo: 'Bottoms').get();
+    final users= FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
+        .where('category', isEqualTo: 'Footwear').get();
 
     final List<Clothes> footwearclothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -134,8 +145,10 @@ class AccessoriesTotal extends ChangeNotifier {
   List<Clothes>? accessoriesclothes2;
 
   void fetchClothesListAccessories() async {
-    final QuerySnapshot snapshot = await FirebaseFirestore.instance.collection(
-        'clothes').where('category', isEqualTo: 'Bottoms').get();
+    final users= FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
+        .where('category', isEqualTo: 'Accessories').get();
 
     final List<Clothes> accessoriesclothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
