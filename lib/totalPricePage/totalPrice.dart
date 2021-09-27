@@ -3,18 +3,12 @@ import 'package:closet_app_xxx/totalPricePage/totalPriceModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../clothes.dart';
+import '../clothes_add/clothes_model.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 
 
 class BuyTotal extends StatelessWidget {
-
-
-
-
-
-
 
 
   Map<String, double> dataMap = {

@@ -1,9 +1,12 @@
 import 'package:closet_app_xxx/auth/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import '../home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:io';
 
 import '../main.dart';
 
@@ -26,8 +29,31 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final passwordEditingController = new TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
 
+
+  File? imageFile;
+  final picker = ImagePicker();
+
+
+  Future getImageFromCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      imageFile = File(pickedFile!.path);
+    });
+  }
+
+  Future getImageFromGallery() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      imageFile = File(pickedFile!.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+
+
     //first name field
     final firstNameField = TextFormField(
         autofocus: false,
@@ -170,7 +196,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
-            signUp(emailEditingController.text, passwordEditingController.text);
+            signUp(emailEditingController.text, passwordEditingController.text);;
           },
           child: Text(
             "SignUp",
@@ -205,12 +231,54 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(
-                        height: 180,
-                        child: Image.asset(
-                          "assets/logo.png",
-                          fit: BoxFit.contain,
-                        )),
+                    Container(
+                        child: imageFile != null
+                            ? Container(
+                          height: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: FileImage(imageFile!),
+                              )
+                          ),
+                        )
+                            :Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: Colors.grey
+                          ),
+
+                        )
+                    ),
+
+                    Container(
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FloatingActionButton(
+                                heroTag: "hero1",
+                                onPressed: getImageFromCamera, //カメラから画像を取得
+                                tooltip: 'Pick Image From Camera',
+                                child: Icon(Icons.add_a_photo),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FloatingActionButton(
+                                heroTag: "hero2",
+                                onPressed: getImageFromGallery, //ギャラリーから画像を取得
+                                tooltip: 'Pick Image From Gallery',
+                                child: Icon(Icons.photo_library),
+                              ),
+                            )
+                          ]
+                      ),
+                    ),
+
                     SizedBox(height: 45),
                     firstNameField,
                     SizedBox(height: 20),
@@ -245,10 +313,42 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
+
+
+//upload user image
+//   Future uploadFirebaseAccessories() async {
+//     final imageURL = await _uploadImageFile();
+//     final users= FirebaseFirestore.instance.collection('users');
+//     User? user = FirebaseAuth.instance.currentUser;
+//
+//
+//         users.doc(user!.uid).add(
+//       {
+//         'imageURL': imageURL,
+//       },
+//     );
+//   }
+
+  Future<String> _uploadImageFile() async {
+    final storage = FirebaseStorage.instance;
+    TaskSnapshot snapshot = await storage
+        .ref()
+        .child("userinfo")
+        .putFile(imageFile!);
+    final String downloadUrl =
+    await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+
+
+
   postDetailsToFirestore() async {
     // calling our firestore
     // calling our user model
     // sedning these values
+
+
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
@@ -260,12 +360,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;
     userModel.secondName = secondNameEditingController.text;
+    userModel.image = await _uploadImageFile();
 
     await firebaseFirestore
         .collection("users")
         .doc(user.uid)
         .set(userModel.toMap());
     Fluttertoast.showToast(msg: "Account created successfully :) ");
+
+
+
 
     await firebaseFirestore
         .collection("users")

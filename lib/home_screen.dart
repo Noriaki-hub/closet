@@ -29,6 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void userImage() {
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .collection('userinfo')
+        .get();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +52,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 120,
                       width: 120,
-                      child: Image.asset(
-                          "assets/logo.png", fit: BoxFit.contain),
+                      child: loggedInUser.image != null
+                          ? Image.network(loggedInUser.image!)
+                          : Container(
+                          child:Center(
+                            child :
+                              Text(
+                                'No image',
+                              ),
+                          ),
+
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: Colors.grey
+                          ),
+
+                    ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20),
