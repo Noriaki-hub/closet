@@ -1,13 +1,11 @@
 import 'package:closet_app_xxx/auth/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import '../home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:io';
-
 import '../main.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -315,25 +313,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
 
 
-//upload user image
-//   Future uploadFirebaseAccessories() async {
-//     final imageURL = await _uploadImageFile();
-//     final users= FirebaseFirestore.instance.collection('users');
-//     User? user = FirebaseAuth.instance.currentUser;
-//
-//
-//         users.doc(user!.uid).add(
-//       {
-//         'imageURL': imageURL,
-//       },
-//     );
-//   }
-
   Future<String> _uploadImageFile() async {
+    User? user = _auth.currentUser;
+
+    final userEmail = user!.email;
     final storage = FirebaseStorage.instance;
     TaskSnapshot snapshot = await storage
         .ref()
-        .child("userinfo")
+        .child("userinfo/$userEmail/userImage")
         .putFile(imageFile!);
     final String downloadUrl =
     await snapshot.ref.getDownloadURL();
@@ -378,7 +365,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .add({
         'category' : "Tops",
         'price' : '0',
-        'brands' : 'sample'
+        'brands' : 'sample',
+        'imageURL': 'sample',
+        'selling' : '0',
       },);
 
     await firebaseFirestore
@@ -388,7 +377,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .add({
       'category' : "Bottoms",
       'price' : '0',
-      'brands' : 'sample'
+      'brands' : 'sample',
+      'imageURL': 'sample',
+      'selling' : '0',
     },);
 
     await firebaseFirestore
@@ -398,7 +389,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .add({
       'category' : "Outer",
       'price' : '0',
-      'brands' : 'sample'
+      'brands' : 'sample',
+    'imageURL': 'sample',
+    'selling' : '0',
     },);
 
     await firebaseFirestore
@@ -408,7 +401,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .add({
       'category' : "Accessories",
       'price' : '0',
-      'brands' : 'sample'
+      'brands' : 'sample',
+    'imageURL': 'sample',
+    'selling' : '0',
     },);
 
     await firebaseFirestore
@@ -418,7 +413,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .add({
       'category' : "Footwear",
       'price' : '0',
-      'brands' : 'sample'
+      'brands' : 'sample',
+    'imageURL': 'sample',
+    'selling' : '0',
     },);
 
     Navigator.pushAndRemoveUntil(

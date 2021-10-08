@@ -62,6 +62,7 @@ class _Accessories extends State<Accessories> {
           'imageURL': imageURL,
           'updateAt': Timestamp.now(),
           'closetGet': closetGet,
+          'selling' : '0'
 
         },
       );
@@ -69,10 +70,13 @@ class _Accessories extends State<Accessories> {
 
 
   Future<String> _uploadImageFile() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    final userEmail = user!.email;
     final storage = FirebaseStorage.instance;
     TaskSnapshot snapshot = await storage
         .ref()
-        .child("clothes/$brands")
+        .child("userinfo/$userEmail/$brands")
         .putFile(imageFile!);
     final String downloadUrl =
     await snapshot.ref.getDownloadURL();
@@ -179,7 +183,6 @@ class _Accessories extends State<Accessories> {
                       )
                     ],
                   )
-
                 ],
               )
           )

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'package:closet_app_xxx/clothes_add/Bottoms.dart';
-import 'package:closet_app_xxx/clothes_add/Outer.dart';
-import 'package:closet_app_xxx/clothes_add/Tops.dart';
+import 'Bottoms.dart';
 import 'Footwear.dart';
+import 'Outer.dart';
+import 'Tops.dart';
 import 'accessories.dart';
 
 

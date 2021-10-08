@@ -1,11 +1,12 @@
+import 'package:closet_app_xxx/closet_buy.dart';
 import 'package:closet_app_xxx/home_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:closet_app_xxx/totalPricePage/sellTotal.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'auth/login_screen.dart';
-import 'totalPricePage/totalPrice.dart';
-import 'clothes_add/chooseCategory.dart';
+import 'closet_sell.dart';
+import 'totalPricePage/buyTotal.dart';
+
 
 
 
@@ -56,15 +57,15 @@ class _MyHomePageState extends State<MyHomePage>
   List<BottomNavigationBarItem> myBottomNavBarItems() {
     return [
       BottomNavigationBarItem(
-        icon: Icon(Icons.book),
+        icon: Icon(Icons.account_circle),
         title: const Text('Home'),
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.cloud),
+        icon: Icon(Icons.bar_chart),
         title: const Text('total'),
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.cake),
+        icon: Icon(Icons.image_outlined),
         title: const Text('closet'),
       ),
     ];
@@ -91,13 +92,7 @@ class _MyHomePageState extends State<MyHomePage>
     return Scaffold(
       backgroundColor: Colors.blue[900],
       // Appbar
-      appBar: AppBar(
-        backgroundColor: Colors.blue[900],
-        title: Text("",
-          style: TextStyle(fontSize: 16),
-        ),
-      ),
-      // ),
+
 
       body: PageView(
           controller: _pageController,
@@ -152,8 +147,11 @@ class SecondPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                TabBar(
-                  tabs: _tab,
+                Padding(
+                  padding: const EdgeInsets.all(45),
+                  child: TabBar(
+                    tabs: _tab,
+                  ),
                 )
               ],
             ),
@@ -163,7 +161,7 @@ class SecondPage extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             BuyTotal(),
-            sellTotal(),
+            SellTotal(),
           ],
         ),
       ),
@@ -175,66 +173,41 @@ class SecondPage extends StatelessWidget {
 
 
 
-class ThirdPage extends StatelessWidget {
-
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid).collection('clothes').where(
-      'closetGet', isEqualTo: 'ok').snapshots();
-
+class ThirdPage extends StatelessWidget{
+  final _tab = <Tab> [
+    Tab( text:'Hold'),
+    Tab( text:'Sold'),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: _usersStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong');
-              }
-
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
-              }
-
-              return
-                GridView.count(
-                  crossAxisCount: 2,
-                  children: snapshot.data!.docs.map((
-                      DocumentSnapshot document) {
-                    Map<String, dynamic> data = document.data()! as Map<
-                        String,
-                        dynamic>;
-                    return Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          new BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 10.0,
-                          )
-                        ],
-                      ),
-
-                      child: SingleChildScrollView(
-                        child: Column(
-                            children: <Widget>[
-                              Image.network(data['imageURL']),
-                              Text(data['brands']),
-                              Text('¥' + data['price']),
-                            ]
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                );
-            },
+    return DefaultTabController(
+      length: _tab.length,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.blue[900],
+          flexibleSpace: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(45),
+                  child: TabBar(
+                    tabs: _tab,
+                  ),
+                )
+              ],
+            ),
           ),
-        )
+        ),
+
+        body: TabBarView(
+          children: <Widget>[
+            BuyCloset(),
+            SellCloset(),
+          ],
+        ),
+      ),
     );
   }
 }

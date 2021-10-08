@@ -12,20 +12,20 @@ async {
   await Firebase.initializeApp();
 }
 
-class Bottoms extends StatefulWidget {
+class Outer extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _Bottoms();
+    return _Outer();
   }
 }
 
-class _Bottoms extends State<Bottoms> {
+class _Outer extends State<Outer> {
 
   String brands = "";
   String price = "";
-  String category = "Bottoms";
-
+  String category = "Outer";
+  String closetGet = 'ok';
 
   File? imageFile;
   final picker = ImagePicker();
@@ -49,7 +49,7 @@ class _Bottoms extends State<Bottoms> {
 
 
 
-  Future uploadFirebaseBottoms() async {
+  Future uploadFirebaseOuter() async {
     final imageURL = await _uploadImageFile();
     final users= FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
@@ -57,19 +57,24 @@ class _Bottoms extends State<Bottoms> {
       {
         'brands': brands,
         'price': price,
-        'category': category,
+        'category' : category,
         'imageURL': imageURL,
         'updateAt': Timestamp.now(),
+        'closetGet' : closetGet,
+        'selling' : '0'
       },
     );
   }
 
 
   Future<String> _uploadImageFile() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    final userEmail = user!.email;
     final storage = FirebaseStorage.instance;
     TaskSnapshot snapshot = await storage
         .ref()
-        .child("clothes/$brands")
+        .child("userinfo/$userEmail/$brands")
         .putFile(imageFile!);
     final String downloadUrl =
     await snapshot.ref.getDownloadURL();
@@ -161,7 +166,7 @@ class _Bottoms extends State<Bottoms> {
                     children: [
                       FlatButton(
                         onPressed: () async{
-                          await uploadFirebaseBottoms ();
+                          await uploadFirebaseOuter ();
                           Navigator.popUntil(context, (route) => route.isFirst);
                         },
                         child: Text("hang"),
@@ -176,6 +181,7 @@ class _Bottoms extends State<Bottoms> {
                       )
                     ],
                   )
+
                 ],
               )
           )
@@ -184,4 +190,3 @@ class _Bottoms extends State<Bottoms> {
   }
 
 }
-

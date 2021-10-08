@@ -12,19 +12,19 @@ async {
   await Firebase.initializeApp();
 }
 
-class Outer extends StatefulWidget {
+class Tops extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _Outer();
+    return _Tops();
   }
 }
 
-class _Outer extends State<Outer> {
+class _Tops extends State<Tops> {
 
   String brands = "";
   String price = "";
-  String category = "Outer";
+  String category = "Tops";
   String closetGet = 'ok';
 
   File? imageFile;
@@ -48,8 +48,7 @@ class _Outer extends State<Outer> {
   }
 
 
-
-  Future uploadFirebaseOuter() async {
+  Future uploadFirebaseTops() async {
     final imageURL = await _uploadImageFile();
     final users= FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
@@ -57,20 +56,24 @@ class _Outer extends State<Outer> {
       {
         'brands': brands,
         'price': price,
-        'category' : category,
+        'category': category,
         'imageURL': imageURL,
         'updateAt': Timestamp.now(),
-        'closetGet' : closetGet,
+        'closetGet': closetGet,
+        'selling' : '0'
       },
     );
   }
 
 
   Future<String> _uploadImageFile() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    final userEmail = user!.email;
     final storage = FirebaseStorage.instance;
     TaskSnapshot snapshot = await storage
         .ref()
-        .child("clothes/$brands")
+        .child("userinfo/$userEmail/$brands")
         .putFile(imageFile!);
     final String downloadUrl =
     await snapshot.ref.getDownloadURL();
@@ -100,7 +103,7 @@ class _Outer extends State<Outer> {
                             )
                         ),
                       )
-                          :Container(
+                          : Container(
                         height: 200,
                         width: 200,
                         decoration: BoxDecoration(
@@ -139,7 +142,7 @@ class _Outer extends State<Outer> {
 
 
                   TextField(
-                    onChanged: (text){
+                    onChanged: (text) {
                       brands = text;
                     },
                     decoration: InputDecoration(
@@ -148,7 +151,7 @@ class _Outer extends State<Outer> {
                   ),
 
                   TextField(
-                    onChanged: (text){
+                    onChanged: (text) {
                       price = text;
                     },
                     decoration: InputDecoration(
@@ -161,8 +164,8 @@ class _Outer extends State<Outer> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       FlatButton(
-                        onPressed: () async{
-                          await uploadFirebaseOuter ();
+                        onPressed: () async {
+                          await uploadFirebaseTops();
                           Navigator.popUntil(context, (route) => route.isFirst);
                         },
                         child: Text("hang"),
@@ -177,12 +180,12 @@ class _Outer extends State<Outer> {
                       )
                     ],
                   )
-
                 ],
               )
           )
       ),
     );
   }
-
 }
+
+

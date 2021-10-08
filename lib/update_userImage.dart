@@ -1,10 +1,13 @@
-import 'dart:io';
+import 'package:closet_app_xxx/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'home_screen.dart';
 
 void main()
 async {
@@ -12,20 +15,16 @@ async {
   await Firebase.initializeApp();
 }
 
-class Footwear extends StatefulWidget {
+class updateUserImage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _Footwear();
+    return _updateUserImage();
   }
 }
 
-class _Footwear extends State<Footwear> {
+class _updateUserImage extends State<updateUserImage> {
 
-  String brands = "";
-  String price = "";
-  String category = "Footwear";
-  String closetGet = 'ok';
 
   File? imageFile;
   final picker = ImagePicker();
@@ -49,28 +48,27 @@ class _Footwear extends State<Footwear> {
 
 
 
-  Future uploadFirebaseFootwear() async {
+  Future updateUserImageFirestore() async {
     final imageURL = await _uploadImageFile();
     final users= FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
-    users.doc(user!.uid).collection('clothes').add(
-      {
-        'brands': brands,
-        'price': price,
-        'category' : category,
-        'imageURL': imageURL,
-        'updateAt': Timestamp.now(),
-        'closetGet' : closetGet,
-      },
-    );
+
+    users.doc(user!.uid).update({
+        'image': imageURL,
+      },);
+
+    setState(() {});
   }
 
 
   Future<String> _uploadImageFile() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    final userEmail = user!.email;
     final storage = FirebaseStorage.instance;
     TaskSnapshot snapshot = await storage
         .ref()
-        .child("clothes/$brands")
+        .child("userinfo/$userEmail/userImage")
         .putFile(imageFile!);
     final String downloadUrl =
     await snapshot.ref.getDownloadURL();
@@ -138,46 +136,32 @@ class _Footwear extends State<Footwear> {
                   ),
 
 
-                  TextField(
-                    onChanged: (text){
-                      brands = text;
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Brands",
-                    ),
-                  ),
-
-                  TextField(
-                    onChanged: (text){
-                      price = text;
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Price",
-                    ),
-                  ),
-
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       FlatButton(
-                        onPressed: () async{
-                          await uploadFirebaseFootwear ();
-                          Navigator.popUntil(context, (route) => route.isFirst);
+                        onPressed: () async {
+                          await updateUserImageFirestore();
+
+                          Navigator.pop(context,); // [*1]
                         },
                         child: Text("hang"),
                         color: Colors.blueAccent,
                       ),
                       FlatButton(
-                        onPressed: () {
-                          Navigator.popUntil(context, (route) => route.isFirst);
+                        onPressed: () async {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => MyHomePage(),
+                              )
+                          );
                         },
                         child: Text("cancel"),
                         color: Colors.redAccent,
                       )
                     ],
                   )
-
                 ],
               )
           )

@@ -1,25 +1,12 @@
-
-import 'package:closet_app_xxx/totalPricePage/totalPriceModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:closet_app_xxx/clothes_buy/clothes_model.dart';
+import 'package:closet_app_xxx/totalPricePage/buyTotal_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../clothes_add/clothes_model.dart';
-import 'package:pie_chart/pie_chart.dart';
+
 
 
 
 class BuyTotal extends StatelessWidget {
-
-
-  Map<String, double> dataMap = {
-    "Tops": 1,
-    "Bottoms": 1,
-    "Outer": 2,
-    "Footwear": 2,
-    "Accessories": 2,
-  };
-
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -47,29 +34,40 @@ class BuyTotal extends StatelessWidget {
         body: Center(
             child: Column(
               children: [
-                PieChart(dataMap: dataMap),
 
-                Consumer<TotalPriceModel>(builder: (context, model, child) {
-                  final List<Clothes>? clothes2 = model.clothes2;
+                Padding(
+                  padding: const EdgeInsets.all(50),
+                  child: SizedBox(
+                    height: 100,
+                    child: Consumer<TotalPriceModel>(builder: (context, model, child) {
+                      final List<Clothes>? clothes2 = model.clothes2;
 
-                  if (clothes2 == null) {
-                    return CircularProgressIndicator();
-                  }
+                      if (clothes2 == null) {
+                        return CircularProgressIndicator();
+                      }
 
-                  final sum = clothes2
-                      .map<double>((clothes) => double.parse(clothes.price))
-                      .reduce((curr, next) => curr + next);
+                      final sum = clothes2
+                          .map<int>((clothes) => int.parse(clothes.price))
+                          .reduce((curr, next) => curr + next);
 
-                  String sum2 = "$sum";
+                      String sum2 = "$sum";
 
 
 
-                  return
-                    ListTile(
-                      leading: Text('total'),
-                      trailing: Text(sum2),
-                    );
-                }),
+                      return
+                        Center(
+                          child: Container(
+                            child: FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text('¥$sum2',
+                                style: TextStyle(fontSize: 100),
+                        ),
+                        )
+                      )
+                        );
+                    }),
+                  ),
+                ),
 
                 Consumer<TopsTotal>(builder: (context, model, child) {
                   final List<Clothes>? topsclothes2 = model.topsclothes2;
@@ -108,6 +106,7 @@ class BuyTotal extends StatelessWidget {
                       leading: Text('Bottoms'),
                       trailing: Text(bottomsSum2),
                     );
+
                 }),
                 Consumer<OuterTotal>(builder: (context, model, child) {
                   final List<Clothes>? outerclothes2 = model.outerclothes2;
@@ -172,43 +171,3 @@ class BuyTotal extends StatelessWidget {
 }
 
 
-class sellTotal extends StatelessWidget {
-
-  final Stream<QuerySnapshot> _usersStream =
-  FirebaseFirestore.instance.collection('clothes').snapshots();
-
-  var listItem = ["Tops", "Outer", "bottoms", "Footwear", "accessories",];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: StreamBuilder<QuerySnapshot>(
-                stream: _usersStream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Something went wrong');
-                  }
-
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading");
-                  }
-
-                  return ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        child: Padding(
-                          child: Text(listItem[index],
-                          ),
-                          padding: EdgeInsets.all(20.0),),
-                      );
-                    },
-                    itemCount: listItem.length,
-                  );
-                }
-            )
-        )
-    );
-  }
-}

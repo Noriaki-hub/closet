@@ -1,6 +1,5 @@
+import 'package:closet_app_xxx/clothes_buy/clothes_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../clothes_add/clothes_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -11,7 +10,7 @@ class TotalPriceModel extends ChangeNotifier {
   void fetchClothesList() async {
     final users= FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
-    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').get();
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where('selling', whereIn: ['0', '//']).get();
 
     final List<Clothes> clothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -20,9 +19,20 @@ class TotalPriceModel extends ChangeNotifier {
       final String category = data['category'];
       final String price = data['price'];
       final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
 
 
-      return Clothes(brands, price, category);
+
+      return Clothes(
+          brands,
+          price,
+          category,
+          id,
+          imageURL,
+          selling,
+      );
     }).toList();
     this.clothes2 = clothes3;
     notifyListeners();
@@ -39,7 +49,7 @@ class TopsTotal extends ChangeNotifier {
     final users= FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
-        .where('category', isEqualTo: 'Tops').get();
+        .where('category', isEqualTo: 'Tops').where('selling', whereIn: ['0', '//']).get();
 
     final List<Clothes> topsclothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -48,9 +58,20 @@ class TopsTotal extends ChangeNotifier {
       final String category = data['category'];
       final String price = data['price'];
       final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
 
 
-      return Clothes(brands, price, category);
+
+      return Clothes(
+          brands,
+          price,
+          category,
+          id,
+          imageURL,
+          selling,
+      );
     }).toList();
     this.topsclothes2 = topsclothes3;
     notifyListeners();
@@ -67,7 +88,7 @@ class BottomsTotal extends ChangeNotifier {
     final users= FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
-        .where('category', isEqualTo: 'Bottoms').get();
+        .where('category', isEqualTo: 'Bottoms').where('selling', whereIn: ['0', '//']).get();
 
     final List<Clothes> bottomsclothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -76,9 +97,20 @@ class BottomsTotal extends ChangeNotifier {
       final String category = data['category'];
       final String price = data['price'];
       final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
 
 
-      return Clothes(brands, price, category);
+
+      return Clothes(
+        brands,
+        price,
+        category,
+        id,
+        imageURL,
+        selling,
+      );
     }).toList();
     this.bottomsclothes2 = bottomsclothes3;
     notifyListeners();
@@ -94,7 +126,7 @@ class OuterTotal extends ChangeNotifier {
     final users= FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
-        .where('category', isEqualTo: 'Outer').get();
+        .where('category', isEqualTo: 'Outer').where('selling', whereIn: ['0', '//']).get();
 
     final List<Clothes> outerclothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -103,9 +135,20 @@ class OuterTotal extends ChangeNotifier {
       final String category = data['category'];
       final String price = data['price'];
       final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
 
 
-      return Clothes(brands, price, category);
+
+      return Clothes(
+          brands,
+          price,
+          category,
+          id,
+          imageURL,
+          selling,
+      );
     }).toList();
     this.outerclothes2 = outerclothes3;
     notifyListeners();
@@ -121,7 +164,7 @@ class FootwearTotal extends ChangeNotifier {
     final users= FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
-        .where('category', isEqualTo: 'Footwear').get();
+        .where('category', isEqualTo: 'Footwear').where('selling', whereIn: ['0', '//']).get();
 
     final List<Clothes> footwearclothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -130,9 +173,20 @@ class FootwearTotal extends ChangeNotifier {
       final String category = data['category'];
       final String price = data['price'];
       final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
 
 
-      return Clothes(brands, price, category);
+
+      return Clothes(
+        brands,
+        price,
+        category,
+        id,
+        imageURL,
+        selling,
+      );
     }).toList();
     this.footwearclothes2 = footwearclothes3;
     notifyListeners();
@@ -148,7 +202,7 @@ class AccessoriesTotal extends ChangeNotifier {
     final users= FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
-        .where('category', isEqualTo: 'Accessories').get();
+        .where('category', isEqualTo: 'Accessories').where('selling', whereIn: ['0', '//']).get();
 
     final List<Clothes> accessoriesclothes3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -157,9 +211,20 @@ class AccessoriesTotal extends ChangeNotifier {
       final String category = data['category'];
       final String price = data['price'];
       final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
 
 
-      return Clothes(brands, price, category);
+
+      return Clothes(
+        brands,
+        price,
+        category,
+        id,
+        imageURL,
+        selling,
+      );
     }).toList();
     this.accessoriesclothes2 = accessoriesclothes3;
     notifyListeners();
