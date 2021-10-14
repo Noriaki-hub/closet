@@ -25,7 +25,8 @@ class _Bottoms extends State<Bottoms> {
   String brands = "";
   String price = "";
   String category = "Bottoms";
-  String closetGet = 'ok';
+  String buyGet = 'yes';
+  String sellGet = 'no';
 
 
   File? imageFile;
@@ -61,6 +62,8 @@ class _Bottoms extends State<Bottoms> {
         'category': category,
         'imageURL': imageURL,
         'updateAt': Timestamp.now(),
+        'buyGet': buyGet,
+        'sellGet': sellGet,
         'selling' : '0'
       },
     );

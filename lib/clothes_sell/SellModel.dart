@@ -10,8 +10,8 @@ class SellModel extends ChangeNotifier {
   void fetchSellClothesList() async {
     final users= FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
-    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where('closetGet', isEqualTo: 'ok').where(
-        'selling', isEqualTo: '0').get();
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
+        'sellGet', isEqualTo: 'no').get();
 
     final List<Clothes> clothes3 = snapshot.docs.map((
         DocumentSnapshot document) {

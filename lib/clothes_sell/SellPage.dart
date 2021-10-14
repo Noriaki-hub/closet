@@ -74,8 +74,7 @@ class SellPage2 extends StatelessWidget {
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('users')
       .doc(FirebaseAuth.instance.currentUser!.uid).collection('clothes').where(
-      'closetGet', isEqualTo: 'ok').where(
-      'selling', isEqualTo: '0').snapshots();
+      'sellGet', isEqualTo: 'no').snapshots();
 
 
   Future sellAdd() async{
@@ -84,6 +83,8 @@ class SellPage2 extends StatelessWidget {
 
     users.doc(user!.uid).collection('clothes').doc(clothes.id).update({
      'selling': selling,
+      'sellGet' : 'yes',
+      'buyGet' : 'no',
     },);
   }
 

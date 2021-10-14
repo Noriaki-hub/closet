@@ -1,10 +1,10 @@
-import 'package:closet_app_xxx/closet_buy.dart';
+import 'package:closet_app_xxx/closet/closet_buy.dart';
 import 'package:closet_app_xxx/home_screen.dart';
 import 'package:closet_app_xxx/totalPricePage/sellTotal.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'auth/login_screen.dart';
-import 'closet_sell.dart';
+import 'closet/closet_sell.dart';
 import 'totalPricePage/buyTotal.dart';
 
 
@@ -203,7 +203,7 @@ class ThirdPage extends StatelessWidget{
 
         body: TabBarView(
           children: <Widget>[
-            BuyCloset(),
+            MyStatelessWidget(),
             SellCloset(),
           ],
         ),

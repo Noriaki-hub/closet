@@ -55,8 +55,10 @@ class _BuyPage extends State<BuyPage> {
                             height: 100,
                             width: 100,
                             child: SingleChildScrollView(
-                              child: Image.network(
-                                  'https://cdn.pixabay.com/photo/2016/12/06/09/30/blank-1886001__340.png'),
+                              child: Image(
+                                image: AssetImage(
+                                    'images/Tops.png'),
+                            )
                             ),
                           ),
                         ),
@@ -86,9 +88,11 @@ class _BuyPage extends State<BuyPage> {
                             height: 100,
                             width: 100,
                             child: SingleChildScrollView(
-                              child: Image.network(
-                                  'https://cdn.pixabay.com/photo/2016/12/06/09/30/blank-1886001__340.png'),
-                            ),
+                              child: Image(
+                                image: AssetImage(
+                                    'images/Bottoms.png'),
+                              )
+                             ),
                           ),
                         ),
 
@@ -116,8 +120,10 @@ class _BuyPage extends State<BuyPage> {
                             height: 100,
                             width: 100,
                             child: SingleChildScrollView(
-                              child: Image.network(
-                                  'https://cdn.pixabay.com/photo/2016/12/06/09/30/blank-1886001__340.png'),
+                              child: Image(
+                                image: AssetImage(
+                                    'images/Outer.png'),
+                              )
                             ),
                           ),
                         ),
@@ -151,8 +157,10 @@ class _BuyPage extends State<BuyPage> {
                             height: 100,
                             width: 100,
                             child: SingleChildScrollView(
-                              child: Image.network(
-                                  'https://cdn.pixabay.com/photo/2016/12/06/09/30/blank-1886001__340.png'),
+                              child: Image(
+                                image: AssetImage(
+                                    'images/Footwear.png'),
+                              )
                             ),
                           ),
                         ),
@@ -181,8 +189,10 @@ class _BuyPage extends State<BuyPage> {
                             height: 100,
                             width: 100,
                             child: SingleChildScrollView(
-                              child: Image.network(
-                                  'https://cdn.pixabay.com/photo/2016/12/06/09/30/blank-1886001__340.png'),
+                              child: Image(
+                                image: AssetImage(
+                                    'images/Accessories.png'),
+                              )
                             ),
                           ),
                         ),

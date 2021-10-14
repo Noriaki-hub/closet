@@ -25,7 +25,8 @@ class _Footwear extends State<Footwear> {
   String brands = "";
   String price = "";
   String category = "Footwear";
-  String closetGet = 'ok';
+  String buyGet = 'yes';
+  String sellGet = 'no';
 
   File? imageFile;
   final picker = ImagePicker();
@@ -57,10 +58,11 @@ class _Footwear extends State<Footwear> {
       {
         'brands': brands,
         'price': price,
-        'category' : category,
+        'category': category,
         'imageURL': imageURL,
         'updateAt': Timestamp.now(),
-        'closetGet' : closetGet,
+        'buyGet': buyGet,
+        'sellGet': sellGet,
         'selling' : '0'
       },
     );
