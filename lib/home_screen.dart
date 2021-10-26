@@ -41,9 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue[900],
+          backgroundColor: Colors.white,
+          iconTheme: const IconThemeData(
+            color: Colors.grey,
+          ),
         ),
-      drawerScrimColor: Colors.transparent,
+
+      drawerScrimColor: Colors.grey,
       drawer: Container(
         width: 300,
         height: double.infinity,
@@ -57,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
             border: Border(
                 right: BorderSide(
-                  color: Colors.white70,
+                  color: Colors.grey,
                 ))),
         child: Stack(
           children: [
@@ -188,7 +192,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             MaterialPageRoute(builder: (context) => BuyPage(),
                             )
                         );
-                      }
+                      },
+                          shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                       ),
                       ),
                     ),
                     SizedBox(
@@ -207,7 +214,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 MaterialPageRoute(builder: (context) => SellPage(),
                                 )
                             );
-                      }
+                      },
+                          shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                       ),
                     ),
                   ],

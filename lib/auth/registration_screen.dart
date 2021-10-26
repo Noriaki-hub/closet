@@ -2,6 +2,7 @@ import 'package:closet_app_xxx/auth/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,20 +34,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
 
   Future getImageFromCamera() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
     setState(() {
       imageFile = File(pickedFile!.path);
     });
   }
+
 
   Future getImageFromGallery() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       imageFile = File(pickedFile!.path);
     });
   }
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +196,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final signUpButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: Colors.grey,
       child: MaterialButton(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
@@ -210,7 +217,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.red),
+          icon: Icon(Icons.arrow_back, color: Colors.grey),
           onPressed: () {
             // passing this to our root
             Navigator.of(context).pop();
@@ -229,26 +236,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Container(
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.grey,
+                      child: ClipOval(
                         child: imageFile != null
                             ? Container(
+                            width: 100,
+                            height: 100,
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                                child: Image.file(imageFile!))
+                        )
+                              :Container(
                           height: 200,
                           width: 200,
                           decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: FileImage(imageFile!),
-                              )
-                          ),
-                        )
-                            :Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.grey
-                          ),
+                          color: Colors.grey
+                      ),
 
-                        )
+                )
+                      ),
                     ),
+
 
                     Container(
                       child: Row(
@@ -258,19 +268,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: FloatingActionButton(
+                                backgroundColor: Colors.grey[400],
                                 heroTag: "hero1",
                                 onPressed: getImageFromCamera, //カメラから画像を取得
                                 tooltip: 'Pick Image From Camera',
-                                child: Icon(Icons.add_a_photo),
+                                child: Icon(Icons.add_a_photo,
+                                ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: FloatingActionButton(
+                                backgroundColor: Colors.grey[400],
                                 heroTag: "hero2",
                                 onPressed: getImageFromGallery, //ギャラリーから画像を取得
                                 tooltip: 'Pick Image From Gallery',
-                                child: Icon(Icons.photo_library),
+                                child: Icon(Icons.photo_library,
+                                ),
                               ),
                             )
                           ]

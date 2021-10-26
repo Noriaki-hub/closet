@@ -1,3 +1,4 @@
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,9 +23,20 @@ class SellCloset extends StatelessWidget {
       length: _tab.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue[800],
+          backgroundColor: Colors.white,
           title:  TabBar(
             tabs: _tab,
+            labelColor: Colors.black,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicator: BubbleTabIndicator(
+              indicatorHeight: 25.0,
+              indicatorColor: Colors.grey,
+              tabBarIndicatorSize: TabBarIndicatorSize.tab,
+              // Other flags
+              // indicatorRadius: 1,
+              // insets: EdgeInsets.all(1),
+              // padding: EdgeInsets.all(10)
+            ),
           ),
         ),
         body: TabBarView(

@@ -1,3 +1,4 @@
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:closet_app_xxx/closet/closet_buy.dart';
 import 'package:closet_app_xxx/home_screen.dart';
 import 'package:closet_app_xxx/totalPricePage/sellTotal.dart';
@@ -90,10 +91,6 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[900],
-      // Appbar
-
-
       body: PageView(
           controller: _pageController,
           onPageChanged: (index) {
@@ -132,7 +129,9 @@ class _MyHomePageState extends State<MyHomePage>
 class SecondPage extends StatelessWidget {
 
   final _tab = <Tab> [
-    Tab( text:'Buy'),
+    Tab( text:'Buy'
+
+    ),
     Tab( text:'Sell'),
   ];
 
@@ -142,7 +141,7 @@ class SecondPage extends StatelessWidget {
       length: _tab.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue[900],
+          backgroundColor: Colors.white,
           flexibleSpace: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -151,6 +150,17 @@ class SecondPage extends StatelessWidget {
                   padding: const EdgeInsets.all(45),
                   child: TabBar(
                     tabs: _tab,
+                    labelColor: Colors.black,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicator: BubbleTabIndicator(
+                      indicatorHeight: 25.0,
+                      indicatorColor: Colors.grey,
+                      tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                      // Other flags
+                      // indicatorRadius: 1,
+                      // insets: EdgeInsets.all(1),
+                      // padding: EdgeInsets.all(10)
+                    ),
                   ),
                 )
               ],
@@ -185,7 +195,7 @@ class ThirdPage extends StatelessWidget{
       length: _tab.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue[900],
+          backgroundColor: Colors.white,
           flexibleSpace: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -194,6 +204,17 @@ class ThirdPage extends StatelessWidget{
                   padding: const EdgeInsets.all(45),
                   child: TabBar(
                     tabs: _tab,
+                    labelColor: Colors.black,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicator: BubbleTabIndicator(
+                      indicatorHeight: 25.0,
+                      indicatorColor: Colors.grey,
+                      tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                      // Other flags
+                      // indicatorRadius: 1,
+                      // insets: EdgeInsets.all(1),
+                      // padding: EdgeInsets.all(10)
+                    ),
                   ),
                 )
               ],
