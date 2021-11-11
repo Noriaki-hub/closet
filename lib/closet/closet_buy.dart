@@ -4,6 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'Clothes_Info.dart';
+import 'closet_model.dart';
 
 
 class MyStatelessWidget extends StatelessWidget {
@@ -55,67 +59,67 @@ class MyStatelessWidget extends StatelessWidget {
 }
 
 class BuyAllCloset extends StatelessWidget {
-
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid).collection('clothes').where(
-      'buyGet', isEqualTo : 'yes').snapshots();
-
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ClosetModel>(create: (_) =>
+        ClosetModel()..fetchClosetList(),
+        ),
+      ],
+      child: Scaffold(
         body: Center(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: _usersStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong');
-              }
+            child: Consumer<ClosetModel>(builder: (context, model, child) {
+              final List<Closet>? closet2 = model.closet2;
 
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (closet2 == null) {
                 return CircularProgressIndicator();
               }
+              final List<Widget> widgets = closet2
+                  .map(
+                    (clothes) => InkWell(
+                      highlightColor: Colors.grey,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ClothesInfo(clothes),
+                            )
+                        );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            new BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(5.0, 5.0),
+                              blurRadius: 10.0,
+                            )
+                          ],
+                        ),
 
-              return
-
-                GridView.count(
-                  crossAxisCount: 2,
-                  children: snapshot.data!.docs.map((
-                      DocumentSnapshot document) {
-                    Map<String, dynamic> data = document.data()! as Map<
-                        String,
-                        dynamic>;
-                    return Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          new BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 10.0,
-                          )
-                        ],
-                      ),
-
-                      child: SingleChildScrollView(
-                        child: Column(
-                            children: <Widget>[
-                              Image.network(data['imageURL']),
-                              Text(data['brands']),
-                              Text('¥' + data['price']),
-                            ]
+                        child: SingleChildScrollView(
+                          child: Image.network(clothes.imageURL)
                         ),
                       ),
-                    );
-                  }).toList(),
+                    ),
+              )
+                  .toList();
+
+              return
+                Scaffold(
+                  body: Center(
+                      child:
+                      GridView.count(
+                        crossAxisCount: 2,
+                        children: widgets,
+                      ),
+                  ),
                 );
-            },
-          ),
-        )
+            })
+        ),
+      ),
     );
   }
 }
