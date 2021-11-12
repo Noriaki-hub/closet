@@ -51,40 +51,47 @@ class ClothesInfo extends StatelessWidget {
               }
 
               return Scaffold(
-                body: Container(
-                    height: double.infinity,
-                    color: Colors.white,
-                    child: Center(
+                body: Stack(
+                  children: [
+                    Hero(
+                      tag: 'hello' + clothes.id,
+                      child: Container(
+                          height: double.infinity,
+                          color: Colors.white,
+                          child: Center(
 
 
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image.network(clothes.imageURL),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image.network(clothes.imageURL),
 
-                            Text(clothes.brands),
+                                  Text(clothes.brands),
 
 
-                            TextField(
-                              onChanged: (text){
-                                selling = text;
-                              },
-                              decoration: InputDecoration(
-                                labelText: "Selling price",
-                              ),
-                            ),
+                                  TextField(
+                                    onChanged: (text){
+                                      selling = text;
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: "Selling price",
+                                    ),
+                                  ),
 
-                            FlatButton(
-                              onPressed: () async {
-                                await sellAdd();
-                                Navigator.popUntil(context, (route) => route.isFirst);
-                              },
-                              child: Text("sell"),
-                              color: Colors.blueAccent,
-                            ),
-                          ],
-                        )
-                    )
+                                  FlatButton(
+                                    onPressed: () async {
+                                      await sellAdd();
+                                      Navigator.popUntil(context, (route) => route.isFirst);
+                                    },
+                                    child: Text("sell"),
+                                    color: Colors.blueAccent,
+                                  ),
+                                ],
+                              )
+                          )
+                      ),
+                    ),
+                  ]
                 ),
               );
             },

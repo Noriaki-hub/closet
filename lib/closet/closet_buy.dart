@@ -5,9 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'Clothes_Info.dart';
 import 'closet_model.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 
 class MyStatelessWidget extends StatelessWidget {
@@ -77,31 +77,41 @@ class BuyAllCloset extends StatelessWidget {
               }
               final List<Widget> widgets = closet2
                   .map(
-                    (clothes) => InkWell(
-                      highlightColor: Colors.grey,
+                    (clothes) => GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ClothesInfo(clothes),
-                            )
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (BuildContext context) => ClothesInfo(
+                              clothes,
+                            ),
+                          ),
                         );
                       },
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            new BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(5.0, 5.0),
-                              blurRadius: 10.0,
-                            )
-                          ],
-                        ),
 
-                        child: SingleChildScrollView(
-                          child: Image.network(clothes.imageURL)
-                        ),
+                      child: Stack(
+                        children: [
+                          Hero(
+                            tag: 'hello' + clothes.id,
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  new BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(5.0, 5.0),
+                                    blurRadius: 10.0,
+                                  )
+                                ],
+                              ),
+
+                              child: SingleChildScrollView(
+                                  child: Image.network(clothes.imageURL)
+                              ),
+                            ),
+                          ),
+                        ]
                       ),
                     ),
               )
@@ -112,8 +122,11 @@ class BuyAllCloset extends StatelessWidget {
                   body: Center(
                       child:
                       GridView.count(
-                        crossAxisCount: 2,
+                        crossAxisCount: 4,
                         children: widgets,
+
+
+
                       ),
                   ),
                 );
