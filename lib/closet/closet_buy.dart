@@ -93,24 +93,18 @@ class BuyAllCloset extends StatelessWidget {
                         children: [
                           Hero(
                             tag: 'hello' + clothes.id,
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  new BoxShadow(
-                                    color: Colors.grey,
-                                    offset: Offset(5.0, 5.0),
-                                    blurRadius: 10.0,
-                                  )
-                                ],
+                            child:  GridTile(
+                              footer: GridTileBar(
+                                // backgroundColor: Colors.black54,
+                                // title: Text(
+                                //   clothes.brands,
+                                // ),
                               ),
 
-                              child: SingleChildScrollView(
-                                  child: Image.network(clothes.imageURL)
+
+                                child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
                               ),
                             ),
-                          ),
                         ]
                       ),
                     ),
@@ -120,14 +114,10 @@ class BuyAllCloset extends StatelessWidget {
               return
                 Scaffold(
                   body: Center(
-                      child:
-                      GridView.count(
-                        crossAxisCount: 4,
-                        children: widgets,
-
-
-
-                      ),
+                      child: GridView.count(
+                          crossAxisCount: 3,
+                          children: widgets,
+                      )
                   ),
                 );
             })
@@ -189,8 +179,7 @@ class BuyTopsCloset extends StatelessWidget {
                         child: Column(
                             children: <Widget>[
                               Image.network(data['imageURL']),
-                              Text(data['brands']),
-                              Text('¥' + data['price']),
+
                             ]
                         ),
                       ),
