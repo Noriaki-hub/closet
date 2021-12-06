@@ -1,5 +1,7 @@
+import 'package:closet_app_xxx/closet/closet_buy.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +10,10 @@ import 'closet_model.dart';
 class ClothesInfo extends StatelessWidget {
 
   final Closet clothes;
-  ClothesInfo(this.clothes);
+  final ClosetModel model;
+  ClothesInfo(this.clothes, this.model,);
+
+
 
   String selling = '';
 
@@ -29,6 +34,12 @@ class ClothesInfo extends StatelessWidget {
     },);
   }
 
+  Future delete() async {
+    final users = await FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+
+    users.doc(user!.uid).collection('clothes').doc(clothes.id).delete();
+  }
 
 
   @override
@@ -86,6 +97,13 @@ class ClothesInfo extends StatelessWidget {
                                     child: Text("sell"),
                                     color: Colors.blueAccent,
                                   ),
+                                  FlatButton(
+                                    onPressed: () async {
+                                      await showConfirmDialog(context, clothes, model);
+                                    },
+                                    child: Text("delete"),
+                                    color: Colors.blueAccent,
+                                  ),
                                 ],
                               )
                           )
@@ -99,4 +117,42 @@ class ClothesInfo extends StatelessWidget {
         )
     );
   }
+
+  Future showConfirmDialog(
+      BuildContext context,
+      Closet clothes,
+      ClosetModel model,
+      ) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("削除の確認"),
+          content: Text("『${clothes.brands}』を削除しますか？"),
+          actions: [
+            TextButton(
+              child: Text("いいえ"),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: Text("はい"),
+              onPressed: () async {
+                // modelで削除
+                await delete();
+                Navigator.popUntil(context, (route) => route.isFirst);
+                final snackBar = SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text('${clothes.brands}を削除しました'),
+                );
+                model.fetchClosetList();
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
+

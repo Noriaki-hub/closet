@@ -1,4 +1,5 @@
 
+
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Clothes_Info.dart';
 import 'closet_model.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 
 class MyStatelessWidget extends StatelessWidget {
@@ -20,6 +20,9 @@ class MyStatelessWidget extends StatelessWidget {
     Tab( text:'Footwear'),
     Tab( text:'Accessories'),
   ];
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,14 @@ class MyStatelessWidget extends StatelessWidget {
   }
 }
 
-class BuyAllCloset extends StatelessWidget {
+class BuyAllCloset extends StatefulWidget {
+  @override
+  State<BuyAllCloset> createState() => _BuyAllCloset();
+}
+
+class _BuyAllCloset extends State<BuyAllCloset> {
+
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -84,6 +94,7 @@ class BuyAllCloset extends StatelessWidget {
                             fullscreenDialog: true,
                             builder: (BuildContext context) => ClothesInfo(
                               clothes,
+                              model,
                             ),
                           ),
                         );
@@ -93,17 +104,23 @@ class BuyAllCloset extends StatelessWidget {
                         children: [
                           Hero(
                             tag: 'hello' + clothes.id,
-                            child:  GridTile(
-                              footer: GridTileBar(
-                                // backgroundColor: Colors.black54,
-                                // title: Text(
-                                //   clothes.brands,
-                                // ),
+                            child:  Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black45),
                               ),
+                              child: GridTile(
+
+                                footer: GridTileBar(
+                                  // backgroundColor: Colors.black54,
+                                  // title: Text(
+                                  //   clothes.brands,
+                                  // ),
+                                ),
 
 
-                                child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
-                              ),
+                                  child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                                ),
+                            ),
                             ),
                         ]
                       ),
@@ -129,66 +146,77 @@ class BuyAllCloset extends StatelessWidget {
 
 class BuyTopsCloset extends StatelessWidget {
 
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid).collection('clothes')
-      .where('buyGet', isEqualTo : 'yes')
-      .where('category', isEqualTo: 'Tops').snapshots();
-
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ClosetModel>(create: (_) =>
+        ClosetModel()..fetchClosetListT(),
+        ),
+      ],
+      child: Scaffold(
         body: Center(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: _usersStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong');
-              }
+            child: Consumer<ClosetModel>(builder: (context, model, child) {
+              final List<Closet>? closet2 = model.closet2;
 
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (closet2 == null) {
                 return CircularProgressIndicator();
               }
-
-              return
-
-                GridView.count(
-                  crossAxisCount: 2,
-                  children: snapshot.data!.docs.map((
-                      DocumentSnapshot document) {
-                    Map<String, dynamic> data = document.data()! as Map<
-                        String,
-                        dynamic>;
-                    return Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          new BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 10.0,
-                          )
-                        ],
-                      ),
-
-                      child: SingleChildScrollView(
-                        child: Column(
-                            children: <Widget>[
-                              Image.network(data['imageURL']),
-
-                            ]
+              final List<Widget> widgets = closet2
+                  .map(
+                    (clothes) => GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (BuildContext context) => ClothesInfo(
+                          clothes,
+                          model,
                         ),
                       ),
                     );
-                  }).toList(),
+                  },
+
+                  child: Stack(
+                      children: [
+                        Hero(
+                          tag: 'hello' + clothes.id,
+                          child:  Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black45),
+                            ),
+                            child: GridTile(
+
+                              footer: GridTileBar(
+                                // backgroundColor: Colors.black54,
+                                // title: Text(
+                                //   clothes.brands,
+                                // ),
+                              ),
+
+
+                              child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                            ),
+                          ),
+                        ),
+                      ]
+                  ),
+                ),
+              )
+                  .toList();
+
+              return
+                Scaffold(
+                  body: Center(
+                      child: GridView.count(
+                        crossAxisCount: 3,
+                        children: widgets,
+                      )
+                  ),
                 );
-            },
-          ),
-        )
+            })
+        ),
+      ),
     );
   }
 }
@@ -197,67 +225,78 @@ class BuyTopsCloset extends StatelessWidget {
 
 class BuyBottomsCloset extends StatelessWidget {
 
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid).collection('clothes')
-      .where('buyGet', isEqualTo : 'yes')
-      .where('category', isEqualTo: 'Bottoms').snapshots();
-
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ClosetModel>(create: (_) =>
+        ClosetModel()..fetchClosetListB(),
+        ),
+      ],
+      child: Scaffold(
         body: Center(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: _usersStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong');
-              }
+            child: Consumer<ClosetModel>(builder: (context, model, child) {
+              final List<Closet>? closet2 = model.closet2;
 
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (closet2 == null) {
                 return CircularProgressIndicator();
               }
-
-              return
-
-                GridView.count(
-                  crossAxisCount: 2,
-                  children: snapshot.data!.docs.map((
-                      DocumentSnapshot document) {
-                    Map<String, dynamic> data = document.data()! as Map<
-                        String,
-                        dynamic>;
-                    return Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          new BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 10.0,
-                          )
-                        ],
-                      ),
-
-                      child: SingleChildScrollView(
-                        child: Column(
-                            children: <Widget>[
-                              Image.network(data['imageURL']),
-                              Text(data['brands']),
-                              Text('¥' + data['price']),
-                            ]
+              final List<Widget> widgets = closet2
+                  .map(
+                    (clothes) => GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (BuildContext context) => ClothesInfo(
+                          clothes,
+                          model,
                         ),
                       ),
                     );
-                  }).toList(),
+                  },
+
+                  child: Stack(
+                      children: [
+                        Hero(
+                          tag: 'hello' + clothes.id,
+                          child:  Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black45),
+                            ),
+                            child: GridTile(
+
+                              footer: GridTileBar(
+                                // backgroundColor: Colors.black54,
+                                // title: Text(
+                                //   clothes.brands,
+                                // ),
+                              ),
+
+
+                              child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                            ),
+                          ),
+                        ),
+                      ]
+                  ),
+                ),
+              )
+                  .toList();
+
+              return
+                Scaffold(
+                  body: Center(
+                      child: GridView.count(
+                        crossAxisCount: 3,
+                        children: widgets,
+                      )
+                  ),
                 );
-            },
-          ),
-        )
+            })
+        ),
+      ),
     );
   }
 }
@@ -265,67 +304,78 @@ class BuyBottomsCloset extends StatelessWidget {
 
 class BuyOuterCloset extends StatelessWidget {
 
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid).collection('clothes')
-      .where('buyGet', isEqualTo : 'yes')
-      .where('category', isEqualTo: 'Outer').snapshots();
-
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ClosetModel>(create: (_) =>
+        ClosetModel()..fetchClosetListO(),
+        ),
+      ],
+      child: Scaffold(
         body: Center(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: _usersStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong');
-              }
+            child: Consumer<ClosetModel>(builder: (context, model, child) {
+              final List<Closet>? closet2 = model.closet2;
 
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (closet2 == null) {
                 return CircularProgressIndicator();
               }
-
-              return
-
-                GridView.count(
-                  crossAxisCount: 2,
-                  children: snapshot.data!.docs.map((
-                      DocumentSnapshot document) {
-                    Map<String, dynamic> data = document.data()! as Map<
-                        String,
-                        dynamic>;
-                    return Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          new BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 10.0,
-                          )
-                        ],
-                      ),
-
-                      child: SingleChildScrollView(
-                        child: Column(
-                            children: <Widget>[
-                              Image.network(data['imageURL']),
-                              Text(data['brands']),
-                              Text('¥' + data['price']),
-                            ]
+              final List<Widget> widgets = closet2
+                  .map(
+                    (clothes) => GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (BuildContext context) => ClothesInfo(
+                          clothes,
+                          model,
                         ),
                       ),
                     );
-                  }).toList(),
+                  },
+
+                  child: Stack(
+                      children: [
+                        Hero(
+                          tag: 'hello' + clothes.id,
+                          child:  Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black45),
+                            ),
+                            child: GridTile(
+
+                              footer: GridTileBar(
+                                // backgroundColor: Colors.black54,
+                                // title: Text(
+                                //   clothes.brands,
+                                // ),
+                              ),
+
+
+                              child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                            ),
+                          ),
+                        ),
+                      ]
+                  ),
+                ),
+              )
+                  .toList();
+
+              return
+                Scaffold(
+                  body: Center(
+                      child: GridView.count(
+                        crossAxisCount: 3,
+                        children: widgets,
+                      )
+                  ),
                 );
-            },
-          ),
-        )
+            })
+        ),
+      ),
     );
   }
 }
@@ -334,67 +384,77 @@ class BuyOuterCloset extends StatelessWidget {
 
 class BuyFootwearCloset extends StatelessWidget {
 
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid).collection('clothes')
-      .where('buyGet', isEqualTo : 'yes')
-      .where('category', isEqualTo: 'Footwear').snapshots();
-
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ClosetModel>(create: (_) =>
+        ClosetModel()..fetchClosetListF(),
+        ),
+      ],
+      child: Scaffold(
         body: Center(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: _usersStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong');
-              }
+            child: Consumer<ClosetModel>(builder: (context, model, child) {
+              final List<Closet>? closet2 = model.closet2;
 
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (closet2 == null) {
                 return CircularProgressIndicator();
               }
-
-              return
-
-                GridView.count(
-                  crossAxisCount: 2,
-                  children: snapshot.data!.docs.map((
-                      DocumentSnapshot document) {
-                    Map<String, dynamic> data = document.data()! as Map<
-                        String,
-                        dynamic>;
-                    return Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          new BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 10.0,
-                          )
-                        ],
-                      ),
-
-                      child: SingleChildScrollView(
-                        child: Column(
-                            children: <Widget>[
-                              Image.network(data['imageURL']),
-                              Text(data['brands']),
-                              Text('¥' + data['price']),
-                            ]
+              final List<Widget> widgets = closet2
+                  .map(
+                    (clothes) => GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (BuildContext context) => ClothesInfo(
+                          clothes,
+                          model,
                         ),
                       ),
                     );
-                  }).toList(),
+                  },
+
+                  child: Stack(
+                      children: [
+                        Hero(
+                          tag: 'hello' + clothes.id,
+                          child:  Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black45),
+                            ),
+                            child: GridTile(
+
+                              footer: GridTileBar(
+                                // backgroundColor: Colors.black54,
+                                // title: Text(
+                                //   clothes.brands,
+                                // ),
+                              ),
+
+
+                              child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                            ),
+                          ),
+                        ),
+                      ]
+                  ),
+                ),
+              )
+                  .toList();
+
+              return
+                Scaffold(
+                  body: Center(
+                      child: GridView.count(
+                        crossAxisCount: 3,
+                        children: widgets,
+                      )
+                  ),
                 );
-            },
-          ),
-        )
+            })
+        ),
+      ),
     );
   }
 }
@@ -402,67 +462,78 @@ class BuyFootwearCloset extends StatelessWidget {
 
 class BuyAccessoriesCloset extends StatelessWidget {
 
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid).collection('clothes')
-      .where('buyGet', isEqualTo : 'yes')
-      .where('category', isEqualTo: 'Accessories').snapshots();
-
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ClosetModel>(create: (_) =>
+        ClosetModel()..fetchClosetListA(),
+        ),
+      ],
+      child: Scaffold(
         body: Center(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: _usersStream,
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong');
-              }
+            child: Consumer<ClosetModel>(builder: (context, model, child) {
+              final List<Closet>? closet2 = model.closet2;
 
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if (closet2 == null) {
                 return CircularProgressIndicator();
               }
-
-              return
-
-                GridView.count(
-                  crossAxisCount: 2,
-                  children: snapshot.data!.docs.map((
-                      DocumentSnapshot document) {
-                    Map<String, dynamic> data = document.data()! as Map<
-                        String,
-                        dynamic>;
-                    return Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          new BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 10.0,
-                          )
-                        ],
-                      ),
-
-                      child: SingleChildScrollView(
-                        child: Column(
-                            children: <Widget>[
-                              Image.network(data['imageURL']),
-                              Text(data['brands']),
-                              Text('¥' + data['price']),
-                            ]
+              final List<Widget> widgets = closet2
+                  .map(
+                    (clothes) => GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (BuildContext context) => ClothesInfo(
+                          clothes,
+                          model,
                         ),
                       ),
                     );
-                  }).toList(),
+                  },
+
+                  child: Stack(
+                      children: [
+                        Hero(
+                          tag: 'hello' + clothes.id,
+                          child:  Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black45),
+                            ),
+                            child: GridTile(
+
+                              footer: GridTileBar(
+                                // backgroundColor: Colors.black54,
+                                // title: Text(
+                                //   clothes.brands,
+                                // ),
+                              ),
+
+
+                              child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                            ),
+                          ),
+                        ),
+                      ]
+                  ),
+                ),
+              )
+                  .toList();
+
+              return
+                Scaffold(
+                  body: Center(
+                      child: GridView.count(
+                        crossAxisCount: 3,
+                        children: widgets,
+                      )
+                  ),
                 );
-            },
-          ),
-        )
+            })
+        ),
+      ),
     );
   }
 }

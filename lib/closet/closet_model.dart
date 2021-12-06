@@ -20,12 +20,13 @@ class Closet {
 
 
 
+
 class ClosetModel extends ChangeNotifier {
 
   List<Closet>? closet2;
 
   void fetchClosetList() async {
-    final users= FirebaseFirestore.instance.collection('users');
+    final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
         'buyGet', isEqualTo : 'yes').get();
@@ -55,4 +56,187 @@ class ClosetModel extends ChangeNotifier {
     this.closet2 = closet3;
     notifyListeners();
   }
+
+  void fetchClosetListT() async {
+    final users = FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
+        'buyGet', isEqualTo : 'yes')
+        .where
+      ('category', isEqualTo: 'Tops')
+        .get();
+
+    final List<Closet> closet3 = snapshot.docs.map((
+        DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      final String category = data['category'];
+      final String price = data['price'];
+      final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
+
+
+
+      return Closet(
+        brands,
+        price,
+        category,
+        id,
+        imageURL,
+        selling,
+      );
+    }).toList();
+    this.closet2 = closet3;
+    notifyListeners();
+  }
+
+  void fetchClosetListB() async {
+    final users = FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
+        'buyGet', isEqualTo : 'yes')
+        .where
+      ('category', isEqualTo: 'Bottoms')
+        .get();
+
+    final List<Closet> closet3 = snapshot.docs.map((
+        DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      final String category = data['category'];
+      final String price = data['price'];
+      final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
+
+
+
+      return Closet(
+        brands,
+        price,
+        category,
+        id,
+        imageURL,
+        selling,
+      );
+    }).toList();
+    this.closet2 = closet3;
+    notifyListeners();
+  }
+
+  void fetchClosetListO() async {
+    final users = FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
+        'buyGet', isEqualTo : 'yes')
+        .where('category', isEqualTo: 'Outer')
+        .get();
+
+    final List<Closet> closet3 = snapshot.docs.map((
+        DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      final String category = data['category'];
+      final String price = data['price'];
+      final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
+
+
+
+      return Closet(
+        brands,
+        price,
+        category,
+        id,
+        imageURL,
+        selling,
+      );
+    }).toList();
+    this.closet2 = closet3;
+    notifyListeners();
+  }
+
+
+  void fetchClosetListF() async {
+    final users = FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
+        'buyGet', isEqualTo : 'yes')
+        .where('category', isEqualTo: 'Footwear')
+        .get();
+
+    final List<Closet> closet3 = snapshot.docs.map((
+        DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      final String category = data['category'];
+      final String price = data['price'];
+      final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
+
+
+
+      return Closet(
+        brands,
+        price,
+        category,
+        id,
+        imageURL,
+        selling,
+      );
+    }).toList();
+    this.closet2 = closet3;
+    notifyListeners();
+  }
+
+  void fetchClosetListA() async {
+    final users = FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
+        'buyGet', isEqualTo : 'yes')
+        .where('category', isEqualTo: 'Accessories')
+        .get();
+
+    final List<Closet> closet3 = snapshot.docs.map((
+        DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      final String category = data['category'];
+      final String price = data['price'];
+      final String brands = data['brands'];
+      final String id = document.id;
+      final String imageURL = data['imageURL'];
+      final String selling = data['selling'];
+
+
+
+      return Closet(
+        brands,
+        price,
+        category,
+        id,
+        imageURL,
+        selling,
+      );
+    }).toList();
+    this.closet2 = closet3;
+    notifyListeners();
+  }
+
+
 }
+
+
+
+
+
+
+
+

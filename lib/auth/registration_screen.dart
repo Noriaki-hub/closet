@@ -23,32 +23,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
   // editing Controller
   final firstNameEditingController = new TextEditingController();
-  final secondNameEditingController = new TextEditingController();
   final emailEditingController = new TextEditingController();
   final passwordEditingController = new TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
 
 
-  File? imageFile;
-  final picker = ImagePicker();
-
-
-  Future getImageFromCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      imageFile = File(pickedFile!.path);
-    });
-  }
-
-
-  Future getImageFromGallery() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      imageFile = File(pickedFile!.path);
-    });
-  }
 
 
 
@@ -81,35 +60,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.account_circle),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "First Name",
+          hintText: "User Name",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
         ));
 
-    //second name field
-    final secondNameField = TextFormField(
-        autofocus: false,
-        controller: secondNameEditingController,
-        keyboardType: TextInputType.name,
-        validator: (value) {
-          if (value!.isEmpty) {
-            return ("Second Name cannot be Empty");
-          }
-          return null;
-        },
-        onSaved: (value) {
-          secondNameEditingController.text = value!;
-        },
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          prefixIcon: Icon(Icons.account_circle),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Second Name",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ));
 
     //email field
     final emailField = TextFormField(
@@ -196,7 +152,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final signUpButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.grey,
+      color: Colors.blueGrey,
       child: MaterialButton(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
@@ -236,65 +192,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.grey,
-                      child: ClipOval(
-                        child: imageFile != null
-                            ? Container(
-                            width: 100,
-                            height: 100,
-                            child: FittedBox(
-                              fit: BoxFit.cover,
-                                child: Image.file(imageFile!))
-                        )
-                              :Container(
-                          height: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                          color: Colors.grey
-                      ),
-
-                )
-                      ),
-                    ),
-
-
-                    Container(
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: FloatingActionButton(
-                                backgroundColor: Colors.grey[400],
-                                heroTag: "hero1",
-                                onPressed: getImageFromCamera, //カメラから画像を取得
-                                tooltip: 'Pick Image From Camera',
-                                child: Icon(Icons.add_a_photo,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: FloatingActionButton(
-                                backgroundColor: Colors.grey[400],
-                                heroTag: "hero2",
-                                onPressed: getImageFromGallery, //ギャラリーから画像を取得
-                                tooltip: 'Pick Image From Gallery',
-                                child: Icon(Icons.photo_library,
-                                ),
-                              ),
-                            )
-                          ]
-                      ),
-                    ),
-
                     SizedBox(height: 45),
                     firstNameField,
-                    SizedBox(height: 20),
-                    secondNameField,
                     SizedBox(height: 20),
                     emailField,
                     SizedBox(height: 20),
@@ -327,22 +226,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
 
 
-  Future<String> _uploadImageFile() async {
-    User? user = _auth.currentUser;
-
-    final userEmail = user!.email;
-    final storage = FirebaseStorage.instance;
-    TaskSnapshot snapshot = await storage
-        .ref()
-        .child("userinfo/$userEmail/userImage")
-        .putFile(imageFile!);
-    final String downloadUrl =
-    await snapshot.ref.getDownloadURL();
-    return downloadUrl;
-  }
-
-
-
 
   postDetailsToFirestore() async {
     // calling our firestore
@@ -360,8 +243,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.email = user!.email;
     userModel.uid = user.uid;
     userModel.firstName = firstNameEditingController.text;
-    userModel.secondName = secondNameEditingController.text;
-    userModel.image = await _uploadImageFile();
 
     await firebaseFirestore
         .collection("users")
