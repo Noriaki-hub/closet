@@ -6,7 +6,7 @@ import 'auth/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'auth/login_screen.dart';
-import 'clothes_buy/chooseCategory.dart';
+import 'clothes_buy/BuyStep1.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

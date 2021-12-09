@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Bottoms.dart';
-import 'Footwear.dart';
-import 'Outer.dart';
-import 'Tops.dart';
-import 'accessories.dart';
-
-
+import 'BuyStep2.dart';
 
 
 class BuyPage extends StatefulWidget {
@@ -17,6 +11,9 @@ class BuyPage extends StatefulWidget {
 }
 
 class _BuyPage extends State<BuyPage> {
+
+ String? category;
+
 
 
   @override
@@ -35,9 +32,11 @@ class _BuyPage extends State<BuyPage> {
               child: InkWell(
                 highlightColor: Colors.grey,
                 onTap: () {
+                  category = 'Tops';
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Tops(),
+                      MaterialPageRoute(
+                        builder: (context) => BuyStep2(category),
                       )
                   );
                 },
@@ -57,15 +56,15 @@ class _BuyPage extends State<BuyPage> {
 
                       Expanded(
                           child: Container(
-                            width: 100,
-                            child: Center(
-                              child: Text(
-                                  'Tops',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  )
-                              ),
-                            )
+                              width: 100,
+                              child: Center(
+                                child: Text(
+                                    'Tops',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    )
+                                ),
+                              )
                           )
 
                       )
@@ -88,9 +87,10 @@ class _BuyPage extends State<BuyPage> {
               child: InkWell(
                 highlightColor: Colors.grey,
                 onTap: () {
+                  category = 'Bottoms';
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Bottoms(),
+                      MaterialPageRoute(builder: (context) => BuyStep2(category),
                       )
                   );
                 },
@@ -139,9 +139,10 @@ class _BuyPage extends State<BuyPage> {
               child: InkWell(
                 highlightColor: Colors.grey,
                 onTap: () {
+                  category = 'Outer';
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Outer(),
+                      MaterialPageRoute(builder: (context) => BuyStep2(category),
                       )
                   );
                 },
@@ -191,9 +192,10 @@ class _BuyPage extends State<BuyPage> {
               child: InkWell(
                 highlightColor: Colors.grey,
                 onTap: () {
+                  category = 'Footwear';
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Footwear(),
+                      MaterialPageRoute(builder: (context) => BuyStep2(category),
                       )
                   );
                 },
@@ -242,9 +244,10 @@ class _BuyPage extends State<BuyPage> {
               child: InkWell(
                 highlightColor: Colors.grey,
                 onTap: () {
+                  category = 'Accessories';
                   Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Accessories(),
+                      MaterialPageRoute(builder: (context) => BuyStep2(category),
                       )
                   );
                 },
