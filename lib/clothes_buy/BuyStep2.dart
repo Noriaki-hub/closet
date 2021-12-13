@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
 import 'BuyStep3.dart';
 
 void main()
@@ -129,7 +128,9 @@ class _BuyStep2 extends State<BuyStep2> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.grey[300],
-          title: Text("BUY"),
+          title: Text("Photos",
+              style: TextStyle(color: Colors.black),
+          )
         ),
         body: Container(
           height: double.infinity,
