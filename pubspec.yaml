@@ -39,6 +39,8 @@ dependencies:
   bubble_tab_indicator: ^0.1.6
   google_sign_in: ^5.2.1
   flutter_signin_button: ^2.0.0
+  path_provider: ^2.0.8
+  http: ^0.13.4
 
 
 

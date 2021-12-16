@@ -8,7 +8,7 @@ class BuyStep3 extends StatefulWidget {
 
   String? category;
   File? imageFile;
-  BuyStep3(this.imageFile, this.category);
+  BuyStep3(this.imageFile, this.category, );
 
   @override
   State<StatefulWidget> createState() {
@@ -43,6 +43,8 @@ class _BuyStep3 extends State<BuyStep3> {
               width: 250,
               child: TextField(
                 decoration: InputDecoration(
+                    labelText: "Brands Name",
+                    hintText: "Supreme",
                     filled: true,
                     fillColor: Colors.grey.shade200,
                     border: OutlineInputBorder(
@@ -89,13 +91,26 @@ class _BuyStep3 extends State<BuyStep3> {
       barrierDismissible: false,
       builder: (_) {
         return AlertDialog(
-          title: Text("エラー"),
-          content: Text("ブランドを選択してください"), actions: [
-            TextButton(
-              child: Text("OK"),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
+          content: Text("ノーブランドでよろしいですか"),
+            actions: [
+              TextButton(
+                  child: Text("Yes"),
+                  onPressed: () {
+                    brands = 'unknown';
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              BuyStep4(imageFile, category, brands),
+                        )
+                    );
+                  }
+              ),
+              TextButton(
+                child: Text("No"),
+                onPressed: () => Navigator.pop(context)
+              ),
+            ]
         );
       },
     );

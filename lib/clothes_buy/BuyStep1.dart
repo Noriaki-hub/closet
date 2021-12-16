@@ -25,21 +25,29 @@ class _BuyPage extends State<BuyPage> {
       ),
       body: Center(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                highlightColor: Colors.grey,
-                onTap: () {
-                  category = 'Tops';
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BuyStep2(category),
-                      )
-                  );
-                },
+            Divider(
+              color: Colors.grey,
+              thickness: 1,
+              height: 0,
+              indent: 0,
+              endIndent: 0,
+            ),
+
+            InkWell(
+              highlightColor: Colors.grey,
+              onTap: () {
+                category = 'Tops';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BuyStep2(category),
+                    )
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10),
                 child: Container(
                   child: Row(
                     children: [
@@ -82,18 +90,18 @@ class _BuyPage extends State<BuyPage> {
               endIndent: 0,
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                highlightColor: Colors.grey,
-                onTap: () {
-                  category = 'Bottoms';
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => BuyStep2(category),
-                      )
-                  );
-                },
+            InkWell(
+              highlightColor: Colors.grey,
+              onTap: () {
+                category = 'Bottoms';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BuyStep2(category),
+                    )
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10),
                 child: Container(
                   child: Row(
                     children: [
@@ -134,18 +142,18 @@ class _BuyPage extends State<BuyPage> {
               indent: 0,
               endIndent: 0,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                highlightColor: Colors.grey,
-                onTap: () {
-                  category = 'Outer';
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => BuyStep2(category),
-                      )
-                  );
-                },
+            InkWell(
+              highlightColor: Colors.grey,
+              onTap: () {
+                category = 'Outer';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BuyStep2(category),
+                    )
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10),
                 child: Container(
                   child: Row(
                     children: [
@@ -187,18 +195,18 @@ class _BuyPage extends State<BuyPage> {
               indent: 0,
               endIndent: 0,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                highlightColor: Colors.grey,
-                onTap: () {
-                  category = 'Footwear';
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => BuyStep2(category),
-                      )
-                  );
-                },
+            InkWell(
+              highlightColor: Colors.grey,
+              onTap: () {
+                category = 'Footwear';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BuyStep2(category),
+                    )
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10),
                 child: Container(
                   child: Row(
                     children: [
@@ -239,18 +247,18 @@ class _BuyPage extends State<BuyPage> {
               indent: 0,
               endIndent: 0,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                highlightColor: Colors.grey,
-                onTap: () {
-                  category = 'Accessories';
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => BuyStep2(category),
-                      )
-                  );
-                },
+            InkWell(
+              highlightColor: Colors.grey,
+              onTap: () {
+                category = 'Accessories';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BuyStep2(category),
+                    )
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10),
                 child: Container(
                   child: Row(
                     children: [

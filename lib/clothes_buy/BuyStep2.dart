@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path_provider/path_provider.dart';
 import 'BuyStep3.dart';
+import 'package:http/http.dart' as http;
 
 void main()
 async {
@@ -58,38 +59,6 @@ class _BuyStep2 extends State<BuyStep2> {
   }
 
 
-  Future uploadFirebaseTops() async {
-    final imageURL = await _uploadImageFile();
-    final users = FirebaseFirestore.instance.collection('users');
-    User? user = FirebaseAuth.instance.currentUser;
-    users.doc(user!.uid).collection('clothes').add(
-      {
-        'brands': brands,
-        'price': price,
-        'category': category,
-        'imageURL': imageURL,
-        'updateAt': Timestamp.now(),
-        'buyGet': buyGet,
-        'sellGet': sellGet,
-        'selling': '0'
-      },
-    );
-  }
-
-
-  Future<String> _uploadImageFile() async {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    final userEmail = user!.email;
-    final storage = FirebaseStorage.instance;
-    TaskSnapshot snapshot = await storage
-        .ref()
-        .child("userinfo/$userEmail/$brands")
-        .putFile(imageFile!);
-    final String downloadUrl =
-    await snapshot.ref.getDownloadURL();
-    return downloadUrl;
-  }
 
   void _showPicker(context) {
     showModalBottomSheet(
@@ -209,16 +178,30 @@ class _BuyStep2 extends State<BuyStep2> {
       builder: (_) {
         return AlertDialog(
           title: Text("エラー"),
-          content: Text("画像を選択してください"),
-          actions: [
-            TextButton(
-              child: Text("OK"),
-              onPressed: () => Navigator.pop(context),
-            ),
+          content: Text("画像無しでよろしいですか？"), actions: [
+
+          TextButton(
+            child: Text("Yes"),
+            onPressed: () async{
+              await Navigator.push (
+                  context,
+                  MaterialPageRoute(
+                  builder: (context) => BuyStep3(imageFile, category),
+              )
+              );
+      }
+          ),
+          TextButton(
+            child: Text("No"),
+            onPressed: () => Navigator.pop(context)
+          ),
           ],
         );
       },
     );
   }
+
+
+
 }
 

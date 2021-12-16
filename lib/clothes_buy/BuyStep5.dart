@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 class BuyStep5 extends StatefulWidget {
 
   String? category;
@@ -35,6 +36,33 @@ class _BuyStep5 extends State<BuyStep5> {
 
 
   final maxLines = 5;
+  
+  String assets = '';
+
+  String _assets(){
+    switch (category) {
+      case ('Tops'):
+        assets = 'images/Tops.png';
+        break;
+      case ('Bottoms'):
+        assets = 'images/Bottoms.png';
+        break;
+      case ('Outer'):
+        assets = 'images/Outer.png';
+        break;
+      case ('Footwear'):
+        assets = 'images/Footwear.png';
+        break;
+      case ('Accessories'):
+        assets = 'images/Accessories.png';
+        break;
+    }
+    return assets;
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,20 +77,35 @@ class _BuyStep5 extends State<BuyStep5> {
           child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                GestureDetector(
-                    child: CircleAvatar(
+                Container(
+                  margin: EdgeInsets.all(12),
+                  child: GestureDetector(
+                      child:
+                      CircleAvatar(
                         radius: 155,
                         backgroundColor: Colors.black54,
-                        child: ClipRRect(
+                        child:  ClipRRect(
                           borderRadius: BorderRadius.circular(200),
-                          child: Image.file(
-                            imageFile!,
-                            width: 300,
-                            height: 300,
-                            fit: BoxFit.fitHeight,
+                          child: Container(
+                            color: Colors.white,
+                            child: imageFile != null ?
+                            Image.file(
+                              imageFile!,
+                              width: 300,
+                              height: 300,
+                              fit: BoxFit.fitHeight,
+                            )
+                                :
+                                Image.asset(
+                               _assets(),
+                                  width: 300,
+                                  height: 300,
+                                  fit: BoxFit.fitHeight,
+                                )
                           ),
                         )
-                    )
+                      )
+                  ),
                 ),
                 Container(
                   width: 250,
@@ -84,6 +127,7 @@ class _BuyStep5 extends State<BuyStep5> {
                 Container(
                   margin: EdgeInsets.all(12),
                   height: maxLines * 24.0,
+                  width: 250,
                   child: TextField(
                     controller: TextEditingController(text: description),
                     maxLines: maxLines,
@@ -104,16 +148,23 @@ class _BuyStep5 extends State<BuyStep5> {
                   width: 250,
                   child: TextField(
                     decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey.shade200,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        )
+                      hintText: '¥',
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.black45,
+                          )
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                          )
+                      ),
                     ),
-                    onChanged: (text) {
+                    onChanged: (text){
                       price = text;
-                    },
+                    }
                   ),
                 ),
                 Padding(
@@ -127,9 +178,10 @@ class _BuyStep5 extends State<BuyStep5> {
                       ),
                       side: const BorderSide(),
                     ),
-                    onPressed: () async{
-                      await _uploadFirebase();
-                      Navigator.popUntil(context, (route) => route.isFirst);
+                    onPressed: () {
+                      price != null ?
+                          upload()
+                      : _showDialog();
                     },
                   ),
                 ),
@@ -138,10 +190,47 @@ class _BuyStep5 extends State<BuyStep5> {
         )
     );
   }
+  
+  
+  Future upload() async{
+    await _uploadFirebase();
+    Navigator.popUntil(context, (route) => route.isFirst);
+  }
+  
+  
+  Future _showDialog() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("エラー"),
+          content: Text("金額を入力してください"), actions: [
+            TextButton(
+            child: Text("OK"),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
+        );
+      },
+    );
+  }
 
 
   Future _uploadFirebase() async {
-    final imageURL = await _uploadImageFile();
+    String? imageURL;
+    String? assetURL;
+
+    imageFile != null ?
+    imageURL = await _uploadImageFile()
+    : imageURL = '';
+
+    imageFile != null ?
+        assetURL = ''
+    : assetURL = _assets();
+
+
+
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     users.doc(user!.uid).collection('clothes').add(
@@ -150,8 +239,10 @@ class _BuyStep5 extends State<BuyStep5> {
         'price': price,
         'category': category,
         'imageURL': imageURL,
+        'assetURL' : assetURL,
         'description' : description,
         'updateAt': Timestamp.now(),
+
 
         'buyGet': buyGet,
         'sellGet': sellGet,
@@ -175,6 +266,9 @@ class _BuyStep5 extends State<BuyStep5> {
     await snapshot.ref.getDownloadURL();
     return downloadUrl;
   }
+
+
+
 }
 
 

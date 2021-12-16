@@ -1,13 +1,12 @@
 
 
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Clothes_Info.dart';
 import 'closet_model.dart';
+
 
 
 class MyStatelessWidget extends StatelessWidget {
@@ -69,6 +68,8 @@ class BuyAllCloset extends StatefulWidget {
 class _BuyAllCloset extends State<BuyAllCloset> {
 
 
+
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -118,7 +119,10 @@ class _BuyAllCloset extends State<BuyAllCloset> {
                                 ),
 
 
-                                  child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                                  child: clothes.assetURL != '' ?
+                                  Image.asset(clothes.assetURL)
+                                      : Image.network(clothes.imageURL,fit: BoxFit.cover,)
+
                                 ),
                             ),
                             ),

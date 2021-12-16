@@ -18,7 +18,6 @@ class BuyStep4 extends StatefulWidget {
 }
 
 class _BuyStep4 extends State<BuyStep4> {
-
   String? category;
   File? imageFile;
   String? brands;
@@ -48,6 +47,8 @@ class _BuyStep4 extends State<BuyStep4> {
           child: TextField(
             maxLines: maxLines,
             decoration: InputDecoration(
+                labelText: "Description",
+                hintText: "Box Logo Hooded Sweatshirt Black",
                 filled: true,
                 fillColor: Colors.grey.shade200,
                 border: OutlineInputBorder(
@@ -98,13 +99,8 @@ class _BuyStep4 extends State<BuyStep4> {
           title: Text("確認"),
           content: Text("説明書きは不要ですか？"),
           actions: [
-
-          TextButton(
-            child: Text("NO"),
-            onPressed: () => Navigator.pop(context),
-          ),
             TextButton(
-              child: Text("OK"),
+              child: Text("Yes"),
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -112,9 +108,15 @@ class _BuyStep4 extends State<BuyStep4> {
                   )
               )
             ),
+            TextButton(
+              child: Text("No"),
+              onPressed: () => Navigator.pop(context),
+            ),
         ],
         );
       },
     );
   }
+
+
 }

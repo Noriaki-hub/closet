@@ -9,12 +9,15 @@ class Closet {
   String id;
   String imageURL;
   String selling;
+  String assetURL;
   Closet(this.brands,
       this.price,
       this.category,
       this.id,
       this.imageURL,
-      this.selling);
+      this.selling,
+      this.assetURL,
+      );
 
 }
 
@@ -41,6 +44,7 @@ class ClosetModel extends ChangeNotifier {
       final String id = document.id;
       final String imageURL = data['imageURL'];
       final String selling = data['selling'];
+      final String assetURL = data['assetURL'];
 
 
 
@@ -51,6 +55,7 @@ class ClosetModel extends ChangeNotifier {
         id,
         imageURL,
         selling,
+        assetURL,
       );
     }).toList();
     this.closet2 = closet3;
@@ -76,6 +81,7 @@ class ClosetModel extends ChangeNotifier {
       final String id = document.id;
       final String imageURL = data['imageURL'];
       final String selling = data['selling'];
+      final String assetURL = data['assetURL'];
 
 
 
@@ -86,6 +92,7 @@ class ClosetModel extends ChangeNotifier {
         id,
         imageURL,
         selling,
+        assetURL
       );
     }).toList();
     this.closet2 = closet3;
@@ -111,6 +118,7 @@ class ClosetModel extends ChangeNotifier {
       final String id = document.id;
       final String imageURL = data['imageURL'];
       final String selling = data['selling'];
+      final String assetURL = data['assetURL'];
 
 
 
@@ -121,6 +129,7 @@ class ClosetModel extends ChangeNotifier {
         id,
         imageURL,
         selling,
+        assetURL
       );
     }).toList();
     this.closet2 = closet3;
@@ -145,6 +154,7 @@ class ClosetModel extends ChangeNotifier {
       final String id = document.id;
       final String imageURL = data['imageURL'];
       final String selling = data['selling'];
+      final String assetURL = data['assetURL'];
 
 
 
@@ -155,6 +165,7 @@ class ClosetModel extends ChangeNotifier {
         id,
         imageURL,
         selling,
+        assetURL
       );
     }).toList();
     this.closet2 = closet3;
@@ -180,6 +191,7 @@ class ClosetModel extends ChangeNotifier {
       final String id = document.id;
       final String imageURL = data['imageURL'];
       final String selling = data['selling'];
+      final String assetURL = data['assetURL'];
 
 
 
@@ -190,6 +202,7 @@ class ClosetModel extends ChangeNotifier {
         id,
         imageURL,
         selling,
+        assetURL
       );
     }).toList();
     this.closet2 = closet3;
@@ -214,6 +227,7 @@ class ClosetModel extends ChangeNotifier {
       final String id = document.id;
       final String imageURL = data['imageURL'];
       final String selling = data['selling'];
+      final String assetURL = data['assetURL'];
 
 
 
@@ -224,6 +238,7 @@ class ClosetModel extends ChangeNotifier {
         id,
         imageURL,
         selling,
+        assetURL
       );
     }).toList();
     this.closet2 = closet3;
