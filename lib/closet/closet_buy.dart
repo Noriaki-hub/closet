@@ -13,11 +13,21 @@ class MyStatelessWidget extends StatelessWidget {
 
   final _tab = <Tab> [
     Tab( text:'All'),
-    Tab( text:'Tops'),
-    Tab( text:'Bottoms'),
-    Tab( text:'Outer'),
-    Tab( text:'Footwear'),
-    Tab( text:'Accessories'),
+    Tab(  icon:
+    ImageIcon(AssetImage('images/Tops.png'),),
+    ),
+    Tab(  icon:
+    ImageIcon(AssetImage('images/Bottoms.png'),),
+    ),
+    Tab(  icon:
+    ImageIcon(AssetImage('images/Outer.png'),),
+    ),
+    Tab(  icon:
+    ImageIcon(AssetImage('images/Footwear.png'),),
+    ),
+    Tab(  icon:
+    ImageIcon(AssetImage('images/Accessories.png'),),
+    ),
   ];
 
 
@@ -199,7 +209,9 @@ class BuyTopsCloset extends StatelessWidget {
                               ),
 
 
-                              child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                                child: clothes.assetURL != '' ?
+                                Image.asset(clothes.assetURL)
+                                    : Image.network(clothes.imageURL,fit: BoxFit.cover,)
                             ),
                           ),
                         ),
@@ -279,7 +291,9 @@ class BuyBottomsCloset extends StatelessWidget {
                               ),
 
 
-                              child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                                child: clothes.assetURL != '' ?
+                                Image.asset(clothes.assetURL)
+                                    : Image.network(clothes.imageURL,fit: BoxFit.cover,)
                             ),
                           ),
                         ),
@@ -358,7 +372,9 @@ class BuyOuterCloset extends StatelessWidget {
                               ),
 
 
-                              child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                                child: clothes.assetURL != '' ?
+                                Image.asset(clothes.assetURL)
+                                    : Image.network(clothes.imageURL,fit: BoxFit.cover,)
                             ),
                           ),
                         ),
@@ -437,7 +453,9 @@ class BuyFootwearCloset extends StatelessWidget {
                               ),
 
 
-                              child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                                child: clothes.assetURL != '' ?
+                                Image.asset(clothes.assetURL)
+                                    : Image.network(clothes.imageURL,fit: BoxFit.cover,)
                             ),
                           ),
                         ),
@@ -516,7 +534,9 @@ class BuyAccessoriesCloset extends StatelessWidget {
                               ),
 
 
-                              child: Image.network(clothes.imageURL,fit: BoxFit.cover,),
+                                child: clothes.assetURL != '' ?
+                                Image.asset(clothes.assetURL)
+                                    : Image.network(clothes.imageURL,fit: BoxFit.cover,)
                             ),
                           ),
                         ),
