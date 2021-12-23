@@ -20,8 +20,13 @@ class _BuyPage extends State<BuyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[300],
-        title: Text("BUY"),
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(
+          color: Colors.grey,
+        ),
+        title: Text("Categories",
+            style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Center(
         child: Column(

@@ -1,20 +1,21 @@
-import 'package:closet_app_xxx/clothes_buy/clothes_model.dart';
+import 'package:closet_app_xxx/closet/closet_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 class SellModel extends ChangeNotifier {
 
-  List<Clothes>? clothes2;
+  List<Closet>? closet2;
+
 
   void fetchSellClothesList() async {
-    final users= FirebaseFirestore.instance.collection('users');
+    final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
-    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
+    final QuerySnapshot snapshot = await users.doc(user!.uid).collection(
+        'clothes').where(
         'sellGet', isEqualTo: 'no').get();
 
-    final List<Clothes> clothes3 = snapshot.docs.map((
-        DocumentSnapshot document) {
+    final List<Closet> closet3 = snapshot.docs.map((DocumentSnapshot document) {
       Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
       final String category = data['category'];
@@ -23,19 +24,22 @@ class SellModel extends ChangeNotifier {
       final String id = document.id;
       final String imageURL = data['imageURL'];
       final String selling = data['selling'];
+      final String assetURL = data['assetURL'];
+      final String description = data["description"];
 
 
-
-      return Clothes(
+      return Closet(
         brands,
         price,
         category,
         id,
         imageURL,
         selling,
+        assetURL,
+        description,
       );
     }).toList();
-    this.clothes2 = clothes3;
+    this.closet2 = closet3;
     notifyListeners();
   }
 }

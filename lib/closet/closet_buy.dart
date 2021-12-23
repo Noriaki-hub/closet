@@ -9,7 +9,7 @@ import 'closet_model.dart';
 
 
 
-class MyStatelessWidget extends StatelessWidget {
+class BuyCloset extends StatelessWidget {
 
   final _tab = <Tab> [
     Tab( text:'All'),
@@ -80,6 +80,7 @@ class _BuyAllCloset extends State<BuyAllCloset> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -99,16 +100,19 @@ class _BuyAllCloset extends State<BuyAllCloset> {
               final List<Widget> widgets = closet2
                   .map(
                     (clothes) => GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
+                      onTap: () async{
+                        var result =
+                        await Navigator.of(context).push(
                           MaterialPageRoute(
                             fullscreenDialog: true,
                             builder: (BuildContext context) => ClothesInfo(
-                              clothes,
-                              model,
+                              clothes,model
                             ),
                           ),
                         );
+                        if (result){
+                          model.fetchClosetList();
+                        }
                       },
 
                       child: Stack(
@@ -179,17 +183,20 @@ class BuyTopsCloset extends StatelessWidget {
               final List<Widget> widgets = closet2
                   .map(
                     (clothes) => GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (BuildContext context) => ClothesInfo(
-                          clothes,
-                          model,
-                        ),
-                      ),
-                    );
-                  },
+                      onTap: () async{
+                        var result =
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (BuildContext context) => ClothesInfo(
+                                clothes,model
+                            ),
+                          ),
+                        );
+                        if (result){
+                          model.fetchClosetListT();
+                        }
+                      },
 
                   child: Stack(
                       children: [
@@ -261,17 +268,20 @@ class BuyBottomsCloset extends StatelessWidget {
               final List<Widget> widgets = closet2
                   .map(
                     (clothes) => GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (BuildContext context) => ClothesInfo(
-                          clothes,
-                          model,
-                        ),
-                      ),
-                    );
-                  },
+                      onTap: () async{
+                        var result =
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (BuildContext context) => ClothesInfo(
+                                clothes,model
+                            ),
+                          ),
+                        );
+                        if (result){
+                          model.fetchClosetListB();
+                        }
+                      },
 
                   child: Stack(
                       children: [
@@ -342,17 +352,20 @@ class BuyOuterCloset extends StatelessWidget {
               final List<Widget> widgets = closet2
                   .map(
                     (clothes) => GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (BuildContext context) => ClothesInfo(
-                          clothes,
-                          model,
-                        ),
-                      ),
-                    );
-                  },
+                      onTap: () async{
+                        var result =
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (BuildContext context) => ClothesInfo(
+                                clothes,model
+                            ),
+                          ),
+                        );
+                        if (result){
+                          model.fetchClosetListO();
+                        }
+                      },
 
                   child: Stack(
                       children: [
@@ -423,17 +436,20 @@ class BuyFootwearCloset extends StatelessWidget {
               final List<Widget> widgets = closet2
                   .map(
                     (clothes) => GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (BuildContext context) => ClothesInfo(
-                          clothes,
-                          model,
-                        ),
-                      ),
-                    );
-                  },
+                      onTap: () async{
+                        var result =
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (BuildContext context) => ClothesInfo(
+                                clothes,model
+                            ),
+                          ),
+                        );
+                        if (result){
+                          model.fetchClosetListF();
+                        }
+                      },
 
                   child: Stack(
                       children: [
@@ -504,17 +520,20 @@ class BuyAccessoriesCloset extends StatelessWidget {
               final List<Widget> widgets = closet2
                   .map(
                     (clothes) => GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        fullscreenDialog: true,
-                        builder: (BuildContext context) => ClothesInfo(
-                          clothes,
-                          model,
-                        ),
-                      ),
-                    );
-                  },
+                      onTap: () async{
+                        var result =
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (BuildContext context) => ClothesInfo(
+                                clothes,model
+                            ),
+                          ),
+                        );
+                        if (result){
+                          model.fetchClosetListA();
+                        }
+                      },
 
                   child: Stack(
                       children: [

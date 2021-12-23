@@ -225,7 +225,7 @@ class ThirdPage extends StatelessWidget{
 
         body: TabBarView(
           children: <Widget>[
-            MyStatelessWidget(),
+            BuyCloset(),
             SellCloset(),
           ],
         ),

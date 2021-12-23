@@ -92,7 +92,10 @@ class _BuyStep2 extends State<BuyStep2> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey[300],
+            backgroundColor: Colors.white,
+            iconTheme: const IconThemeData(
+              color: Colors.grey,
+            ),
           title: Text("Photos",
               style: TextStyle(color: Colors.black),
           )

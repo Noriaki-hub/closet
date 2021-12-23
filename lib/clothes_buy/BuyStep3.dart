@@ -30,7 +30,10 @@ class _BuyStep3 extends State<BuyStep3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(
+          color: Colors.grey,
+        ),
         title: Text("Brands",
             style: TextStyle(color: Colors.black),
         ),

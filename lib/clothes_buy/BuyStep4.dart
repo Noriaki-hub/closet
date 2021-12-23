@@ -32,7 +32,10 @@ class _BuyStep4 extends State<BuyStep4> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(
+          color: Colors.grey,
+        ),
         title: Text("Description",
           style: TextStyle(color: Colors.black),
         ),
@@ -101,12 +104,16 @@ class _BuyStep4 extends State<BuyStep4> {
           actions: [
             TextButton(
               child: Text("Yes"),
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BuyStep5(imageFile, category, brands, description),
-                  )
-              )
+              onPressed: () {
+                description = '';
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          BuyStep5(imageFile, category, brands, description),
+                    )
+                );
+              }
             ),
             TextButton(
               child: Text("No"),
