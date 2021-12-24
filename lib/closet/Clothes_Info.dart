@@ -1,10 +1,9 @@
 import 'dart:ui';
-
 import 'package:closet_app_xxx/clothes_sell/SellPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'EditInfo.dart';
 import 'closet_model.dart';
 
 class ClothesInfo extends StatelessWidget {
@@ -16,88 +15,27 @@ class ClothesInfo extends StatelessWidget {
 
   String? selling;
 
-
-  Future sellUpload(context) async{
-    await _uploadFirebase();
-    Navigator.popUntil(context, (route) => route.isFirst);
-  }
-
-
-
-  Future _uploadFirebase() async{
-    final users= await FirebaseFirestore.instance.collection('users');
-    User? user = FirebaseAuth.instance.currentUser;
-
-    users.doc(user!.uid).collection('clothes').doc(clothes.id).update({
-      'selling': selling,
-      'sellGet' : 'yes',
-      'buyGet' : 'no',
-    },);
-  }
-
-  Future _showDialog(context) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) {
-        return AlertDialog(
-          title: Text("エラー"),
-          content: Text("金額を入力してください"),
-          actions: [
-            TextButton(
-              child: Text("OK"),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future _showDialog2(context) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) {
-        return AlertDialog(
-          title: Text("詳細"),
-          content: Text(clothes.description),
-          actions: [
-            TextButton(
-              child: Text("OK"),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: SizedBox(
-        height: 50,
-        width: 50,
-        child: InkWell(
-            onTap: (){
-              Navigator.pop(context, true);
+          height: 50,
+          width: 50,
+          child: InkWell(
+              onTap: () {
+                back(context);
               },
-            child: Container(
+              child: Container(
 
-              child: Center(
-                  child: Text("Back",
-                    style :TextStyle(color: Colors.black),
-                  )
-              ),
-            )
+                child: Center(
+                    child: Text("Back",
+                      style: TextStyle(color: Colors.black),
+                    )
+                ),
+              )
+          ),
         ),
-      ),
         title: Text(clothes.brands,
           style: TextStyle(color: Colors.black),
         ),
@@ -110,8 +48,8 @@ class ClothesInfo extends StatelessWidget {
       ),
       drawerScrimColor: Colors.transparent,
       endDrawer: Container(
-        width: 100,
-        height: double.infinity,
+        width: 80,
+        height: 200,
         decoration: BoxDecoration(
             color: Color.fromARGB(180, 250, 250, 250),
             boxShadow: [
@@ -145,33 +83,60 @@ class ClothesInfo extends StatelessWidget {
             ),
             Column(
               children: [
-                DrawerHeader(
-                  child: Row(
-                    children: [
-
-                    ],
-                  ),
-                ),
                 Expanded(
                   child: ListView(
                     children: [
-                      ListTile(
-                        onTap: () {},
-                        title: Text("Home Page"),
-                      ),
-                      ListTile(
-                        onTap: () {},
 
-                        title: Text("Profile Page"),
-                      ),
                       ListTile(
-                        onTap: () {},
-                        title: Text("Settings"),
+                        onTap: () async {
+                          final result =
+                          await Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>
+                                  EditPage(clothes),
+                              )
+                          );
+                          if (result) {
+                            back(context);
+                          }
+                        },
+                        title: Text("Edit"),
                       ),
+
                       ListTile(
-                        onTap: () {},
-                        title: Text("Log Out"),
-                      )
+                        onTap: () async {
+                          final result =
+                          await _showDialog(context);
+                          if (result) {
+                            back(context);
+                          }
+                        },
+                        title: Text('Delete'),
+                      ),
+
+                      Container(
+                          child: clothes.selling != "" ?
+                              ListTile(
+                                title: Text(''),
+                              ):
+                          ListTile(
+                            onTap: () async {
+                              var result =
+                              await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>
+                                      SellPage2(clothes,),
+                                  )
+                              );
+                              if (result) {
+                                Navigator.pop(context, true);
+                              }
+                            },
+                            title: Text("Sell"),
+                          )
+
+                      ),
+
                     ],
                   ),
                 )
@@ -181,7 +146,7 @@ class ClothesInfo extends StatelessWidget {
         ),
       ),
 
-      body:Center(
+      body: Center(
         child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -192,7 +157,7 @@ class ClothesInfo extends StatelessWidget {
                     CircleAvatar(
                         radius: 155,
                         backgroundColor: Colors.black54,
-                        child:  ClipRRect(
+                        child: ClipRRect(
                             borderRadius: BorderRadius.circular(200),
                             child: Container(
                               color: Colors.white,
@@ -222,4 +187,43 @@ class ClothesInfo extends StatelessWidget {
       ),
     );
   }
+
+  back(context) {
+    Navigator.pop(context, true);
   }
+
+  Future delete() async{
+    final users = FirebaseFirestore.instance.collection('users');
+    User? user = FirebaseAuth.instance.currentUser;
+    users.doc(user!.uid).collection('clothes').doc(clothes.id).delete(
+    );
+  }
+
+
+  Future _showDialog(context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("確認"),
+          content: Text("削除してよろしいですか？"),
+          actions: [
+            TextButton(
+                child: Text("Yes"),
+                onPressed: () async{
+                  await delete();
+                  Navigator.pop(context, true);
+                  Navigator.pop(context, true);
+      }
+            ),
+            TextButton(
+              child: Text("No"),
+              onPressed: () => Navigator.pop(context, true),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

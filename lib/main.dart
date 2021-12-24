@@ -1,13 +1,11 @@
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-import 'package:closet_app_xxx/closet/closet_buy.dart';
-import 'package:closet_app_xxx/home_screen.dart';
-import 'package:closet_app_xxx/totalPricePage/sellTotal.dart';
+import 'package:closet_app_xxx/Screen/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'Screen/closet_screen.dart';
+import 'Screen/total_screen.dart';
 import 'auth/login_screen.dart';
-import 'closet/closet_sell.dart';
-import 'clothes_buy/BuyStep3.dart';
-import 'totalPricePage/buyTotal.dart';
+
 
 
 
@@ -22,6 +20,7 @@ async {
 }
 
 
+
 class MyApp extends StatelessWidget {
 
   @override
@@ -33,10 +32,31 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginScreen(),
+      darkTheme: ThemeData.dark(),
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+
+            return const SizedBox();
+          }
+          if (snapshot.hasData) {
+
+            return MyHomePage();
+          }
+
+          return LoginScreen();
+        },
+      ),
     );
   }
 }
+
+
+
+
+
+
 
 
 class MyHomePage extends StatefulWidget {
@@ -101,8 +121,8 @@ class _MyHomePageState extends State<MyHomePage>
           },
           children: [
             HomeScreen(),
-            SecondPage(),
-            ThirdPage(),
+            TotalScreen(),
+            ClosetScreen(),
           ]),
 
 
@@ -125,111 +145,3 @@ class _MyHomePageState extends State<MyHomePage>
 
 
 
-
-
-class SecondPage extends StatelessWidget {
-
-  final _tab = <Tab> [
-    Tab( text:'Buy'
-
-    ),
-    Tab( text:'Sell'),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: _tab.length,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          flexibleSpace: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(45),
-                  child: TabBar(
-                    tabs: _tab,
-                    labelColor: Colors.black,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicator: BubbleTabIndicator(
-                      indicatorHeight: 25.0,
-                      indicatorColor: Colors.grey,
-                      tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                      // Other flags
-                      // indicatorRadius: 1,
-                      // insets: EdgeInsets.all(1),
-                      // padding: EdgeInsets.all(10)
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          ),
-
-        body: TabBarView(
-          children: <Widget>[
-            BuyTotal(),
-            SellTotal(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-
-
-
-class ThirdPage extends StatelessWidget{
-  final _tab = <Tab> [
-    Tab( text:'Hold'),
-    Tab( text:'Sold'),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: _tab.length,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          flexibleSpace: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(45),
-                  child: TabBar(
-                    tabs: _tab,
-                    labelColor: Colors.black,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicator: BubbleTabIndicator(
-                      indicatorHeight: 25.0,
-                      indicatorColor: Colors.grey,
-                      tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                      // Other flags
-                      // indicatorRadius: 1,
-                      // insets: EdgeInsets.all(1),
-                      // padding: EdgeInsets.all(10)
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-
-        body: TabBarView(
-          children: <Widget>[
-            BuyCloset(),
-            SellCloset(),
-          ],
-        ),
-      ),
-    );
-  }
-}

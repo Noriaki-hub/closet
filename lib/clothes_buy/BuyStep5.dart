@@ -74,6 +74,26 @@ class _BuyStep5 extends State<BuyStep5> {
           title: Text("Confirmation",
             style: TextStyle(color: Colors.black),
           ),
+          actions: [
+             SizedBox(
+              height: 50,
+              width: 50,
+              child: InkWell(
+                  onTap: (){
+                    _showDialog2();
+
+                  },
+                  child: Container(
+
+                    child: Center(
+                        child: Text("Cancel",
+                          style :TextStyle(color: Colors.red),
+                        )
+                    ),
+                  )
+              ),
+            ),
+          ],
         ),
         body: Center(
           child: Column(
@@ -218,6 +238,29 @@ class _BuyStep5 extends State<BuyStep5> {
     );
   }
 
+  Future _showDialog2() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("確認"),
+          content: Text("中断しますか？"),
+          actions: [
+          TextButton(
+            child: Text("Yes"),
+            onPressed: () => Navigator.popUntil(context, (route) => route.isFirst)
+          ),
+            TextButton(
+              child: Text("No"),
+              onPressed: () => Navigator.pop(context),
+            ),
+        ],
+        );
+      },
+    );
+  }
+
 
   Future _uploadFirebase() async {
     String? imageURL;
@@ -248,7 +291,7 @@ class _BuyStep5 extends State<BuyStep5> {
 
         'buyGet': buyGet,
         'sellGet': sellGet,
-        'selling': '0'
+        'selling': ''
 
       },
     );
