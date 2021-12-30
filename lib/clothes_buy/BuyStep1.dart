@@ -20,6 +20,23 @@ class _BuyPage extends State<BuyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: SizedBox(
+          height: 50,
+          width: 50,
+          child: InkWell(
+              onTap: (){
+                Navigator.pop(context, true);
+              },
+              child: Container(
+
+                child: Center(
+                    child: Text("Back",
+                      style :TextStyle(color: Colors.black),
+                    )
+                ),
+              )
+          ),
+        ),
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(
           color: Colors.grey,

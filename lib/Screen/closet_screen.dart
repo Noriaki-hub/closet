@@ -16,6 +16,7 @@ class ClosetScreen extends StatelessWidget{
       length: _tab.length,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           flexibleSpace: SingleChildScrollView(
             child: Column(
@@ -52,4 +53,7 @@ class ClosetScreen extends StatelessWidget{
       ),
     );
   }
+
+
+
 }

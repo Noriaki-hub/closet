@@ -39,6 +39,7 @@ class BuyCloset extends StatelessWidget {
       length: _tab.length,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           title:  TabBar(
             tabs: _tab,

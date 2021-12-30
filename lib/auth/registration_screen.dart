@@ -1,3 +1,4 @@
+import 'package:closet_app_xxx/Screen/home_screen/home_screen.dart';
 import 'package:closet_app_xxx/auth/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -315,7 +316,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     Navigator.pushAndRemoveUntil(
         (context),
-        MaterialPageRoute(builder: (context) => MyHomePage()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
             (route) => false);
   }
 }

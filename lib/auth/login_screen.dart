@@ -1,3 +1,4 @@
+import 'package:closet_app_xxx/Screen/home_screen/home_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -179,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
           .then((uid) => {
         Fluttertoast.showToast(msg: "Login Successful"),
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => MyHomePage())),
+            MaterialPageRoute(builder: (context) => HomeScreen())),
       })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);

@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/clothes_buy/clothes_model.dart';
+import 'package:closet_app_xxx/model/clothes_model.dart';
 import 'package:closet_app_xxx/totalPricePage/buyTotal_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
