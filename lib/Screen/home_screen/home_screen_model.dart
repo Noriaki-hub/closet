@@ -1,254 +1,175 @@
-import 'package:closet_app_xxx/closet/closet_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
+
+class Total{
+  String brands;
+  String price;
+  String category;
+
+  Total(this.brands,
+      this.price,
+      this.category,);
+}
+
 class HomeModel extends ChangeNotifier {
 
-  List<Closet>? clothes;
+
+
+
+  List<Total>? clothes;
+  List<Total>? clothesTops;
+  List<Total>? clothesBottoms;
+  List<Total>? clothesOuter;
+  List<Total>? clothesFootwear;
+  List<Total>? clothesAccessories;
+
 
   void getNumberAll() async {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
-    final QuerySnapshot snapshot = await users.doc(user!.uid).collection(
+
+
+    final QuerySnapshot snapshot = await users.doc(user?.uid).collection(
         'clothes')
         .where('sellGet', isEqualTo: 'no').get();
 
-    final List<Closet> clothes = snapshot.docs.map((DocumentSnapshot document) {
-      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
-      final String category = data['category'];
-      final String price = data['price'];
-      final String brands = data['brands'];
-      final String id = document.id;
-      final String imageURL = data['imageURL'];
-      final String selling = data['selling'];
-      final String assetURL = data['assetURL'];
-      final String description = data['description'];
-
-
-      return Closet(
-        brands,
-        price,
-        category,
-        id,
-        imageURL,
-        selling,
-        assetURL,
-        description,
-      );
-    }).toList();
-    this.clothes = clothes;
-    notifyListeners();
-  }
-}
-class HomeModelTops extends ChangeNotifier {
-
-  List<Closet>? clothesTops;
-
-  void getNumberTops() async {
-    final users = FirebaseFirestore.instance.collection('users');
-    User? user = FirebaseAuth.instance.currentUser;
-    final QuerySnapshot snapshot = await users.doc(user!.uid).collection(
+    final QuerySnapshot snapshotTops = await users.doc(user?.uid).collection(
         'clothes')
         .where('sellGet', isEqualTo: 'no')
         .where('category', isEqualTo: 'Tops')
         .get();
 
-    final List<Closet> _clothes = snapshot.docs.map((
-        DocumentSnapshot document) {
-      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
-      final String category = data['category'];
-      final String price = data['price'];
-      final String brands = data['brands'];
-      final String id = document.id;
-      final String imageURL = data['imageURL'];
-      final String selling = data['selling'];
-      final String assetURL = data['assetURL'];
-      final String description = data['description'];
-
-
-      return Closet(
-        brands,
-        price,
-        category,
-        id,
-        imageURL,
-        selling,
-        assetURL,
-        description,
-      );
-    }).toList();
-    this.clothesTops = _clothes;
-    notifyListeners();
-  }
-}
-
-class HomeModelBottoms extends ChangeNotifier {
-
-  List<Closet>? clothesBottoms;
-
-  void getNumberBottoms() async {
-    final users = FirebaseFirestore.instance.collection('users');
-    User? user = FirebaseAuth.instance.currentUser;
-    final QuerySnapshot snapshot = await users.doc(user!.uid).collection(
+    final QuerySnapshot snapshotBottoms = await users.doc(user?.uid).collection(
         'clothes')
         .where('sellGet', isEqualTo: 'no')
         .where('category', isEqualTo: 'Bottoms')
         .get();
 
-    final List<Closet> clothes = snapshot.docs.map((DocumentSnapshot document) {
-      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
-      final String category = data['category'];
-      final String price = data['price'];
-      final String brands = data['brands'];
-      final String id = document.id;
-      final String imageURL = data['imageURL'];
-      final String selling = data['selling'];
-      final String assetURL = data['assetURL'];
-      final String description = data['description'];
-
-
-      return Closet(
-        brands,
-        price,
-        category,
-        id,
-        imageURL,
-        selling,
-        assetURL,
-        description,
-      );
-    }).toList();
-    this.clothesBottoms = clothes;
-    notifyListeners();
-  }
-}
-
-class HomeModelOuter extends ChangeNotifier {
-
-  List<Closet>? clothesOuter;
-
-  void getNumberOuter() async {
-    final users = FirebaseFirestore.instance.collection('users');
-    User? user = FirebaseAuth.instance.currentUser;
-    final QuerySnapshot snapshot = await users.doc(user!.uid).collection(
+    final QuerySnapshot snapshotOuter = await users.doc(user?.uid).collection(
         'clothes')
         .where('sellGet', isEqualTo: 'no')
         .where('category', isEqualTo: 'Outer')
         .get();
 
-    final List<Closet> clothes = snapshot.docs.map((DocumentSnapshot document) {
-      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
-      final String category = data['category'];
-      final String price = data['price'];
-      final String brands = data['brands'];
-      final String id = document.id;
-      final String imageURL = data['imageURL'];
-      final String selling = data['selling'];
-      final String assetURL = data['assetURL'];
-      final String description = data['description'];
-
-
-      return Closet(
-        brands,
-        price,
-        category,
-        id,
-        imageURL,
-        selling,
-        assetURL,
-        description,
-      );
-    }).toList();
-    this.clothesOuter = clothes;
-    notifyListeners();
-  }
-}
-
-class HomeModelFootwear extends ChangeNotifier {
-
-  List<Closet>? clothesFootwear;
-
-  void getNumberFootwear() async {
-    final users = FirebaseFirestore.instance.collection('users');
-    User? user = FirebaseAuth.instance.currentUser;
-    final QuerySnapshot snapshot = await users.doc(user!.uid).collection(
+    final QuerySnapshot snapshotFootwear = await users.doc(user?.uid)
+        .collection(
         'clothes')
         .where('sellGet', isEqualTo: 'no')
         .where('category', isEqualTo: 'Footwear')
         .get();
 
-    final List<Closet> clothes = snapshot.docs.map((DocumentSnapshot document) {
-      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
-      final String category = data['category'];
-      final String price = data['price'];
-      final String brands = data['brands'];
-      final String id = document.id;
-      final String imageURL = data['imageURL'];
-      final String selling = data['selling'];
-      final String assetURL = data['assetURL'];
-      final String description = data['description'];
-
-
-      return Closet(
-        brands,
-        price,
-        category,
-        id,
-        imageURL,
-        selling,
-        assetURL,
-        description,
-      );
-    }).toList();
-    this.clothesFootwear = clothes;
-    notifyListeners();
-  }
-}
-  class HomeModelAccesories extends ChangeNotifier {
-
-    List<Closet>? clothesAccessories;
-
-  void getNumberAccessories() async {
-    final users= FirebaseFirestore.instance.collection('users');
-    User? user = FirebaseAuth.instance.currentUser;
-    final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes')
+    final QuerySnapshot snapshotAccessories = await users.doc(user?.uid)
+        .collection(
+        'clothes')
         .where('sellGet', isEqualTo: 'no')
         .where('category', isEqualTo: 'Accessories')
         .get();
 
-    final List<Closet> clothes = snapshot.docs.map((
+
+    final List<Total> clothes = snapshot.docs.map((
         DocumentSnapshot document) {
       Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
       final String category = data['category'];
       final String price = data['price'];
       final String brands = data['brands'];
-      final String id = document.id;
-      final String imageURL = data['imageURL'];
-      final String selling = data['selling'];
-      final String assetURL = data['assetURL'];
-      final String description = data['description'];
 
 
-
-      return Closet(
+      return Total(
         brands,
         price,
         category,
-        id,
-        imageURL,
-        selling,
-        assetURL,
-        description,
       );
     }).toList();
-    this.clothesAccessories = clothes;
+
+
+    final List<Total> clothesTops = snapshotTops.docs.map((
+        DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      final String category = data['category'];
+      final String price = data['price'];
+      final String brands = data['brands'];
+
+
+      return Total(
+        brands,
+        price,
+        category,
+      );
+    }).toList();
+
+    final List<Total> clothesBottoms = snapshotBottoms.docs.map((
+        DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      final String category = data['category'];
+      final String price = data['price'];
+      final String brands = data['brands'];
+
+
+      return Total(
+        brands,
+        price,
+        category,
+      );
+    }).toList();
+
+    final List<Total> clothesOuter = snapshotOuter.docs.map((
+        DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      final String category = data['category'];
+      final String price = data['price'];
+      final String brands = data['brands'];
+
+
+      return Total(
+        brands,
+        price,
+        category,
+      );
+    }).toList();
+
+    final List<Total> clothesFootwear = snapshotFootwear.docs.map((
+        DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      final String category = data['category'];
+      final String price = data['price'];
+      final String brands = data['brands'];
+
+
+      return Total(
+        brands,
+        price,
+        category,
+      );
+    }).toList();
+
+    final List<Total> clothesAccessories = snapshotAccessories.docs.map((
+        DocumentSnapshot document) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      final String category = data['category'];
+      final String price = data['price'];
+      final String brands = data['brands'];
+
+
+      return Total(
+        brands,
+        price,
+        category,
+      );
+    }).toList();
+    this.clothes = clothes;
+    this.clothesTops = clothesTops;
+    this.clothesBottoms = clothesBottoms;
+    this.clothesOuter = clothesOuter;
+    this.clothesFootwear = clothesFootwear;
+    this.clothesAccessories = clothesAccessories;
     notifyListeners();
   }
 }

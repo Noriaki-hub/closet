@@ -1,4 +1,5 @@
 import 'package:closet_app_xxx/Screen/home_screen/home_screen.dart';
+import 'package:closet_app_xxx/clothes_buy/BuyStep1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+
+
       // darkTheme: ThemeData.dark(),
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
@@ -44,6 +47,10 @@ class MyApp extends StatelessWidget {
           return LoginScreen();
         },
       ),
+
+      routes: <String, WidgetBuilder>{
+        "/Home": (BuildContext context) => BuyPage(),
+      },
     );
   }
 }

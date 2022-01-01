@@ -215,8 +215,9 @@ class _BuyStep5 extends State<BuyStep5> {
   
   
   Future upload() async{
+    int count = 0;
     await _uploadFirebase();
-    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.popUntil(context, (_) => count++ >= 7);
   }
   
   
@@ -249,7 +250,7 @@ class _BuyStep5 extends State<BuyStep5> {
           actions: [
           TextButton(
             child: Text("Yes"),
-            onPressed: () => Navigator.popUntil(context, (route) => route.isFirst)
+            onPressed: () => Navigator.pushNamed(context, 'BuyPage')
           ),
             TextButton(
               child: Text("No"),

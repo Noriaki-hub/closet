@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 
 class SellModel extends ChangeNotifier {
 
+
+
   List<Closet>? closet2;
 
 
