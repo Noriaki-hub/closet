@@ -295,10 +295,6 @@ class BuyBottomsCloset extends StatelessWidget {
                             child: GridTile(
 
                               footer: GridTileBar(
-                                // backgroundColor: Colors.black54,
-                                // title: Text(
-                                //   clothes.brands,
-                                // ),
                               ),
 
 

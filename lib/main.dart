@@ -1,5 +1,6 @@
 import 'package:closet_app_xxx/Screen/home_screen/home_screen.dart';
 import 'package:closet_app_xxx/clothes_buy/BuyStep1.dart';
+import 'package:closet_app_xxx/clothes_buy/BuyStep2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -48,9 +49,10 @@ class MyApp extends StatelessWidget {
         },
       ),
 
-      routes: <String, WidgetBuilder>{
-        "/Home": (BuildContext context) => BuyPage(),
-      },
+    routes: <String, WidgetBuilder> {
+    "/BuyPage": (BuildContext context) => BuyPage(),
+    "/buypage2": (BuildContext context) =>  HomeScreen()
+    }
     );
   }
 }

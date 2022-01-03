@@ -78,13 +78,8 @@ class _BuyStep4 extends State<BuyStep4> {
                 onPressed: () {
                   description!= null
                       ?
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BuyStep5(imageFile, category, brands, description),
-                      )
-                  )
-                  : _showDialog();
+                 _showDialog()
+                  : _showDialog2();
                 },
               ),
             ),
@@ -93,7 +88,41 @@ class _BuyStep4 extends State<BuyStep4> {
       )
     );
   }
+
+
   Future _showDialog() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("確認"),
+          content: Text("こちらの説明でよろしでしょうか？"),
+          actions: [
+            TextButton(
+                child: Text("Yes"),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            BuyStep5(imageFile, category, brands, description),
+                      )
+                  );
+                }
+            ),
+            TextButton(
+              child: Text("No"),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  Future _showDialog2() {
     return showDialog(
       context: context,
       barrierDismissible: false,

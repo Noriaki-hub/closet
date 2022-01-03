@@ -33,7 +33,6 @@ class _BuyStep5 extends State<BuyStep5> {
   String buyGet = 'yes';
   String sellGet = 'no';
 
-
   final maxLines = 5;
   
   String assets = '';
@@ -58,10 +57,6 @@ class _BuyStep5 extends State<BuyStep5> {
     }
     return assets;
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -96,131 +91,131 @@ class _BuyStep5 extends State<BuyStep5> {
           ],
         ),
         body: Center(
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  margin: EdgeInsets.all(12),
-                  child: GestureDetector(
-                      child:
-                      CircleAvatar(
-                        radius: 155,
-                        backgroundColor: Colors.black54,
-                        child:  ClipRRect(
-                          borderRadius: BorderRadius.circular(200),
-                          child: Container(
-                            color: Colors.white,
-                            child: imageFile != null ?
-                            Image.file(
-                              imageFile!,
-                              width: 300,
-                              height: 300,
-                              fit: BoxFit.fitHeight,
+          child: SingleChildScrollView(
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(12),
+                    child: GestureDetector(
+                        child:
+                        CircleAvatar(
+                          radius: 155,
+                          backgroundColor: Colors.black54,
+                          child:  ClipRRect(
+                            borderRadius: BorderRadius.circular(200),
+                            child: Container(
+                              color: Colors.white,
+                              child: imageFile != null ?
+                              Image.file(
+                                imageFile!,
+                                width: 300,
+                                height: 300,
+                                fit: BoxFit.fitHeight,
+                              )
+                                  :
+                                  Image.asset(
+                                 _assets(),
+                                    width: 300,
+                                    height: 300,
+                                    fit: BoxFit.fitHeight,
+                                  )
+                            ),
+                          )
+                        )
+                    ),
+                  ),
+                  Container(
+                    width: 250,
+                    child: TextField(
+                      controller: TextEditingController(text: brands),
+                      decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey.shade200,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          )
+                      ),
+                      onChanged: (text) {
+                        brands = text;
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(12),
+                    height: maxLines * 24.0,
+                    width: 250,
+                    child: TextField(
+                      controller: TextEditingController(text: description),
+                      maxLines: maxLines,
+                      decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey.shade200,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          )
+                      ),
+                      onChanged: (text) {
+                        description = text;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 250,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: '¥',
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Colors.black45,
                             )
-                                :
-                                Image.asset(
-                               _assets(),
-                                  width: 300,
-                                  height: 300,
-                                  fit: BoxFit.fitHeight,
-                                )
-                          ),
-                        )
-                      )
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                            )
+                        ),
+                      ),
+                      onChanged: (text){
+                        price = text;
+                      }
+                    ),
                   ),
-                ),
-                Container(
-                  width: 250,
-                  child: TextField(
-                    controller: TextEditingController(text: brands),
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey.shade200,
-                        border: OutlineInputBorder(
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: OutlinedButton(
+                      child: const Text('Next'),
+                      style: OutlinedButton.styleFrom(
+                        primary: Colors.black,
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        )
-                    ),
-                    onChanged: (text) {
-                      brands = text;
-                    },
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(12),
-                  height: maxLines * 24.0,
-                  width: 250,
-                  child: TextField(
-                    controller: TextEditingController(text: description),
-                    maxLines: maxLines,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey.shade200,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        )
-                    ),
-                    onChanged: (text) {
-                      description = text;
-                    },
-                  ),
-                ),
-                Container(
-                  width: 250,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: '¥',
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
-                            color: Colors.black45,
-                          )
+                        ),
+                        side: const BorderSide(),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                          )
-                      ),
+                      onPressed: () {
+                        price != null ?
+                            upload()
+                        : _showDialog();
+                      },
                     ),
-                    onChanged: (text){
-                      price = text;
-                    }
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: OutlinedButton(
-                    child: const Text('Next'),
-                    style: OutlinedButton.styleFrom(
-                      primary: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      side: const BorderSide(),
-                    ),
-                    onPressed: () {
-                      price != null ?
-                          upload()
-                      : _showDialog();
-                    },
-                  ),
-                ),
-              ]
+                ]
+            ),
           ),
         )
     );
   }
-  
-  
-  Future upload() async{
+
+  Future upload() async {
     int count = 0;
     await _uploadFirebase();
     Navigator.popUntil(context, (_) => count++ >= 7);
   }
-  
-  
+
   Future _showDialog() {
     return showDialog(
       context: context,

@@ -37,6 +37,7 @@ class SellCloset extends StatelessWidget {
       length: _tab.length,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           title:  TabBar(
             tabs: _tab,
@@ -46,10 +47,6 @@ class SellCloset extends StatelessWidget {
               indicatorHeight: 25.0,
               indicatorColor: Colors.grey,
               tabBarIndicatorSize: TabBarIndicatorSize.tab,
-              // Other flags
-              // indicatorRadius: 1,
-              // insets: EdgeInsets.all(1),
-              // padding: EdgeInsets.all(10)
             ),
           ),
         ),

@@ -56,10 +56,28 @@ class SellPage extends StatelessWidget {
               return
                 Scaffold(
                   appBar: AppBar(
+                    leading: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: InkWell(
+                          onTap: (){
+                            Navigator.pop(context, true);
+                          },
+                          child: Container(
+
+                            child: Center(
+                                child: Text("Back",
+                                  style :TextStyle(color: Colors.black),
+                                )
+                            ),
+                          )
+                      ),
+                    ),
                     backgroundColor: Colors.white,
                   iconTheme: IconThemeData(
                   color: Colors.grey,
                   ),
+
                   ),
                   body: Center(
                       child:
@@ -177,77 +195,79 @@ class SellPage2 extends StatelessWidget {
           ),
         ),
         body:Center(
-                    child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(12),
-                        child: GestureDetector(
-                            child:
-                            CircleAvatar(
-                                radius: 155,
-                                backgroundColor: Colors.black54,
-                                child:  ClipRRect(
-                                  borderRadius: BorderRadius.circular(200),
-                                  child: Container(
-                                    color: Colors.white,
-                                    child: clothes.assetURL != '' ?
-                                    Image.asset(clothes.assetURL, width: 300,
-                                      height: 300,
-                                      fit: BoxFit.fitHeight,)
-                                        : Image.network(clothes.imageURL, width: 300,
-                                  height: 300,
-                                  fit: BoxFit.fitHeight,),
+                    child: SingleChildScrollView(
+                      child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(12),
+                          child: GestureDetector(
+                              child:
+                              CircleAvatar(
+                                  radius: 155,
+                                  backgroundColor: Colors.black54,
+                                  child:  ClipRRect(
+                                    borderRadius: BorderRadius.circular(200),
+                                    child: Container(
+                                      color: Colors.white,
+                                      child: clothes.assetURL != '' ?
+                                      Image.asset(clothes.assetURL, width: 300,
+                                        height: 300,
+                                        fit: BoxFit.fitHeight,)
+                                          : Image.network(clothes.imageURL, width: 300,
+                                    height: 300,
+                                    fit: BoxFit.fitHeight,),
+                                    )
                                   )
-                                )
-                            )
-                        ),
-                      ),
-
-
-                      Container(
-                        width: 250,
-                        child: TextField(
-                            decoration: InputDecoration(
-                              hintText: '¥',
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
-                                    color: Colors.black45,
-                                  )
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
-                                    color: Colors.black,
-                                  )
-                              ),
-                            ),
-                            onChanged: (text){
-                              selling = text;
-                            }
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: OutlinedButton(
-                          child: const Text('Sell'),
-                          style: OutlinedButton.styleFrom(
-                            primary: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            side: const BorderSide(),
+                              )
                           ),
-                          onPressed: () {
-                            selling != null ?
-                            sellUpload(context,)
-                                : _showDialog(context);
-                          },
                         ),
-                      ),
-                    ]
+
+
+                        Container(
+                          width: 250,
+                          child: TextField(
+                              decoration: InputDecoration(
+                                hintText: '¥',
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: Colors.black45,
+                                    )
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: Colors.black,
+                                    )
+                                ),
+                              ),
+                              onChanged: (text){
+                                selling = text;
+                              }
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: OutlinedButton(
+                            child: const Text('Sell'),
+                            style: OutlinedButton.styleFrom(
+                              primary: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              side: const BorderSide(),
+                            ),
+                            onPressed: () {
+                              selling != null ?
+                              sellUpload(context,)
+                                  : _showDialog(context);
+                            },
+                          ),
+                        ),
+                      ]
                 ),
+                    ),
                 ),
               );
             }

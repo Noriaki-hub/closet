@@ -73,13 +73,8 @@ class _BuyStep3 extends State<BuyStep3> {
                 ),
                 onPressed: () {
                   brands!= null
-                      ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BuyStep4(imageFile, category, brands),
-                      )
-                  )
-                      : _showDialog();
+                      ? _showDialog()
+                      : _showDialog2();
                 },
               ),
             ),
@@ -88,7 +83,35 @@ class _BuyStep3 extends State<BuyStep3> {
       ),
     );
   }
+
   Future _showDialog() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+            content: Text('『'+ brands! + '』'+ 'でよろしかったでしょうか？'),
+            actions: [TextButton(child: Text("Yes"),
+                onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              BuyStep4(imageFile, category, brands),
+                        )
+                    );
+                  }
+              ),
+              TextButton(
+                  child: Text("No"),
+                  onPressed: () => Navigator.pop(context)
+              ),
+            ]
+        );
+      },
+    );
+  }
+  Future _showDialog2() {
     return showDialog(
       context: context,
       barrierDismissible: false,

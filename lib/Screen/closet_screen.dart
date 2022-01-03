@@ -16,6 +16,23 @@ class ClosetScreen extends StatelessWidget{
       length: _tab.length,
       child: Scaffold(
         appBar: AppBar(
+          leading: SizedBox(
+            height: 50,
+            width: 50,
+            child: InkWell(
+                onTap: (){
+                  Navigator.pop(context, true);
+                },
+                child: Container(
+
+                  child: Center(
+                      child: Text("Back",
+                        style :TextStyle(color: Colors.black),
+                      )
+                  ),
+                )
+            ),
+          ),
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           flexibleSpace: SingleChildScrollView(

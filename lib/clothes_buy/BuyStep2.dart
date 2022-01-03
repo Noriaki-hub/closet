@@ -153,12 +153,7 @@ class _BuyStep2 extends State<BuyStep2> {
                     ),
                     onPressed: () {
                       imageFile != null
-                          ? Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BuyStep3(imageFile, category),
-                          )
-                      )
+                          ? _showDialog2()
                       : _showDialog();
                     },
                   ),
@@ -167,6 +162,34 @@ class _BuyStep2 extends State<BuyStep2> {
             ),
           ),
         )
+    );
+  }
+
+  Future _showDialog2() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("確認"), content: Text("こちらの画像でよろしいですか？"), actions: [
+          TextButton(
+              child: Text("Yes"),
+              onPressed: () async{
+                await Navigator.push (
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BuyStep3(imageFile, category),
+                    )
+                );
+              }
+          ),
+          TextButton(
+              child: Text("No"),
+              onPressed: () => Navigator.pop(context)
+          ),
+        ],
+        );
+      },
     );
   }
 

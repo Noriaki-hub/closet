@@ -75,48 +75,98 @@ class _HomeScreenState extends State<HomeScreen> {
                   .toString();
 
               if (clothesNumber == null) {
-                return SizedBox(
-                    height: 5,
-                    width: 5,
-                    child: CircularProgressIndicator());
+                return Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: CircularProgressIndicator(
+                          color: Colors.grey,
+                        )
+                    ),
+                  ),
+                );
               }
 
-              if (clothesNumberTops == null) {
-                return SizedBox(
-                    height: 5,
-                    width: 5,
-                    child: CircularProgressIndicator());
+              if (clothesNumberTops ==
+                  null) {
+                return Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: CircularProgressIndicator(
+                          color: Colors.grey,
+                        )
+                    ),
+                  ),
+                );
               }
 
               if (clothesNumberBottoms ==
                   null) {
-                return SizedBox(
-                    height: 5,
-                    width: 5,
-                    child: CircularProgressIndicator());
+                return Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: CircularProgressIndicator(
+                          color: Colors.grey,
+                        )
+                    ),
+                  ),
+                );
               }
 
-              if (clothesNumberOuter == null) {
-                return SizedBox(
-                    height: 5,
-                    width: 5,
-                    child: CircularProgressIndicator());
+              if (clothesNumberOuter ==
+                  null) {
+                return Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: CircularProgressIndicator(
+                          color: Colors.grey,
+                        )
+                    ),
+                  ),
+                );
               }
 
               if (clothesNumberFootwear ==
                   null) {
-                return SizedBox(
-                    height: 5,
-                    width: 5,
-                    child: CircularProgressIndicator());
+                return Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: CircularProgressIndicator(
+                          color: Colors.grey,
+                        )
+                    ),
+                  ),
+                );
               }
 
               if (clothesNumberAccessories ==
                   null) {
-                return SizedBox(
-                    height: 5,
-                    width: 5,
-                    child: CircularProgressIndicator());
+                return Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: CircularProgressIndicator(
+                          color: Colors.grey,
+                        )
+                    ),
+                  ),
+                );
               }
 
 
@@ -358,14 +408,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Column(
                                   children: [
                                     InkWell(
-                                        onTap: () {
-                                          Navigator.push(
+                                        onTap: () async{
+                                          final result = await Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     SellPage(),
                                               )
                                           );
+                                          if (result){
+
+                                            model.getNumberAll();
+
+
+
+                                          }
                                         },
                                         child: Container(
                                           width: 150,
@@ -409,14 +466,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Column(
                                     children: [
                                       InkWell(
-                                          onTap: () {
-                                            Navigator.push(
+                                          onTap: () async{
+                                            final result = await Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
                                                       ClosetScreen(),
                                                 )
                                             );
+                                            if (result){
+
+                                             model.getNumberAll();
+
+
+
+                                            }
                                           },
                                           child: Container(
                                             width: 150,
