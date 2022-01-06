@@ -2,10 +2,13 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 
 class BuyStep5 extends StatefulWidget {
+
 
   String? category;
   File? imageFile;
@@ -21,6 +24,7 @@ class BuyStep5 extends StatefulWidget {
 
 class _BuyStep5 extends State<BuyStep5> {
 
+
   String? category;
   File? imageFile;
   String? brands;
@@ -29,12 +33,45 @@ class _BuyStep5 extends State<BuyStep5> {
   _BuyStep5(this.imageFile, this.category, this.brands, this.description);
 
   String? price;
-
   String buyGet = 'yes';
   String sellGet = 'no';
 
-  final maxLines = 5;
-  
+  final maxLines = 3;
+
+
+  //datePicker
+  DateTime? selectedDate;
+
+  String yearNowPicker() {
+    if (selectedDate == null){
+      selectedDate = DateTime.now();
+    }
+    DateFormat outputFormat = DateFormat('yyyy');
+    String date = outputFormat.format(selectedDate!);
+    return date;
+  }
+
+  String monthNowPicker() {
+    if (selectedDate == null){
+      selectedDate = DateTime.now();
+    }
+    DateFormat outputFormat = DateFormat('MM');
+    String date = outputFormat.format(selectedDate!);
+    return date;
+  }
+
+  String dayNowPicker() {
+    if (selectedDate == null){
+      selectedDate = DateTime.now();
+    }
+    DateFormat outputFormat = DateFormat('dd');
+    String date = outputFormat.format(selectedDate!);
+    return date;
+  }
+
+
+
+  //select PNG
   String assets = '';
 
   String _assets(){
@@ -57,6 +94,11 @@ class _BuyStep5 extends State<BuyStep5> {
     }
     return assets;
   }
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +204,29 @@ class _BuyStep5 extends State<BuyStep5> {
                       },
                     ),
                   ),
+                  InkWell(
+                    onTap: (){
+                      showDatePicker();
+                    },
+                    child: Container(
+                      child: Center(
+                        child: Text(yearNowPicker() + '/' + monthNowPicker() + '/' + dayNowPicker(),
+                          style: TextStyle(
+                            fontSize: 20
+                          ),
+                        ),
+                      ),
+                      width: 250,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius
+                        .circular(10),
+                        color: Colors.grey.shade200,
+        ),
+                    ),
+                  ),
                   Container(
+                    margin: EdgeInsets.all(12),
                     width: 250,
                     child: TextField(
                       decoration: InputDecoration(
@@ -209,6 +273,32 @@ class _BuyStep5 extends State<BuyStep5> {
         )
     );
   }
+
+  void showDatePicker()
+  {  showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext builder) {
+        return Container(
+          height: MediaQuery.of(context).copyWith().size.height*0.25,
+          color: Colors.white,
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.date,
+            onDateTimeChanged: (value) {
+              if (value != selectedDate)
+                setState(() {
+                  selectedDate = value;
+                });
+            },
+            initialDateTime: DateTime.now(),
+            minimumYear: 2019,
+            maximumYear: 2022,
+          ),
+        );
+      }
+  );
+  }
+
+
 
   Future upload() async {
     int count = 0;
@@ -282,7 +372,9 @@ class _BuyStep5 extends State<BuyStep5> {
         'imageURL': imageURL,
         'assetURL' : assetURL,
         'description' : description,
-        'updateAt': Timestamp.now(),
+        'year' : yearNowPicker(),
+        'day' : dayNowPicker(),
+        'month': monthNowPicker(),
 
 
         'buyGet': buyGet,

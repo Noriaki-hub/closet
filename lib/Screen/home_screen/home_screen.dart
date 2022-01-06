@@ -1,7 +1,6 @@
 import 'dart:ui';
-import 'package:closet_app_xxx/Screen/closet_screen.dart';
+import 'package:closet_app_xxx/Screen/closet_screen/closet_screen.dart';
 import 'package:closet_app_xxx/Screen/home_screen/home_screen_model.dart';
-import 'package:closet_app_xxx/Screen/total_demo.dart';
 import 'package:closet_app_xxx/clothes_sell/SellPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../auth/login_screen.dart';
 import '../../clothes_buy/BuyStep1.dart';
+import '../expenses_screen/expenses_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -35,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  TotalDate dateNowPicker = TotalDate();
 
 
   @override
@@ -522,7 +521,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      SellPage(),
+                                                      ExpensesPage(),
                                                 )
                                             );
                                           },

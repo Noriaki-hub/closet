@@ -1,15 +1,13 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-import 'package:closet_app_xxx/totalPricePage/buyTotal.dart';
-import 'package:closet_app_xxx/totalPricePage/sellTotal.dart';
+import 'package:closet_app_xxx/Screen/closet_screen/closet_buy.dart';
+import 'package:closet_app_xxx/Screen/closet_screen/closet_sell.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class TotalScreen extends StatelessWidget {
-
+class ClosetScreen extends StatelessWidget{
   final _tab = <Tab> [
-    Tab( text:'Buy'
-
-    ),
-    Tab( text:'Sell'),
+    Tab( text:'Hold'),
+    Tab( text:'Sold'),
   ];
 
   @override
@@ -18,6 +16,24 @@ class TotalScreen extends StatelessWidget {
       length: _tab.length,
       child: Scaffold(
         appBar: AppBar(
+          leading: SizedBox(
+            height: 50,
+            width: 50,
+            child: InkWell(
+                onTap: (){
+                  Navigator.pop(context, true);
+                },
+                child: Container(
+
+                  child: Center(
+                      child: Text("Back",
+                        style :TextStyle(color: Colors.black),
+                      )
+                  ),
+                )
+            ),
+          ),
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           flexibleSpace: SingleChildScrollView(
             child: Column(
@@ -47,11 +63,14 @@ class TotalScreen extends StatelessWidget {
 
         body: TabBarView(
           children: <Widget>[
-            BuyTotal(),
-            SellTotal(),
+            BuyCloset(),
+            SellCloset(),
           ],
         ),
       ),
     );
   }
+
+
+
 }

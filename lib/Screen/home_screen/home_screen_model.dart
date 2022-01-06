@@ -1,3 +1,4 @@
+import 'package:closet_app_xxx/Screen/closet_screen/closet_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,6 +25,8 @@ class HomeModel extends ChangeNotifier {
   List<Total>? clothesOuter;
   List<Total>? clothesFootwear;
   List<Total>? clothesAccessories;
+
+  List<Closet>? clothesList;
 
 
   void getNumberAll() async {

@@ -1,5 +1,5 @@
 
-import 'package:closet_app_xxx/closet/closet_model.dart';
+import 'package:closet_app_xxx/Screen/closet_screen/closet_model.dart';
 import 'package:closet_app_xxx/clothes_sell/SellModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
