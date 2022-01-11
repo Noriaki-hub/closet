@@ -15,7 +15,7 @@ class SellModel extends ChangeNotifier {
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection(
         'clothes').where(
-        'sellGet', isEqualTo: 'no').get();
+        'isSell', isEqualTo: false).get();
 
     final List<Closet> closet3 = snapshot.docs.map((DocumentSnapshot document) {
       Map<String, dynamic> data = document.data()! as Map<String, dynamic>;

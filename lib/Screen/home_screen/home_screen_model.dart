@@ -36,37 +36,37 @@ class HomeModel extends ChangeNotifier {
 
     final QuerySnapshot snapshot = await users.doc(user?.uid).collection(
         'clothes')
-        .where('sellGet', isEqualTo: 'no').get();
+        .where( 'isSell', isEqualTo : false).get();
 
     final QuerySnapshot snapshotTops = await users.doc(user?.uid).collection(
         'clothes')
-        .where('sellGet', isEqualTo: 'no')
+        .where('isSell', isEqualTo : false)
         .where('category', isEqualTo: 'Tops')
         .get();
 
     final QuerySnapshot snapshotBottoms = await users.doc(user?.uid).collection(
         'clothes')
-        .where('sellGet', isEqualTo: 'no')
+        .where('isSell', isEqualTo : false)
         .where('category', isEqualTo: 'Bottoms')
         .get();
 
     final QuerySnapshot snapshotOuter = await users.doc(user?.uid).collection(
         'clothes')
-        .where('sellGet', isEqualTo: 'no')
+        .where('isSell', isEqualTo : false)
         .where('category', isEqualTo: 'Outer')
         .get();
 
     final QuerySnapshot snapshotFootwear = await users.doc(user?.uid)
         .collection(
         'clothes')
-        .where('sellGet', isEqualTo: 'no')
+        .where('isSell', isEqualTo : false)
         .where('category', isEqualTo: 'Footwear')
         .get();
 
     final QuerySnapshot snapshotAccessories = await users.doc(user?.uid)
         .collection(
         'clothes')
-        .where('sellGet', isEqualTo: 'no')
+        .where('isSell', isEqualTo : false)
         .where('category', isEqualTo: 'Accessories')
         .get();
 

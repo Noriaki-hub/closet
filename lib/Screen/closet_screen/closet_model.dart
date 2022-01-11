@@ -34,7 +34,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'buyGet', isEqualTo : 'yes').get();
+        'isSell', isEqualTo : false).get();
 
     final List<Closet> closet3 = snapshot.docs.map((
         DocumentSnapshot document) {
@@ -70,7 +70,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'buyGet', isEqualTo : 'yes')
+        'isSell', isEqualTo : false)
         .where
       ('category', isEqualTo: 'Tops')
         .get();
@@ -109,7 +109,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'buyGet', isEqualTo : 'yes')
+        'isSell', isEqualTo : false)
         .where
       ('category', isEqualTo: 'Bottoms')
         .get();
@@ -148,7 +148,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'buyGet', isEqualTo : 'yes')
+        'isSell', isEqualTo : false)
         .where('category', isEqualTo: 'Outer')
         .get();
 
@@ -187,7 +187,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'buyGet', isEqualTo : 'yes')
+        'isSell', isEqualTo : false)
         .where('category', isEqualTo: 'Footwear')
         .get();
 
@@ -225,7 +225,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'buyGet', isEqualTo : 'yes')
+        'isSell', isEqualTo : false)
         .where('category', isEqualTo: 'Accessories')
         .get();
 
@@ -263,7 +263,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'sellGet', isEqualTo : 'yes')
+        'isSell', isEqualTo : true)
         .get();
 
     final List<Closet> closet3 = snapshot.docs.map((
@@ -300,7 +300,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'sellGet', isEqualTo : 'yes')
+        'isSell', isEqualTo : true)
         .where('category', isEqualTo: 'Tops')
         .get();
 
@@ -338,7 +338,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'sellGet', isEqualTo : 'yes')
+        'isSell', isEqualTo : true)
         .where('category', isEqualTo: 'Bottoms')
         .get();
 
@@ -376,7 +376,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'sellGet', isEqualTo : 'yes')
+        'isSell', isEqualTo : true)
         .where('category', isEqualTo: 'Outer')
         .get();
 
@@ -414,7 +414,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'sellGet', isEqualTo : 'yes')
+        'isSell', isEqualTo : true)
         .where('category', isEqualTo: 'Footwear')
         .get();
 
@@ -452,7 +452,7 @@ class ClosetModel extends ChangeNotifier {
     final users = FirebaseFirestore.instance.collection('users');
     User? user = FirebaseAuth.instance.currentUser;
     final QuerySnapshot snapshot = await users.doc(user!.uid).collection('clothes').where(
-        'sellGet', isEqualTo: 'yes')
+        'isSell', isEqualTo : true)
         .where('category', isEqualTo: 'Accessories')
         .get();
 

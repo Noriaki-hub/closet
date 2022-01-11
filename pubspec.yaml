@@ -42,6 +42,7 @@ dependencies:
   path_provider: ^2.0.8
   http: ^0.13.4
   pie_chart: ^5.1.0
+  syncfusion_flutter_charts: ^19.4.41
 
 
 

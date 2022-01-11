@@ -33,8 +33,7 @@ class _BuyStep5 extends State<BuyStep5> {
   _BuyStep5(this.imageFile, this.category, this.brands, this.description);
 
   String? price;
-  String buyGet = 'yes';
-  String sellGet = 'no';
+  bool? isSell;
 
   final maxLines = 3;
 
@@ -375,10 +374,7 @@ class _BuyStep5 extends State<BuyStep5> {
         'year' : yearNowPicker(),
         'day' : dayNowPicker(),
         'month': monthNowPicker(),
-
-
-        'buyGet': buyGet,
-        'sellGet': sellGet,
+        'isSell' : false,
         'selling': ''
 
       },

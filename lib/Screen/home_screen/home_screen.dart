@@ -9,7 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../auth/login_screen.dart';
 import '../../clothes_buy/BuyStep1.dart';
-import '../expenses_screen/expenses_screen.dart';
+import '../expenses_screen/expenses_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

@@ -3,8 +3,10 @@ import 'package:closet_app_xxx/Screen/closet_screen/closet_model.dart';
 import 'package:closet_app_xxx/clothes_sell/SellModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 
 class SellPage extends StatelessWidget {
@@ -93,10 +95,27 @@ class SellPage extends StatelessWidget {
   }
 }
 
-class SellPage2 extends StatelessWidget {
+class SellPage2 extends StatefulWidget {
+
 
   final Closet clothes;
-  SellPage2(this.clothes, );
+
+  SellPage2(this.clothes,);
+
+
+  @override
+  State<StatefulWidget> createState() {
+    return _SellPage2(clothes);
+  }
+
+}
+
+class _SellPage2  extends State<SellPage2>{
+
+  final Closet clothes;
+
+  _SellPage2(this.clothes,);
+
   String? selling;
 
 
@@ -113,8 +132,12 @@ class SellPage2 extends StatelessWidget {
 
     users.doc(user!.uid).collection('clothes').doc(clothes.id).update({
      'selling': selling,
-      'sellGet' : 'yes',
-      'buyGet' : 'no',
+      'isSell' : true,
+      'yearSell' : yearNowPicker(),
+      'daySEll' : dayNowPicker(),
+      'monthSell': monthNowPicker(),
+
+
     },);
   }
 
@@ -155,6 +178,37 @@ class SellPage2 extends StatelessWidget {
       },
     );
   }
+
+  DateTime? selectedDate;
+
+  String yearNowPicker() {
+    if (selectedDate == null){
+      selectedDate = DateTime.now();
+    }
+    DateFormat outputFormat = DateFormat('yyyy');
+    String date = outputFormat.format(selectedDate!);
+    return date;
+  }
+
+  String monthNowPicker() {
+    if (selectedDate == null){
+      selectedDate = DateTime.now();
+    }
+    DateFormat outputFormat = DateFormat('MM');
+    String date = outputFormat.format(selectedDate!);
+    return date;
+  }
+
+  String dayNowPicker() {
+    if (selectedDate == null){
+      selectedDate = DateTime.now();
+    }
+    DateFormat outputFormat = DateFormat('dd');
+    String date = outputFormat.format(selectedDate!);
+    return date;
+  }
+
+
 
 
 
@@ -223,6 +277,30 @@ class SellPage2 extends StatelessWidget {
                           ),
                         ),
 
+                        InkWell(
+                          onTap: (){
+                            showDatePicker();
+                          },
+                          child: Container(
+                            child: Center(
+                              child: Text(yearNowPicker() + '/' + monthNowPicker() + '/' + dayNowPicker(),
+                                style: TextStyle(
+                                    fontSize: 20
+                                ),
+                              ),
+                            ),
+                            width: 250,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius
+                                  .circular(10),
+                              color: Colors.grey.shade200,
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: 20,),
+
 
                         Container(
                           width: 250,
@@ -247,6 +325,8 @@ class SellPage2 extends StatelessWidget {
                               }
                           ),
                         ),
+
+
                         Padding(
                           padding: const EdgeInsets.all(20),
                           child: OutlinedButton(
@@ -271,5 +351,28 @@ class SellPage2 extends StatelessWidget {
                 ),
               );
             }
+  void showDatePicker()
+  {  showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext builder) {
+        return Container(
+          height: MediaQuery.of(context).copyWith().size.height*0.25,
+          color: Colors.white,
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.date,
+            onDateTimeChanged: (value) {
+              if (value != selectedDate)
+                setState(() {
+                  selectedDate = value;
+                });
+            },
+            initialDateTime: DateTime.now(),
+            minimumYear: 2019,
+            maximumYear: 2022,
+          ),
+        );
+      }
+  );
+  }
 
   }
