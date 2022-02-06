@@ -1,9 +1,8 @@
 
-import 'package:closet_app_xxx/Screen/expenses_screen/expenses_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import '../datePicker.dart';
+import '../../datePicker.dart';
 import '../closet_screen/closet_model.dart';
 
 
@@ -12,6 +11,8 @@ class ExpensesModel extends ChangeNotifier {
   PickDate datePicker = PickDate();
   List<Closet>? clothesList;
   List<Closet>? clothesListSell;
+
+
 
   List<Monthly>? clothesListCharts01;
   List<Monthly>? clothesListCharts02;
@@ -39,11 +40,13 @@ class ExpensesModel extends ChangeNotifier {
   List<Monthly>? clothesListChartsSell11;
   List<Monthly>? clothesListChartsSell12;
 
+  bool isLoading = true;
 
 
 
 
-  void getExpenses(String pickedYear, String pickedMonth, bool _isSell) async {
+
+   getExpenses(String pickedYear, String pickedMonth, bool _isSell,) async {
     if (pickedYear == '') {
       pickedYear = datePicker.yearNowPicker();
     }
@@ -51,6 +54,8 @@ class ExpensesModel extends ChangeNotifier {
     if (pickedMonth == '') {
       pickedMonth = datePicker.monthNowPicker();
     }
+
+
 
 
 
@@ -473,6 +478,7 @@ class ExpensesModel extends ChangeNotifier {
     this.clothesListChartsSell10 = clothesListChartsSell10;
     this.clothesListChartsSell11 = clothesListChartsSell11;
     this.clothesListChartsSell12 = clothesListChartsSell12;
+    this.isLoading = true;
 
 
     notifyListeners();

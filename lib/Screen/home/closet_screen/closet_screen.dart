@@ -1,8 +1,9 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-import 'package:closet_app_xxx/Screen/closet_screen/closet_buy.dart';
-import 'package:closet_app_xxx/Screen/closet_screen/closet_sell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'closet_buy.dart';
+import 'closet_sell.dart';
 
 class ClosetScreen extends StatelessWidget{
   final _tab = <Tab> [

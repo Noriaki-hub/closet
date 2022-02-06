@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:closet_app_xxx/clothes_sell/SellPage.dart';
+import 'package:closet_app_xxx/Screen/home/sell_screen/SellPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

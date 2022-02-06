@@ -542,13 +542,6 @@ class BuyAccessoriesCloset extends StatelessWidget {
                             ),
                             child: GridTile(
 
-                              footer: GridTileBar(
-                                // backgroundColor: Colors.black54,
-                                // title: Text(
-                                //   clothes.brands,
-                                // ),
-                              ),
-
 
                                 child: clothes.assetURL != '' ?
                                 Image.asset(clothes.assetURL)

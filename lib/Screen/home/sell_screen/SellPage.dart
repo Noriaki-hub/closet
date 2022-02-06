@@ -1,12 +1,13 @@
 
-import 'package:closet_app_xxx/Screen/closet_screen/closet_model.dart';
-import 'package:closet_app_xxx/clothes_sell/SellModel.dart';
+import 'package:closet_app_xxx/Screen/home/closet_screen/closet_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+
+import 'SellModel.dart';
 
 
 class SellPage extends StatelessWidget {

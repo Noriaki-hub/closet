@@ -1,10 +1,10 @@
 
-import 'package:closet_app_xxx/Screen/closet_screen/closet_model.dart';
+import 'package:closet_app_xxx/Screen/home/closet_screen/closet_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../datePicker.dart';
+import '../../datePicker.dart';
 import 'expenses_model.dart';
 
 
@@ -31,6 +31,8 @@ class _ExpensesPage extends State<ExpensesPage> {
 
   bool _isSell = false;
 
+  bool isLoading = false;
+
 
   List<int> _list() {
     int year = int.parse(datePicker.yearNowPicker());
@@ -39,49 +41,78 @@ class _ExpensesPage extends State<ExpensesPage> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider<ExpensesModel>(create: (_) =>
       ExpensesModel()
-        ..getExpenses(pickedYear, pickedMonth, _isSell),
+        ..getExpenses(pickedYear, pickedMonth, _isSell,),
 
       ),
 
     ],
       child: Scaffold(
         body: Center(
-            child: Consumer<ExpensesModel>(builder: (context, model, child) {
+            child: Consumer<ExpensesModel>(builder: (context, model, child,) {
+              // list
+
+
+
               final List<Closet>? clothesList = model.clothesList;
               final List<Closet>? clothesListSell = model.clothesListSell;
               // chartsBuy
 
-              final List<Monthly>? clothesListCharts01 = model.clothesListCharts01;
-              final List<Monthly>? clothesListCharts02 = model.clothesListCharts02;
-              final List<Monthly>? clothesListCharts03 = model.clothesListCharts03;
-              final List<Monthly>? clothesListCharts04 = model.clothesListCharts04;
-              final List<Monthly>? clothesListCharts05 = model.clothesListCharts05;
-              final List<Monthly>? clothesListCharts06 = model.clothesListCharts06;
-              final List<Monthly>? clothesListCharts07 = model.clothesListCharts07;
-              final List<Monthly>? clothesListCharts08 = model.clothesListCharts08;
-              final List<Monthly>? clothesListCharts09 = model.clothesListCharts09;
-              final List<Monthly>? clothesListCharts10 = model.clothesListCharts10;
-              final List<Monthly>? clothesListCharts11 = model.clothesListCharts11;
-              final List<Monthly>? clothesListCharts12 = model.clothesListCharts12;
+              final List<Monthly>? clothesListCharts01 = model
+                  .clothesListCharts01;
+              final List<Monthly>? clothesListCharts02 = model
+                  .clothesListCharts02;
+              final List<Monthly>? clothesListCharts03 = model
+                  .clothesListCharts03;
+              final List<Monthly>? clothesListCharts04 = model
+                  .clothesListCharts04;
+              final List<Monthly>? clothesListCharts05 = model
+                  .clothesListCharts05;
+              final List<Monthly>? clothesListCharts06 = model
+                  .clothesListCharts06;
+              final List<Monthly>? clothesListCharts07 = model
+                  .clothesListCharts07;
+              final List<Monthly>? clothesListCharts08 = model
+                  .clothesListCharts08;
+              final List<Monthly>? clothesListCharts09 = model
+                  .clothesListCharts09;
+              final List<Monthly>? clothesListCharts10 = model
+                  .clothesListCharts10;
+              final List<Monthly>? clothesListCharts11 = model
+                  .clothesListCharts11;
+              final List<Monthly>? clothesListCharts12 = model
+                  .clothesListCharts12;
 
               // chartsSell
-              final List<Monthly>? clothesListChartsSell01 = model.clothesListChartsSell01;
-              final List<Monthly>? clothesListChartsSell02 = model.clothesListChartsSell02;
-              final List<Monthly>? clothesListChartsSell03 = model.clothesListChartsSell03;
-              final List<Monthly>? clothesListChartsSell04 = model.clothesListChartsSell04;
-              final List<Monthly>? clothesListChartsSell05 = model.clothesListChartsSell05;
-              final List<Monthly>? clothesListChartsSell06 = model.clothesListChartsSell06;
-              final List<Monthly>? clothesListChartsSell07 = model.clothesListChartsSell07;
-              final List<Monthly>? clothesListChartsSell08 = model.clothesListChartsSell08;
-              final List<Monthly>? clothesListChartsSell09 = model.clothesListChartsSell09;
-              final List<Monthly>? clothesListChartsSell10 = model.clothesListChartsSell10;
-              final List<Monthly>? clothesListChartsSell11 = model.clothesListChartsSell11;
-              final List<Monthly>? clothesListChartsSell12 = model.clothesListChartsSell12;
+              final List<Monthly>? clothesListChartsSell01 = model
+                  .clothesListChartsSell01;
+              final List<Monthly>? clothesListChartsSell02 = model
+                  .clothesListChartsSell02;
+              final List<Monthly>? clothesListChartsSell03 = model
+                  .clothesListChartsSell03;
+              final List<Monthly>? clothesListChartsSell04 = model
+                  .clothesListChartsSell04;
+              final List<Monthly>? clothesListChartsSell05 = model
+                  .clothesListChartsSell05;
+              final List<Monthly>? clothesListChartsSell06 = model
+                  .clothesListChartsSell06;
+              final List<Monthly>? clothesListChartsSell07 = model
+                  .clothesListChartsSell07;
+              final List<Monthly>? clothesListChartsSell08 = model
+                  .clothesListChartsSell08;
+              final List<Monthly>? clothesListChartsSell09 = model
+                  .clothesListChartsSell09;
+              final List<Monthly>? clothesListChartsSell10 = model
+                  .clothesListChartsSell10;
+              final List<Monthly>? clothesListChartsSell11 = model
+                  .clothesListChartsSell11;
+              final List<Monthly>? clothesListChartsSell12 = model
+                  .clothesListChartsSell12;
 
               // chartsBuy
               if (clothesListCharts01 == null) {
@@ -187,7 +218,6 @@ class _ExpensesPage extends State<ExpensesPage> {
               }
 
 
-
               if (clothesList == null) {
                 return Container(
                   color: Colors.white,
@@ -204,7 +234,7 @@ class _ExpensesPage extends State<ExpensesPage> {
               }
 
               if (clothesListSell == null) {
-                return Container(
+                return  Container(
                   color: Colors.white,
                   child: Center(
                     child: SizedBox(
@@ -535,20 +565,6 @@ class _ExpensesPage extends State<ExpensesPage> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
               return
                 Scaffold(
                   appBar: AppBar(
@@ -630,7 +646,7 @@ class _ExpensesPage extends State<ExpensesPage> {
                                         pickedYear = pickedYear;
                                         pickedMonth = '';
                                         model.getExpenses(
-                                            pickedYear, pickedMonth, _isSell);
+                                          pickedYear, pickedMonth, _isSell,);
                                       }
                                     },
                                     child: Card(
@@ -654,10 +670,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '01';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                     isLoading = false;
+                                     setState(() {});
                                   },
                                   child: Card(
                                     elevation: 5,
@@ -678,10 +698,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 SizedBox(width: 5,),
                                 InkWell(
 
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '02';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
                                   child: Card(
                                     elevation: 5,
@@ -700,10 +724,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '03';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
                                   child: Card(
                                     elevation: 5,
@@ -722,10 +750,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '04';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
 
                                   child: Card(
@@ -745,10 +777,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '05';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
                                   child: Card(
                                     elevation: 5,
@@ -767,10 +803,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '06';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
                                   child: Card(
                                     elevation: 5,
@@ -789,10 +829,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '07';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
                                   child: Card(
                                     elevation: 5,
@@ -811,10 +855,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '08';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
                                   child: Card(
                                     elevation: 5,
@@ -833,10 +881,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '09';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
 
                                   child: Card(
@@ -856,10 +908,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '10';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
                                   child: Card(
                                     elevation: 5,
@@ -878,10 +934,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '11';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
                                   child: Card(
                                     elevation: 5,
@@ -901,10 +961,14 @@ class _ExpensesPage extends State<ExpensesPage> {
                                 ),
                                 SizedBox(width: 5,),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     pickedMonth = '12';
-                                    model.getExpenses(
-                                        pickedYear, pickedMonth, _isSell);
+                                    isLoading = true;
+                                    setState(() {});
+                                    await model.getExpenses(
+                                      pickedYear, pickedMonth, _isSell,);
+                                    isLoading = false;
+                                    setState(() {});
                                   },
                                   child: Card(elevation: 5,
                                     child: Container(
@@ -933,24 +997,33 @@ class _ExpensesPage extends State<ExpensesPage> {
                             width: 400,
                             color:
                             Colors.grey.withOpacity(0.1),
-                            child: Container(
-                              height: 200,
-                              width: 250,
-                              child: Container(
-                                height: 100,
-                                width: 100,
-                                child: Center(
-                                  child: Text(
-                                    _isSell != true ?
-                                    "¥$sum"
-                                        :
-                                    "¥$sumSelling",
-                                    style: TextStyle(
-                                        fontSize: 50
+                            child: Column(
+                              children: [
+                                SizedBox(height: 50,),
+                                Container(
+                                  height: 100,
+                                  width: 400,
+                                  child: Center(
+                                    child: Text(
+                                      _isSell != true ?
+                                      "¥$sum"
+                                          :
+                                      "¥$sumSelling",
+                                      style: TextStyle(
+                                          fontSize: 50
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
+                                SizedBox(height: 40,),
+                                isLoading == true ?
+                                    LinearProgressIndicator(
+                                      color: Colors.grey,
+                                      backgroundColor: Colors.grey.shade100,
+                                    )
+                                    :
+                                    Container()
+                              ],
                             )
                         ),
                         Container(
@@ -972,38 +1045,37 @@ class _ExpensesPage extends State<ExpensesPage> {
                               ElevatedButton(
 
                                 style: ElevatedButton.styleFrom(
-                                  shape: CircleBorder(),
-                                  primary:
-                                      _isSell != true ?
-                                      Colors.redAccent.shade100
-                                          :
+                                    shape: CircleBorder(),
+                                    primary:
+                                    _isSell != true ?
+                                    Colors.redAccent.shade100
+                                        :
                                     Colors.blueAccent.shade100
                                 ),
                                 onPressed: () {
-                                  if (_isSell == true){
+                                  if (_isSell == true) {
                                     _isSell = false;
-                                  }else if (_isSell == false){
+                                  } else if (_isSell == false) {
                                     _isSell = true;
                                   }
 
                                   setState(() {
                                     _isSell = _isSell;
                                   });
-
                                 },
                                 child: Icon(Icons.dashboard),
                               ),
                               SizedBox(width: 260,),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  shape: CircleBorder(),
-                                  primary: Colors.grey.withOpacity(0.5)
+                                    shape: CircleBorder(),
+                                    primary: Colors.grey.withOpacity(0.5)
                                 ),
                                 onPressed: () {
                                   showBottomSheet(context: context,
                                       builder: (BuildContext context) {
                                         return Container(
-                                            height: 500,
+                                            height: 300,
                                             decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 boxShadow: [
@@ -1034,7 +1106,7 @@ class _ExpensesPage extends State<ExpensesPage> {
                                                   scrollDirection: Axis
                                                       .horizontal,
                                                   child: Container(
-                                                    height: 400,
+                                                    height: 250,
                                                     width: 1000,
                                                     child: SfCartesianChart(
                                                         title: ChartTitle(
@@ -1172,10 +1244,25 @@ class _ExpensesPage extends State<ExpensesPage> {
       ),
     );
   }
-
-
+  loading() {
+    if (isLoading == true) {
+      showGeneralDialog(
+          context: context,
+          barrierDismissible: false,
+          transitionDuration: Duration(milliseconds: 300),
+          barrierColor: Colors.black.withOpacity(0.5),
+          pageBuilder: (BuildContext context, Animation animation,
+              Animation secondaryAnimation) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+      );
+    }
+  }
 
 }
+
 
 
 class SalesData {

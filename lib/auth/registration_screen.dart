@@ -1,14 +1,12 @@
-import 'package:closet_app_xxx/Screen/home_screen/home_screen.dart';
+
+
+import 'package:closet_app_xxx/Screen/Tab.dart';
 import 'package:closet_app_xxx/auth/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
-import '../main.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -23,7 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // our form key
   final _formKey = GlobalKey<FormState>();
   // editing Controller
-  final firstNameEditingController = new TextEditingController();
+  final nameEditingController = new TextEditingController();
   final emailEditingController = new TextEditingController();
   final passwordEditingController = new TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
@@ -42,7 +40,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     //first name field
     final firstNameField = TextFormField(
         autofocus: false,
-        controller: firstNameEditingController,
+        controller: nameEditingController,
         keyboardType: TextInputType.name,
         validator: (value) {
           RegExp regex = new RegExp(r'^.{3,}$');
@@ -55,7 +53,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           return null;
         },
         onSaved: (value) {
-          firstNameEditingController.text = value!;
+          nameEditingController.text = value!;
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -85,7 +83,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           return null;
         },
         onSaved: (value) {
-          firstNameEditingController.text = value!;
+          nameEditingController.text = value!;
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -112,7 +110,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           }
         },
         onSaved: (value) {
-          firstNameEditingController.text = value!;
+          nameEditingController.text = value!;
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -243,7 +241,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     // writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;
-    userModel.firstName = firstNameEditingController.text;
+    userModel.name = nameEditingController.text;
 
     await firebaseFirestore
         .collection("users")
@@ -252,71 +250,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
 
-
-
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .collection('clothes')
-        .add({
-        'category' : "Tops",
-        'price' : '0',
-        'brands' : 'sample',
-        'imageURL': 'sample',
-        'selling' : '0',
-      },);
-
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .collection('clothes')
-        .add({
-      'category' : "Bottoms",
-      'price' : '0',
-      'brands' : 'sample',
-      'imageURL': 'sample',
-      'selling' : '0',
-    },);
-
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .collection('clothes')
-        .add({
-      'category' : "Outer",
-      'price' : '0',
-      'brands' : 'sample',
-    'imageURL': 'sample',
-    'selling' : '0',
-    },);
-
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .collection('clothes')
-        .add({
-      'category' : "Accessories",
-      'price' : '0',
-      'brands' : 'sample',
-    'imageURL': 'sample',
-    'selling' : '0',
-    },);
-
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .collection('clothes')
-        .add({
-      'category' : "Footwear",
-      'price' : '0',
-      'brands' : 'sample',
-    'imageURL': 'sample',
-    'selling' : '0',
-    },);
-
     Navigator.pushAndRemoveUntil(
         (context),
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => BottomTabPage()),
             (route) => false);
   }
 }
