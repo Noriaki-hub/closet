@@ -1,257 +1,202 @@
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:closet_app_xxx/model/home/controllers/buy_controller.dart';
+import 'package:closet_app_xxx/model/home/controllers/calender_controller.dart';
+import 'package:closet_app_xxx/model/home/controllers/clothes_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 
-class BuyStep5 extends StatefulWidget {
 
 
-  String? category;
-  File? imageFile;
-  String? brands;
-  String? description;
-  BuyStep5(this.imageFile, this.category, this.brands, this.description);
+class BuyStep5 extends HookConsumerWidget {
 
-  @override
-  State<StatefulWidget> createState() {
-    return _BuyStep5(imageFile, category, brands, description);
-  }
-}
-
-class _BuyStep5 extends State<BuyStep5> {
-
-
-  String? category;
-  File? imageFile;
-  String? brands;
-  String? description;
-
-  _BuyStep5(this.imageFile, this.category, this.brands, this.description);
-
-  String? price;
-  bool? isSell;
+  User? user = FirebaseAuth.instance.currentUser;
 
   final maxLines = 3;
 
 
-  //datePicker
-  DateTime? selectedDate;
-
-  String yearNowPicker() {
-    if (selectedDate == null){
-      selectedDate = DateTime.now();
-    }
-    DateFormat outputFormat = DateFormat('yyyy');
-    String date = outputFormat.format(selectedDate!);
-    return date;
-  }
-
-  String monthNowPicker() {
-    if (selectedDate == null){
-      selectedDate = DateTime.now();
-    }
-    DateFormat outputFormat = DateFormat('MM');
-    String date = outputFormat.format(selectedDate!);
-    return date;
-  }
-
-  String dayNowPicker() {
-    if (selectedDate == null){
-      selectedDate = DateTime.now();
-    }
-    DateFormat outputFormat = DateFormat('dd');
-    String date = outputFormat.format(selectedDate!);
-    return date;
-  }
-
-
-
-  //select PNG
-  String assets = '';
-
-  String _assets(){
-    switch (category) {
-      case ('Tops'):
-        assets = 'images/Tops.png';
-        break;
-      case ('Bottoms'):
-        assets = 'images/Bottoms.png';
-        break;
-      case ('Outer'):
-        assets = 'images/Outer.png';
-        break;
-      case ('Footwear'):
-        assets = 'images/Footwear.png';
-        break;
-      case ('Accessories'):
-        assets = 'images/Accessories.png';
-        break;
-    }
-    return assets;
-  }
-
-
-
-
-
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final items = ref.watch(BuyItemsProvider);
+
+
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(
-            color: Colors.grey,
-          ),
-          title: Text("Confirmation",
-            style: TextStyle(color: Colors.black),
-          ),
-          actions: [
-             SizedBox(
-              height: 50,
-              width: 50,
-              child: InkWell(
-                  onTap: (){
-                    _showDialog2();
-
-                  },
-                  child: Container(
-
-                    child: Center(
-                        child: Text("Cancel",
-                          style :TextStyle(color: Colors.red),
-                        )
-                    ),
-                  )
+            backgroundColor: Colors.brown.shade100,
+            iconTheme: const IconThemeData(
+              color: Colors.grey,
+            ),
+            title: Center(
+              child: Column(
+                children: [
+                  Text('STEP', style: TextStyle(fontSize: 15),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CircleAvatar(
+                        radius: 15,
+                        child: Text('1', style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),),
+                        backgroundColor: Colors.grey.shade400,
+                        foregroundColor: Colors.white,
+                      ),
+                      CircleAvatar(
+                        radius: 15,
+                        child: Text('2', style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),),
+                        backgroundColor: Colors.grey.shade400,
+                        foregroundColor: Colors.white,
+                      ),
+                      CircleAvatar(
+                        radius: 15,
+                        child: Text('3', style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),),
+                        backgroundColor: Colors.grey.shade400,
+                        foregroundColor: Colors.white,
+                      ),
+                      CircleAvatar(
+                        radius: 15,
+                        child: Text('4', style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),),
+                        backgroundColor: Colors.grey.shade400,
+                        foregroundColor: Colors.white,
+                      ),
+                      CircleAvatar(
+                        radius: 18,
+                        child: Text('5', style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),),
+                        backgroundColor: Colors.grey.shade200,
+                        foregroundColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ],
+            actions: [
+              IconButton(onPressed: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
+              }, icon: Icon(Icons.close))
+            ]
         ),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(12),
-                    child: GestureDetector(
-                        child:
-                        CircleAvatar(
-                          radius: 155,
-                          backgroundColor: Colors.black54,
-                          child:  ClipRRect(
-                            borderRadius: BorderRadius.circular(200),
+        body: Container(
+          color: Colors.brown.withOpacity(0.2),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(12),
+                      child: GestureDetector(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
                             child: Container(
-                              color: Colors.white,
-                              child: imageFile != null ?
-                              Image.file(
-                                imageFile!,
-                                width: 300,
-                                height: 300,
-                                fit: BoxFit.fitHeight,
-                              )
-                                  :
-                                  Image.asset(
-                                 _assets(),
-                                    width: 300,
-                                    height: 300,
-                                    fit: BoxFit.fitHeight,
-                                  )
+                                color: Colors.white,
+                                child: Image.file(
+                                  items.imageFile!,
+                                  width: 300,
+                                  height: 300,
+                                  fit: BoxFit.fitHeight,
+                                )
                             ),
                           )
-                        )
-                    ),
-                  ),
-                  Container(
-                    width: 250,
-                    child: TextField(
-                      controller: TextEditingController(text: brands),
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey.shade200,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          )
                       ),
-                      onChanged: (text) {
-                        brands = text;
-                      },
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(12),
-                    height: maxLines * 24.0,
-                    width: 250,
-                    child: TextField(
-                      controller: TextEditingController(text: description),
-                      maxLines: maxLines,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey.shade200,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          )
-                      ),
-                      onChanged: (text) {
-                        description = text;
-                      },
-                    ),
-                  ),
-                  InkWell(
-                    onTap: (){
-                      showDatePicker();
-                    },
-                    child: Container(
-                      child: Center(
-                        child: Text(yearNowPicker() + '/' + monthNowPicker() + '/' + dayNowPicker(),
-                          style: TextStyle(
-                            fontSize: 20
-                          ),
-                        ),
-                      ),
+                    Container(
                       width: 250,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius
-                        .circular(10),
-                        color: Colors.grey.shade200,
-        ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(12),
-                    width: 250,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: '¥',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                              color: Colors.black45,
-                            )
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            )
-                        ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text('ブランド', style: TextStyle(fontSize: 10),),
+                            ],
+                          ),
+                          TextField(
+                            cursorHeight: 10,
+                            controller: TextEditingController(
+                                text: items.brands),
+                            decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(5),
+                                filled: true,
+                                fillColor: Colors.grey.shade200,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                )
+                            ),
+                            onChanged: (text) {
+                              ref.read(BuyItemsProvider.notifier).brands(text);
+                            },
+                          ),
+                        ],
                       ),
-                      onChanged: (text){
-                        price = text;
-                      }
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: OutlinedButton(
-                      child: const Text('Next'),
+                    Container(
+                      margin: EdgeInsets.all(12),
+                      width: 250,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text('詳細', style: TextStyle(fontSize: 10),),
+                            ],
+                          ),
+                          TextField(
+                            cursorHeight: 10,
+                            controller: TextEditingController(
+                                text: items.description),
+                            maxLines: maxLines,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.grey.shade200,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                )
+                            ),
+                            onChanged: (text) {
+                              ref.read(BuyItemsProvider.notifier).description(
+                                  text);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(12),
+                      width: 250,
+                      child: TextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            hintText: '¥',
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                    color: items.price != '' ? Colors.black45
+                                        : Colors.orange
+                                )
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                    color: Colors.black
+                                )
+                            ),
+                          ),
+                          onChanged: (text) {
+                            ref.read(BuyItemsProvider.notifier).price(text);
+                          }
+                      ),
+                    ),
+                    OutlinedButton(
+                      child: const Text('完了'),
                       style: OutlinedButton.styleFrom(
                         primary: Colors.black,
                         shape: RoundedRectangleBorder(
@@ -259,53 +204,27 @@ class _BuyStep5 extends State<BuyStep5> {
                         ),
                         side: const BorderSide(),
                       ),
-                      onPressed: () {
-                        price != null ?
-                            upload()
-                        : _showDialog();
+                      onPressed: () async {
+                        if(items.price != ''){
+                          await ref.read(clothesListProvider.notifier).addClothes();
+                          await ref.read(calenderProvider.notifier).add();
+                          Navigator.popUntil(context, (route) => route.isFirst);
+                        }else{
+                        _showDialog(context);
+                        }
                       },
                     ),
-                  ),
-                ]
+                  ]
+              ),
             ),
           ),
         )
     );
   }
 
-  void showDatePicker()
-  {  showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext builder) {
-        return Container(
-          height: MediaQuery.of(context).copyWith().size.height*0.25,
-          color: Colors.white,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            onDateTimeChanged: (value) {
-              if (value != selectedDate)
-                setState(() {
-                  selectedDate = value;
-                });
-            },
-            initialDateTime: DateTime.now(),
-            minimumYear: 2019,
-            maximumYear: 2022,
-          ),
-        );
-      }
-  );
-  }
 
 
-
-  Future upload() async {
-    int count = 0;
-    await _uploadFirebase();
-    Navigator.popUntil(context, (_) => count++ >= 7);
-  }
-
-  Future _showDialog() {
+  Future _showDialog(context) {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -313,7 +232,7 @@ class _BuyStep5 extends State<BuyStep5> {
         return AlertDialog(
           title: Text("エラー"),
           content: Text("金額を入力してください"), actions: [
-            TextButton(
+          TextButton(
             child: Text("OK"),
             onPressed: () => Navigator.pop(context),
           ),
@@ -322,83 +241,6 @@ class _BuyStep5 extends State<BuyStep5> {
       },
     );
   }
-
-  Future _showDialog2() {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) {
-        return AlertDialog(
-          title: Text("確認"),
-          content: Text("中断しますか？"),
-          actions: [
-          TextButton(
-            child: Text("Yes"),
-            onPressed: () => Navigator.pushNamed(context, 'BuyPage')
-          ),
-            TextButton(
-              child: Text("No"),
-              onPressed: () => Navigator.pop(context),
-            ),
-        ],
-        );
-      },
-    );
-  }
-
-
-  Future _uploadFirebase() async {
-    String? imageURL;
-    String? assetURL;
-
-    imageFile != null ?
-    imageURL = await _uploadImageFile()
-    : imageURL = '';
-
-    imageFile != null ?
-        assetURL = ''
-    : assetURL = _assets();
-
-
-
-    final users = FirebaseFirestore.instance.collection('users');
-    User? user = FirebaseAuth.instance.currentUser;
-    users.doc(user!.uid).collection('clothes').add(
-      {
-        'brands': brands,
-        'price': price,
-        'category': category,
-        'imageURL': imageURL,
-        'assetURL' : assetURL,
-        'description' : description,
-        'year' : yearNowPicker(),
-        'day' : dayNowPicker(),
-        'month': monthNowPicker(),
-        'isSell' : false,
-        'selling': ''
-
-      },
-    );
-  }
-
-
-  Future<String> _uploadImageFile() async {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    final userEmail = user!.email;
-    final storage = FirebaseStorage.instance;
-    TaskSnapshot snapshot = await storage
-        .ref()
-        .child("userinfo/$userEmail/$brands")
-        .putFile(imageFile!);
-    final String downloadUrl =
-    await snapshot.ref.getDownloadURL();
-    return downloadUrl;
-  }
-
-
-
 }
-
 
 

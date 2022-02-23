@@ -17,6 +17,7 @@ abstract class Friends implements _$Friends {
     required String image,
     required String uid,
     required String name,
+    @Default('') String friendState
   }) = _Friends;
 
   factory Friends.empty() => Friends(name: '', image: '', uid: '');
@@ -31,5 +32,7 @@ abstract class Friends implements _$Friends {
     // doc.idがitemIDのため、copyWithでIDをモデルにコピーする
     return Friends.fromJson(data).copyWith(id: doc.id);
   }
+
+  Map<String, dynamic> toDocument() => toJson()..remove('id');
 }
 

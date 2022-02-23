@@ -3,7 +3,6 @@ import 'package:closet_app_xxx/Screen/home/profile_screen/search_profile_screen.
 import 'package:closet_app_xxx/model/CustomExeption.dart';
 import 'package:closet_app_xxx/model/friends/controllers/friends_search_controller.dart';
 import 'package:closet_app_xxx/model/friends/models/friends_search_model.dart';
-import 'package:closet_app_xxx/model/friends/controllers/profileClothesList_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -19,94 +18,87 @@ class FriendsSearchScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
 
-      body: Center(
-        child: Column(
+      body: Container(
+        height: 800,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                  Colors.white60,
+                  BlendMode.dstATop),
+              image: AssetImage('images/people.png'),
+              fit: BoxFit.cover,
+            )),
+        child: Center(
+          child: Column(
 
-          children: [
-            Container(
-              height: 100,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
-              color: Colors.grey.withOpacity(0.1),
-              child: Column(
-                children: [
-                  SizedBox(height: 45,),
-                  Row(
-                      children: [
-                        SizedBox(width: 10,),
+            children: [
+              Container(
+                height: 100,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                color: Colors.grey.withOpacity(0.5),
+                child: Column(
+                  children: [
+                    SizedBox(height: 45,),
+                    Row(
+                        children: [
+                          SizedBox(width: 10,),
 
-                        Container(
-                            height: 35,
-                            width: 300,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: Colors.grey.withOpacity(0.1)
-                            ),
-                            child: Row(
-                                children:
-                                [
-
-
-                                  Icon(Icons.search,
-                                  color: Colors.grey,
-                                  ),
-                                  Flexible(
-                                    child: TextField(
-                                      decoration: InputDecoration(
-                                        hintText: 'ID',
-                                        border: InputBorder.none,
-                                      ),
-                                      onChanged: (text) {
-                                        searchedId = text;
-                                        ref.read(
-                                            searchUserListControllerProvider
-                                                .notifier)
-                                            .getSearchUser(searchedId);
-                                      },
-                                    ),
-                                  ),
-                                ]
-                            )
-
-                        ),
-                        SizedBox(width: 10,),
-                        TextButton(onPressed: () {
-                          Navigator.pop(context,);
-                        },
-                            child: Text("Cancel",
-                              style: TextStyle(
-                                  color: Colors.black
+                          Container(
+                              height: 35,
+                              width: 300,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.grey.withOpacity(0.5)
                               ),
-                            )
-                        )
-                      ]
+                              child: Row(
+                                  children:
+                                  [
 
 
-                  ),
+                                    Icon(Icons.search,
+                                      color: Colors.grey,
+                                    ),
+                                    Flexible(
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          hintText: 'ID',
+                                          border: InputBorder.none,
+                                        ),
+                                        onChanged: (text) {
+                                          searchedId = text;
+                                          ref.read(
+                                              searchUserListControllerProvider
+                                                  .notifier)
+                                              .getSearchUser(searchedId);
+                                        },
+                                      ),
+                                    ),
+                                  ]
+                              )
 
-
-                ],
-              ),
-
-            ),
-
-
-            Expanded(
-              child: Container(
-                
-                child: Center(
-
-                  child: _ItemList(),
+                          ),
+                        ]
+                    ),
+                  ],
                 ),
               ),
-            )
+              Expanded(
+                child: Container(
 
-          ],
+                  child: Center(
+
+                    child: _ItemList(),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
-
     );
   }
 }
@@ -155,14 +147,13 @@ class _ItemTile extends HookConsumerWidget {
     return InkWell(
       onTap: (){
         uid = item.uid;
-        ref.read(clothesListControllerProvider.notifier)
-            .getClothesList(uid);
-
+        // ref.read(clothesListControllerProvider.notifier)
+        //     .getClothesList(uid);
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  ProfileScreen(item.image, item.name, item.id, item.uid),
+                  SearchProfileScreen(item.image, item.name, item.uid),
             )
         );
       },
@@ -211,8 +202,7 @@ class _ItemListError extends HookConsumerWidget {
           SizedBox(height: 20.0),
           ElevatedButton(
               onPressed: () =>
-                  ref
-                      .read(searchUserListControllerProvider.notifier)
+                  ref.read(searchUserListControllerProvider.notifier)
                       .getSearchUser(searchedId),
               child: Text('Retry')
           ),

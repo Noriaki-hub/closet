@@ -1,100 +1,165 @@
 
 import 'package:closet_app_xxx/Screen/home/closet_screen/closet_model.dart';
+import 'package:closet_app_xxx/model/CustomExeption.dart';
+import 'package:closet_app_xxx/model/home/controllers/clothes_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-import 'SellModel.dart';
 
-
-class SellPage extends StatelessWidget {
-
+class SellPage extends HookConsumerWidget {
 
 
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<SellModel>(create: (_) =>
-        SellModel()
-          ..fetchSellClothesList(),
-        ),
-      ],
-      child: Scaffold(
-        body: Center(
-            child: Consumer<SellModel>(builder: (context, model, child) {
-              final List<Closet>? closet2 = model.closet2;
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: SizedBox(
+          height: 50,
+          width: 50,
+          child: InkWell(
+              onTap: () {
+                Navigator.pop(context, true);
+              },
+              child: Container(
 
-              if (closet2 == null) {
-                return CircularProgressIndicator();
-              }
-              final List<Widget> widgets = closet2
-                  .map(
-                    (clothes) =>
-                    ListTile(
-                      title: Text(clothes.brands),
-                      subtitle: Text(clothes.category),
-                      leading: clothes.assetURL != '' ?
-                      Image.asset(clothes.assetURL)
-                          : Image.network(clothes.imageURL, fit: BoxFit.cover,),
-                      onTap: () async{
-                        var result =
-                        await Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) =>
-                                SellPage2(clothes, ),
-                            )
-                        );
-                        if(result){
-                          model.fetchSellClothesList();
-                        }
-                      },
-                    ),
+                child: Center(
+                    child: Text("Back",
+                      style: TextStyle(color: Colors.black),
+                    )
+                ),
               )
-                  .toList();
+          ),
+        ),
+        backgroundColor: Colors.brown.shade50,
+        iconTheme: IconThemeData(
+          color: Colors.grey,
+        ),
 
-              return
-                Scaffold(
-                  appBar: AppBar(
-                    leading: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: InkWell(
-                          onTap: (){
-                            Navigator.pop(context, true);
-                          },
-                          child: Container(
+      ),
+      body: Container(
+        color: Colors.brown.shade50,
+        child: Center(
+            child:
+                _ItemList()
 
-                            child: Center(
-                                child: Text("Back",
-                                  style :TextStyle(color: Colors.black),
-                                )
-                            ),
-                          )
-                      ),
-                    ),
-                    backgroundColor: Colors.white,
-                  iconTheme: IconThemeData(
-                  color: Colors.grey,
-                  ),
-
-                  ),
-                  body: Center(
-                      child:
-                      ListView(
-                        children: widgets,
-                      )
-                  ),
-                );
-            })
         ),
       ),
     );
   }
 }
+
+  class _ItemList extends HookConsumerWidget {
+    const _ItemList({Key? key}) : super(key: key);
+
+    @override
+    Widget build(BuildContext context, WidgetRef ref) {
+      final itemListState = ref.watch(clothesListProvider);
+      return itemListState.when(
+          data: (items) =>
+          items.isEmpty ? Center(
+              child: Icon(Icons.search,
+                size: 200,
+                color: Colors.grey.withOpacity(0.2),
+              )
+          )
+              : ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (BuildContext context, int index) {
+                final item = items[index];
+                return Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: InkWell(
+                    onTap: (){
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                       borderRadius: BorderRadius.circular(10),
+                          color: Colors.grey.withOpacity(0.2),
+                      ),
+                      height: 150,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                    color: Colors.white,
+                                    child: Image.network(
+                                      item.imageURL,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    )
+                                ),
+                              )
+                          ),
+                          Container(
+                            width: 250,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(item.brands, style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12
+                                  ),),
+                                  Container(width:200, height: 80, color: Colors.white.withOpacity(0.3),child: Text(item.description))
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
+          loading: () => Center(child: CircularProgressIndicator()),
+          error: (error, _) =>
+              _ItemListError(message: error is CustomException
+                  ? error.message!
+                  : 'Something went wrong',)
+      );
+    }
+  }
+
+class _ItemListError extends HookConsumerWidget {
+  final String message;
+
+  const _ItemListError({
+    Key? key,
+    required this.message,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            message,
+            style: TextStyle(fontSize: 20.0),
+          ),
+          SizedBox(height: 20.0),
+          // ElevatedButton(
+          //     onPressed: () => ref
+          // .read(clothesListControllerProvider.notifier)
+          // .getClothesList(uid),
+          // child: Text('Retry')
+          // ),
+        ],
+      ),
+    );
+  }
+}
+
 
 class SellPage2 extends StatefulWidget {
 

@@ -1,608 +1,521 @@
-import 'dart:ui';
-
+import 'package:closet_app_xxx/Screen/Auth/login_screen.dart';
+import 'package:closet_app_xxx/Screen/datePicker.dart';
+import 'package:closet_app_xxx/Screen/home/buy_screen/BuyStep1.dart';
+import 'package:closet_app_xxx/Screen/home/calender_screen/calender_screen.dart';
 import 'package:closet_app_xxx/Screen/home/sell_screen/SellPage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:provider/provider.dart';
-import '../../auth/user_model.dart';
+import 'package:closet_app_xxx/model/CustomExeption.dart';
+import 'package:closet_app_xxx/model/auth/current/current_controller.dart';
+import 'package:closet_app_xxx/model/home/controllers/calender_controller.dart';
+import 'package:closet_app_xxx/model/home/controllers/clothes_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../auth/login_screen.dart';
-import 'buy_screen/BuyStep1.dart';
-import 'closet_screen/closet_screen.dart';
-import 'expenses_screen/expenses_list.dart';
-import 'home_screen_model.dart';
-User? current = FirebaseAuth.instance.currentUser;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+import '../../model/User/models/user_model.dart';
+import '../../model/home/controllers/recent_controller.dart';
 
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
 
-class _HomeScreenState extends State<HomeScreen> {
-  UserModel loggedInUser = UserModel();
+class HomeScreen extends HookConsumerWidget {
 
-  @override
-  void initState() {
-    super.initState();
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(current!.uid)
-        .get()
-        .then((value) {
-      this.loggedInUser = UserModel.fromMap(value.data());
-      setState(() {});
-    });
-  }
-
+  PickDate date = PickDate();
 
 
   @override
-  Widget build(BuildContext context) {
-
-    return MultiProvider(providers: [
-      ChangeNotifierProvider<HomeModel>(create: (_) =>
-      HomeModel()
-        ..getNumberAll(),
-
-      ),
-
-    ],
-
-        child: Consumer<HomeModel>(
-            builder: (context, model, child) {
-              final String? clothesNumber = model
-                  .clothes?.length.toString();
-
-              final String? clothesNumberTops = model
-                  .clothesTops?.length
-                  .toString();
-
-              final String? clothesNumberBottoms = model
-                  .clothesBottoms?.length
-                  .toString();
-
-              final String? clothesNumberOuter = model
-                  .clothesOuter?.length
-                  .toString();
-
-              final String? clothesNumberFootwear = model
-                  .clothesFootwear?.length
-                  .toString();
-
-              final String? clothesNumberAccessories = model
-                  .clothesAccessories?.length
-                  .toString();
-
-              if (clothesNumber == null) {
-                return Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: SizedBox(
-                        height: 50,
-                        width: 50,
-                        child: CircularProgressIndicator(
-                          color: Colors.grey,
-                        )
-                    ),
-                  ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(currentUserProvider);
+    return ProviderScope(
+      overrides: [
+        clothesListProvider.overrideWithProvider(clothesListProviderFamily(user.uid))
+      ],
+      child: Scaffold(
+        floatingActionButton: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FloatingActionButton(
+              backgroundColor: Colors.brown.shade50,
+              heroTag:'add',
+              child: Image.asset("images/add.png", height: 35,width: 35,),
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (context) => BuyPage(),
+                    )
                 );
-              }
-
-              if (clothesNumberTops ==
-                  null) {
-                return Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: SizedBox(
-                        height: 50,
-                        width: 50,
-                        child: CircularProgressIndicator(
-                          color: Colors.grey,
-                        )
-                    ),
-                  ),
+              },
+            ),
+            SizedBox(height: 10,),
+            FloatingActionButton(
+              backgroundColor: Colors.brown.shade50,
+              heroTag:'sell',
+              child: Image.asset("images/okane.png", height: 30,width: 30,),
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (context) => SellPage(),
+                    )
                 );
-              }
+              },
+            ),
+            SizedBox(height: 10,),
+            FloatingActionButton(
+              backgroundColor: Colors.brown.shade50,
+              heroTag:'logout',
+              child: Icon(Icons.logout),
+              onPressed: (){
+                logout(context);
+              },
+            ),
+            SizedBox(height: 10,),
+            FloatingActionButton(
+              backgroundColor: Colors.brown.shade50,
+              heroTag:'calender',
+              child: Image.asset("images/calender.png", height: 30,width: 30,),
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (context) => CalenderScreen(),
+                    )
+                );;
+              },
+            ),
+          ],
+        ),
 
-              if (clothesNumberBottoms ==
-                  null) {
-                return Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: SizedBox(
-                        height: 50,
-                        width: 50,
-                        child: CircularProgressIndicator(
-                          color: Colors.grey,
-                        )
-                    ),
-                  ),
-                );
-              }
-
-              if (clothesNumberOuter ==
-                  null) {
-                return Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: SizedBox(
-                        height: 50,
-                        width: 50,
-                        child: CircularProgressIndicator(
-                          color: Colors.grey,
-                        )
-                    ),
-                  ),
-                );
-              }
-
-              if (clothesNumberFootwear ==
-                  null) {
-                return Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: SizedBox(
-                        height: 50,
-                        width: 50,
-                        child: CircularProgressIndicator(
-                          color: Colors.grey,
-                        )
-                    ),
-                  ),
-                );
-              }
-
-              if (clothesNumberAccessories ==
-                  null) {
-                return Container(
-                  color: Colors.white,
-                  child: Center(
-                    child: SizedBox(
-                        height: 50,
-                        width: 50,
-                        child: CircularProgressIndicator(
-                          color: Colors.grey,
-                        )
-                    ),
-                  ),
-                );
-              }
-
-
-              return
-
-                Scaffold(
-                  backgroundColor: Colors.white,
-
-                  body: Column(
-                    children: [
-                      Container(
-                        height: 100,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
-                        color: Colors.grey.withOpacity(0.1),
-                      ),
-                      SizedBox(height: 50,),
-                      Center(
-                        child: SingleChildScrollView(
-                          child: Column(
-
-                            children: <Widget>[
-
-                              InkWell(
-                                onTap: (){
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //       builder: (context) =>
-                                  //           ProfileScreen(),
-                                  //     )
-                                  // );
-
-                                },
-                                child: Container(
-                                  width: 400,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.grey.withOpacity(0.1)
-                                  ),
-                                  child: Container(
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(100),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                            ),
-                                            child: loggedInUser.image == null
-                                                ? CircleAvatar()
-                                                : Image.network(
-                                              loggedInUser.image!,
-                                              width: 100,
-                                              height: 100,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+        body: user.image == '' ?
+            Center(
+              child: Container(
+                height: 100,
+                width: 100,
+                child: Image.asset('images/closet.png')
+              )
+            )
+        :
+        Container(
+          color: Colors.white,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: 900,
+                    width: double.infinity,
+                    decoration:  BoxDecoration(
+                        image: DecorationImage(
+                          colorFilter: ColorFilter.mode(
+                              Colors.white60,
+                              BlendMode.dstATop),
+                          image: AssetImage('images/clo.png'),
+                          fit: BoxFit.cover,
+                        )),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 300,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 100,
+                                  width: double.infinity,
+                                  color: Colors.white.withOpacity(0.5),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: 45,),
+                                      Container(
+                                        width: 400,
+                                        height: 50,
+                                        child: Row(
                                           children: [
-                                            Text("${loggedInUser.name}",
-                                              style: TextStyle(
-                                                color: Colors.black.withOpacity(0.7),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-
+                                            SizedBox(width: 20),
+                                            Text(date.yearNowPicker(),style: TextStyle(
+                                              fontSize: 15,
+                                            ),),
+                                            SizedBox(width: 5,),
+                                            Text(date.monthNowPicker (),style: TextStyle(
+                                              fontSize: 20,
+                                            ),),
+                                            SizedBox(width: 10,),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white.withOpacity(0.5),
+                                                borderRadius: BorderRadius.circular(10)
+                                              ),
+                                              height: 48,
+                                              width: 120,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  Text('Purchased',style: TextStyle(
+                                                    fontSize: 10,),),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      calenderBuy()
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ),
-
-
+                                            SizedBox(width: 20,),
                                             Container(
-                                              width: 200,
-                                              height: 36,
+                                              height: 48,
+                                              width: 120,
                                               decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(
-                                                      10),
-                                                  color: Colors.grey.withOpacity(
-                                                      0.1)),
+                                                  color: Colors.white.withOpacity(0.5),
+                                                  borderRadius: BorderRadius.circular(10)
+                                              ),
                                               child: Column(
-                                                  children: [
-
-
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment
-                                                          .spaceEvenly,
-                                                      children: [
-                                                        Column(
-                                                          children: [
-                                                            Container(
-                                                                width: 20,
-                                                                height: 10,
-                                                                child: Text('ALL'
-                                                                  ,
-                                                                  style: TextStyle(
-                                                                      fontSize: 9
-                                                                  ),
-                                                                )
-                                                            ),
-                                                            Text(clothesNumber)
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          children: [
-                                                            Container(
-                                                                width: 10,
-                                                                height: 10,
-                                                                child: Image.asset(
-                                                                  'images/Tops.png',
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                )
-                                                            ),
-                                                            Text(clothesNumberTops)
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          children: [
-                                                            Container(
-                                                                width: 10,
-                                                                height: 10,
-                                                                child: Image.asset(
-                                                                  'images/Bottoms.png',
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                )
-                                                            ),
-                                                            Text(clothesNumberBottoms)
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          children: [
-                                                            Container(
-                                                                width: 10,
-                                                                height: 10,
-                                                                child: Image.asset(
-                                                                  'images/Outer.png',
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                )
-                                                            ),
-                                                            Text(clothesNumberOuter)
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          children: [
-                                                            Container(
-                                                                width: 10,
-                                                                height: 10,
-                                                                child: Image.asset(
-                                                                  'images/Footwear.png',
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                )
-                                                            ),
-                                                            Text(
-                                                                clothesNumberFootwear)
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          children: [
-                                                            Container(
-                                                                width: 10,
-                                                                height: 10,
-                                                                child: Image.asset(
-                                                                  'images/Accessories.png',
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                )
-                                                            ),
-                                                            Text(
-                                                                clothesNumberAccessories)
-                                                          ],
-                                                        )
-
-                                                      ],
-                                                    )
-
-
-                                                  ]
-                                              ),
-                                            )
-
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(
-                                height: 50,
-                              ),
-
-                              Container(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                        children: [
-                                          InkWell(
-                                              onTap: () async {
-                                                final result = await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          BuyPage(),
-                                                    )
-                                                );
-                                                if (result) {
-                                                  model.getNumberAll();
-
-
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 150,
-                                                height: 150,
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius
-                                                        .circular(20),
-                                                    color: Colors.grey.withOpacity(
-                                                        0.1)
-                                                ),
-                                                child:
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment
-                                                      .center,
-
-                                                  children: [
-                                                    Image.asset("images/buy.png",
-                                                      width: 100,
-                                                      height: 100,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                          ),
-                                          Container(
-                                            child: Center(
-                                                child: Text('Buy', style: TextStyle(
-                                                    fontWeight: FontWeight.bold),)),
-                                          ),
-                                        ]
-                                    ),
-                                    Column(
-                                      children: [
-                                        InkWell(
-                                            onTap: () async{
-                                              final result = await Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SellPage(),
-                                                  )
-                                              );
-                                              if (result){
-
-                                                model.getNumberAll();
-
-
-
-                                              }
-                                            },
-                                            child: Container(
-                                              width: 150,
-                                              height: 150,
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .circular(20),
-                                                  color: Colors.grey.withOpacity(
-                                                      0.1)
-                                              ),
-                                              child:
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment
-                                                    .center,
-
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 children: [
-                                                  Image.asset("images/sell.png",
-                                                    width: 100,
-                                                    height: 100,
-                                                    fit: BoxFit.cover,
+                                                  Text('Sold',style: TextStyle(
+                                                    fontSize: 10,),),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                     calenderSell()
+                                                    ],
                                                   ),
                                                 ],
                                               ),
                                             )
+                                          ],
                                         ),
-                                        Container(
-                                          child: Center(
-                                              child: Text('Sell', style: TextStyle(
-                                                  fontWeight: FontWeight.bold),)),
-                                        )
-                                      ],
+
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+                            Container(
+                              height: 110,
+                              width: double.infinity,
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 10,),
+                                  Container(
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white.withOpacity(0.5)
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .spaceEvenly,
-                                    children: [
-                                      Column(
+                                    child: Center(
+                                      child: Column(
                                         children: [
-                                          InkWell(
-                                              onTap: () async{
-                                                final result = await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ClosetScreen(),
-                                                    )
-                                                );
-                                                if (result){
-
-                                                 model.getNumberAll();
-
-
-
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 150,
-                                                height: 150,
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius
-                                                        .circular(20),
-                                                    color: Colors.grey.withOpacity(
-                                                        0.1)
-                                                ),
-                                                child:
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment
-                                                      .center,
-
-                                                  children: [
-                                                    Image.asset("images/closet.png",
-                                                      width: 100,
-                                                      height: 100,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
+                                          Text(user.name, style: TextStyle(
+                                            fontSize: 20,
+                                          ),),
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(100),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                              ),
+                                              child: Image.network(
+                                                user.image,
+                                                width: 80,
+                                                height: 80,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
                                           ),
-                                          Container(
-                                            child: Center(
-                                                child: Text(
-                                                  'Closet', style: TextStyle(
-                                                    fontWeight: FontWeight.bold),)),
-                                          )
                                         ],
                                       ),
-                                      Column(
-                                        children: [
-                                          InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ExpensesPage(),
-                                                    )
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 150,
-                                                height: 150,
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius
-                                                        .circular(20),
-                                                    color: Colors.grey.withOpacity(
-                                                        0.1)
-                                                ),
-                                                child:
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment
-                                                      .center,
-
-                                                  children: [
-                                                    Image.asset(
-                                                      "images/Expenses.png",
-                                                      width: 100,
-                                                      height: 100,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                          ),
-                                          Container(
-                                            child: Center(child: Text(
-                                              'Expenses', style: TextStyle(
-                                                fontWeight: FontWeight.bold),)),
-                                          )
-                                        ],
-                                      ),
-                                    ]
-                                ),
+                                    ),
+                                  )
+                                ],
                               ),
+                            ),
+                                SizedBox(height: 10,),
+                              ],
+                            ),
+                          ),
 
-
+                          Row(
+                            children: [
+                              SizedBox(width: 5,),
+                              Container(width: 100, decoration : BoxDecoration(
+                                  color: Colors.white.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(10)
+                              ),child: Center(child: Text('Favorite'))),
                             ],
                           ),
-                        ),
+                          Container(height: 200,width: double.infinity,child: Recent()),
+
+                          SizedBox(height: 60,),
+
+                          Row(
+                            children: [
+                              SizedBox(width: 5,),
+                              Container(width: 100, decoration : BoxDecoration(
+                                  color: Colors.white.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(10)
+                              ),child: Center(child: Text('Recent'))),
+                            ],
+                          ),
+                          Container(height: 200,width: double.infinity,child: Recent())
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                );
-            }
-        )
+                  SizedBox(height: 40,),
+                  Container(
+                    height: 700,
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          ClosetController(user: user),
+                          Expanded(child: _ItemList())
+                        ],
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+Future<void> logout(BuildContext context) async {
+  await FirebaseAuth.instance.signOut();
+  Navigator.of(context).pushReplacement(
+
+      MaterialPageRoute(builder: (context) => LoginPage(),
+        fullscreenDialog: true,
+      ));
+}
+
+class calenderBuy extends HookConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final listState = ref.watch(calenderProvider);
+    return listState.when(
+      data : (items) {
+        double sum = 0;
+      if(items.isNotEmpty){
+        sum = items.map<double>((clothes) => double.parse(clothes.price))
+          .reduce((curr, next) => curr + next);
+      }
+      return Text(sum.floor().toString(),style: TextStyle(fontSize: 15,));
+    },
+      loading: () => Center(child: CircularProgressIndicator()),
+      error: (error, _) =>
+          _ItemListError(
+            message: error is CustomException
+                ? error.message!
+                : 'Something went wrong',
+          ),
+    );
+  }
+}
+
+
+class calenderSell extends HookConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final listState = ref.watch(calenderSellProvider);
+    return listState.when(
+      data : (items) {
+      double sum = 0;
+      if(items.isNotEmpty){
+        sum = items.map<double>((clothes) => double.parse(clothes.selling))
+            .reduce((curr, next) => curr + next);
+      }
+      return Text(sum.floor().toString(),style: TextStyle(fontSize: 15,));
+    },
+      loading: () => Center(child: CircularProgressIndicator()),
+      error: (error, _) =>
+          _ItemListError(
+            message: error is CustomException
+                ? error.message!
+                : 'Something went wrong',
+          ),
+    );
+  }
+}
+
+class Recent extends HookConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final itemListState = ref.watch(recentListProvider);
+    return itemListState.when(
+      data: (items) =>
+      items.isEmpty ?
+      Container() :
+      Container(
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: items.length >= 4 ? 4 : items.length,
+          itemBuilder: (BuildContext context, int index) {
+            final item = items[index];
+            return Padding(
+                padding: const EdgeInsets.all(20),
+                child: GestureDetector(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        width: 120,
+                          color: Colors.white,
+                          child: Image.network(
+                            item.imageURL,
+                            fit: BoxFit.cover,
+                          )
+                      ),
+                    )
+                )
+            );
+          },
+        ),
+      ),
+      loading: () => Center(child: CircularProgressIndicator()),
+      error: (error, _) =>
+          _ItemListError(
+            message: error is CustomException
+                ? error.message!
+                : 'Something went wrong',
+          ),
+    );
+  }
+}
+
+class ClosetController extends HookConsumerWidget {
+
+  ClosetController ({required this.user, Key? key}) : super(key: key);
+  final UserModel user;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      width: double.infinity,
+      height: 50,
+      decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.8)
+      ),
+      child: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              OutlineButton(
+                child: const Text('All'),
+                onPressed: () {
+                  ref.read(clothesListProvider.notifier).fetchClothesList(userId: user.uid);
+                },
+              ),
+              OutlineButton(
+                child: const Text('Tops'),
+                onPressed: () {
+                  ref.read(clothesListProvider.notifier).fetchClothesListCategory(category: 'Tops', userId: user.uid);
+                },
+              ),
+              OutlineButton(
+                child: const Text('Bottoms'),
+                onPressed: () {
+                  ref.read(clothesListProvider.notifier).fetchClothesListCategory(category: 'Bottoms', userId: user.uid);
+                },
+              ),
+              OutlineButton(
+                child: const Text('Outer'),
+                onPressed: () {
+                  ref.read(clothesListProvider.notifier).fetchClothesListCategory(category: 'Outer', userId: user.uid);
+                },
+              ),
+              OutlineButton(
+                child: const Text('Footwear'),
+                onPressed: () {
+                  ref.read(clothesListProvider.notifier).fetchClothesListCategory(category: 'Footwear', userId: user.uid);
+                },
+              ),
+              OutlineButton(
+                child: const Text('Accessories'),
+                onPressed: () {
+                  ref.read(clothesListProvider.notifier).fetchClothesListCategory(category: 'Accessories', userId: user.uid);
+                },
+              ),
+            ]
+            ,
+          ),
+        ),
+      )
+      ,
     );
   }
 
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()));
-  }
-
-
 }
+
+
+  class _ItemList extends HookConsumerWidget {
+  const _ItemList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final itemListState = ref.watch(clothesListProvider);
+    return itemListState.when(
+        data: (items) => items.isEmpty ?
+            Container(child: Text('empty'),):
+        GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 5,
+              childAspectRatio: 0.765
+          ),
+          itemCount: items.length,
+          itemBuilder: (BuildContext context, int index) {
+            final item = items[index];
+            return GridTile(
+              child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  child: Image.network(item.imageURL,fit: BoxFit.contain,)),
+            );
+          },
+        ),
+      loading: () => Center(child: CircularProgressIndicator()),
+      error: (error, _) => _ItemListError(
+        message: error is CustomException ? error.message! : 'Something went wrong',
+      ),
+    );
+  }
+}
+
+
+class _ItemListError extends HookConsumerWidget {
+  final String message;
+
+  const _ItemListError({
+    Key? key,
+    required this.message,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            message,
+            style: TextStyle(fontSize: 20.0),
+          ),
+          SizedBox(height: 20.0),
+          ElevatedButton(
+              onPressed: () =>
+                  ref.read(clothesListProvider),
+              child: Text('Retry')
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
 

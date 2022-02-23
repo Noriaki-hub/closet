@@ -27,7 +27,7 @@ class SearchUserController extends StateNotifier<AsyncValue<List<FriendsSearch>>
     String? searchedId;
   final Reader _read;
 
-  SearchUserController(this._read,  this.searchedId) : super(AsyncValue.loading()){
+  SearchUserController(this._read,  this.searchedId) :  super(AsyncValue.loading()) {
     if(searchedId != null) {
       getSearchUser(searchedId);
     }else{
