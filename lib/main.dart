@@ -1,13 +1,19 @@
 
-import 'package:closet_app_xxx/Screen/Auth/login_screen.dart';
 import 'package:closet_app_xxx/Screen/Tab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 
-
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  scopes: <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
 
 
 void main()
@@ -19,10 +25,10 @@ async {
 
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends HookConsumerWidget{
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ProviderScope(
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -44,7 +50,7 @@ class MyApp extends StatelessWidget {
               return BottomTabPage();
             }
 
-            return LoginPage();
+            return BottomTabPage();
           },
         ),
 

@@ -1,12 +1,13 @@
 
-import 'package:closet_app_xxx/Screen/friends/friends_search_screen.dart';
-import 'package:closet_app_xxx/Screen/shop_screen/shop_screen.dart';
+import 'package:closet_app_xxx/Screen/home/home_page.dart';
+import 'package:closet_app_xxx/Screen/news/news_screen.dart';
+import 'package:closet_app_xxx/Screen/shop/shop_screen.dart';
 import 'package:closet_app_xxx/Screen/timeline/timeline_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 
-import 'friends/friends_screen.dart';
-import 'home/home_screen.dart';
+import 'friends/follow_tab.dart';
 
 
 class BottomTabPage extends StatefulWidget {
@@ -21,11 +22,10 @@ class _BottomTabPageState extends State<BottomTabPage> {
   int _currentIndex = 0;
   final _pageWidgets = [
     TimeLineScreen(),
+    FollowTab(),
+    HomePage(),
+    NewsScreen(),
     ShopScreen(),
-    FriendsScreen(),
-    FriendsSearchScreen(),
-    HomeScreen()
-
   ];
 
   @override
@@ -35,11 +35,11 @@ class _BottomTabPageState extends State<BottomTabPage> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey.shade200,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.perm_media_outlined), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart),label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.supervisor_account_rounded),label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search),label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: ''),
+          BottomNavigationBarItem(icon: Icon(LineIcons.stream), label: 'タイムライン'),
+          BottomNavigationBarItem(icon: Icon(LineIcons.userFriends),label: 'フォロー'),
+          BottomNavigationBarItem(icon: Icon(LineIcons.home),label: 'ホーム'),
+          BottomNavigationBarItem(icon: Icon(LineIcons.newspaper), label: 'メディア'),
+          BottomNavigationBarItem(icon: Icon(LineIcons.shoppingCart),label: 'ショップ'),
         ],
         currentIndex: _currentIndex,
         fixedColor: Colors.white,

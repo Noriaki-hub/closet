@@ -1,102 +1,78 @@
-
-import 'package:closet_app_xxx/Screen/home/profile_screen/search_profile_screen.dart';
-import 'package:closet_app_xxx/model/CustomExeption.dart';
-import 'package:closet_app_xxx/model/friends/controllers/friends_search_controller.dart';
-import 'package:closet_app_xxx/model/friends/models/friends_search_model.dart';
+import 'package:closet_app_xxx/Screen/friends/follow_button.dart';
+import 'package:closet_app_xxx/Screen/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:line_icons/line_icons.dart';
+
+import '../../controllers/pages/user_search_page_controller.dart';
 
 
-String? searchedId;
-String uid = '';
-
-
-class FriendsSearchScreen extends HookConsumerWidget {
+class FriendsSearchScreen extends StatelessWidget{
 
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context,) {
     return Scaffold(
+      backgroundColor:  Colors.brown.shade50,
+      appBar: AppBar(
+        backgroundColor: Colors.brown.shade50,
+        leading: IconButton(icon: Icon(Icons.close), onPressed: () {  Navigator.pop(context,true);},
 
-      body: Container(
-        height: 800,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-              colorFilter: ColorFilter.mode(
-                  Colors.white60,
-                  BlendMode.dstATop),
-              image: AssetImage('images/people.png'),
-              fit: BoxFit.cover,
-            )),
-        child: Center(
-          child: Column(
+        ),
+      ),
 
-            children: [
-              Container(
-                height: 100,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                color: Colors.grey.withOpacity(0.5),
-                child: Column(
-                  children: [
-                    SizedBox(height: 45,),
-                    Row(
-                        children: [
-                          SizedBox(width: 10,),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                          Container(
-                              height: 35,
-                              width: 300,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Colors.grey.withOpacity(0.5)
-                              ),
-                              child: Row(
-                                  children:
-                                  [
-
-
-                                    Icon(Icons.search,
-                                      color: Colors.grey,
-                                    ),
-                                    Flexible(
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                          hintText: 'ID',
-                                          border: InputBorder.none,
-                                        ),
-                                        onChanged: (text) {
-                                          searchedId = text;
-                                          ref.read(
-                                              searchUserListControllerProvider
-                                                  .notifier)
-                                              .getSearchUser(searchedId);
-                                        },
-                                      ),
-                                    ),
-                                  ]
-                              )
-
+          children: [
+            SizedBox(height: 20,),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 40,
+                  child: Consumer(
+                    builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                      return TextFormField(
+                        textAlignVertical: TextAlignVertical.bottom,
+                        onChanged: (text) {
+                          ref.read(UserSearchProvider.notifier)
+                              .changeSearchId(searchId: text);
+                        },
+                        decoration: const InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
                           ),
-                        ]
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Container(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.blueGrey,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          hintText: 'さがす',
+                          hintStyle: TextStyle(fontWeight: FontWeight.w100),
+                          prefixIcon: Icon(
+                            Icons.search,
+                          ),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.redAccent)),
+                        ),
+                      );
+                    },
 
-                  child: Center(
-
-                    child: _ItemList(),
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            Expanded(
+              child: _ItemList()
+            )
+          ],
         ),
       ),
     );
@@ -104,114 +80,43 @@ class FriendsSearchScreen extends HookConsumerWidget {
 }
 
 class _ItemList extends HookConsumerWidget {
-  const _ItemList ({Key? key}) : super(key: key);
+  const _ItemList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemListState = ref.watch(searchUserListControllerProvider);
-    final filteredItemList = ref.watch(filteredUserListProvider);
-    return itemListState.when(
-      data: (items) => items.isEmpty ? Center(
-        child: Icon(Icons.search,
-          size: 200,
-          color: Colors.grey.withOpacity(0.2),
-        )
-      )
-          : ListView.builder(
-          itemCount: filteredItemList.length,
-          itemBuilder: (BuildContext context, int index) {
+    final searchedUser = ref.watch(
+        UserSearchProvider.select((value) => value.searchedUsers));
+    return ListView.builder(
+        itemCount: searchedUser.length,
+        itemBuilder: (BuildContext context, int index) {
+          final user = searchedUser[index];
 
-            final item = filteredItemList[index];
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(userId: user.uid,)));
+              },
+              child: ListTile(
+                title: Text(user.name),
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Container(
+                    decoration: BoxDecoration(
 
-            return ProviderScope(
-              overrides: [_currentItem.overrideWithValue(item)],
-              // アイテムタイルの表示
-              child: _ItemTile(),
-            );
-          }),
-      loading: () => Center(child: CircularProgressIndicator()),
-      error: (error, _) => _ItemListError(
-        message: error is CustomException ? error.message! : 'Something went wrong',
-      ),
-    );
-  }
-}
-final _currentItem = Provider<FriendsSearch>((_) => throw UnimplementedError());
-// アイテムタイル
-class _ItemTile extends HookConsumerWidget {
-  const _ItemTile({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final item = ref.watch(_currentItem);
-    return InkWell(
-      onTap: (){
-        uid = item.uid;
-        // ref.read(clothesListControllerProvider.notifier)
-        //     .getClothesList(uid);
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  SearchProfileScreen(item.image, item.name, item.uid),
-            )
-        );
-      },
-      child: ListTile(
-        title: Text(item.name),
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: Container(
-            decoration: BoxDecoration(
-
+                    ),
+                    child: Image.network(
+                      user.image,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                trailing: FollowButton(userId: user.uid),
+              ),
             ),
-            child: item.image == ''
-                ? Image.asset('images/user.png')
-                : Image.network(
-              item.image,
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ),
-    );
+          );
+        });
   }
 }
-
-
-class _ItemListError extends HookConsumerWidget {
-  final String message;
-
-  const _ItemListError({
-    Key? key,
-    required this.message,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            message,
-            style: TextStyle(fontSize: 20.0),
-          ),
-          SizedBox(height: 20.0),
-          ElevatedButton(
-              onPressed: () =>
-                  ref.read(searchUserListControllerProvider.notifier)
-                      .getSearchUser(searchedId),
-              child: Text('Retry')
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
-
-
