@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../controllers/pages/media_page_controller.dart';
 import '../../controllers/pages/shop_page_controller.dart';
+import 'mediaAdd/media_add_screen.dart';
 
 
-class ShopScreen extends StatelessWidget {
+class MediaScreen extends StatelessWidget {
 
 
   @override
@@ -19,28 +21,29 @@ class ShopScreen extends StatelessWidget {
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
             return FloatingActionButton(
               onPressed: () async {
-                final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ShopAddScreen()));
+                final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => MediaAddScreen()));
                 if(result){
-                  ref.read(ShopPageProvider.notifier).fetchShops();
+                  ref.read(MediaPageProvider.notifier).fetchMedias();
                 }
               },
+
               backgroundColor: Colors.brown.shade50,
               child: Icon(LineIcons.plus),
             );
           },
         ),
         backgroundColor: Colors.brown.shade50,
-        body: ShopList()
+        body: MediaList()
     );
   }
 }
 
-class ShopList extends HookConsumerWidget{
+class MediaList extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-   final shops = ref.watch(ShopPageProvider.select((value) => value.shops));
+   final medias = ref.watch(MediaPageProvider.select((value) => value.medias));
    return GridView.builder(
-         itemCount: shops.length,
+         itemCount: medias.length,
 
            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
              crossAxisCount: 2,
@@ -49,19 +52,19 @@ class ShopList extends HookConsumerWidget{
                childAspectRatio: 0.9
        ),
            itemBuilder: (BuildContext context, int index) {
-            final shop = shops[index];
+            final media = medias[index];
              return Padding(
                padding: const EdgeInsets.all(20),
                child: Column(
                  children: [
                    InkWell(
                      onTap: (){
-                       Navigator.push(context, MaterialPageRoute(builder: (context) => ShopWebViewScreen(shop.url)));
+                       Navigator.push(context, MaterialPageRoute(builder: (context) => ShopWebViewScreen(media.url)));
                      },
-                     child:  Image.network(shop.image, fit: BoxFit.contain,),
+                     child:  Image.network(media.image, fit: BoxFit.contain,),
                    ),
 
-                   Text(shop.name)
+                   Text(media.name)
                  ],
                ),
              );

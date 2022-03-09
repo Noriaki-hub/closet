@@ -1,8 +1,8 @@
+import 'package:closet_app_xxx/Screen/home/clothes_view_screen.dart';
 import 'package:closet_app_xxx/controllers/pages/home_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../myPage_screen/EditClothes_Screen.dart';
 
 class Closet extends HookConsumerWidget{
   @override
@@ -22,13 +22,18 @@ class Closet extends HookConsumerWidget{
             itemBuilder: (BuildContext context, int index) {
               final item = closet[index];
               return InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return EditClothesScreen(clothes: item);}));
+                  onTap: () async{
+                    final result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return ClothesViewScreen(itemId: item.itemId);}));
+                    if(result){
+                      ref.read(HomePageProvider.notifier).fetchHomePageData();
+
+                    }
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
+                    child:
+                    Image.network(
                       item.imageURL,
                       fit: BoxFit.cover,
                     ),

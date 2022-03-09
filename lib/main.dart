@@ -1,5 +1,7 @@
 
 import 'package:closet_app_xxx/Screen/Tab.dart';
+import 'package:closet_app_xxx/Screen/login/login_screen.dart';
+import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +52,7 @@ class MyApp extends HookConsumerWidget{
               return BottomTabPage();
             }
 
-            return BottomTabPage();
+            return LoginScreen();
           },
         ),
 

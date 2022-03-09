@@ -81,21 +81,19 @@ class BuyPageController extends StateNotifier<BuyPageState> {
   }
 
 
-  Future<void> day() async {
-    DateFormat outputFormat = DateFormat('dd');
-    state = state.copyWith(day: outputFormat.format(state.created));
-  }
-
-  Future<void> month() async {
-    DateFormat outputFormat = DateFormat('mm');
-    state = state.copyWith(month: outputFormat.format(state.created));
-  }
+  Future<void> selectDate({required DateTime selectedDate}) async {
+    DateFormat yearFormat = DateFormat('yyyy');
+    DateFormat monthFormat = DateFormat('MM');
+    DateFormat dayFormat = DateFormat('dd');
 
 
-  Future<void> year() async {
-    DateFormat outputFormat = DateFormat('yyyy');
-    state = state.copyWith(year: outputFormat.format(state.created));
+    state = state.copyWith(year: yearFormat.format(selectedDate));
+
+    state = state.copyWith(month: monthFormat.format(selectedDate));
+
+    state = state.copyWith(day: dayFormat.format(selectedDate));
   }
+
 
 
   Future<String> _uploadImageFile(brands, imageFile) async {

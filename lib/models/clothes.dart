@@ -23,7 +23,8 @@ class Clothes with _$Clothes {
     @Default('') String sellingDay,
     @Default('') String sellingMonth,
     @Default('') String sellingYear,
-    @Default(false)bool isSell
+    @Default(false)bool isSell,
+    @Default(false)bool isFavorite
   }) = _Clothes;
 
 

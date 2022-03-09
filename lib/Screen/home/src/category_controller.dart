@@ -16,16 +16,15 @@ class ClosetController extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isSell = ref.watch(HomePageProvider.select((value) => value.isSell));
     return Container(
       width: double.infinity,
       height: 50,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: movies.length,
-        itemBuilder: (BuildContext context, int index) {
-          final text = movies[index]['カテゴリー'];
-          final category = movies[index]['category'];
-          return Padding(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          isSell ?
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
@@ -33,16 +32,58 @@ class ClosetController extends HookConsumerWidget {
                   borderRadius: BorderRadius.circular(10), //角の丸み
                 ),
                 side: const BorderSide(
-                    color: Colors.black45
+                    color: Colors.blue
                 ),
               ),
-              child: Text(text, style: TextStyle(color: Colors.black),),
-              onPressed: () async{
-                await ref.read(HomePageProvider.notifier).changeCategory(category: category);
+              child: Text('売却したもの', style: TextStyle(color: Colors.black),), onPressed: () async{
+              await ref.read(HomePageProvider.notifier).isSellFalse();
+            },
+            ),
+          ):
+      Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10), //角の丸み
+          ),
+          side: const BorderSide(
+              color: Colors.brown
+          ),
+        ),
+        child: Text('クローゼット', style: TextStyle(color: Colors.black),), onPressed: () async{
+          await ref.read(HomePageProvider.notifier).isSellTrue();
+        },
+      ),
+    ),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: movies.length,
+              itemBuilder: (BuildContext context, int index) {
+                final text = movies[index]['カテゴリー'];
+                final category = movies[index]['category'];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), //角の丸み
+                      ),
+                      side: const BorderSide(
+                          color: Colors.black45
+                      ),
+                    ),
+                    child: Text(text, style: TextStyle(color: Colors.black),),
+                    onPressed: () async{
+                      await ref.read(HomePageProvider.notifier).changeCategory(category: category);
+                    },
+                  ),
+                );
               },
             ),
-          );
-        },
+          ),
+        ],
       )
       ,
     );

@@ -1,27 +1,27 @@
 
-import 'package:closet_app_xxx/Screen/home/sell_screen/src/sell_step1.dart';
-import 'package:closet_app_xxx/Screen/home/sell_screen/src/sell_step2.dart';
-import 'package:closet_app_xxx/Screen/home/sell_screen/src/sell_step3.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:closet_app_xxx/Screen/media/mediaAdd/src/media_add_step1.dart';
+import 'package:closet_app_xxx/Screen/media/mediaAdd/src/media_add_step2.dart';
+import 'package:closet_app_xxx/Screen/media/mediaAdd/src/media_add_step3.dart';
 import 'package:cupertino_stepper/cupertino_stepper.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../../../controllers/pages/sell_page_controller.dart';
+import '../../../controllers/pages/media_add_page_controller.dart';
 
-class SellStepScreen extends StatefulWidget {
-  const SellStepScreen({Key? key}) : super(key: key);
+class MediaAddScreen extends StatefulWidget {
+  const MediaAddScreen({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _SellStepScreen();
+    return _MediaAddScreen();
   }
 
 
 
 }
-class _SellStepScreen extends State<SellStepScreen> {
+class _MediaAddScreen extends State<MediaAddScreen> {
   int currentStep = 0;
   bool hide = true;
 
@@ -31,37 +31,36 @@ class _SellStepScreen extends State<SellStepScreen> {
   Widget build(BuildContext context,) {
     return Consumer(
         builder: (context, ref, _) {
-          final items = ref.watch(SellPageProvider);
-          if(items.selling != '' && items.selectedClothes != null && items.sellingDay != ''){
+          final items = ref.watch(MediaAddPageProvider);
+          if(items.url != '' && items.name != '' && items.imageFile != null
+          ){
             itemState = true;
           }else{
             itemState = false;
           }
           return Scaffold(
               floatingActionButton:
-                  itemState ?
-                    FloatingActionButton(
-                        child: Text('OK'),
-                        backgroundColor: Colors.blueGrey,
-                        onPressed: () async{
-                          await ref.read(SellPageProvider.notifier).sellClothes();
-
-                          // await ref.read(CalendarPageProvider.notifier).();
-                          Navigator.pop(context, true);
-                        }
-                    )
-                  :
-                  FloatingActionButton(
-                      child: Icon(LineIcons.angleDown),
-                      backgroundColor: Colors.brown.shade50,
-                      onPressed: () {
-                        if(currentStep < 4 ){
-                          setState(() {
-                            currentStep += 1;
-                          });
-                        }
-                      }
-                  ),
+              itemState ?
+              FloatingActionButton(
+                  child: Text('OK'),
+                  backgroundColor: Colors.blueGrey,
+                  onPressed: () async{
+                    await ref.read(MediaAddPageProvider.notifier).addMedia();
+                    // await ref.read(CalendarPageProvider.notifier).();
+                    Navigator.pop(context, true);
+                  }
+              ):
+              FloatingActionButton(
+                  child: Icon(LineIcons.angleDown),
+                  backgroundColor: Colors.brown.shade50,
+                  onPressed: () {
+                    if(currentStep < 4 ){
+                      setState(() {
+                        currentStep += 1;
+                      });
+                    }
+                  }
+              ),
 
 
 
@@ -100,23 +99,20 @@ class _SellStepScreen extends State<SellStepScreen> {
                       });
                     },
                     steps: <Step>[
-
                       Step(
-                        isActive: items.selectedClothes != null,
-                        title: Text('選ぶ'),
-                        content: SellStep1(),
+                          isActive: items.imageFile != null,
+                          title: Text('画像'),
+                          content: MediaAddStep1()
                       ),
-
                       Step(
-                        isActive: items.selling != '',
-                        title: Text('売却額'),
-                        content: SellStep2(),
+                          isActive: items.name != '',
+                          title: Text('メディア名'),
+                          content: MediaAddStep2()
                       ),
-
                       Step(
-                        isActive: items.sellingDay != '',
-                        title: Text('日付'),
-                        content: SellStep3(),
+                          isActive: items.url != '',
+                          title: Text('メディアURL'),
+                          content: MediaAddStep3()
                       ),
 
                     ],

@@ -20,21 +20,27 @@ class _ItemRepository {
     final _fireStore = await _read(firebaseFirestoreProvider);
     final _currentUser = await _read(firebaseAuthProvider).currentUser;
 
-    final user = await _fireStore
+    final snap = await _fireStore
         .collection('users')
         .doc(_currentUser?.uid)
         .get()
         .then((DocumentSnapshot<Map<String, dynamic>> doc) {
       return UserModel.fromDocument(doc);
     });
-    return user;
+    return snap;
   }
 
-  // Future<void> login({required LoginPageState loginUser}) async {
-  //
-  //   await _read(firebaseAuthProvider).signInWithEmailAndPassword(
-  //     email: loginUser.email,
-  //     password: loginUser.password,
-  //   );
-  // }
+  Future<void> register({required UserModel user, }) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+   await _fireStore.collection("users").doc(user.uid).set(
+        {
+          'email' : user.email,
+          'uid' : user.uid,
+          'image' : user.image,
+          'name' : user.name,
+          'id' : ''
+
+        }
+    );
+  }
 }

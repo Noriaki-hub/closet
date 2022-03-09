@@ -23,6 +23,7 @@ class HomePageState with _$HomePageState {
     @Default('') String month,
     @Default(false) bool isSell,
     @Default('ALL') String category,
+    @Default('') String accountImage
   }) = _HomePageState;
 
 }
@@ -46,15 +47,17 @@ final HomePageProviderFamily = StateNotifierProvider.family.autoDispose<
   return HomePageController(
     ref.read,
     userId: arg.userId ?? user.uid,
+    accountImage: user.image,
   );
 });
 
 class HomePageController extends StateNotifier<HomePageState> {
-  HomePageController(this._read, {required String userId, })  : _userId = userId, super(const HomePageState()) {
+  HomePageController(this._read, {required String userId, required String accountImage})  : _userId = userId, _accountImage = accountImage, super(const HomePageState()) {
     _init();
   }
   final String _userId;
   final Reader _read;
+  final String _accountImage;
 
   Future<void> _init() async {
     fetchHomePageData();
@@ -74,6 +77,7 @@ class HomePageController extends StateNotifier<HomePageState> {
         selling: selling,
         year: date.year,
         month: date.month,
+        accountImage: _accountImage
     );
   }
 
@@ -81,6 +85,16 @@ class HomePageController extends StateNotifier<HomePageState> {
   Future<void> changeCategory({required String category}) async {
     final List<Clothes> closet = await _read(homeRepositoryProvider).fetchClosetAll(isSell: state.isSell, userId: _userId, category: category);
     state = state.copyWith( closet: closet);
+  }
+
+  Future<void> isSellTrue() async {
+    state = state.copyWith(isSell: true);
+    fetchHomePageData();
+  }
+
+  Future<void> isSellFalse() async {
+    state = state.copyWith(isSell: false);
+    fetchHomePageData();
   }
 
 
