@@ -16,18 +16,16 @@ class homeRepository {
       {required String userId, required bool isSell, required String category}) async {
     final snap = category == 'ALL' ?
     await _read(firebaseFirestoreProvider)
-        .collection("users").doc(userId)
         .collection('clothes')
-        .where('isSell', isEqualTo: isSell)
+        .where('isSell', isEqualTo: isSell).where('uid', isEqualTo: userId)
         .get() :
     await _read(firebaseFirestoreProvider)
-        .collection("users").doc(userId)
         .collection('clothes')
         .where('isSell', isEqualTo: isSell).where(
-        'category', isEqualTo: category).get();
+        'category', isEqualTo: category).where('uid', isEqualTo: userId).get();
 
 
-    return snap.docs.map((doc) => Clothes.fromDocument(doc)).toList();
+    return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
   }
 
 
@@ -36,12 +34,11 @@ class homeRepository {
       {required String userId,  required bool isSell}) async {
     final snap =
     await _read(firebaseFirestoreProvider)
-        .collection("users").doc(userId)
         .collection('clothes')
         .where('isSell', isEqualTo: isSell)
-        .where('isFavorite', isEqualTo: true).get();
+        .where('isFavorite', isEqualTo: true).where('uid', isEqualTo: userId).get();
 
-    return snap.docs.map((doc) => Clothes.fromDocument(doc)).toList();
+    return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
   }
 
   Future<String> fetchThisMonthBuying(
@@ -52,10 +49,11 @@ class homeRepository {
      double sum = 0;
 
      await _read(firebaseFirestoreProvider)
-        .collection("users").doc(userId)
         .collection('clothes')
         .where('isSell', isEqualTo: false)
-        .where('year', isEqualTo: date.year).where('month', isEqualTo: date.month).get()
+        .where('year', isEqualTo: date.year)
+         .where('month', isEqualTo: date.month)
+         .where('uid', isEqualTo: userId).get()
     .then((snapshot) => {
       snapshot.docs.forEach((doc) {
         list.add(doc.data()['price']);
@@ -81,10 +79,11 @@ class homeRepository {
     double sum = 0;
 
     await _read(firebaseFirestoreProvider)
-        .collection("users").doc(userId)
         .collection('clothes')
         .where('isSell', isEqualTo: true)
-        .where('sellingYear', isEqualTo: date.year).where('sellingMonth', isEqualTo: date.month).get()
+        .where('sellingYear', isEqualTo: date.year)
+        .where('sellingMonth', isEqualTo: date.month)
+        .where('uid', isEqualTo: userId).get()
         .then((snapshot) => {
       snapshot.docs.forEach((doc) {
         list.add(doc.data()['selling']);

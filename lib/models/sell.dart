@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'libs/timestamp_converter.dart';
+
 part 'sell.freezed.dart';
 
 @freezed
@@ -10,15 +12,13 @@ class Sell with _$Sell {
   const Sell._();
 
   const factory Sell({
-    DateTime? selectedDate,
-    @Default('')String itemId,
-    @Default('')String description,
-    @Default('')String brands,
-    @Default('')String image,
-    @Default('')String selling,
-    @Default('')String day,
-    @Default('')String month,
-    @Default('')String year,
+    @FireTimestampConverterNonNull() required DateTime createdSell,
+    @Default('') String itemId,
+    @Default('') String selling,
+    @Default('') String sellingDay,
+    @Default('') String sellingMonth,
+    @Default('') String sellingYear,
+    @Default(false)bool isSell,
   }) = _Sell;
 
 }

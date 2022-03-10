@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../models/buy.dart';
 import '../models/libs/Firebase_providers.dart';
 import '../models/clothes.dart';
 import '../models/user.dart';
@@ -12,9 +14,14 @@ class buyRepository {
 
   const buyRepository(this._read);
 
-  Future<void> add({required Clothes clothes, required UserModel user}) async {
-      await _read(firebaseFirestoreProvider)
-          .collection("users").doc(user.uid)
-          .collection('clothes').add(clothes.toDocument());
+  Future<void> add({required Buy clothes, required UserModel user}) async {
+      final ref = await _read(firebaseFirestoreProvider)
+          .collection('clothes');
+      final id = ref.doc().id;
+      await ref.doc(id).set(<String, dynamic>{
+        ...clothes.toJson(),
+        'itemId' : id,
+        'createdBuy': Timestamp.fromDate(clothes.createdBuy),
+      });
   }
 }

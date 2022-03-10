@@ -1,3 +1,4 @@
+import 'package:closet_app_xxx/Screen/timeline/src/time_line_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,9 +13,15 @@ class TimeLineScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.brown.shade50,
 
+      body: Center(
+        child: TimeLineList(),
+      ),
+
     );
   }
 }
+
+
 
 
 

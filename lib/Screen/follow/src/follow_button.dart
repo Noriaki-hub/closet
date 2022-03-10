@@ -1,3 +1,4 @@
+import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/controllers/pages/follow_button_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +28,27 @@ class FollowButton extends StatelessWidget {
   }
 }
 
-class _FollowButton extends HookConsumerWidget{
+class _FollowButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final MyFollowState = ref.watch(FollowButtonProvider.select((value) => value.MyFollowState));
-    return MyFollowState.isEmpty ?
-      OutlinedButton(
+    final MyFollowState = ref.watch(
+        FollowButtonProvider.select((value) => value.MyFollowState));
+    final MyAccountState = ref.watch(
+        FollowButtonProvider.select((value) => value.MyAccountState));
+    return MyAccountState ?
+    OutlinedButton(
+        child: const Text('自分'),
+        style: OutlinedButton.styleFrom(
+          // primary: Colors.blue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          side: const BorderSide(),
+        ),
+        onPressed: null
+    ) :
+    MyFollowState.isEmpty ?
+    OutlinedButton(
       child: const Text('フォロー'),
       style: OutlinedButton.styleFrom(
         primary: Colors.blue,
@@ -41,10 +57,10 @@ class _FollowButton extends HookConsumerWidget{
         ),
         side: const BorderSide(),
       ),
-      onPressed: () async{
+      onPressed: () async {
         await ref.read(FollowButtonProvider.notifier).addFollowState();
       },
-    ):
+    ) :
     OutlinedButton(
       child: const Text('アンフォロー'),
       style: OutlinedButton.styleFrom(
@@ -58,7 +74,6 @@ class _FollowButton extends HookConsumerWidget{
         ref.read(FollowButtonProvider.notifier).deleteFollowState();
       },
     );
-
   }
-  
+
 }

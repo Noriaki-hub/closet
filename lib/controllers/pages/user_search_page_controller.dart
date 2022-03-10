@@ -35,23 +35,29 @@ class UserSearchPageController extends StateNotifier<UserSearchPageState> {
   final Reader _read;
 
   Future<void> _init() async {
-    fetchSearchedUsers();
+
+      fetchSearchedUsers();
+
   }
 
   Future<void> fetchSearchedUsers() async {
-    final List<UserModel> searchedUsers =
-    await _read(searchUserRepositoryProvider).fetch(searchId: state.searchId);
-    state = state.copyWith(
+    if(state.searchId != '') {
+      final List<UserModel> searchedUsers =
+      await _read(searchUserRepositoryProvider).fetch(searchId: state.searchId);
+      state = state.copyWith(
         searchedUsers: searchedUsers,
-    );
+      );
+    }
   }
 
   Future<void> changeSearchId({required String searchId}) async {
-    final List<UserModel> searchedUsers =
-    await _read(searchUserRepositoryProvider).fetch(searchId: searchId);
-    state = state.copyWith(
-      searchId: searchId,
-      searchedUsers: searchedUsers
-    );
+    if(searchId != '') {
+      final List<UserModel> searchedUsers =
+      await _read(searchUserRepositoryProvider).fetch(searchId: searchId);
+      state = state.copyWith(
+          searchId: searchId,
+          searchedUsers: searchedUsers
+      );
+    }
   }
 }

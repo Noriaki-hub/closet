@@ -1,8 +1,10 @@
 import 'package:closet_app_xxx/controllers/global/date_now_controller.dart';
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/models/clothes.dart';
+import 'package:closet_app_xxx/models/clothes_create.dart';
 import 'package:closet_app_xxx/models/user.dart';
 import 'package:closet_app_xxx/repositories/buy_page_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -10,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:io';
 import 'package:intl/intl.dart';
+import '../../models/buy.dart';
 import '../../models/date.dart';
 
 
@@ -20,7 +23,7 @@ class BuyPageState with _$BuyPageState {
   const BuyPageState._();
 
   const factory BuyPageState({
-    required DateTime created,
+    DateTime? selectedDate,
     File? imageFile,
     @Default('')String description,
     @Default('No brand')String brands,
@@ -47,7 +50,7 @@ StateNotifierProvider.autoDispose<BuyPageController, BuyPageState>(
 
 class BuyPageController extends StateNotifier<BuyPageState> {
   BuyPageController(this._read, this._user, this.date)
-      : super(BuyPageState(created: DateTime.now()));
+      : super(BuyPageState());
 
   final Reader _read;
   final UserModel _user;
@@ -64,7 +67,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
   }
 
 
-  Future<void> category(String category) async {
+  Future<void> category({required String category}) async {
     state = state.copyWith(category: category);
   }
 
@@ -86,6 +89,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
     DateFormat monthFormat = DateFormat('MM');
     DateFormat dayFormat = DateFormat('dd');
 
+    state = state.copyWith(selectedDate: selectedDate);
 
     state = state.copyWith(year: yearFormat.format(selectedDate));
 
@@ -112,7 +116,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
 
 
   Future<void> addCloset() async {
-    final clothes = Clothes(
+    final clothes = Buy(
       brands: state.brands,
       category: state.category,
       description: state.description,
@@ -121,7 +125,13 @@ class BuyPageController extends StateNotifier<BuyPageState> {
       month: state.month,
       year: state.year,
       imageURL: state.imageURL,
+      createdBuy: state.selectedDate!,
+      uid: _user.uid,
+      userName: _user.name,
+      userImage: _user.image
     );
     await _read(buyRepositoryProvider).add(clothes: clothes, user: _user);
   }
+
+
 }

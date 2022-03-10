@@ -8,7 +8,14 @@ import '../../../../controllers/pages/buy_page_controller.dart';
 
 class BuyStep3 extends HookConsumerWidget {
 
-  List<String> categories = ['Tops', 'Bottoms', 'Outer', 'Footwear', 'Accessories', 'Others'];
+  final List<MapEntry<String, String>> categories = [
+    MapEntry("Tops", 'トップス'),
+    MapEntry("Bottoms", 'ボトムス'),
+    MapEntry("Outer", 'アウター'),
+    MapEntry("Footwear", 'シューズ'),
+    MapEntry("Accessories", 'アクセサリー'),
+    MapEntry("Other", 'その他'),
+  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,13 +33,13 @@ class BuyStep3 extends HookConsumerWidget {
                   borderRadius: BorderRadius.circular(10),//角の丸み
                 ),
                 side: BorderSide(
-                    color: categoryState != category ? Colors.black45: Colors.lightBlueAccent
+                    color: categoryState != category.key ? Colors.black45: Colors.blue
                 ),
               ),
               child: Text(
-                category, style: TextStyle(color: Colors.black),),
+                category.value, style: TextStyle(color: Colors.black),),
               onPressed: () async{
-                 await ref.read(BuyPageProvider.notifier).category(category);
+                 await ref.read(BuyPageProvider.notifier).category(category: category.key);
               },
             );
           }

@@ -38,8 +38,9 @@ class FriendsSearchScreen extends StatelessWidget{
                       return TextFormField(
                         textAlignVertical: TextAlignVertical.bottom,
                         onChanged: (text) {
+                          if(text != ''){
                           ref.read(UserSearchProvider.notifier)
-                              .changeSearchId(searchId: text);
+                              .changeSearchId(searchId: text);}
                         },
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(

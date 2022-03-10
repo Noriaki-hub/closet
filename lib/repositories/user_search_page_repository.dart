@@ -14,6 +14,7 @@ class _ItemRepository {
   Future<List<UserModel>> fetch({required String searchId}) async {
     final _fireStore =  _read(firebaseFirestoreProvider);
 
+
       final snap = await _fireStore
           .collection('users')
           .where('id' ,isEqualTo: searchId)

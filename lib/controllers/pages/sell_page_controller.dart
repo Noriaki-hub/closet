@@ -1,13 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../models/clothes.dart';
-import '../../models/date.dart';
+import '../../models/sell.dart';
 import '../../repositories/sell_page_repository.dart';
-import '../global/date_now_controller.dart';
 import '../global/user_controller.dart';
-import 'calendar_picker_controller.dart';
+
 
 part 'sell_page_controller.freezed.dart';
 
@@ -18,6 +18,7 @@ class SellPageState with _$SellPageState {
   const factory SellPageState({
     @Default(<Clothes>[]) List<Clothes> closet,
     @Default('') String selectClothesId,
+    DateTime? selectedDate,
     Clothes? selectedClothes,
     @Default('')String selling,
     @Default('')String sellingDay,
@@ -69,7 +70,7 @@ class SellPageController extends StateNotifier<SellPageState> {
     DateFormat yearFormat = DateFormat('yyyy');
     DateFormat monthFormat = DateFormat('MM');
     DateFormat dayFormat = DateFormat('dd');
-
+    state = state.copyWith(selectedDate: selectedDate);
 
     state = state.copyWith(sellingYear: yearFormat.format(selectedDate));
 
@@ -82,13 +83,14 @@ class SellPageController extends StateNotifier<SellPageState> {
 
 
   Future<void> sellClothes() async {
-    final clothes = Clothes(
+    final clothes = Sell(
         itemId: state.selectedClothes!.itemId,
         selling: state.selling,
         sellingDay: state.sellingDay,
         sellingMonth: state.sellingMonth,
         sellingYear: state.sellingYear,
-        isSell: true
+        isSell: true,
+        createdSell: state.selectedDate!,
     );
     await _read(sellRepositoryProvider).sell(clothes: clothes, userId: _userId,);
   }

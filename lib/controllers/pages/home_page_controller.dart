@@ -1,6 +1,7 @@
 import 'package:closet_app_xxx/controllers/global/date_now_controller.dart';
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/controllers/pages/buy_page_controller.dart';
+import 'package:closet_app_xxx/models/clothes_create.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -98,20 +99,20 @@ class HomePageController extends StateNotifier<HomePageState> {
   }
 
 
-  Future<void> addCloset() async {
-    final buyState = _read(BuyPageProvider);
-
-      final clothes = Clothes(
-        description: buyState.description,
-        price: buyState.price,
-        brands: buyState.brands,
-        category: buyState.category,
-        imageURL: buyState.imageURL,
-        day: buyState.day,
-        month: buyState.month,
-        year: buyState.year,
-      );
-      state = state.copyWith(closet: state.closet..add(clothes));
-  }
+  // Future<void> addCloset() async {
+  //   final buyState = _read(BuyPageProvider);
+  //
+  //     final clothes = ClothesCreate(
+  //       description: buyState.description,
+  //       price: buyState.price,
+  //       brands: buyState.brands,
+  //       category: buyState.category,
+  //       imageURL: buyState.imageURL,
+  //       day: buyState.day,
+  //       month: buyState.month,
+  //       year: buyState.year,
+  //     );
+  //     state = state.copyWith(closet: state.closet..add(clothes));
+  // }
 }
 

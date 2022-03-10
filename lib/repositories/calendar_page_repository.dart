@@ -19,12 +19,12 @@ class _ItemRepository{
     final _fireStore = _read(firebaseFirestoreProvider);
 
     final snap = await _fireStore
-        .collection("users").doc(userId)
         .collection('clothes')
         .where('year', isEqualTo: year)
         .where('month', isEqualTo: month)
+        .where('uid', isEqualTo: userId)
         .get();
-    return snap.docs.map((doc) => Clothes.fromDocument(doc)).toList();
+    return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
 
   }
 
@@ -33,12 +33,12 @@ class _ItemRepository{
     final _fireStore = _read(firebaseFirestoreProvider);
 
       final snap = await _fireStore
-          .collection("users").doc(userId)
           .collection('clothes')
           .where('sellingYear', isEqualTo: year)
           .where('sellingMonth', isEqualTo: month)
-          .where('isSell', isEqualTo: true).get();
-      return snap.docs.map((doc) => Clothes.fromDocument(doc)).toList();
+          .where('isSell', isEqualTo: true)
+          .where('uid', isEqualTo: userId).get();
+      return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
 
   }
 
@@ -50,9 +50,10 @@ class _ItemRepository{
     double sum = 0;
 
     await _read(firebaseFirestoreProvider)
-        .collection("users").doc(userId)
         .collection('clothes')
-        .where('year', isEqualTo: year).where('month', isEqualTo: month).get()
+        .where('year', isEqualTo: year)
+        .where('month', isEqualTo: month)
+        .where('uid', isEqualTo: userId).get()
         .then((snapshot) => {
       snapshot.docs.forEach((doc) {
         list.add(doc.data()['price']);
@@ -74,10 +75,9 @@ class _ItemRepository{
     double sum = 0;
 
     await _read(firebaseFirestoreProvider)
-        .collection("users").doc(userId)
         .collection('clothes')
         .where('sellingYear', isEqualTo: year).where('sellingMonth', isEqualTo: month)
-        .where('isSell', isEqualTo: true)
+        .where('isSell', isEqualTo: true).where('uid', isEqualTo: userId)
         .get()
         .then((snapshot) => {
       snapshot.docs.forEach((doc) {

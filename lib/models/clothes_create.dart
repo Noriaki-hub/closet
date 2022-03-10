@@ -1,17 +1,17 @@
+import 'package:closet_app_xxx/models/libs/timestamp_converter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'libs/timestamp_converter.dart';
-
-part 'buy.freezed.dart';
-part 'buy.g.dart';
+part 'clothes_create.freezed.dart';
+part 'clothes_create.g.dart';
 
 @freezed
-class Buy with _$Buy {
-  const Buy._();
+class ClothesCreate with _$ClothesCreate {
+  const ClothesCreate._();
 
-  const factory Buy({
-    @FireTimestampConverterNonNull() required DateTime createdBuy,
+  const factory ClothesCreate({
+    @FireTimestampConverterNonNull() DateTime? createdBuy,
     @FireTimestampConverterNonNull() DateTime? createdSell,
     @Default('') String itemId,
     @Default('') String brands,
@@ -31,7 +31,9 @@ class Buy with _$Buy {
     @Default('') String uid,
     @Default('') String userName,
     @Default('') String userImage
-  }) = _Buy;
-  factory Buy.fromJson(Map<String, dynamic> json) => _$BuyFromJson(json);
-}
+  }) = _ClothesCreate;
 
+  factory ClothesCreate.fromJson(Map<String, dynamic> json) => _$ClothesCreateFromJson(json);
+
+
+}

@@ -15,6 +15,7 @@ class FollowButtonState with _$FollowButtonState {
   const factory FollowButtonState({
     @Default(<Follow>[]) List<Follow> MyFollowState,
     @Default(<Follow>[]) List<Follow> YourFollowerState,
+    @Default(false) bool MyAccountState
   }) = _FollowButtonState;
 
 }
@@ -59,7 +60,8 @@ class FollowButtonController extends StateNotifier<FollowButtonState> {
         .fetchYourFollower(myId: myId, yourId: yourId);
     state = state.copyWith(
         MyFollowState: MyFollowState,
-        YourFollowerState: YourFollowerState
+        YourFollowerState: YourFollowerState,
+        MyAccountState: myId == yourId ? true : false
     );
   }
 

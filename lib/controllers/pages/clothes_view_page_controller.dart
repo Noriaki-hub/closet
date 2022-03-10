@@ -1,9 +1,11 @@
 
+import 'package:closet_app_xxx/models/clothes_create.dart';
 import 'package:closet_app_xxx/repositories/clothes_view_page_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../models/clothes.dart';
+import '../../models/clothes_create.dart';
 import '../global/user_controller.dart';
 
 part 'clothes_view_page_controller.freezed.dart';
@@ -13,7 +15,7 @@ class ClothesViewPageState with _$ClothesViewPageState {
   const ClothesViewPageState._();
 
   const factory ClothesViewPageState({
-    @Default(Clothes()) Clothes clothes,
+    @Default(ClothesCreate()) ClothesCreate clothes,
 
   }) = _ClothesViewPageState;
 
