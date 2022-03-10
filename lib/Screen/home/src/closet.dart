@@ -24,7 +24,7 @@ class Closet extends HookConsumerWidget{
               return InkWell(
                   onTap: () async{
                     final result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return ClothesViewScreen(itemId: item.itemId);}));
+                      return ClothesViewScreen(clothes: item);}));
                     if(result){
                       ref.read(HomePageProvider.notifier).fetchHomePageData();
 

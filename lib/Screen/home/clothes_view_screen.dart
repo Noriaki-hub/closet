@@ -10,12 +10,12 @@ class ClothesViewScreen extends StatelessWidget {
   ClothesViewScreen({
     Key? key,
     this.userId,
-    required this.itemId,
+    required this.clothes,
 
   }) : super(key: key);
 
   final String? userId;
-  final String itemId;
+  final Clothes clothes;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ClothesViewScreen extends StatelessWidget {
       overrides: [
         ClothesViewPageProvider.overrideWithProvider(
           ClothesViewPageProviderFamily(
-            ClothesViewPageProviderArg( itemId: itemId, userId: userId),
+            ClothesViewPageProviderArg( clothes: clothes, userId: userId),
           ),
         ),
       ],
@@ -39,7 +39,7 @@ class _ClothesViewScreen extends HookConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final clothes = ref.watch(ClothesViewPageProvider.select((value) => value.clothes));
+    final clothes = ref.watch(ClothesViewPageProvider.select((value) => value.clothesForPublic));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown.shade50,

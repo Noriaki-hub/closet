@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'clothes_create.freezed.dart';
-part 'clothes_create.g.dart';
+part 'clothes_for_public.freezed.dart';
+part 'clothes_for_public.g.dart';
 
 @freezed
-class ClothesCreate with _$ClothesCreate {
-  const ClothesCreate._();
+class ClothesForPublic with _$ClothesForPublic {
+  const ClothesForPublic._();
 
-  const factory ClothesCreate({
+  const factory ClothesForPublic({
     @FireTimestampConverterNonNull() DateTime? createdBuy,
     @FireTimestampConverterNonNull() DateTime? createdSell,
     @Default('') String itemId,
@@ -31,9 +31,9 @@ class ClothesCreate with _$ClothesCreate {
     @Default('') String uid,
     @Default('') String userName,
     @Default('') String userImage
-  }) = _ClothesCreate;
+  }) = _ClothesForPublic;
 
-  factory ClothesCreate.fromJson(Map<String, dynamic> json) => _$ClothesCreateFromJson(json);
+  factory ClothesForPublic.fromJson(Map<String, dynamic> json) => _$ClothesForPublicFromJson(json);
 
 
 }

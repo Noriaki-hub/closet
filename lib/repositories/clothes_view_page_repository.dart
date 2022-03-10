@@ -1,6 +1,7 @@
-import 'package:closet_app_xxx/models/clothes_create.dart';
+import 'package:closet_app_xxx/models/clothes_for_public.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:http/http.dart';
 
 import '../models/libs/Firebase_providers.dart';
 import '../models/clothes.dart';
@@ -13,14 +14,12 @@ class Repository {
 
   const Repository(this._read);
 
-  Future<ClothesCreate> fetchFavorite({ required String userId, required String itemId}) async {
-    final snap = await _read(firebaseFirestoreProvider)
-        .collection('clothes').doc(itemId).get()
-        .then((DocumentSnapshot<Map<String, dynamic>> doc) {
-      return ClothesCreate.fromJson(doc.data()!);
-    });
-    return snap;
-  }
+  // Future<ClothesForPublic> fetchFavorite({ required String userId, required String itemId}) async {
+  //   final snap = await _read(firebaseFirestoreProvider)
+  //       .collection('clothes').doc(itemId).get();
+  //
+  //  return  snap.map((doc) => Clothes.toClothesCreate();
+  // }
 
   Future<void> updateFavoriteTrue({ required String userId, required String itemId}) async {
     await _read(firebaseFirestoreProvider)

@@ -1,11 +1,8 @@
-
-import 'package:closet_app_xxx/models/clothes_create.dart';
+import 'package:closet_app_xxx/models/clothes.dart';
+import 'package:closet_app_xxx/models/clothes_for_public.dart';
 import 'package:closet_app_xxx/repositories/clothes_view_page_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../../models/clothes.dart';
-import '../../models/clothes_create.dart';
 import '../global/user_controller.dart';
 
 part 'clothes_view_page_controller.freezed.dart';
@@ -15,7 +12,7 @@ class ClothesViewPageState with _$ClothesViewPageState {
   const ClothesViewPageState._();
 
   const factory ClothesViewPageState({
-    @Default(ClothesCreate()) ClothesCreate clothes,
+    @Default(ClothesForPublic()) ClothesForPublic clothesForPublic,
 
   }) = _ClothesViewPageState;
 
@@ -25,9 +22,9 @@ class ClothesViewPageState with _$ClothesViewPageState {
 
 
 class ClothesViewPageProviderArg {
-  ClothesViewPageProviderArg({required this.userId, required this.itemId});
+  ClothesViewPageProviderArg({required this.userId, required this.clothes});
   final String? userId;
-  final String itemId;
+  final Clothes clothes;
 }
 
 final ClothesViewPageProvider =
@@ -43,36 +40,54 @@ final ClothesViewPageProviderFamily = StateNotifierProvider.family.autoDispose<
   final user = ref.watch(userProvider.select((value) => value.user));
   return ClothesViewPageController(
     ref.read,
-    itemId: arg.itemId,
+    clothes: arg.clothes,
     userId: arg.userId ?? user.uid,
   );
 });
 
 
 class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
-  ClothesViewPageController(this._read, {required String userId, required String itemId})
-      : _userId = userId, _itemId = itemId, super(ClothesViewPageState()){
+  ClothesViewPageController(this._read, {required String userId, required Clothes clothes})
+      : _userId = userId, _clothes = clothes, super(ClothesViewPageState()){
     fetchFavoriteState();
   }
 
   final Reader _read;
   final String _userId;
-  final String _itemId;
+  final Clothes _clothes;
 
 
   Future<void> fetchFavoriteState() async {
-    final clothes = await _read(clothesViewPageRepositoryProvider).fetchFavorite(userId: _userId, itemId: _itemId);
-    state = state.copyWith(clothes: clothes);
+    final clothesForPublic = ClothesForPublic(
+      itemId: _clothes.itemId,
+      brands: _clothes.brands,
+      price: _clothes.price,
+      category: _clothes.category,
+      imageURL: _clothes.imageURL,
+      selling: _clothes.selling,
+      description: _clothes.description,
+      day: _clothes.day,
+      month: _clothes.month,
+      year: _clothes.year,
+      sellingDay: _clothes.sellingDay,
+      sellingMonth: _clothes.sellingMonth,
+      sellingYear: _clothes.sellingYear,
+      isSell: _clothes.isSell,
+      isFavorite: _clothes.isFavorite,
+
+    );
+
+    state = state.copyWith(clothesForPublic: clothesForPublic);
 
   }
 
   Future<void> changeFavoriteStateTrue() async {
-   await _read(clothesViewPageRepositoryProvider).updateFavoriteTrue(userId: _userId, itemId: _itemId);
+   await _read(clothesViewPageRepositoryProvider).updateFavoriteTrue(userId: _userId, itemId: _clothes.itemId);
     fetchFavoriteState();
   }
 
   Future<void> changeFavoriteStateFalse() async {
-    await _read(clothesViewPageRepositoryProvider).updateFavoriteFalse(userId: _userId, itemId: _itemId);
+    await _read(clothesViewPageRepositoryProvider).updateFavoriteFalse(userId: _userId, itemId: _clothes.itemId);
     fetchFavoriteState();
   }
 }
