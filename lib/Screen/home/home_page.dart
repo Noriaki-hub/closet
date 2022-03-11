@@ -5,6 +5,7 @@ import 'package:closet_app_xxx/Screen/home/sell_screen/sellStep_screen.dart';
 import 'package:closet_app_xxx/Screen/home/src/category_controller.dart';
 import 'package:closet_app_xxx/Screen/home/src/closet.dart';
 import 'package:closet_app_xxx/Screen/home/src/favorite.dart';
+import 'package:closet_app_xxx/Screen/home/src/floating_action_button_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -51,104 +52,65 @@ class _HomePage extends ConsumerWidget {
           ):
     Scaffold(
           backgroundColor: Colors.brown.shade50,
-          floatingActionButton: userId == null ? Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                FloatingActionButton(
-                      backgroundColor: Colors.brown.shade50,
-                      heroTag: 'add',
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(LineIcons.tShirt),
-                          Text('購入', style: TextStyle(fontSize: 10),)
-                        ],
-                      ),
-                      onPressed: () async {
-                        final result = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              fullscreenDialog: true,
-                              builder: (context) => BuyStepScreen(),
-                            )
-                        );
-                        if (result) {
-                          ref.read(HomePageProvider.notifier).fetchHomePageData();
-                        }
-                      },
-                    ),
-
-                SizedBox(height: 10,),
-                FloatingActionButton(
-                        backgroundColor: Colors.brown.shade50,
-                        heroTag: 'sell',
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(LineIcons.handHoldingUsDollar),
-                            Text('売却', style: TextStyle(fontSize: 10),)],
-                        ),
-                        onPressed: () async {
-                          final result = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                fullscreenDialog: true,
-                                builder: (context) => SellStepScreen(),
-                              )
-                          );
-                          if (result) {
-                            ref.read(HomePageProvider.notifier)
-                                .fetchHomePageData();
-                          }
-                        },
-                      ),
-                SizedBox(height: 10,),
-                FloatingActionButton(
-                  backgroundColor: Colors.brown.shade50,
-                  heroTag: 'calender',
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(LineIcons.calendar),
-                      Text('収支', style: TextStyle(fontSize: 10),)],),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          fullscreenDialog: true,
-                          builder: (context) => CalenderScreen(),
-                        )
-                    );
-                  },
-                ),
-                SizedBox(height: 10,),
-                 FloatingActionButton(
-                          backgroundColor: Colors.brown.shade50,
-                          onPressed: () {
-                            Navigator.push(
+          floatingActionButton: userId == null ?  ExpandableFab(
+            distance: 112.0,
+            children: [
+              Column(
+                children: [
+                  ActionButton(
+                    onPressed: () async {
+                      final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (context) => BuyStepScreen(),
+                          )
+                      );
+                      if (result) {
+                        ref.read(HomePageProvider.notifier).fetchHomePageData();
+                      }
+                    }, icon: Icon(LineIcons.plus ),
+                  ),
+                  Text('購入', style: TextStyle(color: Colors.grey),)
+                ],
+              ),
+              Column(
+                children: [
+                  ActionButton(
+                    onPressed: () async {
+                      final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (context) => SellStepScreen(),
+                          )
+                      );
+                      if (result) {
+                        ref.read(HomePageProvider.notifier)
+                            .fetchHomePageData();
+                      }
+                    },
+                    icon: const Icon(LineIcons.handHoldingUsDollar),
+                  ),
+                  Text('売却', style: TextStyle(color: Colors.grey),)
+                ],
+              ),
+              Column(
+                children: [
+                  ActionButton(
+                  onPressed: () async {
+                  Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   fullscreenDialog: true,
-                                  builder: (context) => AccountScreen(),
-                                )
-                            );
-                          },
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Container(
-                              color: Colors.white,
-                              child: Image.network(
-                                state.accountImage,
-                                width: 60,
-                                height: 60,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                      ),
-              ]) :
-          Container(),
-
+                                  builder: (context) => CalenderScreen(),
+                                ));},
+                    icon: const Icon(LineIcons.calendar)),
+                  Text('収支', style: TextStyle(color: Colors.grey),)
+                ],
+              ),
+            ],
+          ):Container(),
           body: Center(
             child: Column(
                 children: [
