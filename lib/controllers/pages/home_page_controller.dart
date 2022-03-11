@@ -83,7 +83,7 @@ class HomePageController extends StateNotifier<HomePageState> {
 
   Future<void> changeCategory({required String category}) async {
     final List<Clothes> closet = await _read(homeRepositoryProvider).fetchClosetAll(isSell: state.isSell, userId: _userId, category: category);
-    state = state.copyWith( closet: closet);
+    state = state.copyWith( closet: closet, category: category);
   }
 
   Future<void> isSellTrue() async {

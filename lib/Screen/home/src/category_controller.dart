@@ -17,6 +17,7 @@ class ClosetController extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isSell = ref.watch(HomePageProvider.select((value) => value.isSell));
+    final categoryState = ref.watch(HomePageProvider.select((value) => value.category));
     return Container(
       width: double.infinity,
       height: 50,
@@ -32,7 +33,7 @@ class ClosetController extends HookConsumerWidget {
                   borderRadius: BorderRadius.circular(10), //角の丸み
                 ),
                 side: const BorderSide(
-                    color: Colors.blue
+                    color: Colors.indigo
                 ),
               ),
               child: Text('売却したもの', style: TextStyle(color: Colors.black),), onPressed: () async{
@@ -48,7 +49,7 @@ class ClosetController extends HookConsumerWidget {
             borderRadius: BorderRadius.circular(10), //角の丸み
           ),
           side: const BorderSide(
-              color: Colors.brown
+              color: Colors.black
           ),
         ),
         child: Text('クローゼット', style: TextStyle(color: Colors.black),), onPressed: () async{
@@ -70,8 +71,8 @@ class ClosetController extends HookConsumerWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10), //角の丸み
                       ),
-                      side: const BorderSide(
-                          color: Colors.black45
+                      side: BorderSide(
+                          color: categoryState != category? Colors.black45: Colors.black
                       ),
                     ),
                     child: Text(text, style: TextStyle(color: Colors.black),),
