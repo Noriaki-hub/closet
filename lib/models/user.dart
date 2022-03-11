@@ -19,11 +19,11 @@ abstract class UserModel implements _$UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
-  factory UserModel.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
-    final data = doc.data()!;
-    return UserModel.fromJson(data);
-  }
-
-  Map<String, dynamic> toDocument() => toJson();
+  // factory UserModel.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
+  //   final data = doc.data()!;
+  //   return UserModel.fromJson(data);
+  // }
+  //
+  // Map<String, dynamic> toDocument() => toJson();
   }
 

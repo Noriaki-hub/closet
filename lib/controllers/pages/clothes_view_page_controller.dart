@@ -74,6 +74,7 @@ class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
       sellingYear: _clothes.sellingYear,
       isSell: _clothes.isSell,
       isFavorite: _clothes.isFavorite,
+      uid: _clothes.uid
 
     );
 

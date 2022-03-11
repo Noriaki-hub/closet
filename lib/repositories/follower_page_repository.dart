@@ -30,6 +30,6 @@ class followerRepository {
         .collection('users')
         .where('uid', whereIn: uidList)
         .get();
-    return snap.docs.map((doc) => UserModel.fromDocument(doc)).toList();
+    return snap.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
   }
 }

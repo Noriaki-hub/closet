@@ -14,13 +14,6 @@ class Repository {
 
   const Repository(this._read);
 
-  // Future<ClothesForPublic> fetchFavorite({ required String userId, required String itemId}) async {
-  //   final snap = await _read(firebaseFirestoreProvider)
-  //       .collection('clothes').doc(itemId).get();
-  //
-  //  return  snap.map((doc) => Clothes.toClothesCreate();
-  // }
-
   Future<void> updateFavoriteTrue({ required String userId, required String itemId}) async {
     await _read(firebaseFirestoreProvider)
         .collection('clothes').doc(itemId)

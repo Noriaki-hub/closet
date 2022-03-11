@@ -20,7 +20,7 @@ class _ItemRepository {
           .where('id' ,isEqualTo: searchId)
           .get();
 
-      return snap.docs.map((doc) => UserModel.fromDocument(doc)).toList();
+      return snap.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
 
   }
 }

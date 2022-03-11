@@ -1,3 +1,4 @@
+import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -40,6 +41,8 @@ class _ClothesViewScreen extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final clothes = ref.watch(ClothesViewPageProvider.select((value) => value.clothesForPublic));
+    final currentUserId = ref.watch(userProvider.select((value) => value.user.uid));
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown.shade50,
@@ -104,7 +107,9 @@ class _ClothesViewScreen extends HookConsumerWidget{
       ),
         leading: IconButton(onPressed: () { Navigator.pop(context, true); }, icon: Icon(Icons.close),),
       ),
-      floatingActionButton: Column(
+      floatingActionButton:
+      clothes.uid == currentUserId ?
+      Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           FloatingActionButton(
@@ -133,7 +138,7 @@ class _ClothesViewScreen extends HookConsumerWidget{
           child: Icon(LineIcons.starAlt),
         ),
         ],
-      ),
+      ):Container(),
       backgroundColor: Colors.brown.shade50,
       body: Center(
         child: Column(

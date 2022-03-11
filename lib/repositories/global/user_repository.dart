@@ -23,11 +23,12 @@ class _ItemRepository {
     final snap = await _fireStore
         .collection('users')
         .doc(_currentUser?.uid)
-        .get()
-        .then((DocumentSnapshot<Map<String, dynamic>> doc) {
-      return UserModel.fromDocument(doc);
-    });
-    return snap;
+        .get();
+    final data = snap.data();
+        if(data == null){
+          return UserModel();
+        }
+    return UserModel.fromJson(data);
   }
 
   Future<void> register({required UserModel user, }) async {
