@@ -42,6 +42,7 @@ class _ClothesViewScreen extends HookConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref) {
     final clothes = ref.watch(ClothesViewPageProvider.select((value) => value.clothesForPublic));
     final currentUserId = ref.watch(userProvider.select((value) => value.user.uid));
+    final isFavoriteState =ref.watch(ClothesViewPageProvider.select((value) => value.isFavoriteState));
 
     return Scaffold(
       appBar: AppBar(
@@ -118,7 +119,7 @@ class _ClothesViewScreen extends HookConsumerWidget{
             child: Icon(LineIcons.edit),
           ),
           SizedBox(height: 10,),
-          clothes.isFavorite ?
+           isFavoriteState?
 
           FloatingActionButton(
             backgroundColor: Colors.yellow,

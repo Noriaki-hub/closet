@@ -13,6 +13,7 @@ class ClothesViewPageState with _$ClothesViewPageState {
 
   const factory ClothesViewPageState({
     @Default(ClothesForPublic()) ClothesForPublic clothesForPublic,
+    @Default(false) bool isFavoriteState
 
   }) = _ClothesViewPageState;
 
@@ -49,7 +50,7 @@ final ClothesViewPageProviderFamily = StateNotifierProvider.family.autoDispose<
 class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
   ClothesViewPageController(this._read, {required String userId, required Clothes clothes})
       : _userId = userId, _clothes = clothes, super(ClothesViewPageState()){
-    fetchFavoriteState();
+    fetchClothes();
   }
 
   final Reader _read;
@@ -57,7 +58,7 @@ class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
   final Clothes _clothes;
 
 
-  Future<void> fetchFavoriteState() async {
+  Future<void> fetchClothes() async {
     final clothesForPublic = ClothesForPublic(
       itemId: _clothes.itemId,
       brands: _clothes.brands,
@@ -75,20 +76,20 @@ class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
       isSell: _clothes.isSell,
       isFavorite: _clothes.isFavorite,
       uid: _clothes.uid
-
     );
 
-    state = state.copyWith(clothesForPublic: clothesForPublic);
+    state = state.copyWith(clothesForPublic: clothesForPublic, isFavoriteState: _clothes.isFavorite);
 
   }
 
   Future<void> changeFavoriteStateTrue() async {
    await _read(clothesViewPageRepositoryProvider).updateFavoriteTrue(userId: _userId, itemId: _clothes.itemId);
-    fetchFavoriteState();
+
+    state = state.copyWith(isFavoriteState: true);
   }
 
   Future<void> changeFavoriteStateFalse() async {
     await _read(clothesViewPageRepositoryProvider).updateFavoriteFalse(userId: _userId, itemId: _clothes.itemId);
-    fetchFavoriteState();
+    state = state.copyWith(isFavoriteState: false);
   }
 }
