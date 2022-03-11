@@ -61,7 +61,7 @@ class MediaList extends HookConsumerWidget{
                      onTap: (){
                        Navigator.push(context, MaterialPageRoute(builder: (context) => ShopWebViewScreen(media.url)));
                      },
-                     child:  Image.network(media.image, fit: BoxFit.contain,),
+                     child:  ClipRRect(borderRadius: BorderRadius.circular(10),child: Container(width:150, height: 150,child: Image.network(media.image, fit: BoxFit.cover,))),
                    ),
 
                    Text(media.name)

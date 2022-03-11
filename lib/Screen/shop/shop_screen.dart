@@ -53,12 +53,13 @@ class ShopList extends HookConsumerWidget{
              return Padding(
                padding: const EdgeInsets.all(20),
                child: Column(
+                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                  children: [
                    InkWell(
                      onTap: (){
                        Navigator.push(context, MaterialPageRoute(builder: (context) => ShopWebViewScreen(shop.url)));
                      },
-                     child:  Image.network(shop.image, fit: BoxFit.contain,),
+                     child:  ClipRRect( borderRadius: BorderRadius.circular(80),child: Container(width:150, height: 150, child: Image.network(shop.image, fit: BoxFit.cover,))),
                    ),
 
                    Text(shop.name)

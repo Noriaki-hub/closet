@@ -35,7 +35,7 @@ class _BottomTabPageState extends State<BottomTabPage> {
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.grey.shade200,
           items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(LineIcons.stream), label: 'タイムライン'),
+            BottomNavigationBarItem(icon: Icon(LineIcons.stream), label: '服ログ'),
             BottomNavigationBarItem(icon: Icon(LineIcons.userFriends),label: 'フォロー'),
             BottomNavigationBarItem(icon: Icon(LineIcons.home),label: 'ホーム'),
             BottomNavigationBarItem(icon: Icon(LineIcons.newspaper), label: 'メディア'),
