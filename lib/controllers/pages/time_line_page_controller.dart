@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../models/clothes.dart';
-import '../../models/user.dart';
 import '../global/user_controller.dart';
 
 part 'time_line_page_controller.freezed.dart';

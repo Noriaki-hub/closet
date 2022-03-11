@@ -29,31 +29,9 @@ class Clothes with _$Clothes {
     @Default(false)bool isSell,
     @Default(false)bool isFavorite,
     @Default('') String uid,
-    @Default('') String userName,
-    @Default('') String userImage
   }) = _Clothes;
 
   factory Clothes.fromJson(Map<String, dynamic> json) => _$ClothesFromJson(json);
-
-  ClothesForPublic toClothesCreate() {
-    return ClothesForPublic(
-      itemId: itemId,
-      brands: brands,
-      price: price,
-      category: category,
-      imageURL: imageURL,
-      selling: selling,
-      description: description,
-      day: day,
-      month: month,
-      year: year,
-      sellingDay: sellingDay,
-      sellingMonth: sellingMonth,
-      sellingYear: sellingYear,
-      isSell: isSell,
-      isFavorite: isFavorite,
-    );
-  }
 
 }
 

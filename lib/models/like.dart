@@ -2,20 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'follow.freezed.dart';
-part 'follow.g.dart';
+part 'like.freezed.dart';
+part 'like.g.dart';
 
 @freezed
-class Follow with _$Follow {
-  const Follow._();
+class Like with _$Like {
+  const Like._();
 
-  const factory Follow({
+  const factory Like({
     @Default('') String itemId,
     @Default('') String uid,
-  }) = _Follow;
+  }) = _Like;
 
 
 
-  factory Follow.fromJson(Map<String, dynamic> json) => _$FollowFromJson(json);
+  factory Like.fromJson(Map<String, dynamic> json) => _$LikeFromJson(json);
 
 }

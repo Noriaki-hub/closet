@@ -1,5 +1,5 @@
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/follow_button_controller.dart';
+import 'package:closet_app_xxx/controllers/conponent/follow_button_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';

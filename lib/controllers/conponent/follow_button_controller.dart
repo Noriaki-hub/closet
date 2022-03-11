@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/repositories/follow_button_repository.dart';
+import 'package:closet_app_xxx/repositories/conponent/follow_button_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

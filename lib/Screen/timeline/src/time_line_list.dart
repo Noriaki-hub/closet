@@ -1,3 +1,5 @@
+import 'package:closet_app_xxx/Screen/buttons/like_button.dart';
+import 'package:closet_app_xxx/Screen/buttons/user_info.dart';
 import 'package:closet_app_xxx/controllers/pages/time_line_page_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,38 +20,7 @@ class TimeLineList extends HookConsumerWidget{
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                InkWell(
-                  onTap: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              HomePage(userId: timeLine.uid),
-                        )
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Container(
-                            color: Colors.white,
-                            child: Image.network(
-                              timeLine.userImage,
-                              width: 35,
-                              height: 35,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 10,),
-                        Text(timeLine.userName)
-                      ],
-                    ),
-                  ),
-                ),
+                UserInfo(userId: timeLine.uid),
                 Container(
                     height: 500,
                     width: double.infinity,
@@ -73,8 +44,13 @@ class TimeLineList extends HookConsumerWidget{
                                   '/' + timeLine.day,
                             style: TextStyle(fontWeight: FontWeight.w100),)],
                         ),
-                        SizedBox(height: 20,),
-                        Text(timeLine.description)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(width:200,child: Text(timeLine.description)),
+                            LikeButton(itemId: timeLine.itemId)
+                          ],
+                        )
                       ],
                     ),
                   ),

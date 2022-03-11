@@ -1,9 +1,8 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../follow/src/friends_search_screen.dart';
+import '../follow/src/user_search_screen.dart';
 import '../follow/src/follow_screen.dart';
 import '../follow/src/follower_screen.dart';
 
@@ -19,6 +18,7 @@ class FollowTab extends StatelessWidget{
   final List<TabInfo> _tabs = [
     TabInfo("フォロー", FollowPage()),
     TabInfo("フォロワー", FollowerPage()),
+    TabInfo("さがす", UserSearchScreen()),
 
   ];
 
@@ -38,17 +38,6 @@ class FollowTab extends StatelessWidget{
             ),
             preferredSize: Size.fromHeight(30.0),
           ),
-          actions:[
-            IconButton(icon: Icon(LineIcons.plusCircle), onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        FriendsSearchScreen(),
-                  )
-              );
-            },),
-          ],
         ),
         body: TabBarView(children: _tabs.map((tab) => tab.widget).toList()),
       ),

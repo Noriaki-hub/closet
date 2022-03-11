@@ -3,23 +3,17 @@ import 'package:closet_app_xxx/Screen/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../controllers/pages/user_search_page_controller.dart';
-import '../../follow/src/follow_button.dart';
+import '../../buttons/follow_button.dart';
 
 
 
-class FriendsSearchScreen extends StatelessWidget{
+class UserSearchScreen extends StatelessWidget{
 
 
   @override
   Widget build(BuildContext context,) {
     return Scaffold(
       backgroundColor:  Colors.brown.shade50,
-      appBar: AppBar(
-        backgroundColor: Colors.brown.shade50,
-        leading: IconButton(icon: Icon(Icons.close), onPressed: () {  Navigator.pop(context,true);},
-
-        ),
-      ),
 
       body: Center(
         child: Column(

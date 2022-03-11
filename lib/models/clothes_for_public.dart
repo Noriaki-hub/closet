@@ -29,8 +29,6 @@ class ClothesForPublic with _$ClothesForPublic {
     @Default(false)bool isSell,
     @Default(false)bool isFavorite,
     @Default('') String uid,
-    @Default('') String userName,
-    @Default('') String userImage
   }) = _ClothesForPublic;
 
   factory ClothesForPublic.fromJson(Map<String, dynamic> json) => _$ClothesForPublicFromJson(json);

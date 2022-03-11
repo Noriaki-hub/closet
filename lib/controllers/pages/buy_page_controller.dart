@@ -124,8 +124,6 @@ class BuyPageController extends StateNotifier<BuyPageState> {
       imageURL: state.imageURL,
       createdBuy: state.selectedDate!,
       uid: _user.uid,
-      userName: _user.name,
-      userImage: _user.image
     );
     await _read(buyRepositoryProvider).add(clothes: clothes, user: _user);
   }

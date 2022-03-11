@@ -2,8 +2,8 @@ import 'package:closet_app_xxx/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/follow.dart';
-import '../models/libs/Firebase_providers.dart';
+import '../../models/follow.dart';
+import '../../models/libs/Firebase_providers.dart';
 
 final followButtonRepositoryProvider = Provider<_ItemRepository>((ref) => _ItemRepository(ref.read));
 
@@ -19,7 +19,7 @@ class _ItemRepository {
       final snap = await _read(firebaseFirestoreProvider)
           .collection('users').doc(myId).collection("follow").where('uid',isEqualTo: yourId)
           .get();
-      return snap.docs.map((doc) => Follow.fromDocument(doc)).toList();
+      return snap.docs.map((doc) => Follow.fromJson(doc.data())).toList();
   }
 
   Future<List<Follow>> fetchYourFollower({ required String myId,  required String yourId}) async {
@@ -27,7 +27,7 @@ class _ItemRepository {
     final snap = await _read(firebaseFirestoreProvider)
         .collection('users').doc(yourId).collection("follower").where('uid',isEqualTo: myId)
         .get();
-    return snap.docs.map((doc) => Follow.fromDocument(doc)).toList();
+    return snap.docs.map((doc) => Follow.fromJson(doc.data())).toList();
   }
 
 
