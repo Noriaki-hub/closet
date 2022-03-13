@@ -133,11 +133,13 @@ class _HomePage extends ConsumerWidget {
                                     style: TextStyle(
                                       fontSize: 15,
                                     ),),
+                                  Text('年'),
                                   SizedBox(width: 5,),
                                   Text(state.month,
                                     style: TextStyle(
                                       fontSize: 20,
                                     ),),
+                                  Text('月'),
                                   SizedBox(width: 10,),
                                   Container(
                                     decoration: BoxDecoration(

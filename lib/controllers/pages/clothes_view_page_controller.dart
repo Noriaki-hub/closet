@@ -83,13 +83,19 @@ class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
   }
 
   Future<void> changeFavoriteStateTrue() async {
-   await _read(clothesViewPageRepositoryProvider).updateFavoriteTrue(userId: _userId, itemId: _clothes.itemId);
+   await _read(clothesViewPageRepositoryProvider).updateFavoriteTrue( itemId: _clothes.itemId);
 
     state = state.copyWith(isFavoriteState: true);
   }
 
   Future<void> changeFavoriteStateFalse() async {
-    await _read(clothesViewPageRepositoryProvider).updateFavoriteFalse(userId: _userId, itemId: _clothes.itemId);
+    await _read(clothesViewPageRepositoryProvider).updateFavoriteFalse(itemId: _clothes.itemId);
     state = state.copyWith(isFavoriteState: false);
   }
+
+  Future<void> deleteClothes() async {
+    await _read(clothesViewPageRepositoryProvider).delete(itemId: _clothes.itemId);
+  }
+
+
 }

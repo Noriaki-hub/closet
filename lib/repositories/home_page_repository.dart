@@ -64,10 +64,7 @@ class homeRepository {
        sum = list.map<double>((clothes) => double.parse(clothes)).reduce((curr, next) => curr + next);
      }
 
-
-
     return sum.floor().toString();
-
   }
 
 
@@ -95,4 +92,5 @@ class homeRepository {
 
     return sum.floor().toString();
   }
+
 }

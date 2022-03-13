@@ -14,7 +14,7 @@ class Repository {
 
   const Repository(this._read);
 
-  Future<void> updateFavoriteTrue({ required String userId, required String itemId}) async {
+  Future<void> updateFavoriteTrue({required String itemId}) async {
     await _read(firebaseFirestoreProvider)
         .collection('clothes').doc(itemId)
         .update({
@@ -22,12 +22,17 @@ class Repository {
     });
 
   }
-  Future<void> updateFavoriteFalse({ required String userId, required String itemId}) async {
+  Future<void> updateFavoriteFalse({required String itemId}) async {
     await _read(firebaseFirestoreProvider)
         .collection('clothes').doc(itemId)
         .update({
       'isFavorite' : false
     });
+  }
 
+  Future<void> delete({required String itemId})async{
+    await _read(firebaseFirestoreProvider)
+        .collection('clothes').doc(itemId)
+        .delete();
   }
 }
