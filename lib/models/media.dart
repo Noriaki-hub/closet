@@ -10,6 +10,7 @@ class Media with _$Media {
   const Media._();
 
   const factory Media({
+    @Default('') String itemId,
     @Default('') String name,
     @Default('') String url,
     @Default('') String image,
@@ -19,10 +20,4 @@ class Media with _$Media {
   factory Media.fromJson(Map<String, dynamic> json) =>
       _$MediaFromJson(json);
 
-  factory Media.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
-    final data = doc.data()!;
-    return Media.fromJson(data);
-  }
-
-  Map<String, dynamic> toDocument() => toJson();
 }

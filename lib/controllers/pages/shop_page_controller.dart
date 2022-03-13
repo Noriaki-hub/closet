@@ -1,3 +1,4 @@
+import 'package:closet_app_xxx/controllers/pages/shop_edit_page_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -42,5 +43,11 @@ class ShopPageController extends StateNotifier<ShopPageState> {
     final List<Shop> shops =
     await _read(shopRepositoryProvider).fetch(userId: _userId);
     state = state.copyWith(shops: shops);
+  }
+
+
+  Future<void> deleteShop({required Shop shop}) async {
+    await _read(shopRepositoryProvider).delete(shop: shop, userId: _userId);
+    fetchShops();
   }
 }

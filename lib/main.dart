@@ -1,13 +1,11 @@
-
-import 'package:closet_app_xxx/Screen/Tab.dart';
-import 'package:closet_app_xxx/Screen/login/login_screen.dart';
-import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/ui/pages/Tab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'ui/pages/login/login_screen.dart';
 
 
 GoogleSignIn _googleSignIn = GoogleSignIn(

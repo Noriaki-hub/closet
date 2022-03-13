@@ -43,4 +43,9 @@ class MediaPageController extends StateNotifier<MediaPageState> {
     await _read(mediaRepositoryProvider).fetch(userId: _userId);
     state = state.copyWith(medias: medias);
   }
+
+  Future<void> deleteMedia({required Media media}) async {
+    await _read(mediaRepositoryProvider).delete(userId: _userId, media: media);
+    fetchMedias();
+  }
 }

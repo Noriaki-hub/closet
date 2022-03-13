@@ -20,9 +20,8 @@ class ShopRepository {
         .collection("users").doc(userId)
         .collection('shop').get();
 
-    return snap.docs.map((doc) => Shop.fromDocument(doc)).toList();
+    return snap.docs.map((doc) => Shop.fromJson(doc.data()).copyWith(itemId: doc.id)).toList();
   }
-
 
 
   Future<void> add({required Shop shop, required String userId}) async {
@@ -30,6 +29,29 @@ class ShopRepository {
 
     await _fireStore
         .collection("users").doc(userId)
-        .collection('shop').add(shop.toDocument());
+        .collection('shop').add(shop.toJson());
+  }
+
+  Future<void> update(
+      {required String userId,required Shop shop}) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+
+    await _fireStore
+        .collection("users").doc(userId)
+        .collection('shop').doc(shop.itemId).update
+      ({
+      'image': shop.image,
+      'name': shop.name,
+      'url': shop.url
+    });
+  }
+
+  Future<void> delete(
+      {required String userId, required Shop shop}) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+
+    await _fireStore
+        .collection("users").doc(userId)
+        .collection('shop').doc(shop.itemId).delete();
   }
 }

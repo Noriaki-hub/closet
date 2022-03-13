@@ -13,19 +13,14 @@ class Shop with _$Shop {
   const Shop._();
 
   const factory Shop({
+    @Default('') String itemId,
     @Default('') String name,
     @Default('') String url,
     @Default('') String image,
-  }) = _Shop;
+  })= _Shop;
 
 
   factory Shop.fromJson(Map<String, dynamic> json) =>
       _$ShopFromJson(json);
 
-  factory Shop.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
-    final data = doc.data()!;
-    return Shop.fromJson(data);
-  }
-
-  Map<String, dynamic> toDocument() => toJson();
 }

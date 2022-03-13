@@ -60,8 +60,6 @@ class ShopAddPageController extends StateNotifier<ShopAddPageState> {
     state = state.copyWith(url: url);
   }
 
-
-
   Future<String> _uploadImageFile(imageFile) async {
     final Uuid uuid = const Uuid();
 
