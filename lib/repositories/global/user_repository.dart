@@ -31,6 +31,23 @@ class _ItemRepository {
     return UserModel.fromJson(data);
   }
 
+  Future<UserModel> fetchUser({required String userId}) async{
+
+    final _fireStore = await _read(firebaseFirestoreProvider);
+
+    final snap = await _fireStore
+        .collection('users')
+        .doc(userId)
+        .get();
+    final data = snap.data();
+    if(data == null){
+      return UserModel();
+    }
+    return UserModel.fromJson(data);
+  }
+
+
+
   Future<void> register({required UserModel user, }) async {
     final _fireStore = _read(firebaseFirestoreProvider);
    await _fireStore.collection("users").doc(user.uid).set(
@@ -41,6 +58,17 @@ class _ItemRepository {
           'name' : user.name,
           'id' : ''
 
+        }
+    );
+  }
+
+  Future<void> update({required UserModel user }) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+    await _fireStore.collection("users").doc(user.uid).update(
+        {
+          'image' : user.image,
+          'name' : user.name,
+          'id' : user.id
         }
     );
   }

@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../models/clothes.dart';
 import '../../models/sell.dart';
-import '../../repositories/sell_page_repository.dart';
+import '../../repositories/clothes_repository.dart';
 import '../global/user_controller.dart';
 
 
@@ -52,7 +52,7 @@ class SellPageController extends StateNotifier<SellPageState> {
 
 
   Future<void> fetchClothesList() async {
-    final closet = await _read(sellRepositoryProvider).fetch(userId: _userId);
+    final closet = await _read(clothesRepositoryProvider).fetchCloset(userId: _userId, category: 'All', isSell: false);
     state = state.copyWith(
         closet: closet,
     );
@@ -92,6 +92,6 @@ class SellPageController extends StateNotifier<SellPageState> {
         isSell: true,
         createdSell: state.selectedDate!,
     );
-    await _read(sellRepositoryProvider).sell(clothes: clothes, userId: _userId,);
+    await _read(clothesRepositoryProvider).sell(clothes: clothes, userId: _userId,);
   }
 }

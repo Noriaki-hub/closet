@@ -112,141 +112,136 @@ class _ClothesViewScreen extends HookConsumerWidget {
         ],
       ) : Container(),
       backgroundColor: Colors.brown.shade50,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: 800,
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            Container(
+              width: double.infinity,
+              height: 400,
+
+              child: GestureDetector(
+                  child: Image.network(
+                    clothes.imageURL,
+                    fit: BoxFit.cover,
+                  )
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 80,
+              color: Colors.white.withOpacity(0.5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10,),
+                    child: Text(clothes.brands,
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: LikeButton(itemId: clothes.itemId),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 20,),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text('詳細',style: TextStyle(
+                  fontSize: 15),),
+            ),
+            Container(
+              height: 100,width: double.infinity,
+              color: Colors.white.withOpacity(0.5),
+              child: Text(
+                clothes.description,
+                style: TextStyle(
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: 0.0075,
+                    height: 1.5),
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-
-                Container(
-                  width: double.infinity,
-                  height: 400,
-
-                  child: GestureDetector(
-                      child: Image.network(
-                        clothes.imageURL,
-                        fit: BoxFit.cover,
-                      )
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 80,
-                  color: Colors.white.withOpacity(0.5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10,),
-                        child: Text(clothes.brands,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: LikeButton(itemId: clothes.itemId),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20,),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text('詳細',style: TextStyle(
-                      fontSize: 15),),
-                ),
-                Container(
-                  height: 100,width: double.infinity,
-                  color: Colors.white.withOpacity(0.5),
-                  child: Text(
-                    clothes.description,
-                    style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.normal,
-                        letterSpacing: 0.0075,
-                        height: 1.5),
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Text('購入日'),
-                        ),
-                        Container(width: 200,height: 100,color: Colors.white.withOpacity(0.5),
-                          child: Center(
-                            child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(clothes.year),
-                                      Text(clothes.month+'/'+clothes.day, style: TextStyle(fontWeight: FontWeight.bold),)
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(width:100,child: Text(
-                                    clothes.price,style: TextStyle(fontSize: 20,),
-                                  textAlign: TextAlign.right,
-                                )),
-                                Text('円')
-                              ],
-                            )
-                          ),
-                          ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Text('購入日'),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Text('売却日'),
-                        ),
-                        Container(width: 200,height: 100,color: Colors.white.withOpacity(0.5),
-                          child: Center(
-                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Container(width: 200,height: 100,color: Colors.white.withOpacity(0.5),
+                      child: Center(
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(
-                                    height: 50,
-                                    width: 50,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(clothes.sellingYear),
-                                        Text(clothes.sellingMonth+'/'+clothes.sellingDay, style: TextStyle(fontWeight: FontWeight.bold),)
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width:100,child: Text(
-                                    clothes.selling,style: TextStyle(fontSize: 20,),
-                                    textAlign: TextAlign.right,
-                                  )),
-                                  Text('円')
+                                  Text(clothes.year),
+                                  Text(clothes.month+'/'+clothes.day, style: TextStyle(fontWeight: FontWeight.bold),)
                                 ],
-                              )
-                          ),
-                        ),
-                      ],
+                              ),
+                            ),
+                            SizedBox(width:100,child: Text(
+                                clothes.price,style: TextStyle(fontSize: 20,),
+                              textAlign: TextAlign.right,
+                            )),
+                            Text('円')
+                          ],
+                        )
+                      ),
+                      ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Text('売却日'),
+                    ),
+                    Container(width: 200,height: 100,color: Colors.white.withOpacity(0.5),
+                      child: Center(
+                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(clothes.sellingYear),
+                                    Text(clothes.sellingMonth+'/'+clothes.sellingDay, style: TextStyle(fontWeight: FontWeight.bold),)
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width:100,child: Text(
+                                clothes.selling,style: TextStyle(fontSize: 20,),
+                                textAlign: TextAlign.right,
+                              )),
+                              Text('円')
+                            ],
+                          )
+                      ),
                     ),
                   ],
-                )
-            ]
-          ),
-        ),
+                ),
+              ],
+            )
+        ]
       ),
     );
   }

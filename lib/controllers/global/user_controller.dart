@@ -48,10 +48,6 @@ class UserController extends StateNotifier<UserState> {
     );
 
     await _auth.signInWithCredential(credential);
-
-
-
-
   }
 
   Future<void> register() async{
@@ -79,5 +75,10 @@ class UserController extends StateNotifier<UserState> {
     final user = UserModel();
 
     state = state.copyWith(user: user);
+  }
+
+  Future<void> update()async{
+    final _auth = _read(firebaseAuthProvider);
+
   }
 }

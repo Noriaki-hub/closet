@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../models/clothes.dart';
-import '../../repositories/calendar_page_repository.dart';
+import '../../repositories/clothes_repository.dart';
 import '../global/user_controller.dart';
 
 part 'calendar_page_controller.freezed.dart';
@@ -56,14 +56,14 @@ class CalendarPageController extends StateNotifier<CalendarPageState> {
 
 
 
-    final buyClothesList = await _read(calenderRepositoryProvider)
-        .fetchBuyClothesList(userId: _userId, year: _year, month: _month);
-    final sellClothesList = await _read(calenderRepositoryProvider)
-        .fetchSellClothesList(userId: _userId, year: _year, month: _month);
+    final buyClothesList = await _read(clothesRepositoryProvider)
+        .fetchSortBuyCloset(userId: _userId, year: _year, month: _month);
+    final sellClothesList = await _read(clothesRepositoryProvider)
+        .fetchSortSellCloset(userId: _userId, year: _year, month: _month);
 
-    final buying = await _read(calenderRepositoryProvider)
+    final buying = await _read(clothesRepositoryProvider)
         .fetchBuying(userId: _userId, year: _year, month: _month);
-    final selling = await _read(calenderRepositoryProvider)
+    final selling = await _read(clothesRepositoryProvider)
         .fetchSelling(userId: _userId, year: _year, month: _month);
 
     state = state.copyWith(

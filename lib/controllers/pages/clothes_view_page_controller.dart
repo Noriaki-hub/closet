@@ -1,8 +1,8 @@
 import 'package:closet_app_xxx/models/clothes.dart';
 import 'package:closet_app_xxx/models/clothes_for_public.dart';
-import 'package:closet_app_xxx/repositories/clothes_view_page_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../repositories/clothes_repository.dart';
 import '../global/user_controller.dart';
 
 part 'clothes_view_page_controller.freezed.dart';
@@ -83,18 +83,18 @@ class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
   }
 
   Future<void> changeFavoriteStateTrue() async {
-   await _read(clothesViewPageRepositoryProvider).updateFavoriteTrue( itemId: _clothes.itemId);
+   await _read(clothesRepositoryProvider).updateFavoriteTrue( itemId: _clothes.itemId);
 
     state = state.copyWith(isFavoriteState: true);
   }
 
   Future<void> changeFavoriteStateFalse() async {
-    await _read(clothesViewPageRepositoryProvider).updateFavoriteFalse(itemId: _clothes.itemId);
+    await _read(clothesRepositoryProvider).updateFavoriteFalse(itemId: _clothes.itemId);
     state = state.copyWith(isFavoriteState: false);
   }
 
   Future<void> deleteClothes() async {
-    await _read(clothesViewPageRepositoryProvider).delete(itemId: _clothes.itemId);
+    await _read(clothesRepositoryProvider).delete(itemId: _clothes.itemId);
   }
 
 

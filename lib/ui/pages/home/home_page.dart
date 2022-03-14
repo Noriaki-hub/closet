@@ -1,4 +1,5 @@
 
+import 'package:closet_app_xxx/ui/pages/home/account/account_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -48,7 +49,7 @@ class _HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(HomePageProvider);
     return
-      state.accountImage == '' ?
+      state.user.uid == '' ?
           Scaffold(
             body: Center(child: CircularProgressIndicator(),),
           ):
@@ -57,6 +58,20 @@ class _HomePage extends ConsumerWidget {
           floatingActionButton: userId == null ?  ExpandableFab(
             distance: 112.0,
             children: [
+              Column(
+                children: [
+                  ActionButton(
+                      onPressed: () async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) => AccountPage(userId: state.user.uid),
+                            ));},
+                      icon: const Icon(LineIcons.user)),
+                  Text('アカウント', style: TextStyle(color: Colors.grey),)
+                ],
+              ),
               Column(
                 children: [
                   ActionButton(
@@ -182,7 +197,7 @@ class _HomePage extends ConsumerWidget {
                                       mainAxisAlignment: MainAxisAlignment
                                           .spaceEvenly,
                                       children: [
-                                        Text('収入額', style: TextStyle(
+                                        Text('売却額', style: TextStyle(
                                           fontSize: 10,),),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment

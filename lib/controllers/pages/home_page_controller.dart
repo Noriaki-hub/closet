@@ -1,11 +1,12 @@
 import 'package:closet_app_xxx/controllers/global/date_now_controller.dart';
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/models/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../models/clothes.dart';
-import '../../repositories/home_page_repository.dart';
+import '../../repositories/clothes_repository.dart';
 
 part 'home_page_controller.freezed.dart';
 
@@ -22,7 +23,7 @@ class HomePageState with _$HomePageState {
     @Default('') String month,
     @Default(false) bool isSell,
     @Default('ALL') String category,
-    @Default('') String accountImage
+    @Default(UserModel()) UserModel user
   }) = _HomePageState;
 
 }
@@ -46,17 +47,17 @@ final HomePageProviderFamily = StateNotifierProvider.family.autoDispose<
   return HomePageController(
     ref.read,
     userId: arg.userId ?? user.uid,
-    accountImage: user.image,
+    user: user,
   );
 });
 
 class HomePageController extends StateNotifier<HomePageState> {
-  HomePageController(this._read, {required String userId, required String accountImage})  : _userId = userId, _accountImage = accountImage, super(const HomePageState()) {
+  HomePageController(this._read,  {required String userId, required UserModel user})  : _userId = userId, _user = user, super(const HomePageState()) {
     _init();
   }
   final String _userId;
   final Reader _read;
-  final String _accountImage;
+  final UserModel _user;
 
   Future<void> _init() async {
     fetchHomePageData();
@@ -65,10 +66,10 @@ class HomePageController extends StateNotifier<HomePageState> {
   Future<void> fetchHomePageData() async {
     final date = _read(DateNowProvider);
 
-    final List<Clothes> closet = await _read(homeRepositoryProvider).fetchClosetAll(isSell: state.isSell, userId: _userId, category: state.category);
-    final List<Clothes> closetFavorite = await _read(homeRepositoryProvider).fetchFavorite(isSell: state.isSell, userId: _userId, );
-    final buying  = await _read(homeRepositoryProvider).fetchThisMonthBuying(userId: _userId, date: date);
-    final selling  = await _read(homeRepositoryProvider).fetchThisMonthSelling(userId: _userId, date: date);
+    final List<Clothes> closet = await _read(clothesRepositoryProvider).fetchCloset(isSell: state.isSell, userId: _userId, category: state.category);
+    final List<Clothes> closetFavorite = await _read(clothesRepositoryProvider).fetchFavorite(isSell: state.isSell, userId: _userId, );
+    final buying  = await _read(clothesRepositoryProvider).fetchBuying(userId: _userId, month: date.month, year: date.year, );
+    final selling  = await _read(clothesRepositoryProvider).fetchSelling(userId: _userId, month: date.month, year: date.year, );
     state = state.copyWith(
         closet: closet,
         closetFavorite: closetFavorite,
@@ -76,13 +77,13 @@ class HomePageController extends StateNotifier<HomePageState> {
         selling: selling,
         year: date.year,
         month: date.month,
-        accountImage: _accountImage
+        user: _user
     );
   }
 
 
   Future<void> changeCategory({required String category}) async {
-    final List<Clothes> closet = await _read(homeRepositoryProvider).fetchClosetAll(isSell: state.isSell, userId: _userId, category: category);
+    final List<Clothes> closet = await _read(clothesRepositoryProvider).fetchCloset(isSell: state.isSell, userId: _userId, category: category);
     state = state.copyWith( closet: closet, category: category);
   }
 

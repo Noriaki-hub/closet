@@ -35,6 +35,7 @@ class LoginScreen extends ConsumerWidget {
                     ),
                     onPressed: () async {
                       await ref.read(userProvider.notifier).signInWithGoogle();
+                      await ref.read(userProvider.notifier).fetchCurrentUser();
                       final user = await ref.watch(
                           userProvider.select((value) => value.user));
                       if (user.uid == '') {

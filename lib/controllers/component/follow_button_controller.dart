@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../models/follow.dart';
-import '../../models/user.dart';
 import '../global/user_controller.dart';
 
 part 'follow_button_controller.freezed.dart';
@@ -15,7 +14,7 @@ class FollowButtonState with _$FollowButtonState {
   const factory FollowButtonState({
     @Default(<Follow>[]) List<Follow> MyFollowState,
     @Default(<Follow>[]) List<Follow> YourFollowerState,
-    @Default(false) bool MyAccountState
+    @Default(true) bool MyAccountState
   }) = _FollowButtonState;
 
 }

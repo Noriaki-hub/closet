@@ -4,6 +4,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../home/account/account_page.dart';
 import '../../home/home_page.dart';
 
 
@@ -75,7 +76,7 @@ class ItemList extends HookConsumerWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            HomePage(userId: user.uid),
+                            AccountPage(userId: user.uid),
                       )
                   );
                   if(result){

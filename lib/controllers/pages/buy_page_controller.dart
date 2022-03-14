@@ -1,7 +1,6 @@
 import 'package:closet_app_xxx/controllers/global/date_now_controller.dart';
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/models/user.dart';
-import 'package:closet_app_xxx/repositories/buy_page_repository.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,6 +10,7 @@ import 'dart:io';
 import 'package:intl/intl.dart';
 import '../../models/buy.dart';
 import '../../models/date.dart';
+import '../../repositories/clothes_repository.dart';
 
 
 part 'buy_page_controller.freezed.dart';
@@ -125,7 +125,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
       createdBuy: state.selectedDate!,
       uid: _user.uid,
     );
-    await _read(buyRepositoryProvider).add(clothes: clothes, user: _user);
+    await _read(clothesRepositoryProvider).add(clothes: clothes, user: _user);
   }
 
 

@@ -106,7 +106,7 @@ class CalenderScreen extends HookConsumerWidget{
                                 ),
                                 child: Column(
                                   children: [
-                                    Text('収入額',style: TextStyle(
+                                    Text('売却額',style: TextStyle(
                                       fontSize: 10,),),
                                     Padding(
                                       padding: const EdgeInsets.all(5),

@@ -1,4 +1,5 @@
 
+import 'package:closet_app_xxx/ui/pages/home/account/account_page.dart';
 import 'package:closet_app_xxx/ui/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -75,7 +76,7 @@ class ItemList extends HookConsumerWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          HomePage(userId: user.uid),
+                          AccountPage(userId: user.uid),
                     )
                 );
               },

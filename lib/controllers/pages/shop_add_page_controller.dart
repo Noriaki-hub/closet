@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:io';
 import '../../models/shop.dart';
-import '../../models/user.dart';
 import '../../repositories/shop_page_repository.dart';
 import '../global/user_controller.dart';
 
