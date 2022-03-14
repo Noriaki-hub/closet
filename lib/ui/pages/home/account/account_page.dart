@@ -221,9 +221,10 @@ class _AccountPage extends HookConsumerWidget {
                             Text('今までの収支額', style: TextStyle(
                                 fontWeight: FontWeight.bold),),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
 
                               children: [
-                                Container(width: 180,
+                                Container(
                                   height: 100,
                                   color: Colors.white.withOpacity(0.5),
                                   child: Center(
@@ -247,7 +248,7 @@ class _AccountPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 SizedBox(width: 20,),
-                                Container(width: 180,
+                                Container(
                                   height: 100,
                                   color: Colors.white.withOpacity(0.5),
                                   child: Center(

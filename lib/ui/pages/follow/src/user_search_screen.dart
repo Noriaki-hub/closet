@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../controllers/pages/user_search_page_controller.dart';
+import '../../home/account/account_page.dart';
 import '../../home/home_page.dart';
 import '../../../libs/follow_button.dart';
 
@@ -92,7 +93,7 @@ class _ItemList extends HookConsumerWidget {
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(userId: user.uid,)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AccountPage(userId: user.uid,)));
               },
               child: ListTile(
                 title: Text(user.name),

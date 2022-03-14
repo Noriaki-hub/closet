@@ -52,6 +52,7 @@ dependencies:
   share: ^2.0.4
   cupertino_stepper: ^0.2.1
   flutter_slidable: ^1.2.0
+  flutter_plugin_android_lifecycle: ^2.0.5
 
 
 
