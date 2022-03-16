@@ -128,7 +128,7 @@ class _AccountPage extends HookConsumerWidget {
                               child: Row(
                                 children: [
                                   SizedBox(
-                                    width: 120,
+                                    width: 200,
                                     child: Text(
                                       state.user.name, style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -139,11 +139,7 @@ class _AccountPage extends HookConsumerWidget {
                             ),
                           ),
                           Positioned(
-                              left: 125.0,
-                              top: 215.0,
-                              child: FollowButton(userId: state.user.uid)),
-                          Positioned(
-                              left: 280.0,
+                              left: 220.0,
                               top: 225.0,
                               child: Container(
                                 height: 50,
@@ -184,6 +180,7 @@ class _AccountPage extends HookConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
+                                FollowButton(userId: state.user.uid),
 
                                 OutlinedButton(
                                   style: OutlinedButton.styleFrom(
@@ -220,58 +217,52 @@ class _AccountPage extends HookConsumerWidget {
                                 height: 200, child: AccountCloset()),
                             Text('今までの収支額', style: TextStyle(
                                 fontWeight: FontWeight.bold),),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-
-                              children: [
-                                Container(
-                                  height: 100,
-                                  color: Colors.white.withOpacity(0.5),
-                                  child: Center(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceEvenly,
+                            Container(
+                              height: 50,
+                              color: Colors.white.withOpacity(0.5),
+                              child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceEvenly,
+                                    children: [
+                                      Text('購入額'),
+                                      Row(
                                         children: [
-                                          SizedBox(
-                                              height: 50,
-                                              width: 50,
-                                              child: Text('購入額')
-                                          ),
-                                          SizedBox(width: 100, child: Text(
+                                          Text(
                                             state.buying,
                                             style: TextStyle(fontSize: 20,),
                                             textAlign: TextAlign.right,
-                                          )),
+                                          ),
                                           Text('円')
                                         ],
-                                      )
-                                  ),
-                                ),
-                                SizedBox(width: 20,),
-                                Container(
-                                  height: 100,
-                                  color: Colors.white.withOpacity(0.5),
-                                  child: Center(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceEvenly,
+                                      ),
+                                    ],
+                                  )
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            Container(
+                              height: 50,
+                              color: Colors.white.withOpacity(0.5),
+                              child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceEvenly,
+                                    children: [
+                                      Text('売却額'),
+                                      Row(
                                         children: [
-                                          SizedBox(
-                                              height: 50,
-                                              width: 50,
-                                              child: Text('売却額')
-                                          ),
-                                          SizedBox(width: 100, child: Text(
+                                          Text(
                                             state.selling,
                                             style: TextStyle(fontSize: 20,),
                                             textAlign: TextAlign.right,
-                                          )),
+                                          ),
                                           Text('円')
                                         ],
-                                      )
-                                  ),
-                                ),
-                              ],
+                                      ),
+                                    ],
+                                  )
+                              ),
                             )
                           ],
                         ),

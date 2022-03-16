@@ -1,4 +1,5 @@
 import 'package:closet_app_xxx/models/clothes.dart';
+import 'package:closet_app_xxx/models/clothes_for_public.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -202,6 +203,27 @@ class _Repository {
     await _read(firebaseFirestoreProvider)
         .collection('clothes').doc(itemId)
         .delete();
+  }
+
+  Future<void> update(
+      {required ClothesForPublic clothes}) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+
+    await _fireStore
+        .collection('clothes').doc(clothes.itemId).update
+      ({
+      "brands": clothes.brands,
+      "description": clothes.description,
+      "category": clothes.category,
+      "price": clothes.price,
+      "year": clothes.year,
+      "day": clothes.day,
+      "month": clothes.month,
+      "selling": clothes.selling,
+      "sellingYear": clothes.sellingYear,
+      "sellingMonth": clothes.sellingMonth,
+      "sellingDay": clothes.sellingDay,
+    });
   }
 
 

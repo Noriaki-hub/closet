@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../../controllers/pages/account_page_controller.dart';
 import '../../../../../controllers/pages/home_page_controller.dart';
-import '../../clothes_view_screen.dart';
+import '../../clothes/clothes_view_screen.dart';
 
 class AccountFavorite extends HookConsumerWidget{
   @override

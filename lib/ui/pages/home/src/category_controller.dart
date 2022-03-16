@@ -49,7 +49,7 @@ class ClosetController extends HookConsumerWidget {
             borderRadius: BorderRadius.circular(10), //角の丸み
           ),
           side: const BorderSide(
-              color: Colors.black
+              color: Colors.black45
           ),
         ),
         child: Text('クローゼット', style: TextStyle(color: Colors.black),), onPressed: () async{

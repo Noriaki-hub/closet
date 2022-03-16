@@ -37,13 +37,13 @@ class _FollowButton extends HookConsumerWidget {
         FollowButtonProvider.select((value) => value.MyAccountState));
     return MyAccountState ?
     OutlinedButton(
-        child: const Text('自分'),
+        child: const Text('自分', style: TextStyle(color: Colors.black),),
         style: OutlinedButton.styleFrom(
-          // primary: Colors.blue,
+          primary: Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          side: const BorderSide(),
+          side: const BorderSide(color: Colors.black45),
         ),
         onPressed: null
     ) :
@@ -51,11 +51,11 @@ class _FollowButton extends HookConsumerWidget {
     OutlinedButton(
       child: const Text('フォロー'),
       style: OutlinedButton.styleFrom(
-        primary: Colors.blue,
+        primary: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        side: const BorderSide(),
+        side: const BorderSide(color: Colors.blue),
       ),
       onPressed: () async {
         await ref.read(FollowButtonProvider.notifier).addFollowState();
@@ -68,7 +68,7 @@ class _FollowButton extends HookConsumerWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        side: const BorderSide(),
+        side: const BorderSide(color: Colors.black45),
       ),
       onPressed: () {
         ref.read(FollowButtonProvider.notifier).deleteFollowState();

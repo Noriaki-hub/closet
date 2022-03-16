@@ -6,7 +6,13 @@ class ClosetFavorite extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final closetFavorite = ref.watch(HomePageProvider.select((value) => value.closetFavorite));
-    return ListView.builder(
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 1,
+        mainAxisSpacing: 5,
+        crossAxisSpacing: 5,
+        childAspectRatio: (5 / 4),
+      ),
       scrollDirection: Axis.horizontal,
       itemCount: closetFavorite.length,
       itemBuilder: (BuildContext context, int index) {
@@ -17,7 +23,6 @@ class ClosetFavorite extends HookConsumerWidget{
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                      width: 120,
                       color: Colors.white,
                       child: Image.network(
                         item.imageURL,

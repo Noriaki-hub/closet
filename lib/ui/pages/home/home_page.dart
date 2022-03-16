@@ -53,9 +53,10 @@ class _HomePage extends ConsumerWidget {
           Scaffold(
             body: Center(child: CircularProgressIndicator(),),
           ):
+      userId == null?
     Scaffold(
           backgroundColor: Colors.brown.shade50,
-          floatingActionButton: userId == null ?  ExpandableFab(
+          floatingActionButton: ExpandableFab(
             distance: 112.0,
             children: [
               Column(
@@ -127,114 +128,160 @@ class _HomePage extends ConsumerWidget {
                 ],
               ),
             ],
-          ):Container(),
+          ),
           body: Center(
-            child: Column(
-                children: [
-                  Container(
-                    height: 100,
-                    width: double.infinity,
-                    color: Colors.white.withOpacity(0.5),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 45,),
-              Container(
-                              width: 400,
-                              height: 50,
-                              child: Row(
-                                children: [
-                                  SizedBox(width: 20),
-                                  Text(state.year,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                    ),),
-                                  Text('年'),
-                                  SizedBox(width: 5,),
-                                  Text(state.month,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ),),
-                                  Text('月'),
-                                  SizedBox(width: 10,),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(
-                                            0.5),
-                                        borderRadius: BorderRadius
-                                            .circular(10)
-                                    ),
-                                    height: 48,
-                                    width: 120,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceEvenly,
-                                      children: [
-                                        Text(
-                                          '購入額',
-                                          style: TextStyle(fontSize: 10,),),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .center,
-                                          children: [
-                                            Text(state.buying)
-                                          ],
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: 20,),
-                                  Container(
-                                    height: 48,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(
-                                            0.5),
-                                        borderRadius: BorderRadius
-                                            .circular(10)
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceEvenly,
-                                      children: [
-                                        Text('売却額', style: TextStyle(
-                                          fontSize: 10,),),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .center,
-                                          children: [
-                                            Text(state.selling)
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 50,),
-
-                  Row(
-                    children: [
-                      SizedBox(width: 5,),
-                      Container(width: 100, decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(10)
-                      ), child: Center(child: Text('お気に入り'))),
-                    ],
-                  ),
-                  Container(height: 200,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 100,
                       width: double.infinity,
-                      child: ClosetFavorite()
-                  ),
+                      color: Colors.white.withOpacity(0.5),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 45,),
+                            Container(
+                                width: 400,
+                                height: 50,
+                                child: Row(
+                                  children: [
+                                    SizedBox(width: 20),
+                                    Text(state.year,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),),
+                                    Text('年'),
+                                    SizedBox(width: 5,),
+                                    Text(state.month,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),),
+                                    Text('月'),
+                                    SizedBox(width: 10,),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(
+                                              0.5),
+                                          borderRadius: BorderRadius
+                                              .circular(10)
+                                      ),
+                                      height: 48,
+                                      width: 120,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .spaceEvenly,
+                                        children: [
+                                          Text(
+                                            '購入額',
+                                            style: TextStyle(fontSize: 10,),),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .center,
+                                            children: [
+                                              Text(state.buying)
+                                            ],
+                                          ),
+
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(width: 20,),
+                                    Container(
+                                      height: 48,
+                                      width: 120,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(
+                                              0.5),
+                                          borderRadius: BorderRadius
+                                              .circular(10)
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .spaceEvenly,
+                                        children: [
+                                          Text('売却額', style: TextStyle(
+                                            fontSize: 10,),),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .center,
+                                            children: [
+                                              Text(state.selling)
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), //角の丸み
+                          ),
+                          side: const BorderSide(
+                              color: Colors.black45
+                          ),
+                        ),
+                        child: Text('お気に入り', style: TextStyle(color: Colors.black),),
+                          onPressed: null
+                      ),
+                    ),
+                    SizedBox(height: 200,
+                        child: ClosetFavorite()
+                    ),
 
 
-                  ClosetController(),
-                  Expanded(child: Closet()),
-                ]
+                    ClosetController(),
+                    SizedBox(height:320,child: Closet()),
+                  ]
+              ),
+            ),
+          )
+      ):
+      Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.brown.shade50,
+        ),
+          backgroundColor: Colors.brown.shade50,
+          body: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    
+
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10), //角の丸み
+                            ),
+                            side: const BorderSide(
+                                color: Colors.black45
+                            ),
+                          ),
+                          child: Text('お気に入り', style: TextStyle(color: Colors.black),),
+                          onPressed: null
+                      ),
+                    ),
+                    SizedBox(height: 200,
+                        child: ClosetFavorite()
+                    ),
+
+
+                    ClosetController(),
+                    SizedBox(height:320,child: Closet()),
+                  ]
+              ),
             ),
           )
       );
