@@ -65,8 +65,7 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
   }
 
   Future<String> _uploadImageFile(imageFile) async {
-    final String userId = _user.uid;
-    final Uuid uuid = const Uuid();
+    final String userId = _user.uid;final Uuid uuid = const Uuid();
 
     final storage = FirebaseStorage.instance;
     TaskSnapshot snapshot = await storage
@@ -88,5 +87,6 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
     );
 
     await _read(userRepositoryProvider).update(user: user);
+    await _read(userProvider.notifier).fetchCurrentUser();
   }
 }

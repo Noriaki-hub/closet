@@ -52,7 +52,7 @@ class UserSearchScreen extends StatelessWidget{
                             ),
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
-                          hintText: 'さがす',
+                          hintText: 'IDを入力',
                           hintStyle: TextStyle(fontWeight: FontWeight.w100),
                           prefixIcon: Icon(
                             Icons.search,

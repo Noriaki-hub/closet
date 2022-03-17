@@ -33,7 +33,27 @@ class Clothes with _$Clothes {
 
   factory Clothes.fromJson(Map<String, dynamic> json) => _$ClothesFromJson(json);
 
-}
 
+
+ClothesForPublic toClothesForPublic() {
+  return ClothesForPublic(
+  itemId : itemId,
+  brands: brands,
+  price: price,
+  category:category,
+  imageURL: imageURL,
+  selling : selling,
+  description : description,
+  day: day,
+  month: month,
+  year : year,
+  sellingDay: sellingDay,
+  sellingMonth: sellingMonth,
+  sellingYear: sellingYear,
+  isSell: isSell,
+  isFavorite: isFavorite,
+  uid: uid);
+}
+}
 
 

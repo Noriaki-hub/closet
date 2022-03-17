@@ -134,90 +134,89 @@ class _HomePage extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height: 100,
-                      width: double.infinity,
-                      color: Colors.white.withOpacity(0.5),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 45,),
-                            Container(
-                                width: 400,
-                                height: 50,
-                                child: Row(
-                                  children: [
-                                    SizedBox(width: 20),
-                                    Text(state.year,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      ),),
-                                    Text('年'),
-                                    SizedBox(width: 5,),
-                                    Text(state.month,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                      ),),
-                                    Text('月'),
-                                    SizedBox(width: 10,),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(
-                                              0.5),
-                                          borderRadius: BorderRadius
-                                              .circular(10)
-                                      ),
-                                      height: 48,
-                                      width: 120,
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceEvenly,
-                                        children: [
-                                          Text(
-                                            '購入額',
-                                            style: TextStyle(fontSize: 10,),),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .center,
-                                            children: [
-                                              Text(state.buying)
-                                            ],
-                                          ),
 
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(width: 20,),
-                                    Container(
-                                      height: 48,
-                                      width: 120,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(
-                                              0.5),
-                                          borderRadius: BorderRadius
-                                              .circular(10)
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceEvenly,
-                                        children: [
-                                          Text('売却額', style: TextStyle(
-                                            fontSize: 10,),),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .center,
-                                            children: [
-                                              Text(state.selling)
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
+                    SizedBox(height: 40,),
+
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10), //角の丸み
+                            ),
+                            side: const BorderSide(
+                                color: Colors.black45
+                            ),
+                          ),
+                          child: Text('今月の収支', style: TextStyle(color: Colors.black),),
+                          onPressed: null
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 35, right: 35),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('購入額'),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.white.withOpacity(0.5),
                                 ),
-                              )
+                                height: 30,
+                                width: 150,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10, left: 10, top: 5),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(state.buying),
+                                          Text('円')
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('売却額'),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white.withOpacity(0.5),
+                                ),
+                                height: 30,
+                                width: 150,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 10, left: 10, top: 5),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(state.selling),
+                                          Text('円')
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
+                    SizedBox(height: 10,),
 
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),

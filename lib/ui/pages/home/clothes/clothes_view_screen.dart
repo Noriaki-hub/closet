@@ -2,7 +2,6 @@ import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/ui/libs/like_button.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/clothes_edit_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -52,7 +51,8 @@ class _ClothesViewScreen extends HookConsumerWidget {
     final isFavoriteState = ref.watch(
         ClothesViewPageProvider.select((value) => value.isFavoriteState));
 
-    return Scaffold(
+    return
+    Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown.shade50,
         leading: IconButton(onPressed: () {
@@ -104,7 +104,10 @@ class _ClothesViewScreen extends HookConsumerWidget {
             children: [
               ActionButton(
                   onPressed: () async {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ClothesEditPage(clothes: clothes)));
+                    final result = await Navigator.push(context, MaterialPageRoute(builder: (context)=> ClothesEditPage(clothes: clothes)));
+                    if(result){
+                      ref.read(ClothesViewPageProvider.notifier).fetchClothes();
+                    }
                   },
                   icon: const Icon(LineIcons.edit)),
               Text('編集', style: TextStyle(color: Colors.grey),)
@@ -115,7 +118,9 @@ class _ClothesViewScreen extends HookConsumerWidget {
         ],
       ) : Container(),
       backgroundColor: Colors.brown.shade50,
-      body: SingleChildScrollView(
+      body: clothes.itemId == ''?Center(child:
+      CircularProgressIndicator()
+        ,):SingleChildScrollView(
         child: SizedBox(
           height: 1000,
           child: Column(

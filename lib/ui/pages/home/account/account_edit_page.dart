@@ -37,69 +37,86 @@ class AccountEditPage extends HookConsumerWidget {
 
       ),
       body: Center(
-        child: SizedBox(
-          height: 500,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 65, left: 65),
+          child: SizedBox(
+            height: 500,
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-            children: [
-              InkWell(
-                onTap: () {
-                  _showPicker(context);
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(150),
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(300),
                   child: Container(
-                      width: 300,
-                      height: 300,
+                      width: 250,
+                      height: 250,
                       color: Colors.white,
-                      child: imageFile == null ?
-                      Image.network(
-                        user.image,
-                        fit: BoxFit.cover,
-                      ) : Image.file(imageFile, fit: BoxFit.cover,)
-                  ),
-                ),
-
-
-              ),
-
-              Container(
-                width: 250,
-                child: TextField(
-                  controller: TextEditingController(text: user.name),
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
+                      child: InkWell(
+                        onTap: () {
+                          _showPicker(context);
+                        },
+                        child: imageFile == null ?
+                        Image.network(
+                          user.image,
+                          fit: BoxFit.cover,
+                        ) : Image.file(imageFile, fit: BoxFit.cover,),
                       )
                   ),
-                  onChanged: (text) {
-                    ref.read(AccountEditPageProvider.notifier).name(name: text);
-                  },
                 ),
-              ),
-              Container(
-                width: 250,
-                child: TextField(
-                  controller: TextEditingController(text: user.id),
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      )
-                  ),
-                  onChanged: (text) {
-                    ref.read(AccountEditPageProvider.notifier).id(id: text);
-                  },
+
+                Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('名前',style: TextStyle(fontWeight: FontWeight.bold)),
+                    Container(
+                      // width: 250,
+                      child: TextField(
+                        controller: TextEditingController(text: user.name),
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.grey.shade200,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
+                            )
+                        ),
+                        onChanged: (text) {
+                          ref.read(AccountEditPageProvider.notifier).name(name: text);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              )
-            ],
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text('ID',style: TextStyle(fontWeight: FontWeight.bold),),
+                        Text('（ユーザー検索用）')
+                      ],
+                    ),
+                    Container(
+                      // width: 250,
+                      child: TextField(
+                        controller: TextEditingController(text: user.id),
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.grey.shade200,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
+                            )
+                        ),
+                        onChanged: (text) {
+                          ref.read(AccountEditPageProvider.notifier).id(id: text);
+                        },
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

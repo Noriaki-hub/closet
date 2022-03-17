@@ -26,7 +26,7 @@ class DescriptionTextField extends HookConsumerWidget{
                 )
             ),
             onChanged: (text) async{
-              await ref.read(ClothesEditPageProvider.notifier).brands(brands: text);
+              await ref.read(ClothesEditPageProvider.notifier).description(description: text);
             },
           ),
         ),

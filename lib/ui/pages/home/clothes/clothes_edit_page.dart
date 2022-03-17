@@ -30,7 +30,7 @@ class ClothesEditPage extends HookConsumerWidget {
       appBar: AppBar(
         backgroundColor: Colors.brown.shade50,
         leading: IconButton(onPressed: () {
-          Navigator.pop(context, true);
+          Navigator.pop(context, false);
         }, icon: Icon(LineIcons.angleLeft),
         ),
       ),

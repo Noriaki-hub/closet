@@ -31,6 +31,15 @@ class _Repository {
     return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
   }
 
+  Future<ClothesForPublic?> fetchClothes({required String itemId})async{
+    final snap = await _read(firebaseFirestoreProvider)
+        .collection('clothes')
+        .doc(itemId).get();
+    final data = snap.data();
+    final clothes = data != null ? Clothes.fromJson(data).toClothesForPublic() : null;
+    return clothes;
+  }
+
 
   Future<List<Clothes>> fetchFavorite(
       {required String userId, required bool isSell}) async {

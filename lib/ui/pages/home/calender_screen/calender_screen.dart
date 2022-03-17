@@ -63,10 +63,10 @@ class CalenderScreen extends HookConsumerWidget{
                          Row(
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
-                             Text(state.year,style: TextStyle(
+                             Text(state.year+'年',style: TextStyle(
                                fontSize: 15,
                              ),),
-                             Text(state.month,style: TextStyle(
+                             Text(state.month+'月',style: TextStyle(
                                fontSize: 20,
                              ),),
                            ],
@@ -90,7 +90,7 @@ class CalenderScreen extends HookConsumerWidget{
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Text(state.buying)
+                                          Text(state.buying+'円')
                                         ],
                                       ),
                                     ),
@@ -113,7 +113,7 @@ class CalenderScreen extends HookConsumerWidget{
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Text(state.selling)
+                                          Text(state.selling+'円')
                                         ],
                                       ),
                                     ),
@@ -200,7 +200,7 @@ class _calenderBuyList extends HookConsumerWidget {
                     trailing: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(clothes.price),
+                        Text(clothes.price+'円'),
                         Text(clothes.month + '/' + clothes.day, style: TextStyle(fontWeight: FontWeight.w100),),
                       ],
                     ),
@@ -228,7 +228,7 @@ class _calenderSellList extends HookConsumerWidget {
                 subtitle: Text(clothes.description),
                 trailing: Column(
                   children: [
-                    Text(clothes.selling),
+                    Text(clothes.selling+'円'),
                     Text(clothes.sellingMonth + '/' + clothes.sellingDay, style: TextStyle(fontWeight: FontWeight.w100),),
                   ],
                 ),

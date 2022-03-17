@@ -148,7 +148,9 @@ class _AccountPage extends HookConsumerWidget {
                                   children: [
                                     Column(
                                       children: [
-                                        Text(state.follow),
+                                        Text('120'
+                                            // state.follow
+                                        ),
                                         Text('フォロー',
                                           style: TextStyle(fontSize: 10),),
                                       ],
@@ -157,7 +159,9 @@ class _AccountPage extends HookConsumerWidget {
                                     Column(
 
                                       children: [
-                                        Text(state.follower),
+                                        Text('120'
+                                            // state.follower
+                                        ),
                                         Text('フォロワー',
                                           style: TextStyle(fontSize: 10),),
                                       ],
@@ -226,21 +230,25 @@ class _AccountPage extends HookConsumerWidget {
                                         .spaceEvenly,
                                     children: [
                                       Text('購入額'),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            state.buying,
-                                            style: TextStyle(fontSize: 20,),
-                                            textAlign: TextAlign.right,
-                                          ),
-                                          Text('円')
-                                        ],
+                                      SizedBox(
+                                        width: 150,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              state.buying,
+                                              style: TextStyle(fontSize: 20,),
+                                              textAlign: TextAlign.right,
+                                            ),
+                                            Text('円')
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   )
                               ),
                             ),
-                            SizedBox(width: 20,),
+                            SizedBox(height: 20,),
                             Container(
                               height: 50,
                               color: Colors.white.withOpacity(0.5),
@@ -250,15 +258,19 @@ class _AccountPage extends HookConsumerWidget {
                                         .spaceEvenly,
                                     children: [
                                       Text('売却額'),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            state.selling,
-                                            style: TextStyle(fontSize: 20,),
-                                            textAlign: TextAlign.right,
-                                          ),
-                                          Text('円')
-                                        ],
+                                      SizedBox(
+                                        width: 150,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              state.selling,
+                                              style: TextStyle(fontSize: 20,),
+                                              textAlign: TextAlign.right,
+                                            ),
+                                            Text('円')
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   )

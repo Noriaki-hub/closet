@@ -49,36 +49,19 @@ final ClothesViewPageProviderFamily = StateNotifierProvider.family.autoDispose<
 
 class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
   ClothesViewPageController(this._read, {required String userId, required Clothes clothes})
-      : _userId = userId, _clothes = clothes, super(ClothesViewPageState()){
+      :  _clothes = clothes, super(ClothesViewPageState()){
     fetchClothes();
   }
 
   final Reader _read;
-  final String _userId;
   final Clothes _clothes;
 
 
   Future<void> fetchClothes() async {
-    final clothesForPublic = ClothesForPublic(
-      itemId: _clothes.itemId,
-      brands: _clothes.brands,
-      price: _clothes.price,
-      category: _clothes.category,
-      imageURL: _clothes.imageURL,
-      selling: _clothes.selling,
-      description: _clothes.description,
-      day: _clothes.day,
-      month: _clothes.month,
-      year: _clothes.year,
-      sellingDay: _clothes.sellingDay,
-      sellingMonth: _clothes.sellingMonth,
-      sellingYear: _clothes.sellingYear,
-      isSell: _clothes.isSell,
-      isFavorite: _clothes.isFavorite,
-      uid: _clothes.uid
-    );
+    final clothes = await _read(clothesRepositoryProvider).fetchClothes(itemId: _clothes.itemId);
 
-    state = state.copyWith(clothesForPublic: clothesForPublic, isFavoriteState: _clothes.isFavorite);
+    state = state.copyWith(clothesForPublic: clothes == null ? ClothesForPublic():
+        clothes, isFavoriteState: _clothes.isFavorite);
 
   }
 
