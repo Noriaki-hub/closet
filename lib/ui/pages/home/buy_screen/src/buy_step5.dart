@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,6 +16,9 @@ class BuyStep5 extends HookConsumerWidget{
     return Container(
       margin: EdgeInsets.all(12),
       child: TextField(
+        inputFormatters: [
+          FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+        ],
         decoration: InputDecoration(
             hintText: "10000",
             filled: true,

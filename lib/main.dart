@@ -8,14 +8,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'ui/pages/login/login_screen.dart';
 
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: <String>[
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ],
-);
-
-
 void main()
 async {
   WidgetsFlutterBinding.ensureInitialized();

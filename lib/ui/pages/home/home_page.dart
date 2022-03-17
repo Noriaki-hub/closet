@@ -129,17 +129,102 @@ class _HomePage extends ConsumerWidget {
               ),
             ],
           ),
-          body: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+          body: RefreshIndicator(
+            onRefresh: () async{
+              await ref.read(HomePageProvider.notifier).fetchHomePageData();
+            },
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
-                    SizedBox(height: 40,),
+                      SizedBox(height: 40,),
 
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: OutlinedButton(
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10), //角の丸み
+                              ),
+                              side: const BorderSide(
+                                  color: Colors.black45
+                              ),
+                            ),
+                            child: Text('今月の収支', style: TextStyle(color: Colors.black),),
+                            onPressed: null
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 35, right: 35),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('購入額'),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white.withOpacity(0.5),
+                                  ),
+                                  height: 30,
+                                  width: 150,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10, left: 10, top: 5),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(state.buying),
+                                            Text('円')
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('売却額'),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white.withOpacity(0.5),
+                                  ),
+                                  height: 30,
+                                  width: 150,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10, left: 10, top: 5),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(state.selling),
+                                            Text('円')
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10), //角の丸み
@@ -148,99 +233,19 @@ class _HomePage extends ConsumerWidget {
                                 color: Colors.black45
                             ),
                           ),
-                          child: Text('今月の収支', style: TextStyle(color: Colors.black),),
-                          onPressed: null
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 35, right: 35),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('購入額'),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white.withOpacity(0.5),
-                                ),
-                                height: 30,
-                                width: 150,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 10, left: 10, top: 5),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(state.buying),
-                                          Text('円')
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('売却額'),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white.withOpacity(0.5),
-                                ),
-                                height: 30,
-                                width: 150,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 10, left: 10, top: 5),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(state.selling),
-                                          Text('円')
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10,),
-
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10), //角の丸み
-                          ),
-                          side: const BorderSide(
-                              color: Colors.black45
-                          ),
+                          child: Text('お気に入り', style: TextStyle(color: Colors.black),),
+                            onPressed: null
                         ),
-                        child: Text('お気に入り', style: TextStyle(color: Colors.black),),
-                          onPressed: null
                       ),
-                    ),
-                    SizedBox(height: 200,
-                        child: ClosetFavorite()
-                    ),
+                      SizedBox(height: 200,
+                          child: ClosetFavorite()
+                      ),
 
 
-                    ClosetController(),
-                    SizedBox(height:320,child: Closet()),
-                  ]
+                      ClosetController(),
+                      SizedBox(height:320,child: Closet()),
+                    ]
+                ),
               ),
             ),
           )

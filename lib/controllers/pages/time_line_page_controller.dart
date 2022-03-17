@@ -41,11 +41,7 @@ class TimeLinePageController extends StateNotifier<TimeLinePageState> {
   Future<void> fetchTimeLine() async {
 
     final timeLineList = await _read(timeLineRepositoryProvider).fetchTimeLines(userId: _userId);
-
-
     state = state.copyWith(timeLineList: timeLineList);
 
   }
-
-
 }

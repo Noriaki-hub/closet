@@ -63,8 +63,7 @@ class _BuyStepScreen extends State<BuyStepScreen> {
                         backgroundColor: Colors.blueGrey,
                         onPressed: () async{
                           await ref.read(BuyPageProvider.notifier).addCloset();
-                          // await ref.read(CalendarPageProvider.notifier).();
-                          Navigator.pop(context, true);
+                          Navigator.pop(context);
                         }
                     ),
                   ):
@@ -85,6 +84,7 @@ class _BuyStepScreen extends State<BuyStepScreen> {
               appBar: AppBar(
                 backgroundColor: Colors.brown.shade50,
               ),
+
               body: Center(
                 child: Theme(
 

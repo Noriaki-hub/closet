@@ -27,6 +27,7 @@ class _ItemRepository {
     final snap = await _fireStore.collection("clothes")
         .where('uid', whereIn: uidList)
         .orderBy('createdBuy', descending: true)
+        .limit(20)
         .get();
 
 

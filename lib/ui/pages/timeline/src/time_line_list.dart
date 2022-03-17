@@ -8,7 +8,7 @@ class TimeLineList extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final timeLineList = ref.watch(TimeLinePageProvider.select((value) => value.timeLineList));
-    return ListView.builder(
+    return timeLineList.isEmpty? CircularProgressIndicator():ListView.builder(
         itemCount: timeLineList.length,
         itemBuilder: (BuildContext context, int index) {
           final timeLine = timeLineList[index];
@@ -23,7 +23,7 @@ class TimeLineList extends HookConsumerWidget{
                     child: ClipRRect(borderRadius: BorderRadius.circular(12),child: Image.network(timeLine.imageURL,fit: BoxFit.cover,),
                   ),),
                 Container(
-                  height: 100,
+                  height: 120,
                   width: double.infinity,
                   color: Colors.brown.shade50,
                   child: Padding(

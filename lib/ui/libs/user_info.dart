@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../controllers/component/user_info_controller.dart';
+import '../pages/home/account/account_page.dart';
 import '../pages/home/home_page.dart';
 
 
@@ -42,7 +43,7 @@ class _UserInfo extends HookConsumerWidget{
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  HomePage(userId: user.uid),
+                  AccountPage(userId: user.uid),
             )
         );
       },

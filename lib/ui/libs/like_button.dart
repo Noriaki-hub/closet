@@ -38,19 +38,22 @@ class _LikeButton extends HookConsumerWidget {
     final myLikeState = ref.watch(
         LikeButtonProvider.select((value) => value.myLikeState));
     return
-    Row(
+    Column(
       children: [
-        myLikeState.isNotEmpty ?
-        IconButton(onPressed: (){ref.read(LikeButtonProvider.notifier).deleteLike();}, icon: Icon(LineIcons.heartAlt, color: Colors.red,)) :
-        IconButton(onPressed: (){ref.read(LikeButtonProvider.notifier).addLike();}, icon: Icon(LineIcons.heartAlt, color: Colors.grey,),),
-        InkWell(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> LikeUsers(likes)));
-          },
-            child:
-        Text(
+        Row(
+          children: [
+            myLikeState.isNotEmpty ?
+            IconButton(onPressed: (){ref.read(LikeButtonProvider.notifier).deleteLike();}, icon: Icon(LineIcons.heartAlt, color: Colors.red,)) :
+            IconButton(onPressed: (){ref.read(LikeButtonProvider.notifier).addLike();}, icon: Icon(LineIcons.heartAlt, color: Colors.grey,),),
+            Text(
             likes.length.toString()
-        ))
+            )
+          ],
+        ),
+        InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> LikeUsers(likes)));
+            },child: Text('いいねした人',style: TextStyle(fontSize: 10),))
       ],
     );
   }

@@ -148,8 +148,8 @@ class _AccountPage extends HookConsumerWidget {
                                   children: [
                                     Column(
                                       children: [
-                                        Text('120'
-                                            // state.follow
+                                        Text(
+                                            state.follow
                                         ),
                                         Text('フォロー',
                                           style: TextStyle(fontSize: 10),),
@@ -159,8 +159,8 @@ class _AccountPage extends HookConsumerWidget {
                                     Column(
 
                                       children: [
-                                        Text('120'
-                                            // state.follower
+                                        Text(
+                                            state.follower
                                         ),
                                         Text('フォロワー',
                                           style: TextStyle(fontSize: 10),),

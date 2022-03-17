@@ -33,20 +33,25 @@ class FollowPage extends StatelessWidget {
 
 
 
-class _FollowPage extends StatelessWidget {
+class _FollowPage extends HookConsumerWidget {
   _FollowPage({Key? key, this.userId}) : super(key: key);
   final String? userId;
   @override
-  Widget build(BuildContext context,) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Colors.brown.shade50,
 
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 50,),
-            Expanded(child: ItemList())
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async{
+          await ref.read(FollowPageProvider.notifier).fetchFollows();
+        },
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(height: 50,),
+              Expanded(child: ItemList())
+            ],
+          ),
         ),
       ),
     );
