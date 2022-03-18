@@ -21,11 +21,14 @@ class _Repository {
     await _read(firebaseFirestoreProvider)
         .collection('clothes')
         .where('isSell', isEqualTo: isSell).where('uid', isEqualTo: userId)
+        .orderBy('createdBuy', descending: true)
         .get() :
     await _read(firebaseFirestoreProvider)
         .collection('clothes')
         .where('isSell', isEqualTo: isSell).where(
-        'category', isEqualTo: category).where('uid', isEqualTo: userId).get();
+        'category', isEqualTo: category).where('uid', isEqualTo: userId)
+        .orderBy('createdBuy', descending: true)
+        .get();
 
 
     return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
@@ -232,6 +235,8 @@ class _Repository {
       "sellingYear": clothes.sellingYear,
       "sellingMonth": clothes.sellingMonth,
       "sellingDay": clothes.sellingDay,
+      'createdBuy': clothes.createdBuy,
+      'createdSell': clothes.createdSell
     });
   }
 

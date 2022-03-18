@@ -67,7 +67,11 @@ class _SellStepScreen extends State<SellStepScreen> {
 
 
               appBar: AppBar(
+                title: Text('売却したもの', style: TextStyle(color: Colors.black45)),
                 backgroundColor: Colors.brown.shade50,
+                leading: IconButton(onPressed: () {
+                  Navigator.pop(context, false);
+                }, icon: Icon(Icons.close),),
               ),
               body: Center(
                 child: Theme(

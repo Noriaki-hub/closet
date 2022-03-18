@@ -20,6 +20,7 @@ class MediaSelectPage extends HookConsumerWidget{
       backgroundColor: Colors.brown.shade50,
       appBar: AppBar(
         backgroundColor: Colors.brown.shade50,
+        title: Text('編集', style: TextStyle(color: Colors.black45),),
         leading: IconButton(onPressed: () {
           Navigator.pop(context, true);
         }, icon: Icon(LineIcons.angleLeft),

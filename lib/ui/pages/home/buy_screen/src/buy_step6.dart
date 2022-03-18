@@ -30,7 +30,7 @@ class BuyStep6 extends HookConsumerWidget {
                   color: Colors.black45
               ),
             ),
-            child: Text('選択', style: TextStyle(color: Colors.black),),
+            child: const Text('選択', style: TextStyle(color: Colors.black),),
             onPressed: () async {
               var selectedDate = DateTime.now();
               final pickedDate = await showDatePicker(

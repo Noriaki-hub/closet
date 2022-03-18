@@ -84,7 +84,7 @@ class CalenderScreen extends HookConsumerWidget{
                                 width: 120,
                                 child: Column(
                                   children: [
-                                    Text('購入額',style: TextStyle(fontSize: 10,),),
+                                    const Text('購入額',style: TextStyle(fontSize: 10,),),
                                     Padding(
                                       padding: const EdgeInsets.all(5),
                                       child: Row(
@@ -97,7 +97,7 @@ class CalenderScreen extends HookConsumerWidget{
                                   ],
                                 ),
                               ),
-                              Container(
+                               Container(
                                 height: 50,
                                 width: 120,
                                 decoration: BoxDecoration(
@@ -106,7 +106,7 @@ class CalenderScreen extends HookConsumerWidget{
                                 ),
                                 child: Column(
                                   children: [
-                                    Text('売却額',style: TextStyle(
+                                    const Text('売却額',style: TextStyle(
                                       fontSize: 10,),),
                                     Padding(
                                       padding: const EdgeInsets.all(5),
@@ -128,7 +128,7 @@ class CalenderScreen extends HookConsumerWidget{
                 ),
                 Row(
                   children: [
-                    SizedBox(width: 20,),
+                    const SizedBox(width: 20,),
                     Container(width: 100, decoration : BoxDecoration(
                         color: Colors.white.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(10)
@@ -149,11 +149,11 @@ class CalenderScreen extends HookConsumerWidget{
                 ),
                 Row(
                   children: [
-                    SizedBox(width: 20,),
+                    const SizedBox(width: 20,),
                     Container(width: 100, decoration : BoxDecoration(
                         color: Colors.white.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(10)
-                    ),child: Center(child: Text('売却した物'))),
+                    ),child: const Center(child: const Text('売却した物'))),
                   ],
                 ),
 

@@ -82,12 +82,13 @@ class _ItemList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final searchedUser = ref.watch(
+    final searchedUsers = ref.watch(
         UserSearchProvider.select((value) => value.searchedUsers));
-    return ListView.builder(
-        itemCount: searchedUser.length,
+    return searchedUsers.isEmpty? Center(child: Text('IDは「プロフィール」のメニューから設定できます', style: TextStyle(color: Colors.black45),),)
+        :ListView.builder(
+        itemCount: searchedUsers.length,
         itemBuilder: (BuildContext context, int index) {
-          final user = searchedUser[index];
+          final user = searchedUsers[index];
 
           return Padding(
             padding: const EdgeInsets.all(8.0),

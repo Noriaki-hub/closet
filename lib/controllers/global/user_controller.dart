@@ -47,24 +47,33 @@ class UserController extends StateNotifier<UserState> {
       idToken: googleAuth.idToken,
     );
 
-    await _auth.signInWithCredential(credential);
+    final result = await _auth.signInWithCredential(credential);
+    final isFirstLogin = await result.additionalUserInfo?.isNewUser;
+
+    if(isFirstLogin!){
+      await register();
+    }
+
+    fetchCurrentUser();
   }
 
   Future<void> register() async{
-    final _auth = _read(firebaseAuthProvider);
+    final _auth = await _read(firebaseAuthProvider);
     final _currentUser = await _auth.currentUser!;
+    final emailLength = await _currentUser.email?.length;
+    final id = await _currentUser.email?.substring(0 ,emailLength! - 10);
+
+
     final user = UserModel(
       email: _currentUser.email!,
       name: _currentUser.displayName!,
       image: _currentUser.photoURL!,
       uid: _currentUser.uid,
-      id: '',
-
+      id: id!,
     );
 
     await _read(userRepositoryProvider).register(user: user);
 
-    state = state.copyWith(user: user);
   }
 
   Future<void> logout() async{
@@ -77,8 +86,6 @@ class UserController extends StateNotifier<UserState> {
     state = state.copyWith(user: user);
   }
 
-  Future<void> update()async{
-    final _auth = _read(firebaseAuthProvider);
 
-  }
+
 }

@@ -33,29 +33,29 @@ class _MediaAddPage extends State<MediaAddPage> {
     return Consumer(
         builder: (context, ref, _) {
           final items = ref.watch(MediaAddPageProvider);
-          if(items.url != '' && items.name != '' && items.imageFile != null
-          ){
+          if (items.url != '' && items.name != '' && items.imageFile != null
+          ) {
             itemState = true;
-          }else{
+          } else {
             itemState = false;
           }
           return Scaffold(
               floatingActionButton:
               itemState ?
               FloatingActionButton(
-                  child: Text('OK'),
+                  child: Text('追加', style: TextStyle(color: Colors.black45)),
                   backgroundColor: Colors.blueGrey,
-                  onPressed: () async{
+                  onPressed: () async {
                     await ref.read(MediaAddPageProvider.notifier).addMedia();
                     // await ref.read(CalendarPageProvider.notifier).();
                     Navigator.pop(context, true);
                   }
-              ):
+              ) :
               FloatingActionButton(
                   child: Icon(LineIcons.angleDown),
                   backgroundColor: Colors.brown.shade50,
                   onPressed: () {
-                    if(currentStep < 4 ){
+                    if (currentStep < 4) {
                       setState(() {
                         currentStep += 1;
                       });
@@ -64,9 +64,12 @@ class _MediaAddPage extends State<MediaAddPage> {
               ),
 
 
-
               appBar: AppBar(
                 backgroundColor: Colors.brown.shade50,
+                title: Text('メディアを追加', style: TextStyle(color: Colors.black45)),
+                leading: IconButton(onPressed: () {
+                  Navigator.pop(context, false);
+                }, icon: Icon(Icons.close),),
               ),
               body: Center(
                 child: Theme(
@@ -124,7 +127,6 @@ class _MediaAddPage extends State<MediaAddPage> {
         }
     );
   }
-
 }
 
 

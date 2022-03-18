@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../../controllers/pages/clothes_edit_page_controller.dart';
 
 class DescriptionTextField extends HookConsumerWidget{
-  DescriptionTextField(this.description);
-  String description;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final description = ref.watch(ClothesEditPageProvider.select((value) => value.clothes.description));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

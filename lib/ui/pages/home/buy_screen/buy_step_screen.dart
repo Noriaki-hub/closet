@@ -82,7 +82,11 @@ class _BuyStepScreen extends State<BuyStepScreen> {
 
 
               appBar: AppBar(
+                title: Text('購入したもの', style: TextStyle(color: Colors.black45)),
                 backgroundColor: Colors.brown.shade50,
+                leading: IconButton(onPressed: () {
+                  Navigator.pop(context, false);
+                }, icon: Icon(Icons.close),),
               ),
 
               body: Center(

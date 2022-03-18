@@ -59,59 +59,44 @@ class _HomePage extends ConsumerWidget {
           floatingActionButton: ExpandableFab(
             distance: 112.0,
             children: [
-              Column(
-                children: [
-                  ActionButton(
-                      onPressed: () async {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              fullscreenDialog: true,
-                              builder: (context) => AccountPage(userId: state.user.uid),
-                            ));},
-                      icon: const Icon(LineIcons.user)),
-                  Text('アカウント', style: TextStyle(color: Colors.grey),)
-                ],
+              ActionButton(
+                  onPressed: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          fullscreenDialog: true,
+                          builder: (context) => AccountPage(userId: state.user.uid),
+                        ));},
+                  icon: const Icon(LineIcons.user, color: Colors.black45,)),
+              ActionButton(
+                onPressed: () async {
+                  final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (context) => BuyStepScreen(),
+                      )
+                  );
+                  if (result) {
+                    ref.read(HomePageProvider.notifier).fetchHomePageData();
+                  }
+                }, icon: const Icon(LineIcons.plus , color: Colors.black45,),
               ),
-              Column(
-                children: [
-                  ActionButton(
-                    onPressed: () async {
-                      final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            fullscreenDialog: true,
-                            builder: (context) => BuyStepScreen(),
-                          )
-                      );
-                      if (result) {
-                        ref.read(HomePageProvider.notifier).fetchHomePageData();
-                      }
-                    }, icon: Icon(LineIcons.plus ),
-                  ),
-                  Text('購入', style: TextStyle(color: Colors.grey),)
-                ],
-              ),
-              Column(
-                children: [
-                  ActionButton(
-                    onPressed: () async {
-                      final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            fullscreenDialog: true,
-                            builder: (context) => SellStepScreen(),
-                          )
-                      );
-                      if (result) {
-                        ref.read(HomePageProvider.notifier)
-                            .fetchHomePageData();
-                      }
-                    },
-                    icon: const Icon(LineIcons.handHoldingUsDollar),
-                  ),
-                  Text('売却', style: TextStyle(color: Colors.grey),)
-                ],
+              ActionButton(
+                onPressed: () async {
+                  final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (context) => SellStepScreen(),
+                      )
+                  );
+                  if (result) {
+                    ref.read(HomePageProvider.notifier)
+                        .fetchHomePageData();
+                  }
+                },
+                icon: const Icon(LineIcons.handHoldingUsDollar, color: Colors.black45,),
               ),
               Column(
                 children: [
@@ -123,8 +108,7 @@ class _HomePage extends ConsumerWidget {
                                   fullscreenDialog: true,
                                   builder: (context) => CalenderScreen(),
                                 ));},
-                    icon: const Icon(LineIcons.calendar)),
-                  Text('収支', style: TextStyle(color: Colors.grey),)
+                    icon: const Icon(LineIcons.calendar, color: Colors.black45,)),
                 ],
               ),
             ],

@@ -1,11 +1,9 @@
-import 'package:closet_app_xxx/controllers/pages/shop_edit_page_controller.dart';
 import 'package:closet_app_xxx/ui/pages/shop/edit/shop_edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 import '../../../../controllers/pages/shop_page_controller.dart';
-import '../../../../models/shop.dart';
 
 
 
@@ -18,6 +16,7 @@ class ShopSelectPage extends HookConsumerWidget{
     return  Scaffold(
       backgroundColor: Colors.brown.shade50,
       appBar: AppBar(
+        title: Text('編集', style: TextStyle(color: Colors.black45),),
         backgroundColor: Colors.brown.shade50,
         leading: IconButton(onPressed: () {
           Navigator.pop(context, true);

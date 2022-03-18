@@ -1,5 +1,4 @@
 import 'package:closet_app_xxx/controllers/pages/buy_page_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -62,20 +61,20 @@ class pick extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      child: new Wrap(
+      child: Wrap(
         children: <Widget>[
-          new ListTile(
-              leading: new Icon(Icons.photo_library),
-              title: new Text('Photo Library'),
+          ListTile(
+              leading: Icon(Icons.photo_library),
+              title: const Text('Photo Library'),
               onTap: () async{
                 final pickedFile = await ImagePicker()
                     .pickImage(source: ImageSource.gallery);
                 ref.read(BuyPageProvider.notifier).imageFile(pickedFile);
                 Navigator.of(context).pop();
               }),
-          new ListTile(
-            leading: new Icon(Icons.photo_camera),
-            title: new Text('Camera'),
+          ListTile(
+            leading: const Icon(Icons.photo_camera),
+            title: const Text('Camera'),
             onTap: () async{
               final pickedFile = await ImagePicker()
                   .pickImage(source: ImageSource.camera);

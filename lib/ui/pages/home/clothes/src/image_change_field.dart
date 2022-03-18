@@ -7,12 +7,12 @@ import 'dart:io';
 import '../../../../../controllers/pages/clothes_edit_page_controller.dart';
 
 class ImageChangeField extends HookConsumerWidget{
-  ImageChangeField(this.image);
-  String image;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final imageFile = ref.watch(
         ClothesEditPageProvider.select((value) => value.imageFile));
+    final imageURL = ref.watch(ClothesEditPageProvider.select((value) => value.clothes.imageURL));
     return InkWell(
       onTap: () {
         _showPicker(context);
@@ -25,7 +25,7 @@ class ImageChangeField extends HookConsumerWidget{
             color: Colors.white,
             child: imageFile == null ?
             Image.network(
-              image,
+              imageURL,
               fit: BoxFit.cover,
             ) : Image.file(imageFile, fit: BoxFit.cover,)
         ),

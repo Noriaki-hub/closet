@@ -21,6 +21,7 @@ class ClothesEditPageState with _$ClothesEditPageState {
   const ClothesEditPageState._();
 
   const factory ClothesEditPageState({
+    @Default(ClothesForPublic()) ClothesForPublic clothes,
     DateTime? selectedDateForBuy,
     DateTime? selectedDateForSell,
     File? imageFile,
@@ -41,24 +42,47 @@ class ClothesEditPageState with _$ClothesEditPageState {
 
 }
 
+class ClothesEditPageProviderArg {
+  ClothesEditPageProviderArg({required this.clothes});
+  final ClothesForPublic clothes;
+}
 
-
-final  ClothesEditPageProvider =
-StateNotifierProvider.autoDispose< ClothesEditPageController,  ClothesEditPageState>(
+final ClothesEditPageProvider =
+StateNotifierProvider.autoDispose<ClothesEditPageController, ClothesEditPageState>(
         (ref) {
-      final user = ref.watch(userProvider.select((value) => value.user));
-      final date = ref.watch(DateNowProvider);
-      return ClothesEditPageController(ref.read, user, date);
+      return throw UnimplementedError();
     });
+
+final ClothesEditPageProviderFamily = StateNotifierProvider.family.autoDispose<
+    ClothesEditPageController,
+    ClothesEditPageState,
+    ClothesEditPageProviderArg>((ref, arg) {
+  final user = ref.watch(userProvider.select((value) => value.user));
+  return ClothesEditPageController(
+    ref.read,
+    arg.clothes,
+    user,
+  );
+});
+
+
+
 
 
 class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
-  ClothesEditPageController(this._read, this._user, this.date)
-      : super(ClothesEditPageState());
+  ClothesEditPageController(this._read, this._clothes, this._user, )
+      : super(ClothesEditPageState()){
+    fetchFirstClothes();
+  }
 
   final Reader _read;
   final UserModel _user;
-  final Date date;
+  final ClothesForPublic _clothes;
+
+  Future<void> fetchFirstClothes()async{
+    state = state.copyWith(clothes: _clothes, category: _clothes.category);
+
+  }
 
 
   Future<void> imageFile(XFile? imageFile) async {
@@ -151,6 +175,8 @@ class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
         sellingYear: state.selectedDateForSell == null ? clothes.sellingYear: state.sellingYear,
         sellingMonth: state.selectedDateForSell == null ? clothes.sellingMonth: state.sellingMonth,
         sellingDay: state.selectedDateForSell == null ? clothes.sellingDay: state.sellingDay,
+        createdBuy: state.selectedDateForBuy == null ? clothes.createdBuy: state.selectedDateForBuy,
+        createdSell: state.selectedDateForSell == null ? clothes.createdSell: state.selectedDateForSell
     );
     await _read(clothesRepositoryProvider).update(clothes: _clothes);
   }

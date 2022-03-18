@@ -31,7 +31,9 @@ StateNotifierProvider.autoDispose<TimeLinePageController, TimeLinePageState>(
 class TimeLinePageController extends StateNotifier<TimeLinePageState> {
   TimeLinePageController(this._read,{required String userId,})  :
         _userId = userId, super(TimeLinePageState()){
-    fetchTimeLine();
+    if(_userId != '') {
+      fetchTimeLine();
+    }
   }
   final Reader _read;
   final String _userId;

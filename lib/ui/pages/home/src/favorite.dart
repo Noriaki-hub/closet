@@ -6,7 +6,7 @@ class ClosetFavorite extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final closetFavorite = ref.watch(HomePageProvider.select((value) => value.closetFavorite));
-    return GridView.builder(
+    return closetFavorite.isEmpty? Center(child: Text('お気に入りは空です', style: TextStyle(color: Colors.black45),)):GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
         mainAxisSpacing: 5,

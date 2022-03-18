@@ -28,7 +28,7 @@ class AccountCloset extends HookConsumerWidget{
                   final result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return ClothesViewScreen(clothes: item);}));
                   if(result){
-                    ref.read(HomePageProvider.notifier).fetchHomePageData();
+                    ref.read(AccountPageProvider.notifier).fetchAccountPageData();
 
                   }
                 },

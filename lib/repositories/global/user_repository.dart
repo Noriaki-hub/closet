@@ -56,7 +56,7 @@ class _ItemRepository {
           'uid' : user.uid,
           'image' : user.image,
           'name' : user.name,
-          'id' : ''
+          'id' : user.id
 
         }
     );

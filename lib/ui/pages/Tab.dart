@@ -38,14 +38,14 @@ class _BottomTabPageState extends State<BottomTabPage> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey.shade200,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(LineIcons.stream), label: '服ログ'),
+          BottomNavigationBarItem(icon: const Icon(LineIcons.stream), label: '服ログ'),
           BottomNavigationBarItem(
-              icon: Icon(LineIcons.userFriends), label: 'フォロー'),
+              icon: const Icon(LineIcons.userFriends), label: 'フォロー'),
           BottomNavigationBarItem(icon: _accountImage(), label: 'ホーム'),
           BottomNavigationBarItem(
-              icon: Icon(LineIcons.newspaper), label: 'メディア'),
+              icon: const Icon(LineIcons.newspaper), label: 'メディア'),
           BottomNavigationBarItem(
-              icon: Icon(LineIcons.shoppingCart), label: 'ショップ'),
+              icon: const Icon(LineIcons.shoppingCart), label: 'ショップ'),
         ],
         currentIndex: _currentIndex,
         fixedColor: Colors.white,

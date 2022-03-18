@@ -44,6 +44,7 @@ class _AccountPage extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.brown.shade50,
       appBar: AppBar(
+        title: Text('プロフィール', style: TextStyle(color: Colors.black45),),
         backgroundColor: Colors.brown.shade50,
       ),
       floatingActionButton: state.isMenu ? ExpandableFab(
@@ -151,18 +152,18 @@ class _AccountPage extends HookConsumerWidget {
                                         Text(
                                             state.follow
                                         ),
-                                        Text('フォロー',
+                                        const Text('フォロー',
                                           style: TextStyle(fontSize: 10),),
                                       ],
                                     ),
-                                    SizedBox(width: 20,),
+                                    const SizedBox(width: 20,),
                                     Column(
 
                                       children: [
                                         Text(
                                             state.follower
                                         ),
-                                        Text('フォロワー',
+                                        const Text('フォロワー',
                                           style: TextStyle(fontSize: 10),),
                                       ],
                                     ),
@@ -180,7 +181,7 @@ class _AccountPage extends HookConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
 
                           children: [
-                            SizedBox(height: 20,),
+                            const  SizedBox(height: 20,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -196,7 +197,7 @@ class _AccountPage extends HookConsumerWidget {
                                         color: Colors.black45
                                     ),
                                   ),
-                                  child: Text('クローゼットをみる',
+                                  child: const Text('クローゼットをみる',
                                     style: TextStyle(color: Colors.black),),
                                   onPressed: () {
                                     Navigator.push(context,
@@ -208,18 +209,18 @@ class _AccountPage extends HookConsumerWidget {
                                 ),
                               ],
                             ),
-                            Text('お気に入り',
+                            const Text('お気に入り',
                               style: TextStyle(fontWeight: FontWeight.bold),),
                             state.user.uid == '' ?
                             Container() :
                             SizedBox(width: double.infinity,
                                 height: 200, child: AccountFavorite()),
 
-                            Text('最近購入したもの', style: TextStyle(
+                            const Text('最近購入したもの', style: TextStyle(
                                 fontWeight: FontWeight.bold)),
                             SizedBox(width: double.infinity,
                                 height: 200, child: AccountCloset()),
-                            Text('今までの収支額', style: TextStyle(
+                            const Text('今までの収支額', style: TextStyle(
                                 fontWeight: FontWeight.bold),),
                             Container(
                               height: 50,
@@ -229,7 +230,7 @@ class _AccountPage extends HookConsumerWidget {
                                     mainAxisAlignment: MainAxisAlignment
                                         .spaceEvenly,
                                     children: [
-                                      Text('購入額'),
+                                      const Text('購入額'),
                                       SizedBox(
                                         width: 150,
                                         child: Row(
@@ -240,7 +241,7 @@ class _AccountPage extends HookConsumerWidget {
                                               style: TextStyle(fontSize: 20,),
                                               textAlign: TextAlign.right,
                                             ),
-                                            Text('円')
+                                            const Text('円')
                                           ],
                                         ),
                                       ),
@@ -248,7 +249,7 @@ class _AccountPage extends HookConsumerWidget {
                                   )
                               ),
                             ),
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
                             Container(
                               height: 50,
                               color: Colors.white.withOpacity(0.5),
@@ -257,18 +258,18 @@ class _AccountPage extends HookConsumerWidget {
                                     mainAxisAlignment: MainAxisAlignment
                                         .spaceEvenly,
                                     children: [
-                                      Text('売却額'),
+                                      const Text('売却額'),
                                       SizedBox(
                                         width: 150,
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
-                                            Text(
+                                             Text(
                                               state.selling,
                                               style: TextStyle(fontSize: 20,),
                                               textAlign: TextAlign.right,
                                             ),
-                                            Text('円')
+                                            const Text('円')
                                           ],
                                         ),
                                       ),

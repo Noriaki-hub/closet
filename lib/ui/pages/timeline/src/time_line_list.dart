@@ -4,6 +4,8 @@ import 'package:closet_app_xxx/controllers/pages/time_line_page_controller.dart'
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../home/clothes/clothes_view_screen.dart';
+
 class TimeLineList extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,11 +19,16 @@ class TimeLineList extends HookConsumerWidget{
             child: Column(
               children: [
                 UserInfo(userId: timeLine.uid),
-                Container(
-                    height: 500,
-                    width: double.infinity,
-                    child: ClipRRect(borderRadius: BorderRadius.circular(12),child: Image.network(timeLine.imageURL,fit: BoxFit.cover,),
-                  ),),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ClothesViewScreen(clothes: timeLine,)));
+                  },
+                  child: Container(
+                      height: 500,
+                      width: double.infinity,
+                      child: ClipRRect(borderRadius: BorderRadius.circular(12),child: Image.network(timeLine.imageURL,fit: BoxFit.cover,),
+                    ),),
+                ),
                 Container(
                   height: 120,
                   width: double.infinity,

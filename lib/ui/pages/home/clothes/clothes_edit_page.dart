@@ -12,20 +12,40 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../../../controllers/pages/clothes_edit_page_controller.dart';
+import '../../../../models/clothes.dart';
 
-
-
-
-class ClothesEditPage extends HookConsumerWidget {
+class ClothesEditPage extends StatelessWidget {
   ClothesEditPage({
     Key? key,
     required this.clothes,
+
   }) : super(key: key);
+
 
   final ClothesForPublic clothes;
 
   @override
+  Widget build(BuildContext context) {
+    return ProviderScope(
+      overrides: [
+        ClothesEditPageProvider.overrideWithProvider(
+          ClothesEditPageProviderFamily(
+            ClothesEditPageProviderArg( clothes: clothes),
+          ),
+        ),
+      ],
+      child: _ClothesEditPage(),
+    );
+  }
+}
+
+
+class _ClothesEditPage extends HookConsumerWidget {
+
+
+  @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final clothes = ref.watch(ClothesEditPageProvider.select((value) => value.clothes));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown.shade50,
@@ -43,7 +63,7 @@ class ClothesEditPage extends HookConsumerWidget {
         },
 
       ),
-      body: Padding(
+      body: clothes.itemId == ''? Center(child: CircularProgressIndicator(),):Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: SizedBox(
@@ -53,16 +73,16 @@ class ClothesEditPage extends HookConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ImageChangeField(clothes.imageURL),
-                  BrandsTextField(clothes.brands),
-                  DescriptionTextField(clothes.description),
-                  CategoryController(clothes.category),
-                  PriceTextField(clothes.price),
-                  DatePickField(clothes.year, clothes.month, clothes.day),
+                  ImageChangeField(),
+                  BrandsTextField(),
+                  DescriptionTextField(),
+                  CategoryController(),
+                  PriceTextField(),
+                  DatePickField(),
                   clothes.isSell?
-                  SellingTextField(clothes.selling):Container(),
+                  SellingTextField():Container(),
                   clothes.isSell?
-                  SellDatePickField(clothes.sellingYear, clothes.sellingMonth, clothes.sellingDay):Container()
+                  SellDatePickField():Container()
                 ],
               ),
             ),

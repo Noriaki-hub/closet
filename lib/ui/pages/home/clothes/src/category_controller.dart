@@ -4,8 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../../controllers/pages/clothes_edit_page_controller.dart';
 
 class CategoryController extends HookConsumerWidget {
-  CategoryController(this.category);
-  String category;
 
   final List<MapEntry<String, String>> categories = [
     MapEntry("Tops", 'トップス'),
@@ -18,8 +16,9 @@ class CategoryController extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final categoryState = ref.watch(ClothesEditPageProvider.select((value) => value.category));
-    ref.read(ClothesEditPageProvider.notifier).category(category: category);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

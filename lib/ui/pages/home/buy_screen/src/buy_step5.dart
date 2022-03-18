@@ -14,12 +14,14 @@ class BuyStep5 extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       child: TextField(
+        textAlign: TextAlign.right,
         inputFormatters: [
-          FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
         ],
         decoration: InputDecoration(
+            suffixText: '円',
             hintText: "10000",
             filled: true,
             fillColor: Colors.grey.shade200,

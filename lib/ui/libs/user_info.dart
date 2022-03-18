@@ -63,7 +63,7 @@ class _UserInfo extends HookConsumerWidget{
                 ),
               ),
             ),
-            SizedBox(width: 10,),
+            const SizedBox(width: 10,),
             Text(user.name)
           ],
         ),

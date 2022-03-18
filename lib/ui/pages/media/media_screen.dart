@@ -19,35 +19,26 @@ class MediaPage extends HookConsumerWidget {
         floatingActionButton: ExpandableFab(
           distance: 112.0,
           children: [
-            Column(
-              children: [
-                ActionButton(
-                  onPressed: () async {
-                    final result = await Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MediaAddPage()));
-                    if (result) {
-                      ref.read(MediaPageProvider.notifier).fetchMedias();
-                    }
-                  }, icon: Icon(LineIcons.plus),
-                ),
-                Text('追加', style: TextStyle(color: Colors.grey),)
-              ],
+            ActionButton(
+              onPressed: () async {
+                final result = await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MediaAddPage()));
+                if (result) {
+                  ref.read(MediaPageProvider.notifier).fetchMedias();
+                }
+              }, icon: Icon(LineIcons.plus, color: Colors.black45,),
             ),
-            Column(
-              children: [
-                ActionButton(
+            ActionButton(
 
-                  onPressed: () async {
-                    final result = await Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MediaSelectPage()));
-                    if (result) {
-                      ref.read(MediaPageProvider.notifier).fetchMedias();
-                    }
-                  },
+              onPressed: () async {
+                final result = await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MediaSelectPage()));
+                if (result) {
+                  ref.read(MediaPageProvider.notifier).fetchMedias();
+                }
+              },
 
-                  icon: const Icon(LineIcons.list),
-                ),
-                Text("編集", style: TextStyle(color: Colors.grey),)],
+              icon: const Icon(LineIcons.list, color: Colors.black45,),
             ),
           ],
         ),
@@ -61,8 +52,8 @@ class MediaList extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
    final medias = ref.watch(MediaPageProvider.select((value) => value.medias));
-   return GridView.builder(
-         itemCount: medias.length,
+   return medias.isEmpty? Center(child: Text('お気に入りのメディアを追加しよう', style: TextStyle(color: Colors.black45),)):GridView.builder(
+       itemCount: medias.length,
 
            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
              crossAxisCount: 2,

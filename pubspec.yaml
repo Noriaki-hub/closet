@@ -53,6 +53,11 @@ dependencies:
   cupertino_stepper: ^0.2.1
   flutter_slidable: ^1.2.0
   flutter_plugin_android_lifecycle: ^2.0.5
+  flutter_native_splash: ^2.1.1
+flutter_native_splash:
+    image: "images/logo.png"
+    color: "4DD0E1"
+
 
 
 

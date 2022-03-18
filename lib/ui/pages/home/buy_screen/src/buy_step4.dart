@@ -12,7 +12,7 @@ class BuyStep4 extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       child: TextField(
         maxLines: 3,
         decoration: InputDecoration(

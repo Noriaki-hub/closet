@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
 import 'dart:io';
 
-import '../../../../controllers/pages/shop_page_controller.dart';
 import '../../../../models/shop.dart';
 
 

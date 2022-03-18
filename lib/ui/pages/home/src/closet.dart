@@ -8,7 +8,7 @@ class Closet extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final closet = ref.watch(HomePageProvider.select((value) => value.closet));
-    return  Padding(
+    return closet.isEmpty? Center(child: Text('クローゼットは空です', style: TextStyle(color: Colors.black45),)):Padding(
       padding: const EdgeInsets.all(20),
       child: GridView.builder(
             scrollDirection: Axis.horizontal,

@@ -6,13 +6,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../../controllers/pages/clothes_edit_page_controller.dart';
 
 class SellDatePickField extends HookConsumerWidget{
-  SellDatePickField(this.year, this.month, this.day);
-  String year;
-  String month;
-  String day;
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final clothes = ref.watch(ClothesEditPageProvider.select((value) => value.clothes));
     final selectedDate = ref.watch(ClothesEditPageProvider.select((value) => value.selectedDateForSell));
     final state = ref.watch(ClothesEditPageProvider);
     return Column(
@@ -24,7 +22,7 @@ class SellDatePickField extends HookConsumerWidget{
           child: Column(
             children: [
               selectedDate == null?
-              Text(year + '/' + month + '/' + day, style: TextStyle(fontSize: 25),):
+              Text(clothes.year + '/' + clothes.month + '/' + clothes.day, style: TextStyle(fontSize: 25),):
               Text(state.sellingYear + '/' + state.sellingMonth + '/' + state.sellingDay, style: TextStyle(fontSize: 25),),
               Padding(
                 padding: const EdgeInsets.all(8.0),

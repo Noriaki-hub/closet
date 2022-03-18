@@ -13,6 +13,9 @@ class AccountEditPage extends HookConsumerWidget {
   }) : super(key: key);
 
 
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final imageFile = ref.watch(
@@ -23,12 +26,12 @@ class AccountEditPage extends HookConsumerWidget {
         backgroundColor: Colors.brown.shade50,
         leading: IconButton(onPressed: () {
           Navigator.pop(context, true);
-        }, icon: Icon(LineIcons.angleLeft),
+        }, icon: const Icon(LineIcons.angleLeft),
 
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Text('変更'),
+        child: const Text('変更'),
         backgroundColor: Colors.brown.shade50,
         onPressed: () async {
           await ref.read(AccountEditPageProvider.notifier).updateUser();
@@ -67,7 +70,7 @@ class AccountEditPage extends HookConsumerWidget {
 
                 Column(crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('名前',style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text('名前',style: TextStyle(fontWeight: FontWeight.bold)),
                     Container(
                       // width: 250,
                       child: TextField(
@@ -92,13 +95,21 @@ class AccountEditPage extends HookConsumerWidget {
                   children: [
                     Row(
                       children: [
-                        Text('ID',style: TextStyle(fontWeight: FontWeight.bold),),
-                        Text('（ユーザー検索用）')
+                        const Text('ID',style: TextStyle(fontWeight: FontWeight.bold),),
+                        const Text('（ユーザー検索用）')
                       ],
                     ),
-                    Container(
-                      // width: 250,
-                      child: TextField(
+                    Form(
+                      key: _key,
+                      child: TextFormField(
+                        validator: (value) {
+                          if(value == null){
+                            return null;
+                          }else if(value.length < 6){
+                            return '6文字以上で入力';
+                          }
+                        },
+                        onSaved: (value) => null,
                         controller: TextEditingController(text: user.id),
                         decoration: InputDecoration(
                             filled: true,
@@ -108,8 +119,10 @@ class AccountEditPage extends HookConsumerWidget {
                               borderSide: BorderSide.none,
                             )
                         ),
-                        onChanged: (text) {
-                          ref.read(AccountEditPageProvider.notifier).id(id: text);
+                        onChanged: (text) async{
+                          await ref.read(AccountEditPageProvider.notifier).id(id: text);
+                          if (!_key.currentState!.validate()) return;
+                          _key.currentState!.save();
                         },
                       ),
                     ),
@@ -143,11 +156,11 @@ class _pick extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      child: new Wrap(
+      child: Wrap(
         children: <Widget>[
-          new ListTile(
-              leading: new Icon(Icons.photo_library),
-              title: new Text('Photo Library'),
+          ListTile(
+              leading:  const Icon(Icons.photo_library),
+              title: const Text('Photo Library'),
               onTap: () async {
                 final pickedFile = await ImagePicker()
                     .pickImage(source: ImageSource.gallery);
@@ -155,9 +168,9 @@ class _pick extends HookConsumerWidget {
                     pickedFile);
                 Navigator.of(context).pop();
               }),
-          new ListTile(
-            leading: new Icon(Icons.photo_camera),
-            title: new Text('Camera'),
+          ListTile(
+            leading: const Icon(Icons.photo_camera),
+            title: const Text('Camera'),
             onTap: () async {
               final pickedFile = await ImagePicker()
                   .pickImage(source: ImageSource.camera);

@@ -1,9 +1,9 @@
 
-import 'package:closet_app_xxx/ui/pages/shop/edit/shop_edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../../controllers/global/user_controller.dart';
 import '../../../ui/pages/shop/add/shop_add_page.dart';
 import '../../../controllers/pages/shop_page_controller.dart';
 import '../../libs/web_view.dart';
@@ -23,35 +23,26 @@ class ShopScreen extends HookConsumerWidget {
         floatingActionButton: ExpandableFab(
           distance: 112.0,
           children: [
-            Column(
-              children: [
-                ActionButton(
-                  onPressed: () async {
-                    final result = await Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ShopAddPage()));
-                    if (result) {
-                      ref.read(ShopPageProvider.notifier).fetchShops();
-                    }
-                  }, icon: Icon(LineIcons.plus),
-                ),
-                Text('追加', style: TextStyle(color: Colors.grey),)
-              ],
+            ActionButton(
+              onPressed: () async {
+                final result = await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ShopAddPage()));
+                if (result) {
+                  ref.read(ShopPageProvider.notifier).fetchShops();
+                }
+              }, icon: Icon(LineIcons.plus, color: Colors.black45,),
             ),
-            Column(
-              children: [
-                ActionButton(
+            ActionButton(
 
-                  onPressed: () async {
-                    final result = await Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ShopSelectPage()));
-                    if (result) {
-                      ref.read(ShopPageProvider.notifier).fetchShops();
-                    }
-                  },
+              onPressed: () async {
+                final result = await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ShopSelectPage()));
+                if (result) {
+                  ref.read(ShopPageProvider.notifier).fetchShops();
+                }
+              },
 
-                  icon: const Icon(LineIcons.list),
-                ),
-                Text("編集", style: TextStyle(color: Colors.grey),)],
+              icon: const Icon(LineIcons.list, color: Colors.black45,),
             ),
           ],
         ),
@@ -65,7 +56,7 @@ class ShopList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final shops = ref.watch(ShopPageProvider.select((value) => value.shops));
-    return GridView.builder(
+    return shops.isEmpty? Center(child: Text('お気に入りのショップを追加しよう', style: TextStyle(color: Colors.black45),)):GridView.builder(
         itemCount: shops.length,
 
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

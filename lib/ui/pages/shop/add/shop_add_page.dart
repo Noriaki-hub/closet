@@ -1,3 +1,4 @@
+import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/ui/pages/shop/add/src/shop_add_step1.dart';
 import 'package:closet_app_xxx/ui/pages/shop/add/src/shop_add_step2.dart';
 import 'package:closet_app_xxx/ui/pages/shop/add/src/shop_add_step3.dart';
@@ -41,9 +42,10 @@ class _ShopAddPage extends State<ShopAddPage> {
               floatingActionButton:
               itemState ?
               FloatingActionButton(
-                  child: Text('OK'),
+                  child: Text('追加'),
                   backgroundColor: Colors.blueGrey,
                   onPressed: () async{
+
                     await ref.read(ShopAddPageProvider.notifier).addShop();
                     // await ref.read(CalendarPageProvider.notifier).();
                     Navigator.pop(context, true);
@@ -65,6 +67,10 @@ class _ShopAddPage extends State<ShopAddPage> {
 
               appBar: AppBar(
                 backgroundColor: Colors.brown.shade50,
+                title: const Text('ショップを追加',style: TextStyle(color: Colors.black45),),
+                leading: IconButton(onPressed: () {
+                  Navigator.pop(context, false);
+                }, icon: Icon(Icons.close),),
               ),
               body: Center(
                 child: Theme(
