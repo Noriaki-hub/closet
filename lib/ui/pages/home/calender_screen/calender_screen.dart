@@ -16,6 +16,7 @@ class CalenderScreen extends HookConsumerWidget{
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown.shade50,
+        title: Text('収支', style: TextStyle(color: Colors.black45),),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.brown.shade50,
@@ -30,6 +31,7 @@ class CalenderScreen extends HookConsumerWidget{
         onPressed: () async{
           var selectedDate = DateTime.now();
           final pickedDate = await showMonthPicker(
+            locale: const Locale("ja"),
             context: context,
             initialDate: selectedDate,
             firstDate: DateTime(2018),
@@ -194,7 +196,7 @@ class _calenderBuyList extends HookConsumerWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
                     tileColor: Colors.white.withOpacity(0.5),
-                    leading: Image.network(clothes.imageURL),
+                    leading: SizedBox(width: 50,child: ClipRRect(borderRadius: BorderRadius.circular(10),child: Image.network(clothes.imageURL, fit: BoxFit.cover,))),
                     title: Text(clothes.brands),
                     subtitle: Text(clothes.description),
                     trailing: Column(
@@ -223,13 +225,37 @@ class _calenderSellList extends HookConsumerWidget {
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
                 tileColor: Colors.white.withOpacity(0.5),
-                leading: Image.network(clothes.imageURL),
-                title: Text(clothes.brands),
-                subtitle: Text(clothes.description),
+                leading: SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      clothes.imageURL,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                title: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Text(clothes.brands),
+                    ],
+                  ),
+                ),
+                subtitle:  SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Text(clothes.description),
+                    ],
+                  ),
+                ),
                 trailing: Column(
                   children: [
-                    Text(clothes.selling+'円'),
-                    Text(clothes.sellingMonth + '/' + clothes.sellingDay, style: TextStyle(fontWeight: FontWeight.w100),),
+                    Text(clothes.price),
+                    Text(clothes.year + '/' +clothes.month + '/' + clothes.day, style: TextStyle(fontWeight: FontWeight.w100),),
                   ],
                 ),
               ),

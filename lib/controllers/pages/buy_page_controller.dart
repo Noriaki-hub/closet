@@ -30,6 +30,7 @@ class BuyPageState with _$BuyPageState {
     @Default('')String month,
     @Default('')String year,
     @Default('')String imageURL,
+    @Default('')String buyingForm
   }) = _BuyPageState;
 
 }
@@ -80,6 +81,10 @@ class BuyPageController extends StateNotifier<BuyPageState> {
     state = state.copyWith(price: price);
   }
 
+  Future<void> buyingForm({required String buyingForm}) async {
+    state = state.copyWith(buyingForm: buyingForm);
+  }
+
 
   Future<void> selectDate({required DateTime selectedDate}) async {
     DateFormat yearFormat = DateFormat('yyyy');
@@ -124,6 +129,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
       imageURL: state.imageURL,
       createdBuy: state.selectedDate!,
       uid: _user.uid,
+      buyingForm: state.buyingForm
     );
     await _read(clothesRepositoryProvider).add(clothes: clothes, user: _user);
   }

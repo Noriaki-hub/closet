@@ -1,4 +1,3 @@
-import 'package:closet_app_xxx/models/clothes_for_public.dart';
 import 'package:closet_app_xxx/models/libs/timestamp_converter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -29,31 +28,13 @@ class Clothes with _$Clothes {
     @Default(false)bool isSell,
     @Default(false)bool isFavorite,
     @Default('') String uid,
+    @Default('') String buyingForm
   }) = _Clothes;
 
   factory Clothes.fromJson(Map<String, dynamic> json) => _$ClothesFromJson(json);
 
 
 
-ClothesForPublic toClothesForPublic() {
-  return ClothesForPublic(
-  itemId : itemId,
-  brands: brands,
-  price: price,
-  category:category,
-  imageURL: imageURL,
-  selling : selling,
-  description : description,
-  day: day,
-  month: month,
-  year : year,
-  sellingDay: sellingDay,
-  sellingMonth: sellingMonth,
-  sellingYear: sellingYear,
-  isSell: isSell,
-  isFavorite: isFavorite,
-  uid: uid);
-}
 }
 
 

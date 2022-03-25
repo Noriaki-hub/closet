@@ -84,7 +84,7 @@ class _ItemList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchedUsers = ref.watch(
         UserSearchProvider.select((value) => value.searchedUsers));
-    return searchedUsers.isEmpty? Center(child: Text('IDは「プロフィール」のメニューから設定できます', style: TextStyle(color: Colors.black45),),)
+    return searchedUsers.isEmpty? Center(child: Text('IDから友達をフォローしよう', style: TextStyle(color: Colors.black45),),)
         :ListView.builder(
         itemCount: searchedUsers.length,
         itemBuilder: (BuildContext context, int index) {

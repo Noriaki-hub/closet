@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../models/clothes.dart';
 import '../../repositories/clothes_repository.dart';
+import '../../repositories/global/user_repository.dart';
 
 part 'home_page_controller.freezed.dart';
 
@@ -47,17 +48,15 @@ final HomePageProviderFamily = StateNotifierProvider.family.autoDispose<
   return HomePageController(
     ref.read,
     userId: arg.userId ?? user.uid,
-    user: user,
   );
 });
 
 class HomePageController extends StateNotifier<HomePageState> {
-  HomePageController(this._read,  {required String userId, required UserModel user})  : _userId = userId, _user = user, super(const HomePageState()) {
+  HomePageController(this._read,  {required String userId})  : _userId = userId, super(const HomePageState()) {
     _init();
   }
   final String _userId;
   final Reader _read;
-  final UserModel _user;
 
   Future<void> _init() async {
     fetchHomePageData();
@@ -66,10 +65,16 @@ class HomePageController extends StateNotifier<HomePageState> {
   Future<void> fetchHomePageData() async {
     final date = _read(DateNowProvider);
 
-    final List<Clothes> closet = await _read(clothesRepositoryProvider).fetchCloset(isSell: state.isSell, userId: _userId, category: state.category);
-    final List<Clothes> closetFavorite = await _read(clothesRepositoryProvider).fetchFavorite(isSell: state.isSell, userId: _userId, );
-    final buying  = await _read(clothesRepositoryProvider).fetchBuying(userId: _userId, month: date.month, year: date.year, );
-    final selling  = await _read(clothesRepositoryProvider).fetchSelling(userId: _userId, month: date.month, year: date.year, );
+    final List<Clothes> closet = await _read(clothesRepositoryProvider)
+        .fetchCloset(
+        isSell: state.isSell, userId: _userId, category: state.category);
+    final List<Clothes> closetFavorite = await _read(clothesRepositoryProvider)
+        .fetchFavorite(isSell: state.isSell, userId: _userId,);
+    final buying = await _read(clothesRepositoryProvider).fetchBuying(
+      userId: _userId, month: date.month, year: date.year,);
+    final selling = await _read(clothesRepositoryProvider).fetchSelling(
+      userId: _userId, month: date.month, year: date.year,);
+    final user = await _read(userRepositoryProvider).fetchUser(userId: _userId);
     state = state.copyWith(
         closet: closet,
         closetFavorite: closetFavorite,
@@ -77,8 +82,7 @@ class HomePageController extends StateNotifier<HomePageState> {
         selling: selling,
         year: date.year,
         month: date.month,
-        user: _user
-    );
+        user: user);
   }
 
 

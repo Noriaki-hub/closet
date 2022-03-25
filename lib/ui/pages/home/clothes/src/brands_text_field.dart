@@ -7,7 +7,7 @@ class BrandsTextField extends HookConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final brands = ref.watch(ClothesEditPageProvider.select((value) => value.clothes.brands));
+    final brands = ref.watch(ClothesEditPageProvider.select((value) => value.clothes?.brands));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

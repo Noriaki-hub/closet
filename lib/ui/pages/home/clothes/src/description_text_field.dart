@@ -7,7 +7,7 @@ class DescriptionTextField extends HookConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final description = ref.watch(ClothesEditPageProvider.select((value) => value.clothes.description));
+    final description = ref.watch(ClothesEditPageProvider.select((value) => value.clothes?.description));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

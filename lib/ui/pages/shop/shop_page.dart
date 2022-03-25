@@ -46,8 +46,15 @@ class ShopScreen extends HookConsumerWidget {
             ),
           ],
         ),
+        appBar: AppBar(
+          title: Text('ショップ', style: TextStyle(color: Colors.black45),),
+          backgroundColor: Colors.brown.shade50,
+        ),
         backgroundColor: Colors.brown.shade50,
-        body: ShopList()
+        body: RefreshIndicator(
+            onRefresh: () async{
+              await ref.read(ShopPageProvider.notifier).fetchShops();
+            },child: ShopList())
     );
   }
 }

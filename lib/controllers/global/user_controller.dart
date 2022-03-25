@@ -14,6 +14,8 @@ part 'user_controller.freezed.dart';
 class UserState with _$UserState {
   const factory UserState({
     @Default(UserModel()) UserModel user,
+    @Default(false) bool isFirstLogin,
+    @Default(false) bool isCurrentState
   }) = _UserState;
 }
 
@@ -22,13 +24,19 @@ StateNotifierProvider<UserController, UserState>((ref) => UserController(ref.rea
 
 class UserController extends StateNotifier<UserState> {
   final Reader _read;
+
   UserController(this._read) : super(const UserState()) {
-   fetchCurrentUser();
+    fetchCurrentUser();
   }
 
-  Future<void> fetchCurrentUser() async{
+  Future<void> fetchCurrentUser() async {
     final user = await _read(userRepositoryProvider).fetchCurrentUser();
-    state = state.copyWith(user: user);
+    if(user == null){
+      state = state.copyWith(isCurrentState: false);
+    }else{
+    state = state.copyWith(user: user,
+    isCurrentState: true);
+    }
   }
 
   Future<void> signInWithGoogle() async {
@@ -50,18 +58,19 @@ class UserController extends StateNotifier<UserState> {
     final result = await _auth.signInWithCredential(credential);
     final isFirstLogin = await result.additionalUserInfo?.isNewUser;
 
-    if(isFirstLogin!){
+    if (isFirstLogin!) {
       await register();
+      state = state.copyWith(isFirstLogin: true);
     }
 
     fetchCurrentUser();
   }
 
-  Future<void> register() async{
+  Future<void> register() async {
     final _auth = await _read(firebaseAuthProvider);
     final _currentUser = await _auth.currentUser!;
     final emailLength = await _currentUser.email?.length;
-    final id = await _currentUser.email?.substring(0 ,emailLength! - 10);
+    final id = await _currentUser.email?.substring(0, emailLength! - 10);
 
 
     final user = UserModel(
@@ -73,19 +82,16 @@ class UserController extends StateNotifier<UserState> {
     );
 
     await _read(userRepositoryProvider).register(user: user);
-
   }
 
-  Future<void> logout() async{
+  Future<void> logout() async {
     final _auth = _read(firebaseAuthProvider);
 
     await _auth.signOut();
 
-    final user = UserModel();
-
-    state = state.copyWith(user: user);
   }
 
-
-
+  Future<void> changeIsFirstLogin() async {
+    state = state.copyWith(isFirstLogin: false);
+}
 }

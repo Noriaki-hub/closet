@@ -1,5 +1,4 @@
 import 'package:closet_app_xxx/models/clothes.dart';
-import 'package:closet_app_xxx/models/clothes_for_public.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../repositories/clothes_repository.dart';
@@ -12,8 +11,9 @@ class ClothesViewPageState with _$ClothesViewPageState {
   const ClothesViewPageState._();
 
   const factory ClothesViewPageState({
-    @Default(ClothesForPublic()) ClothesForPublic clothesForPublic,
-    @Default(false) bool isFavoriteState
+    Clothes? clothes,
+    @Default(false) bool isFavoriteState,
+    @Default('') String buyingFormState
 
   }) = _ClothesViewPageState;
 
@@ -58,10 +58,23 @@ class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
 
 
   Future<void> fetchClothes() async {
-    final clothes = await _read(clothesRepositoryProvider).fetchClothes(itemId: _clothes.itemId);
+    final clothes = await _read(clothesRepositoryProvider).fetchClothes(
+        itemId: _clothes.itemId);
 
-    state = state.copyWith(clothesForPublic: clothes == null ? ClothesForPublic():
-        clothes, isFavoriteState: _clothes.isFavorite);
+    if (clothes != null) {
+      state = state.copyWith(clothes:
+      clothes, isFavoriteState: _clothes.isFavorite);
+
+      if(clothes.buyingForm == 'new'){
+        state = state.copyWith(buyingFormState: '新品');
+      }else if(clothes.buyingForm == 'used'){
+        state = state.copyWith(buyingFormState: '中古');
+      }else if(clothes.buyingForm == 'gift'){
+        state = state.copyWith(buyingFormState: '貰い物');
+      }
+
+    }
+
 
   }
 

@@ -13,7 +13,7 @@ class DatePickField extends HookConsumerWidget{
     final clothes = ref.watch(ClothesEditPageProvider.select((value) => value.clothes));
     final selectedDate = ref.watch(ClothesEditPageProvider.select((value) => value.selectedDateForBuy));
     final state = ref.watch(ClothesEditPageProvider);
-    return Column(
+    return clothes == null ?Container(): Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('購入日', style: TextStyle(fontWeight: FontWeight.bold),),

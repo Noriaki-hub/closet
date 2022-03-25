@@ -15,7 +15,7 @@ class _ItemRepository {
   _ItemRepository(this._read);
 
 
-  Future<UserModel> fetchCurrentUser() async{
+  Future<UserModel?> fetchCurrentUser() async{
 
     final _fireStore = await _read(firebaseFirestoreProvider);
     final _currentUser = await _read(firebaseAuthProvider).currentUser;
@@ -26,7 +26,7 @@ class _ItemRepository {
         .get();
     final data = snap.data();
         if(data == null){
-          return UserModel();
+          return null;
         }
     return UserModel.fromJson(data);
   }

@@ -6,33 +6,34 @@ class ClosetFavorite extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final closetFavorite = ref.watch(HomePageProvider.select((value) => value.closetFavorite));
-    return closetFavorite.isEmpty? Center(child: Text('お気に入りは空です', style: TextStyle(color: Colors.black45),)):GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 1,
-        mainAxisSpacing: 5,
-        crossAxisSpacing: 5,
-        childAspectRatio: (5 / 4),
+    return closetFavorite.isEmpty? Center(child: Text('お気に入りは空です', style: TextStyle(color: Colors.black45),)):
+    Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1,
+          mainAxisSpacing: 5,
+          crossAxisSpacing: 5,
+          childAspectRatio: (5 / 4),
+        ),
+        scrollDirection: Axis.horizontal,
+        itemCount: closetFavorite.length,
+        itemBuilder: (BuildContext context, int index) {
+          final item = closetFavorite[index];
+          return GestureDetector(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                    color: Colors.white,
+                    child: Image.network(
+                      item.imageURL,
+                      fit: BoxFit.cover,
+                    )
+                ),
+              )
+          );
+        },
       ),
-      scrollDirection: Axis.horizontal,
-      itemCount: closetFavorite.length,
-      itemBuilder: (BuildContext context, int index) {
-        final item = closetFavorite[index];
-        return Padding(
-            padding: const EdgeInsets.all(20),
-            child: GestureDetector(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                      color: Colors.white,
-                      child: Image.network(
-                        item.imageURL,
-                        fit: BoxFit.cover,
-                      )
-                  ),
-                )
-            )
-        );
-      },
     );
   }
 

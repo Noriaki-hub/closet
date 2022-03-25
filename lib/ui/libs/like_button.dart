@@ -75,7 +75,7 @@ class LikeUsers extends StatelessWidget{
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: ()async{
-                    final result = await Navigator.push(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>

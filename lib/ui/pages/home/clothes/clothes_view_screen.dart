@@ -45,14 +45,17 @@ class _ClothesViewScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Size size = MediaQuery.of(context).size;
     final clothes = ref.watch(
-        ClothesViewPageProvider.select((value) => value.clothesForPublic));
+        ClothesViewPageProvider.select((value) => value.clothes));
     final currentUserId = ref.watch(
         userProvider.select((value) => value.user.uid));
     final isFavoriteState = ref.watch(
         ClothesViewPageProvider.select((value) => value.isFavoriteState));
+    final buyingFormState = ref.watch(
+        ClothesViewPageProvider.select((value) => value.buyingFormState));
 
-    return
+    return clothes == null ? Scaffold():
       Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.brown.shade50,
@@ -111,9 +114,7 @@ class _ClothesViewScreen extends HookConsumerWidget {
           ],
         ) : Container(),
         backgroundColor: Colors.brown.shade50,
-        body: clothes.itemId == '' ? Center(child:
-        CircularProgressIndicator()
-          ,) : SingleChildScrollView(
+        body: SingleChildScrollView(
           child: SizedBox(
             height: 1000,
             child: Column(
@@ -122,7 +123,7 @@ class _ClothesViewScreen extends HookConsumerWidget {
 
                   Container(
                     width: double.infinity,
-                    height: 400,
+                    height: size.height * 1/2,
 
                     child: GestureDetector(
                         child: Image.network(
@@ -153,15 +154,15 @@ class _ClothesViewScreen extends HookConsumerWidget {
                   ),
                   SizedBox(height: 20,),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 5),
                     child: Text('詳細', style: TextStyle(
                         fontSize: 15),),
                   ),
                   Container(
                     height: 100, width: double.infinity,
                     color: Colors.white.withOpacity(0.5),
-                    child: Text(
-                      clothes.description,
+                    child: Text(clothes.description
+                      ,
                       style: TextStyle(
                           fontFamily: 'SFProDisplay',
                           fontSize: 15,
@@ -171,6 +172,29 @@ class _ClothesViewScreen extends HookConsumerWidget {
                           height: 1.5),
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Text('購入形態', style: TextStyle(
+                        fontSize: 15),),
+                  ),
+                  Container(
+                    height: 50, width: double.infinity,
+                    color: Colors.white.withOpacity(0.5),
+                    child: Center(
+                      child: Text(buyingFormState,
+                        style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            letterSpacing: 0.0075,
+                            height: 1.5),
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                   SizedBox(height: 20,),
@@ -253,6 +277,7 @@ class _ClothesViewScreen extends HookConsumerWidget {
       context: context,
       builder: (context) {
         return CupertinoAlertDialog(
+
           title: Text('削除しますか？'),
           actions: [
             CupertinoDialogAction(

@@ -1,8 +1,11 @@
 
+import 'package:closet_app_xxx/controllers/pages/home_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/tab_page_controller.dart';
 import 'package:closet_app_xxx/ui/pages/home/home_page.dart';
 import 'package:closet_app_xxx/ui/pages/shop/shop_page.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/timeline_screen.dart';
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/ui/pages/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -22,7 +25,7 @@ class BottomTabPage extends StatefulWidget {
 
 class _BottomTabPageState extends State<BottomTabPage> {
 
-  int _currentIndex = 0;
+  int _currentIndex = 2;
   final _pageWidgets = [
     TimeLineScreen(),
     FollowTab(),
@@ -38,7 +41,7 @@ class _BottomTabPageState extends State<BottomTabPage> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey.shade200,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: const Icon(LineIcons.stream), label: '服ログ'),
+          BottomNavigationBarItem(icon: const Icon(LineIcons.tShirt), label: '服ログ'),
           BottomNavigationBarItem(
               icon: const Icon(LineIcons.userFriends), label: 'フォロー'),
           BottomNavigationBarItem(icon: _accountImage(), label: 'ホーム'),
@@ -62,7 +65,7 @@ class _accountImage extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final accountImage = ref.watch(
-        userProvider.select((value) => value.user.image));
+        TabPageProvider.select((value) => value.image));
     return SizedBox(
       height: 30,width: 30,
         child: ClipRRect(

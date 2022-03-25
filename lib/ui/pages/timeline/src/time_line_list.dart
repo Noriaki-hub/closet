@@ -9,8 +9,10 @@ import '../../home/clothes/clothes_view_screen.dart';
 class TimeLineList extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Size size = MediaQuery.of(context).size;
     final timeLineList = ref.watch(TimeLinePageProvider.select((value) => value.timeLineList));
-    return timeLineList.isEmpty? CircularProgressIndicator():ListView.builder(
+    return timeLineList.isEmpty? Center(child: Text('現在ログはありません', style: TextStyle(color: Colors.black45),),):
+    ListView.builder(
         itemCount: timeLineList.length,
         itemBuilder: (BuildContext context, int index) {
           final timeLine = timeLineList[index];
@@ -24,14 +26,13 @@ class TimeLineList extends HookConsumerWidget{
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> ClothesViewScreen(clothes: timeLine,)));
                   },
                   child: Container(
-                      height: 500,
-                      width: double.infinity,
+                      height: size.height * 2/3,
+                      // width: double.infinity,
                       child: ClipRRect(borderRadius: BorderRadius.circular(12),child: Image.network(timeLine.imageURL,fit: BoxFit.cover,),
                     ),),
                 ),
                 Container(
                   height: 120,
-                  width: double.infinity,
                   color: Colors.brown.shade50,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

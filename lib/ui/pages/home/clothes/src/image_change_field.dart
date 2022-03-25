@@ -12,8 +12,8 @@ class ImageChangeField extends HookConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref) {
     final imageFile = ref.watch(
         ClothesEditPageProvider.select((value) => value.imageFile));
-    final imageURL = ref.watch(ClothesEditPageProvider.select((value) => value.clothes.imageURL));
-    return InkWell(
+    final imageURL = ref.watch(ClothesEditPageProvider.select((value) => value.clothes?.imageURL));
+    return imageURL == null ?Container(): InkWell(
       onTap: () {
         _showPicker(context);
       },

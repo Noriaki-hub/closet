@@ -1,4 +1,5 @@
 
+import 'package:closet_app_xxx/ui/pages/home/buy_screen/src/buy_step7.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:cupertino_stepper/cupertino_stepper.dart';
@@ -39,7 +40,7 @@ class _BuyStepScreen extends State<BuyStepScreen> {
         builder: (context, ref, _) {
           final items = ref.watch(BuyPageProvider);
           if(items.imageFile != null && items.brands != 'No brand' &&
-              items.brands != '' && items.category != '' && items.description != ''&& items.price != '' &&
+              items.brands != '' && items.category != '' && items.description != ''&& items.buyingForm != ''&& items.price != '' &&
           items.day != ''
 
           ){
@@ -59,7 +60,7 @@ class _BuyStepScreen extends State<BuyStepScreen> {
                       ),
                     ],
                     child: FloatingActionButton(
-                        child: Text('OK'),
+                        child: Text('追加'),
                         backgroundColor: Colors.blueGrey,
                         onPressed: () async{
                           await ref.read(BuyPageProvider.notifier).addCloset();
@@ -71,7 +72,7 @@ class _BuyStepScreen extends State<BuyStepScreen> {
                       child: Icon(LineIcons.angleDown),
                       backgroundColor: Colors.brown.shade50,
                       onPressed: () {
-                        if(currentStep < 5 ){
+                        if(currentStep < 6 ){
                           setState(() {
                             currentStep += 1;
                           });
@@ -142,15 +143,21 @@ class _BuyStepScreen extends State<BuyStepScreen> {
                         title: Text("詳細"),
                         content: BuyStep4(),
                       ),
+
+                      Step(
+                        isActive: items.buyingForm != '',
+                        title: Text('購入形態'),
+                        content: BuyStep5(),
+                      ),
                       Step(
                         isActive: items.price != '',
                         title: Text('購入額'),
-                        content: BuyStep5(),
+                        content: BuyStep6(),
                       ),
                       Step(
                         isActive: items.day != '',
                         title: Text('日付'),
-                        content: BuyStep6(),
+                        content: BuyStep7(),
                       ),
                     ],
                   ),

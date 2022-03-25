@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/models/clothes_for_public.dart';
+
 import 'package:closet_app_xxx/ui/pages/home/clothes/src/brands_text_field.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/src/category_controller.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/src/date_pick_field.dart';
@@ -22,7 +22,7 @@ class ClothesEditPage extends StatelessWidget {
   }) : super(key: key);
 
 
-  final ClothesForPublic clothes;
+  final Clothes clothes;
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +58,12 @@ class _ClothesEditPage extends HookConsumerWidget {
         child: Text('変更'),
         backgroundColor: Colors.brown.shade50,
         onPressed: () async {
-          await ref.read(ClothesEditPageProvider.notifier).updateClothes(clothes: clothes);
+          await ref.read(ClothesEditPageProvider.notifier).updateClothes(clothes: clothes!);
           Navigator.pop(context, true);
         },
 
       ),
-      body: clothes.itemId == ''? Center(child: CircularProgressIndicator(),):Padding(
+      body: clothes == null? Center(child: CircularProgressIndicator(),):Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: SizedBox(

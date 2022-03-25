@@ -40,19 +40,16 @@ class _FollowPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Colors.brown.shade50,
+      appBar: userId != null ?AppBar(
+        title: Text('フォロー',style: TextStyle(color: Colors.black45)),
+        backgroundColor: Colors.brown.shade50,
+      ):null,
 
       body: RefreshIndicator(
         onRefresh: () async{
           await ref.read(FollowPageProvider.notifier).fetchFollows();
         },
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 50,),
-              Expanded(child: ItemList())
-            ],
-          ),
-        ),
+        child: ItemList(),
       ),
     );
   }
@@ -69,8 +66,8 @@ class ItemList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final follows = ref.watch(FollowPageProvider.select((value) => value.follows));
-    return ListView.builder(
-          itemCount: follows.length,
+    return follows.isEmpty? Center(child: Text('フォローしていません', style: TextStyle(color: Colors.black45),),):ListView.builder(
+        itemCount: follows.length,
           itemBuilder: (BuildContext context, int index) {
             final user= follows[index];
             return Padding(

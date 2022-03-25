@@ -20,11 +20,9 @@ class AccountEditPageState with _$AccountEditPageState {
     @Default('') String image,
     @Default('') String id,
     @Default('') String name,
+    @Default(false) bool isEdit
   }) = _AccountEditPageState;
 }
-
-
-
 
 
 
@@ -53,16 +51,15 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
     }
     state = await state.copyWith(imageFile: File(imageFile.path));
     state = state.copyWith(
-        image: await _uploadImageFile(state.imageFile));
+        image: await _uploadImageFile(state.imageFile),
+        isEdit: true
+    );
   }
 
   Future<void> name({required String name}) async {
-    state = state.copyWith(name: name);
+    state = state.copyWith(name: name, isEdit: true);
   }
 
-  Future<void> id({required String id}) async {
-    state = state.copyWith(id: id);
-  }
 
   Future<String> _uploadImageFile(imageFile) async {
     final String userId = _user.uid;final Uuid uuid = const Uuid();
@@ -82,7 +79,6 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
     final user = UserModel(
       image: state.image == '' ? _user.image : state.image,
       name: state.name == '' ? _user.name : state.name,
-      id: state.id == '' ? _user.id : state.id,
       uid: _user.uid
     );
 

@@ -1,4 +1,5 @@
 
+import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -15,7 +16,12 @@ class MediaPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: Text('メディア', style: TextStyle(color: Colors.black45),),
+        backgroundColor: Colors.brown.shade50,
+      ),
         floatingActionButton: ExpandableFab(
           distance: 112.0,
           children: [
@@ -43,7 +49,10 @@ class MediaPage extends HookConsumerWidget {
           ],
         ),
         backgroundColor: Colors.brown.shade50,
-        body: MediaList()
+        body: RefreshIndicator(
+            onRefresh: () async{
+              await ref.read(MediaPageProvider.notifier).fetchMedias();
+            },child: MediaList())
     );
   }
 }

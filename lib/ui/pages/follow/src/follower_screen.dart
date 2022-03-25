@@ -40,19 +40,16 @@ class _FollowerPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Colors.brown.shade50,
+      appBar: userId != null ?AppBar(
+        title: Text('フォロワー', style: TextStyle(color: Colors.black45),),
+        backgroundColor: Colors.brown.shade50,
+      ):null,
 
       body: RefreshIndicator(
         onRefresh: () async{
           await ref.read(FollowerPageProvider.notifier).fetchUserFollowers();
         },
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(height: 50,),
-              Expanded(child: ItemList())
-            ],
-          ),
-        ),
+        child: ItemList(),
       ),
     );
   }
@@ -69,7 +66,7 @@ class ItemList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final followers = ref.watch(FollowerPageProvider.select((value) => value.followers));
-    return ListView.builder(
+    return followers.isEmpty? Center(child: Text('フォロワーはいません', style: TextStyle(color: Colors.black45),),) :ListView.builder(
         itemCount: followers.length,
         itemBuilder: (BuildContext context, int index) {
           final user= followers[index];

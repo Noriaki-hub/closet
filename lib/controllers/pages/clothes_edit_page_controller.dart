@@ -1,6 +1,5 @@
-import 'package:closet_app_xxx/controllers/global/date_now_controller.dart';
+
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
-import 'package:closet_app_xxx/models/clothes_for_public.dart';
 import 'package:closet_app_xxx/models/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +9,6 @@ import 'package:uuid/uuid.dart';
 import 'dart:io';
 import 'package:intl/intl.dart';
 import '../../models/clothes.dart';
-import '../../models/date.dart';
 import '../../repositories/clothes_repository.dart';
 
 
@@ -21,7 +19,7 @@ class ClothesEditPageState with _$ClothesEditPageState {
   const ClothesEditPageState._();
 
   const factory ClothesEditPageState({
-    @Default(ClothesForPublic()) ClothesForPublic clothes,
+    Clothes? clothes,
     DateTime? selectedDateForBuy,
     DateTime? selectedDateForSell,
     File? imageFile,
@@ -44,7 +42,7 @@ class ClothesEditPageState with _$ClothesEditPageState {
 
 class ClothesEditPageProviderArg {
   ClothesEditPageProviderArg({required this.clothes});
-  final ClothesForPublic clothes;
+  final Clothes clothes;
 }
 
 final ClothesEditPageProvider =
@@ -70,18 +68,17 @@ final ClothesEditPageProviderFamily = StateNotifierProvider.family.autoDispose<
 
 
 class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
-  ClothesEditPageController(this._read, this._clothes, this._user, )
-      : super(ClothesEditPageState()){
+  ClothesEditPageController(this._read, this._clothes, this._user,)
+      : super(ClothesEditPageState()) {
     fetchFirstClothes();
   }
 
   final Reader _read;
   final UserModel _user;
-  final ClothesForPublic _clothes;
+  final Clothes _clothes;
 
-  Future<void> fetchFirstClothes()async{
+  Future<void> fetchFirstClothes() async {
     state = state.copyWith(clothes: _clothes, category: _clothes.category);
-
   }
 
 
@@ -145,7 +142,6 @@ class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
   }
 
 
-
   Future<String> _uploadImageFile(brands, imageFile) async {
     final Uuid uuid = const Uuid();
 
@@ -161,23 +157,32 @@ class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
   }
 
 
-  Future<void> updateClothes({required ClothesForPublic clothes}) async {
-    final _clothes = ClothesForPublic(
-        itemId: clothes.itemId,
-        brands: state.brands == '' ? clothes.brands: state.brands,
-        description: state.description == '' ? clothes.description: state.description,
-        category: state.category == ''? clothes.category: state.category,
-        price: state.price == '' ? clothes.price: state.price,
-        year: state.year == '' ? clothes.year: state.year,
-        day: state.day == '' ? clothes.day: state.day,
-        month: state.month == '' ? clothes.month: state.month,
-        selling: state.selling == '' ? clothes.selling: state.selling,
-        sellingYear: state.selectedDateForSell == null ? clothes.sellingYear: state.sellingYear,
-        sellingMonth: state.selectedDateForSell == null ? clothes.sellingMonth: state.sellingMonth,
-        sellingDay: state.selectedDateForSell == null ? clothes.sellingDay: state.sellingDay,
-        createdBuy: state.selectedDateForBuy == null ? clothes.createdBuy: state.selectedDateForBuy,
-        createdSell: state.selectedDateForSell == null ? clothes.createdSell: state.selectedDateForSell
-    );
-    await _read(clothesRepositoryProvider).update(clothes: _clothes);
+  Future<void> updateClothes({required Clothes clothes}) async {
+    if (state.clothes != null) {
+      final _clothes = Clothes(
+          itemId: clothes.itemId,
+          brands: state.brands == '' ? clothes.brands : state.brands,
+          description: state.description == '' ? clothes.description : state
+              .description,
+          category: state.category == '' ? clothes.category : state.category,
+          price: state.price == '' ? clothes.price : state.price,
+          year: state.year == '' ? clothes.year : state.year,
+          day: state.day == '' ? clothes.day : state.day,
+          month: state.month == '' ? clothes.month : state.month,
+          selling: state.selling == '' ? clothes.selling : state.selling,
+          sellingYear: state.selectedDateForSell == null
+              ? clothes.sellingYear
+              : state.sellingYear,
+          sellingMonth: state.selectedDateForSell == null
+              ? clothes.sellingMonth
+              : state.sellingMonth,
+          sellingDay: state.selectedDateForSell == null
+              ? clothes.sellingDay
+              : state.sellingDay,
+          createdSell: state.selectedDateForSell ?? clothes.createdSell,
+          createdBuy: state.selectedDateForBuy ?? clothes.createdBuy
+      );
+      await _read(clothesRepositoryProvider).update(clothes: _clothes);
+    }
   }
 }

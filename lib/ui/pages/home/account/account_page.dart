@@ -1,14 +1,20 @@
+
+
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/tab_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/follow_button.dart';
+import 'package:closet_app_xxx/ui/pages/follow/src/follow_screen.dart';
 import 'package:closet_app_xxx/ui/pages/home/account/src/account_closet.dart';
 import 'package:closet_app_xxx/ui/pages/home/account/src/account_favorite.dart';
 import 'package:closet_app_xxx/ui/pages/home/home_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../../../controllers/pages/account_page_controller.dart';
 import '../../../libs/floating_action_button_animation.dart';
+import '../../follow/src/follower_screen.dart';
 import 'account_edit_page.dart';
 
 class AccountPage extends StatelessWidget {
@@ -58,7 +64,8 @@ class _AccountPage extends HookConsumerWidget {
                       MaterialPageRoute(
                           builder: (context) => AccountEditPage()));
                   if (result) {
-                    ref.read(AccountPageProvider.notifier).fetchAccountPageData();
+                    await ref.read(AccountPageProvider.notifier).fetchAccountPageData();
+                    await ref.read(TabPageProvider.notifier).fetchAccountImage();
                   }
                 }, icon: Icon(LineIcons.editAlt),
               ),
@@ -68,8 +75,11 @@ class _AccountPage extends HookConsumerWidget {
             children: [
               ActionButton(
                 onPressed: () async {
-                  await ref.read(userProvider.notifier).logout();
-                  Navigator.pop(context);
+                  final result = await _showDialog(context);
+                  if(result){
+                    await ref.read(userProvider.notifier).logout();
+                   Navigator.pop(context);
+                  }
                 },
                 icon: Icon(LineIcons.alternateSignOut),
               ),
@@ -83,7 +93,7 @@ class _AccountPage extends HookConsumerWidget {
         child: Column(
           children: [
             Container(
-                height: 1000,
+                height: 1200,
                 child: Column(
                   children: [
                     Container(
@@ -147,25 +157,43 @@ class _AccountPage extends HookConsumerWidget {
                                 width: 200,
                                 child: Row(
                                   children: [
-                                    Column(
-                                      children: [
-                                        Text(
-                                            state.follow
-                                        ),
-                                        const Text('フォロー',
-                                          style: TextStyle(fontSize: 10),),
-                                      ],
+                                    InkWell(
+                                      onTap: (){
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) {
+                                              return FollowPage(
+                                                userId: state.user.uid,);
+                                            }));
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                              state.follow
+                                          ),
+                                          const Text('フォロー',
+                                            style: TextStyle(fontSize: 10),),
+                                        ],
+                                      ),
                                     ),
                                     const SizedBox(width: 20,),
-                                    Column(
+                                    InkWell(
+                                      onTap: (){
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) {
+                                              return FollowerPage(
+                                                userId: state.user.uid,);
+                                            }));
+                                      },
+                                      child: Column(
 
-                                      children: [
-                                        Text(
-                                            state.follower
-                                        ),
-                                        const Text('フォロワー',
-                                          style: TextStyle(fontSize: 10),),
-                                      ],
+                                        children: [
+                                          Text(
+                                              state.follower
+                                          ),
+                                          const Text('フォロワー',
+                                            style: TextStyle(fontSize: 10),),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -181,6 +209,10 @@ class _AccountPage extends HookConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
 
                           children: [
+
+                            const  SizedBox(height: 20,),
+                            const Text('ID',style: TextStyle(fontWeight: FontWeight.bold), ),
+                            Text(state.user.id),
                             const  SizedBox(height: 20,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -222,6 +254,7 @@ class _AccountPage extends HookConsumerWidget {
                                 height: 200, child: AccountCloset()),
                             const Text('今までの収支額', style: TextStyle(
                                 fontWeight: FontWeight.bold),),
+                            const SizedBox(height: 20,),
                             Container(
                               height: 50,
                               color: Colors.white.withOpacity(0.5),
@@ -287,6 +320,31 @@ class _AccountPage extends HookConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+
+  _showDialog(context) {
+    return showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text('ログアウトしますか？'),
+          actions: [
+            CupertinoDialogAction(
+              child: Text('はい'),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+            CupertinoDialogAction(
+              child: Text('いいえ'),
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

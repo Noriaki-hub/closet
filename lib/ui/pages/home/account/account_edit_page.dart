@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/account_edit_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../../../../controllers/pages/account_edit_page_controller.dart';
+
 
 class AccountEditPage extends HookConsumerWidget {
   AccountEditPage({
@@ -13,14 +14,17 @@ class AccountEditPage extends HookConsumerWidget {
   }) : super(key: key);
 
 
-  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final imageFile = ref.watch(
         AccountEditPageProvider.select((value) => value.imageFile));
+    final isEdit = ref.watch(AccountEditPageProvider.select((value) => value.isEdit));
     final user = ref.watch(userProvider.select((value) => value.user));
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown.shade50,
@@ -30,15 +34,14 @@ class AccountEditPage extends HookConsumerWidget {
 
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: isEdit? FloatingActionButton(
         child: const Text('変更'),
-        backgroundColor: Colors.brown.shade50,
+        backgroundColor: Colors.blueGrey,
         onPressed: () async {
           await ref.read(AccountEditPageProvider.notifier).updateUser();
           Navigator.pop(context, true);
         },
-
-      ),
+      ):Container(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(right: 65, left: 65),
@@ -83,51 +86,13 @@ class AccountEditPage extends HookConsumerWidget {
                               borderSide: BorderSide.none,
                             )
                         ),
-                        onChanged: (text) {
-                          ref.read(AccountEditPageProvider.notifier).name(name: text);
+                        onChanged: (text) async{
+                          await ref.read(AccountEditPageProvider.notifier).name(name: text);
                         },
                       ),
                     ),
                   ],
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Text('ID',style: TextStyle(fontWeight: FontWeight.bold),),
-                        const Text('（ユーザー検索用）')
-                      ],
-                    ),
-                    Form(
-                      key: _key,
-                      child: TextFormField(
-                        validator: (value) {
-                          if(value == null){
-                            return null;
-                          }else if(value.length < 6){
-                            return '6文字以上で入力';
-                          }
-                        },
-                        onSaved: (value) => null,
-                        controller: TextEditingController(text: user.id),
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.grey.shade200,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            )
-                        ),
-                        onChanged: (text) async{
-                          await ref.read(AccountEditPageProvider.notifier).id(id: text);
-                          if (!_key.currentState!.validate()) return;
-                          _key.currentState!.save();
-                        },
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
           ),
@@ -164,7 +129,7 @@ class _pick extends HookConsumerWidget {
               onTap: () async {
                 final pickedFile = await ImagePicker()
                     .pickImage(source: ImageSource.gallery);
-                ref.read(AccountEditPageProvider.notifier).imageFile(
+               await ref.read(AccountEditPageProvider.notifier).imageFile(
                     pickedFile);
                 Navigator.of(context).pop();
               }),
@@ -174,8 +139,7 @@ class _pick extends HookConsumerWidget {
             onTap: () async {
               final pickedFile = await ImagePicker()
                   .pickImage(source: ImageSource.camera);
-              ref.read(AccountEditPageProvider.notifier).imageFile(pickedFile);
-
+              await ref.read(AccountEditPageProvider.notifier).imageFile(pickedFile);
               Navigator.of(context).pop();
             },
           ),

@@ -1,5 +1,4 @@
 import 'package:closet_app_xxx/models/clothes.dart';
-import 'package:closet_app_xxx/models/clothes_for_public.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,12 +33,25 @@ class _Repository {
     return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
   }
 
-  Future<ClothesForPublic?> fetchClothes({required String itemId})async{
+  Future<List<Clothes>> fetchClosetRecent(
+      {required String userId, required bool isSell}) async {
+    final snap = await _read(firebaseFirestoreProvider)
+        .collection('clothes')
+        .where('isSell', isEqualTo: isSell).where('uid', isEqualTo: userId)
+        .orderBy('createdBuy', descending: true)
+        .limit(5)
+        .get();
+    return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
+  }
+
+  Future<Clothes?> fetchClothes({required String itemId})async {
     final snap = await _read(firebaseFirestoreProvider)
         .collection('clothes')
         .doc(itemId).get();
     final data = snap.data();
-    final clothes = data != null ? Clothes.fromJson(data).toClothesForPublic() : null;
+    final clothes = data != null
+        ? Clothes.fromJson(data)
+        : null;
     return clothes;
   }
 
@@ -218,7 +230,7 @@ class _Repository {
   }
 
   Future<void> update(
-      {required ClothesForPublic clothes}) async {
+      {required Clothes clothes}) async {
     final _fireStore = _read(firebaseFirestoreProvider);
 
     await _fireStore

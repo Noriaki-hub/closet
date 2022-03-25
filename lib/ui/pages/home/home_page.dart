@@ -47,6 +47,7 @@ class _HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Size size = MediaQuery.of(context).size;
     final state = ref.watch(HomePageProvider);
     return
       state.user.uid == '' ?
@@ -117,8 +118,9 @@ class _HomePage extends ConsumerWidget {
             onRefresh: () async{
               await ref.read(HomePageProvider.notifier).fetchHomePageData();
             },
-            child: Center(
-              child: SingleChildScrollView(
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height: size.height,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -221,13 +223,11 @@ class _HomePage extends ConsumerWidget {
                             onPressed: null
                         ),
                       ),
-                      SizedBox(height: 200,
-                          child: ClosetFavorite()
-                      ),
+                      SizedBox(height: size.height * 1/5,child:ClosetFavorite(),),
 
 
                       ClosetController(),
-                      SizedBox(height:320,child: Closet()),
+                      SizedBox(height: size.height * 2/5,child: Closet()),
                     ]
                 ),
               ),
@@ -236,15 +236,22 @@ class _HomePage extends ConsumerWidget {
       ):
       Scaffold(
         appBar: AppBar(
+          title: Column(
+            children: [
+              Text(state.user.name, style: TextStyle(color: Colors.black45, fontSize: 12),),
+              Text('さんのクローゼット', style: TextStyle(color: Colors.black45, fontSize: 12))
+            ],
+          ),
           backgroundColor: Colors.brown.shade50,
         ),
           backgroundColor: Colors.brown.shade50,
-          body: Center(
-            child: SingleChildScrollView(
+          body: SingleChildScrollView(
+            child: SizedBox(
+              height: size.height,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    
+
 
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -261,13 +268,13 @@ class _HomePage extends ConsumerWidget {
                           onPressed: null
                       ),
                     ),
-                    SizedBox(height: 200,
+                    SizedBox(height: size.height * 1/5,
                         child: ClosetFavorite()
                     ),
 
 
                     ClosetController(),
-                    SizedBox(height:320,child: Closet()),
+                    SizedBox(height: size.height * 2/5,child: Closet()),
                   ]
               ),
             ),

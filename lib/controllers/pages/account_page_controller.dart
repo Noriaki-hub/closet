@@ -69,7 +69,7 @@ class AccountPageController extends StateNotifier<AccountPageState> {
   Future<void> fetchAccountPageData() async {
 
 
-    final List<Clothes> closet = await _read(clothesRepositoryProvider).fetchCloset(isSell: false, userId: _userId, category: "ALL");
+    final List<Clothes> closet = await _read(clothesRepositoryProvider).fetchClosetRecent(isSell: false, userId: _userId);
     final List<Clothes> closetFavorite = await _read(clothesRepositoryProvider).fetchFavorite(isSell: false, userId: _userId, );
     final buying  = await _read(clothesRepositoryProvider).fetchBuyingAll(userId: _userId, );
     final selling  = await _read(clothesRepositoryProvider).fetchSellingAll(userId: _userId, );

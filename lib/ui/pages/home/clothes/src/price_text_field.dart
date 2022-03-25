@@ -7,7 +7,7 @@ class PriceTextField extends HookConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final price = ref.watch(ClothesEditPageProvider.select((value) => value.clothes.price));
+    final price = ref.watch(ClothesEditPageProvider.select((value) => value.clothes?.price));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

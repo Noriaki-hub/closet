@@ -42,7 +42,7 @@ class _SellStepScreen extends State<SellStepScreen> {
               floatingActionButton:
                   itemState ?
                     FloatingActionButton(
-                        child: Text('OK'),
+                        child: Text('売却'),
                         backgroundColor: Colors.blueGrey,
                         onPressed: () async{
                           await ref.read(SellPageProvider.notifier).sellClothes();

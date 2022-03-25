@@ -7,7 +7,7 @@ class SellingTextField extends HookConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selling = ref.watch(ClothesEditPageProvider.select((value) => value.clothes.selling));
+    final selling = ref.watch(ClothesEditPageProvider.select((value) => value.clothes?.selling));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

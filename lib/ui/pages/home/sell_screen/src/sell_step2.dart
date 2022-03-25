@@ -2,18 +2,24 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../../controllers/pages/sell_page_controller.dart';
 
 
-class SellStep2 extends HookConsumerWidget{
+class SellStep2 extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       child: TextField(
+        textAlign: TextAlign.right,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+        ],
         decoration: InputDecoration(
+            suffixText: '円',
             hintText: "10000",
             filled: true,
             fillColor: Colors.grey.shade200,
@@ -28,5 +34,5 @@ class SellStep2 extends HookConsumerWidget{
       ),
     );
   }
-
 }
+
