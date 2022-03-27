@@ -13,9 +13,6 @@ class AccountEditPage extends HookConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-
-
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
@@ -128,7 +125,7 @@ class _pick extends HookConsumerWidget {
               title: const Text('Photo Library'),
               onTap: () async {
                 final pickedFile = await ImagePicker()
-                    .pickImage(source: ImageSource.gallery);
+                    .pickImage(source: ImageSource.gallery, imageQuality: 80);
                await ref.read(AccountEditPageProvider.notifier).imageFile(
                     pickedFile);
                 Navigator.of(context).pop();

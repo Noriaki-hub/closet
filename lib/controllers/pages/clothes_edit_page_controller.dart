@@ -1,4 +1,3 @@
-
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/models/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -40,46 +39,32 @@ class ClothesEditPageState with _$ClothesEditPageState {
 
 }
 
-class ClothesEditPageProviderArg {
-  ClothesEditPageProviderArg({required this.clothes});
-  final Clothes clothes;
-}
 
 final ClothesEditPageProvider =
 StateNotifierProvider.autoDispose<ClothesEditPageController, ClothesEditPageState>(
         (ref) {
-      return throw UnimplementedError();
+          final user = ref.watch(userProvider.select((value) => value.user));
+          return ClothesEditPageController(
+            ref.read,
+            user,
+          );
     });
-
-final ClothesEditPageProviderFamily = StateNotifierProvider.family.autoDispose<
-    ClothesEditPageController,
-    ClothesEditPageState,
-    ClothesEditPageProviderArg>((ref, arg) {
-  final user = ref.watch(userProvider.select((value) => value.user));
-  return ClothesEditPageController(
-    ref.read,
-    arg.clothes,
-    user,
-  );
-});
-
-
-
 
 
 class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
-  ClothesEditPageController(this._read, this._clothes, this._user,)
+  ClothesEditPageController(this._read, this._user,)
       : super(ClothesEditPageState()) {
-    fetchFirstClothes();
   }
 
   final Reader _read;
   final UserModel _user;
-  final Clothes _clothes;
 
-  Future<void> fetchFirstClothes() async {
-    state = state.copyWith(clothes: _clothes, category: _clothes.category);
-  }
+  Future<void> fetch({required String itemId})async {
+    final clothes = await _read(clothesRepositoryProvider).fetchClothes(itemId: itemId);
+    if(clothes != null){
+    state = state.copyWith(clothes: clothes);
+  }}
+
 
 
   Future<void> imageFile(XFile? imageFile) async {
@@ -88,9 +73,9 @@ class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
     }
     state = await state.copyWith(imageFile: File(imageFile.path));
     state = state.copyWith(
-        imageURL: await _uploadImageFile(state.brands, state.imageFile));
+        imageURL: await _uploadImageFile(state.imageFile),
+    );
   }
-
 
   Future<void> category({required String category}) async {
     state = state.copyWith(category: category);
@@ -142,7 +127,7 @@ class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
   }
 
 
-  Future<String> _uploadImageFile(brands, imageFile) async {
+  Future<String> _uploadImageFile( imageFile) async {
     final Uuid uuid = const Uuid();
 
     final userEmail = _user.email;
@@ -164,6 +149,7 @@ class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
           brands: state.brands == '' ? clothes.brands : state.brands,
           description: state.description == '' ? clothes.description : state
               .description,
+          imageURL: state.imageURL == '' ? clothes.imageURL : state.imageURL,
           category: state.category == '' ? clothes.category : state.category,
           price: state.price == '' ? clothes.price : state.price,
           year: state.year == '' ? clothes.year : state.year,

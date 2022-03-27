@@ -42,7 +42,15 @@ class TimeLineList extends HookConsumerWidget{
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(timeLine.brands, style: TextStyle(fontSize: 18),),
+                      SizedBox(width: size.width * 1/2,
+                                child:SingleChildScrollView(scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      Text(timeLine.brands, style: TextStyle(fontSize: 18),)
+                                    ],
+                                  ),
+                                ),
+                              ),
                             Text(
                               timeLine.year + '/' + timeLine.month +
                                   '/' + timeLine.day,

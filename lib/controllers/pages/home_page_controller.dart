@@ -75,14 +75,16 @@ class HomePageController extends StateNotifier<HomePageState> {
     final selling = await _read(clothesRepositoryProvider).fetchSelling(
       userId: _userId, month: date.month, year: date.year,);
     final user = await _read(userRepositoryProvider).fetchUser(userId: _userId);
-    state = state.copyWith(
-        closet: closet,
-        closetFavorite: closetFavorite,
-        buying: buying,
-        selling: selling,
-        year: date.year,
-        month: date.month,
-        user: user);
+    if (user != null) {
+      state = state.copyWith(
+          closet: closet,
+          closetFavorite: closetFavorite,
+          buying: buying,
+          selling: selling,
+          year: date.year,
+          month: date.month,
+          user: user);
+    }
   }
 
 

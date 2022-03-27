@@ -21,7 +21,7 @@ class TimeLinePageState with _$TimeLinePageState {
 
 
 final TimeLinePageProvider =
-StateNotifierProvider.autoDispose<TimeLinePageController, TimeLinePageState>(
+StateNotifierProvider<TimeLinePageController, TimeLinePageState>(
         (ref) {
       final user = ref.watch(userProvider.select((value) => value.user));
       return TimeLinePageController(ref.read, userId: user.uid, );

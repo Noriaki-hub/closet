@@ -13,7 +13,8 @@ class ClothesViewPageState with _$ClothesViewPageState {
   const factory ClothesViewPageState({
     Clothes? clothes,
     @Default(false) bool isFavoriteState,
-    @Default('') String buyingFormState
+    @Default(false) bool isEdit,
+    @Default('') String buyingFormState,
 
   }) = _ClothesViewPageState;
 

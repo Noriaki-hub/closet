@@ -1,25 +1,33 @@
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TutorialPage extends HookConsumerWidget {
+
+class TutorialPage extends StatelessWidget {
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
 
-      body: OverBoard(
-        buttonColor: Colors.black45,
-        pages: pages,
-        showBullets: true,
-        skipCallback: () async{
-          await ref.read(userProvider.notifier).changeIsFirstLogin();
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyApp()));
-        },
-        finishCallback: () async{
-          await ref.read(userProvider.notifier).changeIsFirstLogin();
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyApp()));
+      body: Consumer(
+
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          return OverBoard(
+            buttonColor: Colors.black45,
+            pages: pages,
+            showBullets: true,
+            skipCallback: () async{
+              await ref.read(userProvider.notifier).changeIsFirstLogin();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyApp()));
+            },
+            finishCallback: () async{
+              await ref.read(userProvider.notifier).changeIsFirstLogin();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyApp()));
+            },
+          );
         },
       ),
     );
@@ -86,4 +94,5 @@ class TutorialPage extends HookConsumerWidget {
         color: Colors.white,
         doAnimateChild: true)
   ];
+
 }

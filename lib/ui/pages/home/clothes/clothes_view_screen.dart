@@ -43,6 +43,7 @@ class ClothesViewScreen extends StatelessWidget {
 
 class _ClothesViewScreen extends HookConsumerWidget {
 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
@@ -103,7 +104,7 @@ class _ClothesViewScreen extends HookConsumerWidget {
                 onPressed: () async {
                   final result = await Navigator.push(context,
                       MaterialPageRoute(builder: (context) =>
-                          ClothesEditPage(clothes: clothes,)));
+                          ClothesEditPage(itemId: clothes.itemId,)));
                   if (result) {
                     ref.read(ClothesViewPageProvider.notifier).fetchClothes();
                   }
@@ -139,11 +140,21 @@ class _ClothesViewScreen extends HookConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10,),
-                          child: Text(clothes.brands,
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),),
+                        SizedBox(
+                          width: size.width * 2/3,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10,),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  Text(clothes.brands,
+                                    style: TextStyle(
+                                        fontSize: 20, fontWeight: FontWeight.bold),),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 20),

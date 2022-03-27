@@ -5,9 +5,11 @@ import '../../../../../controllers/pages/clothes_edit_page_controller.dart';
 
 class BrandsTextField extends HookConsumerWidget{
 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final brands = ref.watch(ClothesEditPageProvider.select((value) => value.clothes?.brands));
+    // final editBrands = ref.watch(ClothesEditPageProvider.select((value) => value.brands));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

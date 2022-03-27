@@ -21,7 +21,7 @@ class ShopPageState with _$ShopPageState {
 
 
 final ShopPageProvider =
-StateNotifierProvider.autoDispose<ShopPageController, ShopPageState>(
+StateNotifierProvider<ShopPageController, ShopPageState>(
         (ref) {
       final user = ref.watch(userProvider.select((value) => value.user));
       return ShopPageController(ref.read, userId: user.uid);

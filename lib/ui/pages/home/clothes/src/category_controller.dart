@@ -18,6 +18,7 @@ class CategoryController extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final categoryState = ref.watch(ClothesEditPageProvider.select((value) => value.category));
+    final firstCategory = ref.watch(ClothesEditPageProvider.select((value) => value.clothes?.category));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +37,9 @@ class CategoryController extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(10),//角の丸み
                     ),
                     side: BorderSide(
-                        color: categoryState != category.key ? Colors.black45: Colors.blue
+                        color:
+                            categoryState == '' ? firstCategory != category.key ? Colors.black45: Colors.blue:
+                        categoryState!= category.key ? Colors.black45: Colors.blue
                     ),
                   ),
                   child: Text(

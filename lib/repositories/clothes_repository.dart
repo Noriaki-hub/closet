@@ -237,6 +237,7 @@ class _Repository {
         .collection('clothes').doc(clothes.itemId).update
       ({
       "brands": clothes.brands,
+      'imageURL': clothes.imageURL,
       "description": clothes.description,
       "category": clothes.category,
       "price": clothes.price,

@@ -68,7 +68,7 @@ class pick extends HookConsumerWidget{
               title: const Text('Photo Library'),
               onTap: () async{
                 final pickedFile = await ImagePicker()
-                    .pickImage(source: ImageSource.gallery);
+                    .pickImage(source: ImageSource.gallery, imageQuality: 50);
                 ref.read(BuyPageProvider.notifier).imageFile(pickedFile);
                 Navigator.of(context).pop();
               }),

@@ -64,7 +64,7 @@ class _BuyStepScreen extends State<BuyStepScreen> {
                         backgroundColor: Colors.blueGrey,
                         onPressed: () async{
                           await ref.read(BuyPageProvider.notifier).addCloset();
-                          Navigator.pop(context);
+                          Navigator.pop(context, true);
                         }
                     ),
                   ):

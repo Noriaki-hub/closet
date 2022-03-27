@@ -76,17 +76,18 @@ class AccountPageController extends StateNotifier<AccountPageState> {
     final follow = await _read(followRepositoryProvider).fetch(userId: _userId, );
     final follower = await _read(followerRepositoryProvider).fetch(userId: _userId, );
     final user = await _read(userRepositoryProvider).fetchUser(userId: _userId);
-    state = state.copyWith(
-        closet: closet,
-        closetFavorite: closetFavorite,
-        buying: buying,
-        selling: selling,
-        follow: follow.length.toString(),
-        follower: follower.length.toString(),
-        user: user,
-      isMenu: _user.uid == _userId ? true: false
-
-    );
+    if(user != null) {
+      state = state.copyWith(
+          closet: closet,
+          closetFavorite: closetFavorite,
+          buying: buying,
+          selling: selling,
+          follow: follow.length.toString(),
+          follower: follower.length.toString(),
+          user: user,
+          isMenu: _user.uid == _userId ? true : false
+      );
+    }
   }
 
 }

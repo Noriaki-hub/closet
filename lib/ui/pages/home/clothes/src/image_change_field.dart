@@ -60,7 +60,7 @@ class _pick extends HookConsumerWidget {
               onTap: () async {
                 final pickedFile = await ImagePicker()
                     .pickImage(source: ImageSource.gallery);
-                ref.read(ClothesEditPageProvider.notifier).imageFile(pickedFile);
+                await ref.read(ClothesEditPageProvider.notifier).imageFile(pickedFile);
                 Navigator.of(context).pop();
               }),
           new ListTile(
@@ -69,7 +69,7 @@ class _pick extends HookConsumerWidget {
             onTap: () async {
               final pickedFile = await ImagePicker()
                   .pickImage(source: ImageSource.camera);
-              ref.read(ClothesEditPageProvider.notifier).imageFile(pickedFile);
+              await ref.read(ClothesEditPageProvider.notifier).imageFile(pickedFile);
 
               Navigator.of(context).pop();
             },

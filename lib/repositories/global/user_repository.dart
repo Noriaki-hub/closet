@@ -31,7 +31,7 @@ class _ItemRepository {
     return UserModel.fromJson(data);
   }
 
-  Future<UserModel> fetchUser({required String userId}) async{
+  Future<UserModel?> fetchUser({required String userId}) async{
 
     final _fireStore = await _read(firebaseFirestoreProvider);
 
@@ -41,7 +41,7 @@ class _ItemRepository {
         .get();
     final data = snap.data();
     if(data == null){
-      return UserModel();
+      return null;
     }
     return UserModel.fromJson(data);
   }
@@ -68,7 +68,6 @@ class _ItemRepository {
         {
           'image' : user.image,
           'name' : user.name,
-          'id' : user.id
         }
     );
   }

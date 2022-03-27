@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:math';
 
 import 'package:closet_app_xxx/models/libs/Firebase_providers.dart';
 import 'package:closet_app_xxx/repositories/global/user_repository.dart';
@@ -5,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../models/user.dart';
 
@@ -40,15 +43,14 @@ class UserController extends StateNotifier<UserState> {
   }
 
   Future<void> signInWithGoogle() async {
-    final _auth = _read(firebaseAuthProvider);
 
+    
+    final _auth = _read(firebaseAuthProvider);
 
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-
     final GoogleSignInAuthentication googleAuth =
     await googleUser!.authentication;
-
 
     final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
@@ -56,6 +58,7 @@ class UserController extends StateNotifier<UserState> {
     );
 
     final result = await _auth.signInWithCredential(credential);
+
     final isFirstLogin = await result.additionalUserInfo?.isNewUser;
 
     if (isFirstLogin!) {
@@ -66,11 +69,51 @@ class UserController extends StateNotifier<UserState> {
     fetchCurrentUser();
   }
 
+
+
+  Future<void> signInWithApple() async {
+    final _auth = _read(firebaseAuthProvider);
+
+    final appleUser = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ]);
+
+    final oAuthProvider = OAuthProvider('apple.com');
+    final credential = oAuthProvider.credential(
+      idToken: appleUser.identityToken,
+      accessToken: appleUser.authorizationCode,
+    );
+
+    final result = await _auth.signInWithCredential(credential);
+
+    final isFirstLogin =  await result.additionalUserInfo?.isNewUser;
+
+    if(isFirstLogin!) {
+      final _currentUser = await _auth.currentUser!;
+      final emailSplit = _currentUser.email?.split('@');
+      final user = UserModel(
+        email: _currentUser.email!,
+        name: appleUser.givenName ?? 'unknown',
+        image: 'https://firebasestorage.googleapis.com/v0/b/clothes-app-3c8e3.appspot.com/o/human.png?alt=media&token=9a69b844-9cf2-4375-ad7a-8a175457cfac',
+        uid: _currentUser.uid,
+        id: emailSplit![0],
+      );
+      await _read(userRepositoryProvider).register(user: user);
+      state = state.copyWith(isFirstLogin: true);
+    }
+
+
+    fetchCurrentUser();
+  }
+
+
+
   Future<void> register() async {
     final _auth = await _read(firebaseAuthProvider);
     final _currentUser = await _auth.currentUser!;
-    final emailLength = await _currentUser.email?.length;
-    final id = await _currentUser.email?.substring(0, emailLength! - 10);
+    final emailSplit = _currentUser.email?.split('@');
 
 
     final user = UserModel(
@@ -78,7 +121,7 @@ class UserController extends StateNotifier<UserState> {
       name: _currentUser.displayName!,
       image: _currentUser.photoURL!,
       uid: _currentUser.uid,
-      id: id!,
+      id: emailSplit![0],
     );
 
     await _read(userRepositoryProvider).register(user: user);

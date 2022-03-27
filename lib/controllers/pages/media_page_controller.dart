@@ -20,7 +20,7 @@ class MediaPageState with _$MediaPageState {
 
 
 final MediaPageProvider =
-StateNotifierProvider.autoDispose<MediaPageController, MediaPageState>(
+StateNotifierProvider<MediaPageController, MediaPageState>(
         (ref) {
           final user = ref.watch(userProvider.select((value) => value.user));
       return MediaPageController(ref.read, userId: user.uid);
