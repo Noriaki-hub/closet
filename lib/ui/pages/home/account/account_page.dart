@@ -16,6 +16,7 @@ import '../../../../controllers/pages/account_page_controller.dart';
 import '../../../libs/floating_action_button_animation.dart';
 import '../../follow/src/follower_screen.dart';
 import 'account_edit_page.dart';
+import 'closet/closet_page.dart';
 
 class AccountPage extends StatelessWidget {
   AccountPage({
@@ -234,7 +235,7 @@ class _AccountPage extends HookConsumerWidget {
                                   onPressed: () {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) {
-                                          return HomePage(
+                                          return ClosetPage(
                                             userId: state.user.uid,);
                                         }));
                                   },

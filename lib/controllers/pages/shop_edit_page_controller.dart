@@ -1,4 +1,5 @@
 
+import 'package:closet_app_xxx/models/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -29,19 +30,19 @@ class ShopEditPageState with _$ShopEditPageState {
 final ShopEditPageProvider =
 StateNotifierProvider.autoDispose<ShopEditPageController, ShopEditPageState>(
         (ref) {
-          final userId = ref.watch(userProvider.select((value) => value.user.uid));
-      return ShopEditPageController(ref.read, userId: userId);
+          final user = ref.watch(userProvider.select((value) => value.user));
+      return ShopEditPageController(ref.read, user: user);
     });
 
 
 
 
 class ShopEditPageController extends StateNotifier<ShopEditPageState> {
-  ShopEditPageController(this._read, {required String userId})
-      : _userId = userId, super(ShopEditPageState());
+  ShopEditPageController(this._read, {required UserModel user})
+      : user = user , super(ShopEditPageState());
 
   final Reader _read;
-  final String _userId;
+  final UserModel user;
 
 
   Future<void> imageFile(XFile? imageFile) async {
@@ -63,11 +64,12 @@ class ShopEditPageController extends StateNotifier<ShopEditPageState> {
 
   Future<String> _uploadImageFile(imageFile) async {
     final Uuid uuid = const Uuid();
+    final userEmail = user.email;
 
     final storage = FirebaseStorage.instance;
     TaskSnapshot snapshot = await storage
         .ref()
-        .child("userinfo/$_userId/${uuid.v4()}")
+        .child("userinfo/$userEmail/${uuid.v4()}")
         .putFile(imageFile);
     final String downloadUrl =
     await snapshot.ref.getDownloadURL();
@@ -83,6 +85,6 @@ class ShopEditPageController extends StateNotifier<ShopEditPageState> {
         url: state.url != '' ? state.url: shop.url
     );
 
-    await _read(shopRepositoryProvider).update(shop: _shop, userId: _userId);
+    await _read(shopRepositoryProvider).update(shop: _shop, userId: user.uid);
   }
 }

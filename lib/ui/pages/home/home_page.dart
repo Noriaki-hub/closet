@@ -1,4 +1,5 @@
 
+import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/home/account/account_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,45 +17,17 @@ import 'calender_screen/calender_screen.dart';
 
 
 
-class HomePage extends StatelessWidget {
-  HomePage({
-    Key? key,
-    this.userId,
-  }) : super(key: key);
-
-  final String? userId;
-
-  @override
-  Widget build(BuildContext context) {
-    return ProviderScope(
-      overrides: [
-        HomePageProvider.overrideWithProvider(
-          HomePageProviderFamily(
-            HomePageProviderArg(userId: userId),
-          ),
-        ),
-      ],
-      child: _HomePage(userId: userId),
-    );
-  }
-}
 
 
 
-class _HomePage extends ConsumerWidget {
-  _HomePage({Key? key, this.userId}) : super(key: key);
-  final String? userId;
+class HomePage extends ConsumerWidget {
+  HomePage({Key? key, }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
     final state = ref.watch(HomePageProvider);
-    return
-      state.user.uid == '' ?
-          Scaffold(
-            body: Center(child: CircularProgressIndicator(),),
-          ):
-      userId == null?
+    return state.user.uid == '' ? Loading():
     Scaffold(
           backgroundColor: Colors.brown.shade50,
           floatingActionButton: ExpandableFab(
@@ -227,55 +200,16 @@ class _HomePage extends ConsumerWidget {
 
 
                       ClosetController(),
-                      SizedBox(height: size.height * 2/5,child: Closet()),
+                      NotificationListener<ScrollEndNotification>(
+                          onNotification: (notification) {
+                            final metrics = notification.metrics;
+                            if (!state.isLoading && metrics.extentAfter == 0) {
+                              ref.read(HomePageProvider.notifier).endScroll();
+                            }
+                            return true;
+                          },child: SizedBox(height: size.height * 2/5,child: Closet())),
                     ]
                 ),
-              ),
-            ),
-          )
-      ):
-      Scaffold(
-        appBar: AppBar(
-          title: Column(
-            children: [
-              Text(state.user.name, style: TextStyle(color: Colors.black45, fontSize: 12),),
-              Text('さんのクローゼット', style: TextStyle(color: Colors.black45, fontSize: 12))
-            ],
-          ),
-          backgroundColor: Colors.brown.shade50,
-        ),
-          backgroundColor: Colors.brown.shade50,
-          body: SingleChildScrollView(
-            child: SizedBox(
-              height: size.height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10), //角の丸み
-                            ),
-                            side: const BorderSide(
-                                color: Colors.black45
-                            ),
-                          ),
-                          child: Text('お気に入り', style: TextStyle(color: Colors.black),),
-                          onPressed: null
-                      ),
-                    ),
-                    SizedBox(height: size.height * 1/5,
-                        child: ClosetFavorite()
-                    ),
-
-
-                    ClosetController(),
-                    SizedBox(height: size.height * 2/5,child: Closet()),
-                  ]
               ),
             ),
           )

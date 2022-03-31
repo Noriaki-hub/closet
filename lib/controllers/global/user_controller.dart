@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:math';
 
 import 'package:closet_app_xxx/models/libs/Firebase_providers.dart';
 import 'package:closet_app_xxx/repositories/global/user_repository.dart';
@@ -16,7 +14,7 @@ part 'user_controller.freezed.dart';
 @freezed
 class UserState with _$UserState {
   const factory UserState({
-    @Default(UserModel()) UserModel user,
+    @Default(UserModel(uid: ''))UserModel user,
     @Default(false) bool isFirstLogin,
     @Default(false) bool isCurrentState
   }) = _UserState;
@@ -44,7 +42,7 @@ class UserController extends StateNotifier<UserState> {
 
   Future<void> signInWithGoogle() async {
 
-    
+
     final _auth = _read(firebaseAuthProvider);
 
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

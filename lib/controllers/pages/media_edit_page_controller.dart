@@ -1,4 +1,5 @@
 
+import 'package:closet_app_xxx/models/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -27,19 +28,19 @@ class MediaEditPageState with _$MediaEditPageState {
 final MediaEditPageProvider =
 StateNotifierProvider.autoDispose<MediaEditPageController, MediaEditPageState>(
         (ref) {
-      final userId = ref.watch(userProvider.select((value) => value.user.uid));
-      return MediaEditPageController(ref.read, userId: userId);
+      final user = ref.watch(userProvider.select((value) => value.user));
+      return MediaEditPageController(ref.read, user: user);
     });
 
 
 
 
 class MediaEditPageController extends StateNotifier<MediaEditPageState> {
-  MediaEditPageController(this._read, {required String userId})
-      : _userId = userId, super(MediaEditPageState());
+  MediaEditPageController(this._read, {required UserModel user})
+      : user = user, super(MediaEditPageState());
 
   final Reader _read;
-  final String _userId;
+  final UserModel user;
 
 
   Future<void> imageFile(XFile? imageFile) async {
@@ -61,11 +62,12 @@ class MediaEditPageController extends StateNotifier<MediaEditPageState> {
 
   Future<String> _uploadImageFile(imageFile) async {
     final Uuid uuid = const Uuid();
+    final userEmail = user.email;
 
     final storage = FirebaseStorage.instance;
     TaskSnapshot snapshot = await storage
         .ref()
-        .child("userinfo/$_userId/${uuid.v4()}")
+        .child("userinfo/$userEmail/${uuid.v4()}")
         .putFile(imageFile);
     final String downloadUrl =
     await snapshot.ref.getDownloadURL();
@@ -81,7 +83,7 @@ class MediaEditPageController extends StateNotifier<MediaEditPageState> {
         url: state.url != '' ? state.url: media.url
     );
 
-    await _read(mediaRepositoryProvider).update(userId: _userId, media: _media);
+    await _read(mediaRepositoryProvider).update(userId: user.uid, media: _media);
   }
 }
 

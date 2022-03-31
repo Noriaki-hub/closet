@@ -9,13 +9,13 @@ import '../../models/clothes.dart';
 import '../../repositories/clothes_repository.dart';
 import '../../repositories/global/user_repository.dart';
 
-part 'home_page_controller.freezed.dart';
+part 'closet_page_controller.freezed.dart';
 
 @freezed
-class HomePageState with _$HomePageState {
-  const HomePageState._();
+class ClosetPageState with _$ClosetPageState {
+  const ClosetPageState._();
 
-  const factory HomePageState({
+  const factory ClosetPageState({
     @Default(<Clothes>[]) List<Clothes> closet,
     @Default(<Clothes>[]) List<Clothes> closetFavorite,
     @Default('') String buying,
@@ -26,26 +26,34 @@ class HomePageState with _$HomePageState {
     @Default('ALL') String category,
     @Default(UserModel()) UserModel user,
     @Default(false) bool isLoading,
-    @Default(true) bool isAddClothes
-  }) = _HomePageState;
+    @Default(false) bool isAddClothes,
+  }) = _ClosetPageState;
 
 }
 
-class HomePageProviderArg {
-  HomePageProviderArg({required this.userId});
-  final String? userId;
+class ClosetPageProviderArg {
+  ClosetPageProviderArg({required this.userId});
+  final String userId;
 }
 
-final HomePageProvider =
-StateNotifierProvider.autoDispose<HomePageController, HomePageState>(
+final ClosetPageProvider =
+StateNotifierProvider.autoDispose<ClosetPageController, ClosetPageState>(
         (ref) {
-          final userId = ref.watch(userProvider.select((value) => value.user.uid));
-      return HomePageController(ref.read, userId: userId);
+      return throw UnimplementedError();
     });
 
+final ClosetPageProviderFamily = StateNotifierProvider.family.autoDispose<
+    ClosetPageController,
+    ClosetPageState,
+    ClosetPageProviderArg>((ref, arg) {
+  return ClosetPageController(
+    ref.read,
+    userId: arg.userId
+  );
+});
 
-class HomePageController extends StateNotifier<HomePageState> {
-  HomePageController(this._read,  {required String userId})  : _userId = userId, super(const HomePageState()) {
+class ClosetPageController extends StateNotifier<ClosetPageState> {
+  ClosetPageController(this._read,  {required String userId})  : _userId = userId, super(const ClosetPageState()) {
     _init();
   }
   final String _userId;
@@ -85,7 +93,7 @@ class HomePageController extends StateNotifier<HomePageState> {
     final lastItemId = state.closet.last.itemId;
     final addClothes = await _read(clothesRepositoryProvider).fetchAddCloset(userId: _userId, lastItemId: lastItemId, isSell: state.isSell, category: state.category);
     final closet = state.closet..addAll(addClothes);
-    if(addClothes.length < 6){
+    if(addClothes.length < 5){
       state = state.copyWith(isAddClothes: false);
     }
     state = state.copyWith(closet: closet, isLoading: false);

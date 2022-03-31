@@ -136,7 +136,7 @@ class _pick extends HookConsumerWidget{
               title: new Text('Photo Library'),
               onTap: () async{
                 final pickedFile = await ImagePicker()
-                    .pickImage(source: ImageSource.gallery);
+                    .pickImage(source: ImageSource.gallery, imageQuality: 25);
                 ref.read(MediaEditPageProvider.notifier).imageFile(pickedFile);
                 Navigator.of(context).pop();
               }),
@@ -145,7 +145,7 @@ class _pick extends HookConsumerWidget{
             title: new Text('Camera'),
             onTap: () async{
               final pickedFile = await ImagePicker()
-                  .pickImage(source: ImageSource.camera);
+                  .pickImage(source: ImageSource.camera, imageQuality: 25);
               ref.read(MediaEditPageProvider.notifier).imageFile(pickedFile);
 
               Navigator.of(context).pop();

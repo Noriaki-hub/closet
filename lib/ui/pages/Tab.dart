@@ -1,11 +1,8 @@
 
-import 'package:closet_app_xxx/controllers/pages/home_page_controller.dart';
 import 'package:closet_app_xxx/controllers/pages/tab_page_controller.dart';
 import 'package:closet_app_xxx/ui/pages/home/home_page.dart';
 import 'package:closet_app_xxx/ui/pages/shop/shop_page.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/timeline_screen.dart';
-import 'package:closet_app_xxx/controllers/global/user_controller.dart';
-import 'package:closet_app_xxx/ui/pages/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -25,7 +22,7 @@ class BottomTabPage extends StatefulWidget {
 
 class _BottomTabPageState extends State<BottomTabPage> {
 
-  int _currentIndex = 2;
+  int _currentIndex = 0;
   final _pageWidgets = [
     TimeLineScreen(),
     FollowTab(),

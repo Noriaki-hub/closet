@@ -51,22 +51,13 @@ class _BuyStepScreen extends State<BuyStepScreen> {
           return Scaffold(
               floatingActionButton:
                   itemState ?
-                  ProviderScope(
-                    overrides: [
-                      HomePageProvider.overrideWithProvider(
-                       HomePageProviderFamily(
-                          HomePageProviderArg(userId: null),
-                        ),
-                      ),
-                    ],
-                    child: FloatingActionButton(
-                        child: Text('追加'),
-                        backgroundColor: Colors.blueGrey,
-                        onPressed: () async{
-                          await ref.read(BuyPageProvider.notifier).addCloset();
-                          Navigator.pop(context, true);
-                        }
-                    ),
+                  FloatingActionButton(
+                      child: Text('追加'),
+                      backgroundColor: Colors.blueGrey,
+                      onPressed: () async{
+                        await ref.read(BuyPageProvider.notifier).addCloset();
+                        Navigator.pop(context, true);
+                      }
                   ):
                   FloatingActionButton(
                       child: Icon(LineIcons.angleDown),

@@ -16,17 +16,50 @@ class _Repository {
 
   Future<List<Clothes>> fetchCloset(
       {required String userId, required bool isSell, required String category}) async {
+
     final snap = category == 'ALL' ?
     await _read(firebaseFirestoreProvider)
         .collection('clothes')
         .where('isSell', isEqualTo: isSell).where('uid', isEqualTo: userId)
         .orderBy('createdBuy', descending: true)
+        .limit(6)
         .get() :
     await _read(firebaseFirestoreProvider)
         .collection('clothes')
         .where('isSell', isEqualTo: isSell).where(
         'category', isEqualTo: category).where('uid', isEqualTo: userId)
         .orderBy('createdBuy', descending: true)
+        .limit(6)
+        .get();
+
+
+    return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
+  }
+
+
+  Future<List<Clothes>> fetchAddCloset(
+      {required String userId, required bool isSell, required String category, required String lastItemId}) async {
+
+    final _fireStore = _read(firebaseFirestoreProvider);
+
+    DocumentSnapshot lastDoc = await _fireStore.collection('clothes').doc(
+        lastItemId).get();
+
+    final snap = category == 'ALL' ?
+    await _read(firebaseFirestoreProvider)
+        .collection('clothes')
+        .where('isSell', isEqualTo: isSell).where('uid', isEqualTo: userId)
+        .orderBy('createdBuy', descending: true)
+        .startAfterDocument(lastDoc)
+        .limit(6)
+        .get() :
+    await _read(firebaseFirestoreProvider)
+        .collection('clothes')
+        .where('isSell', isEqualTo: isSell).where(
+        'category', isEqualTo: category).where('uid', isEqualTo: userId)
+        .orderBy('createdBuy', descending: true)
+        .startAfterDocument(lastDoc)
+        .limit(6)
         .get();
 
 

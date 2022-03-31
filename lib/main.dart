@@ -1,8 +1,7 @@
 
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
-import 'package:closet_app_xxx/models/user.dart';
+import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/Tab.dart';
-import 'package:closet_app_xxx/ui/pages/splash.dart';
 import 'package:closet_app_xxx/ui/pages/tutorial.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -49,16 +48,17 @@ class MyApp extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return SplashPage();
+                return Loading();
               }
               if (snapshot.hasData) {
 
                 return Consumer(
                     builder: (BuildContext context, WidgetRef ref, Widget? child) {
                       final isFirstLogin = ref.watch(userProvider.select((value) => value.isFirstLogin));
-                      return isFirstLogin? TutorialPage():BottomTabPage();
+                      final user = ref.watch(userProvider.select((value) => value.user));
+                      return user.uid == '' ? Loading() : isFirstLogin? TutorialPage():BottomTabPage();
                     },
-                    child: BottomTabPage());
+                );
               }
               return LoginScreen();
             },

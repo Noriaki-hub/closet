@@ -11,22 +11,37 @@ User? current = FirebaseAuth.instance.currentUser;
 class TimeLineScreen extends HookConsumerWidget {
 
 
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Size size = MediaQuery.of(context).size;
+    final isAddClothes = ref.watch(
+        TimeLinePageProvider.select((value) => value.isAddClothes));
+    final isLoading = ref.watch(
+        TimeLinePageProvider.select((value) => value.isLoading));
+    final Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
-        backgroundColor: Colors.brown.shade50,
+      backgroundColor: Colors.brown.shade50,
       appBar: AppBar(
         title: Text('服ログ', style: TextStyle(color: Colors.black45),),
         backgroundColor: Colors.brown.shade50,
       ),
 
-      body: RefreshIndicator(
-        onRefresh: () async{
-          await ref.read(TimeLinePageProvider.notifier).fetchTimeLine();
-        },
-        child: TimeLineList(),
+      body: Center(
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await ref.read(TimeLinePageProvider.notifier).fetchTimeLine();
+          },
+          child: NotificationListener<ScrollEndNotification>(
+              onNotification: (notification) {
+                final metrics = notification.metrics;
+                if (!isLoading && metrics.extentAfter == 0) {
+                  ref.read(TimeLinePageProvider.notifier).endScroll();
+                }
+                return true;
+              },
+              child: TimeLineList()),
+        ),
       ),
     );
   }

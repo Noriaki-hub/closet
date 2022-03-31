@@ -10,8 +10,8 @@ class Clothes with _$Clothes {
   const Clothes._();
 
   const factory Clothes({
-    @FireTimestampConverterNonNull()required DateTime createdBuy,
-    @FireTimestampConverterNonNull()required DateTime createdSell,
+    @FireTimestampConverterNonNull() required DateTime createdBuy,
+    @FireTimestampConverterNonNull() required DateTime createdSell,
     @Default('') String itemId,
     @Default('') String brands,
     @Default('') String price,

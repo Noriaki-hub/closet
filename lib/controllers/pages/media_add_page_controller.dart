@@ -31,16 +31,16 @@ final MediaAddPageProvider =
 StateNotifierProvider.autoDispose<MediaAddPageController, MediaAddPageState>(
         (ref) {
       final user = ref.watch(userProvider.select((value) => value.user));
-      return MediaAddPageController(ref.read, userId: user.uid,  );
+      return MediaAddPageController(ref.read, user: user,  );
     });
 
 
 class MediaAddPageController extends StateNotifier<MediaAddPageState> {
-  MediaAddPageController(this._read, {required String userId} )
-      : _userId = userId, super(MediaAddPageState());
+  MediaAddPageController(this._read, {required UserModel user} )
+      : user = user, super(MediaAddPageState());
 
   final Reader _read;
-  final String _userId;
+  final UserModel user;
 
 
   Future<void> imageFile(XFile? imageFile) async {
@@ -65,11 +65,12 @@ class MediaAddPageController extends StateNotifier<MediaAddPageState> {
 
   Future<String> _uploadImageFile(imageFile) async {
     final Uuid uuid = const Uuid();
+    final userEmail = user.email;
 
     final storage = FirebaseStorage.instance;
     TaskSnapshot snapshot = await storage
         .ref()
-        .child("userinfo/$_userId/${uuid.v4()}")
+        .child("userinfo/$userEmail/${uuid.v4()}")
         .putFile(imageFile);
     final String downloadUrl =
     await snapshot.ref.getDownloadURL();
@@ -83,7 +84,7 @@ class MediaAddPageController extends StateNotifier<MediaAddPageState> {
         url: state.url,
         name: state.name
     );
-    await _read(mediaRepositoryProvider).add(media: media, userId: _userId);
+    await _read(mediaRepositoryProvider).add(media: media, userId: user.uid);
   }
 }
 
