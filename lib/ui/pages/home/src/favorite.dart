@@ -1,4 +1,5 @@
 import 'package:closet_app_xxx/controllers/pages/home_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,10 +26,7 @@ class ClosetFavorite extends HookConsumerWidget{
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
                     color: Colors.white,
-                    child: Image.network(
-                      item.imageURL,
-                      fit: BoxFit.cover,
-                    )
+                    child: CacheImage(imageURL: item.imageURL)
                 ),
               )
           );

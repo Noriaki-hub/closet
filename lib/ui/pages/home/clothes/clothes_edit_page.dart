@@ -1,5 +1,6 @@
 
 import 'package:closet_app_xxx/repositories/clothes_repository.dart';
+import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/src/brands_text_field.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/src/category_controller.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/src/date_pick_field.dart';
@@ -29,6 +30,8 @@ class ClothesEditPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final clothes = ref.watch(
         ClothesEditPageProvider.select((value) => value.clothes));
+    final isEdit = ref.watch(
+        ClothesEditPageProvider.select((value) => value.isEdit));
     return Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
           ref.read(ClothesEditPageProvider.notifier).fetch(itemId: itemId);
@@ -40,7 +43,7 @@ class ClothesEditPage extends HookConsumerWidget {
               }, icon: Icon(LineIcons.angleLeft),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
+            floatingActionButton: !isEdit ? Container(): FloatingActionButton(
               child: Text('変更'),
               backgroundColor: Colors.brown.shade50,
               onPressed: () async {
@@ -51,7 +54,7 @@ class ClothesEditPage extends HookConsumerWidget {
 
             ),
             body: clothes == null
-                ? Center(child: CircularProgressIndicator(),)
+                ? Center(child: Loading())
                 : Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(

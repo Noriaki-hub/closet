@@ -1,5 +1,6 @@
 
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -78,9 +79,9 @@ class MediaList extends HookConsumerWidget{
                  children: [
                    InkWell(
                      onTap: (){
-                       Navigator.push(context, MaterialPageRoute(builder: (context) => WebViewScreen(media.url)));
+                       Navigator.push(context, MaterialPageRoute(builder: (context) => WebViewScreen(url: media.url, genre: 'media',)));
                      },
-                     child:  ClipRRect(borderRadius: BorderRadius.circular(10),child: Container(width:150, height: 150,child: Image.network(media.image, fit: BoxFit.cover,))),
+                     child:  ClipRRect(borderRadius: BorderRadius.circular(10),child: SizedBox(height: 150,child: CacheImage(imageURL: media.image))),
                    ),
 
                    Text(media.name)

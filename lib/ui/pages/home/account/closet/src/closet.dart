@@ -1,4 +1,5 @@
 import 'package:closet_app_xxx/controllers/pages/closet_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/clothes_view_screen.dart';
 import 'package:closet_app_xxx/controllers/pages/home_page_controller.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +36,7 @@ class Closet extends HookConsumerWidget{
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child:
-                    Image.network(
-                      item.imageURL,
-                      fit: BoxFit.cover,
-                    ),
+                    CacheImage(imageURL: item.imageURL,)
                   )
               );
             }

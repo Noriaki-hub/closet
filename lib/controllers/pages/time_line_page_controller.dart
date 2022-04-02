@@ -45,9 +45,6 @@ class TimeLinePageController extends StateNotifier<TimeLinePageState> {
   Future<void> _init() async{
     final timeLineList = await _read(timeLineRepositoryProvider).fetchTimeLines(userId: _userId);
     state = state.copyWith(timeLineList: timeLineList);
-    if(timeLineList.length < 5){
-      state = state.copyWith(isAddClothes: false);
-    }
   }
 
   Future<void> fetchTimeLine() async {
@@ -61,9 +58,6 @@ class TimeLinePageController extends StateNotifier<TimeLinePageState> {
     final lastItemId = state.timeLineList.last.itemId;
     final addClothes = await _read(timeLineRepositoryProvider).fetchAddTimeLines(userId: _userId, lastItemId: lastItemId);
     final timeLineList = state.timeLineList..addAll(addClothes);
-    if(addClothes.length < 5){
-     state = state.copyWith(isAddClothes: false);
-    }
     state = state.copyWith(timeLineList: timeLineList, isLoading: false);
   }
 }

@@ -3,6 +3,7 @@
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/controllers/pages/tab_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/follow_button.dart';
+import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/follow/src/follow_screen.dart';
 import 'package:closet_app_xxx/ui/pages/home/account/src/account_closet.dart';
 import 'package:closet_app_xxx/ui/pages/home/account/src/account_favorite.dart';
@@ -89,7 +90,7 @@ class _AccountPage extends HookConsumerWidget {
         ],
       ) : Container(),
       body: state.user.uid == ''
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: Loading())
           : SingleChildScrollView(
         child: Column(
           children: [

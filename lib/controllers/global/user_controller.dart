@@ -54,7 +54,7 @@ class UserController extends StateNotifier<UserState> {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-
+    
     final result = await _auth.signInWithCredential(credential);
 
     final isFirstLogin = await result.additionalUserInfo?.isNewUser;

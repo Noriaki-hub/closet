@@ -61,7 +61,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
     }
     state = await state.copyWith(imageFile: File(imageFile.path));
     state = state.copyWith(
-        imageURL: await _uploadImageFile(state.brands, state.imageFile));
+        imageURL: await _uploadImageFile(state.imageFile));
   }
 
 
@@ -102,14 +102,14 @@ class BuyPageController extends StateNotifier<BuyPageState> {
 
 
 
-  Future<String> _uploadImageFile(brands, imageFile) async {
+  Future<String> _uploadImageFile(imageFile) async {
     final Uuid uuid = const Uuid();
 
     final userEmail = _user.email;
     final storage = FirebaseStorage.instance;
     TaskSnapshot snapshot = await storage
         .ref()
-        .child("userinfo/$userEmail/$brands${uuid.v4()}")
+        .child("userinfo/$userEmail/${uuid.v4()}")
         .putFile(imageFile);
     final String downloadUrl =
     await snapshot.ref.getDownloadURL();

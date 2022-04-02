@@ -31,13 +31,10 @@ class HomePageState with _$HomePageState {
 
 }
 
-class HomePageProviderArg {
-  HomePageProviderArg({required this.userId});
-  final String? userId;
-}
+
 
 final HomePageProvider =
-StateNotifierProvider.autoDispose<HomePageController, HomePageState>(
+StateNotifierProvider<HomePageController, HomePageState>(
         (ref) {
           final userId = ref.watch(userProvider.select((value) => value.user.uid));
       return HomePageController(ref.read, userId: userId);

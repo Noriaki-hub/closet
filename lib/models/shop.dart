@@ -17,6 +17,7 @@ class Shop with _$Shop {
     @Default('') String name,
     @Default('') String url,
     @Default('') String image,
+
   })= _Shop;
 
 

@@ -1,4 +1,5 @@
 
+import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -82,14 +83,13 @@ class ShopList extends HookConsumerWidget {
                 InkWell(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => WebViewScreen(shop.url)));
+                        builder: (context) => WebViewScreen(genre: 'shop', url: shop.url,)));
                   },
                   child: ClipRRect(borderRadius: BorderRadius.circular(80),
-                      child: Container(
-                          width: 150,
+                      child: SizedBox(
                           height: 150,
-                          child: Image.network(
-                            shop.image, fit: BoxFit.cover,))),
+                          width: 150,
+                          child: CacheImage(imageURL: shop.image))),
                 ),
 
                 Text(shop.name)

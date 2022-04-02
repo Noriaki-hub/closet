@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:closet_app_xxx/ui/libs/share_log_button.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:share/share.dart';
@@ -9,14 +9,17 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
   final String url;
-  WebViewScreen(this.url);
+  final String genre;
+  WebViewScreen({ required this.url, required this.genre});
   @override
-  _WebViewScreen createState() => _WebViewScreen(url);
+  _WebViewScreen createState() => _WebViewScreen(url, genre);
 }
 
 class _WebViewScreen extends State<WebViewScreen> {
   final String url;
-  _WebViewScreen(this.url,);
+  final String genre;
+
+  _WebViewScreen(this.url, this.genre);
 
   bool _canGoBack = false;
   bool _canGoForward = false;
@@ -31,7 +34,6 @@ class _WebViewScreen extends State<WebViewScreen> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +46,20 @@ class _WebViewScreen extends State<WebViewScreen> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.brown.shade50,
+          child: Icon(Icons.ios_share),
+          onPressed: () async {
+            final currentUrl = await _webViewController?.currentUrl();
+            if (currentUrl != null) {
+              showDialog(
+                context: context,
+                barrierDismissible: false, // user must tap button!
+                builder: (BuildContext context) {
+                  return ShareLogPage(currentUrl: currentUrl, genre: genre,);
+                },);
+            }
+          }),
       body: Center(
         child: WebView(
           initialUrl: url,
@@ -76,14 +92,14 @@ class _WebViewScreen extends State<WebViewScreen> {
           children: [
             IconButton(
                 icon: Icon(LineIcons.shareSquareAlt, color: Colors.grey,),
-                onPressed: () async{
+                onPressed: () async {
                   final currentUrl = await _webViewController?.currentUrl();
                   Share.share(currentUrl!);
                 }
             ),
             IconButton(
               icon: Icon(LineIcons.home, color: Colors.grey,),
-              onPressed:() => _webViewController?.loadUrl(url),
+              onPressed: () => _webViewController?.loadUrl(url),
             ),
             IconButton(
               icon: Icon(LineIcons.angleLeft, color: Colors.grey,),

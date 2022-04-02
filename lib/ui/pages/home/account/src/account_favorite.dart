@@ -1,18 +1,18 @@
-
+import 'package:closet_app_xxx/controllers/pages/account_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/cache_image.dart';
+import 'package:closet_app_xxx/ui/pages/home/clothes/clothes_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../../controllers/pages/account_page_controller.dart';
-import '../../../../../controllers/pages/home_page_controller.dart';
-import '../../clothes/clothes_view_screen.dart';
 
-class AccountFavorite extends HookConsumerWidget{
+class AccountFavorite extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final closetFavorite = ref.watch(AccountPageProvider.select((value) => value.closetFavorite));
+    final closetFavorite = ref.watch(
+        AccountPageProvider.select((value) => value.closetFavorite));
     return Padding(
       padding: const EdgeInsets.only(top: 20, bottom: 20),
-      child: closetFavorite.length == 0 ?Container():GridView.builder(
+      child: closetFavorite.length == 0 ? Container() : GridView.builder(
           scrollDirection: Axis.horizontal,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
@@ -24,21 +24,19 @@ class AccountFavorite extends HookConsumerWidget{
           itemBuilder: (BuildContext context, int index) {
             final item = closetFavorite[index];
             return InkWell(
-                onTap: () async{
-                  final result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ClothesViewScreen(clothes: item);}));
-                  if(result){
-                    ref.read(AccountPageProvider.notifier).fetchAccountPageData();
-
+                onTap: () async {
+                  final result = await Navigator.push(
+                      context, MaterialPageRoute(builder: (context) {
+                    return ClothesViewScreen(clothes: item);
+                  }));
+                  if (result) {
+                    ref.read(AccountPageProvider.notifier)
+                        .fetchAccountPageData();
                   }
                 },
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child:
-                  Image.network(
-                    item.imageURL,
-                    fit: BoxFit.cover,
-                  ),
+                    borderRadius: BorderRadius.circular(12),
+                    child: CacheImage(imageURL: item.imageURL)
                 )
             );
           }

@@ -1,5 +1,6 @@
 
 import 'package:closet_app_xxx/models/clothes.dart';
+import 'package:closet_app_xxx/models/share.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -62,5 +63,60 @@ class _ItemRepository {
 
 
     return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
+  }
+
+
+  Future<List<Share>> fetchShares({required String userId, required String genre}) async {
+    final _fireStore =  _read(firebaseFirestoreProvider);
+
+    final uidList = [userId];
+
+    await _fireStore
+        .collection('users').doc(userId).collection('follow')
+        .get().then((snapshot) => {
+      snapshot.docs.forEach((doc) {
+        uidList.add(doc.data()['uid']);
+      })
+    });
+
+    final snap = await _fireStore.collection("share")
+        .where('genre', isEqualTo: genre)
+        .where('uid', whereIn: uidList)
+        .orderBy('created', descending: true)
+        .limit(5)
+        .get();
+
+
+    return snap.docs.map((doc) => Share.fromJson(doc.data())).toList();
+
+  }
+
+  Future<List<Share>> fetchAddShares({required String userId, required String lastItemId, required String genre}) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+
+    final uidList = [userId];
+
+    DocumentSnapshot lastDoc = await _fireStore.collection('share').doc(
+        lastItemId).get();
+
+    await _fireStore
+        .collection('users').doc(userId).collection('follow')
+        .get().then((snapshot) =>
+    {
+      snapshot.docs.forEach((doc) {
+        uidList.add(doc.data()['uid']);
+      })
+    });
+
+    final snap = await _fireStore.collection("share")
+        .where('genre', isEqualTo: genre)
+        .where('uid', whereIn: uidList)
+        .orderBy('created', descending: true)
+        .startAfterDocument(lastDoc)
+        .limit(5)
+        .get();
+
+
+    return snap.docs.map((doc) => Share.fromJson(doc.data())).toList();
   }
 }

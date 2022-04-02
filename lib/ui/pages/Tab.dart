@@ -1,8 +1,9 @@
 
 import 'package:closet_app_xxx/controllers/pages/tab_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:closet_app_xxx/ui/pages/home/home_page.dart';
 import 'package:closet_app_xxx/ui/pages/shop/shop_page.dart';
-import 'package:closet_app_xxx/ui/pages/timeline/timeline_screen.dart';
+import 'package:closet_app_xxx/ui/pages/timeline/timeline_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -24,7 +25,7 @@ class _BottomTabPageState extends State<BottomTabPage> {
 
   int _currentIndex = 0;
   final _pageWidgets = [
-    TimeLineScreen(),
+    TimeLineTab(),
     FollowTab(),
     HomePage(),
     MediaPage(),
@@ -38,7 +39,7 @@ class _BottomTabPageState extends State<BottomTabPage> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey.shade200,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: const Icon(LineIcons.tShirt), label: '服ログ'),
+          BottomNavigationBarItem(icon: const Icon(LineIcons.stream), label: 'ログ'),
           BottomNavigationBarItem(
               icon: const Icon(LineIcons.userFriends), label: 'フォロー'),
           BottomNavigationBarItem(icon: _accountImage(), label: 'ホーム'),

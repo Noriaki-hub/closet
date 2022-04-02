@@ -34,6 +34,7 @@ class ClothesEditPageState with _$ClothesEditPageState {
     @Default('')String sellingMonth,
     @Default('')String sellingYear,
     @Default('')String imageURL,
+    @Default(false) bool isEdit,
 
   }) = _ClothesEditPageState;
 
@@ -74,23 +75,24 @@ class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
     state = await state.copyWith(imageFile: File(imageFile.path));
     state = state.copyWith(
         imageURL: await _uploadImageFile(state.imageFile),
+      isEdit: true,
     );
   }
 
   Future<void> category({required String category}) async {
-    state = state.copyWith(category: category);
+    state = state.copyWith(category: category,isEdit: true,);
   }
 
   Future<void> brands({required String brands}) async {
-    state = state.copyWith(brands: brands);
+    state = state.copyWith(brands: brands,isEdit: true,);
   }
 
   Future<void> description({required String description}) async {
-    state = state.copyWith(description: description);
+    state = state.copyWith(description: description,isEdit: true,);
   }
 
   Future<void> price({required String price}) async {
-    state = state.copyWith(price: price);
+    state = state.copyWith(price: price,isEdit: true,);
   }
 
 
@@ -99,7 +101,7 @@ class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
     DateFormat monthFormat = DateFormat('MM');
     DateFormat dayFormat = DateFormat('dd');
 
-    state = state.copyWith(selectedDateForBuy: selectedDate);
+    state = state.copyWith(selectedDateForBuy: selectedDate,isEdit: true,);
 
     state = state.copyWith(year: yearFormat.format(selectedDate));
 
@@ -117,7 +119,7 @@ class  ClothesEditPageController extends StateNotifier< ClothesEditPageState> {
     DateFormat monthFormat = DateFormat('MM');
     DateFormat dayFormat = DateFormat('dd');
 
-    state = state.copyWith(selectedDateForSell: selectedDate);
+    state = state.copyWith(selectedDateForSell: selectedDate,isEdit: true,);
 
     state = state.copyWith(sellingYear: yearFormat.format(selectedDate));
 

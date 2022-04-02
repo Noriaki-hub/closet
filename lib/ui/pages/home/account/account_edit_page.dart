@@ -31,14 +31,14 @@ class AccountEditPage extends HookConsumerWidget {
 
         ),
       ),
-      floatingActionButton: isEdit? FloatingActionButton(
+      floatingActionButton: !isEdit? Container(): FloatingActionButton(
         child: const Text('変更'),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.brown.shade50,
         onPressed: () async {
           await ref.read(AccountEditPageProvider.notifier).updateUser();
           Navigator.pop(context, true);
         },
-      ):Container(),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.only(right: 65, left: 65),
@@ -122,20 +122,20 @@ class _pick extends HookConsumerWidget {
         children: <Widget>[
           ListTile(
               leading:  const Icon(Icons.photo_library),
-              title: const Text('Photo Library'),
+              title: const Text('ライブラリ'),
               onTap: () async {
                 final pickedFile = await ImagePicker()
-                    .pickImage(source: ImageSource.gallery, imageQuality: 25);
+                    .pickImage(source: ImageSource.gallery, imageQuality: 0, maxHeight: 1080, maxWidth: 1080);
                await ref.read(AccountEditPageProvider.notifier).imageFile(
                     pickedFile);
                 Navigator.of(context).pop();
               }),
           ListTile(
             leading: const Icon(Icons.photo_camera),
-            title: const Text('Camera'),
+            title: const Text('カメラ'),
             onTap: () async {
               final pickedFile = await ImagePicker()
-                  .pickImage(source: ImageSource.camera, imageQuality: 25);
+                  .pickImage(source: ImageSource.camera, imageQuality: 0, maxHeight: 1080, maxWidth: 1080);
               await ref.read(AccountEditPageProvider.notifier).imageFile(pickedFile);
               Navigator.of(context).pop();
             },

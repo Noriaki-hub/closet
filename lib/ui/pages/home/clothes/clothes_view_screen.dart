@@ -1,4 +1,8 @@
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/clothes_view_page_controller.dart';
+import 'package:closet_app_xxx/models/clothes.dart';
+import 'package:closet_app_xxx/ui/libs/cache_image.dart';
+import 'package:closet_app_xxx/ui/libs/floating_action_button_animation.dart';
 import 'package:closet_app_xxx/ui/libs/like_button.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/clothes_edit_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,9 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../../../../controllers/pages/clothes_view_page_controller.dart';
-import '../../../../models/clothes.dart';
-import '../../../libs/floating_action_button_animation.dart';
 
 
 
@@ -117,20 +118,14 @@ class _ClothesViewScreen extends HookConsumerWidget {
         backgroundColor: Colors.brown.shade50,
         body: SingleChildScrollView(
           child: SizedBox(
-            height: 1000,
+            height: 1500,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-                  Container(
-                    width: double.infinity,
-                    height: size.height * 1/2,
-
+                  SizedBox(
+                    height: size.height * 2/3,
                     child: GestureDetector(
-                        child: Image.network(
-                          clothes.imageURL,
-                          fit: BoxFit.cover,
-                        )
+                        child: CacheImage(imageURL: clothes.imageURL)
                     ),
                   ),
                   Container(
