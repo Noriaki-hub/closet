@@ -21,13 +21,13 @@ class SellPageState with _$SellPageState {
     @Default('') String sellingDay,
     @Default('') String sellingMonth,
     @Default('') String sellingYear,
+    @Default(false) bool isLoading,
   }) = _SellPageState;
 }
 
-final SellPageProvider =
+final sellPageProvider =
     StateNotifierProvider.autoDispose<SellPageController, SellPageState>((ref) {
   final user = ref.watch(userProvider.select((value) => value.user));
-  // final calendarPickedDate = ref.watch(CalendarPickerProvider);
   return SellPageController(
     ref.read,
     user.uid,
@@ -72,6 +72,18 @@ class SellPageController extends StateNotifier<SellPageState> {
     state = state.copyWith(sellingMonth: monthFormat.format(selectedDate));
 
     state = state.copyWith(sellingDay: dayFormat.format(selectedDate));
+  }
+
+  Future<void> endScroll() async {
+    state = state.copyWith(isLoading: true);
+    final lastItemId = state.closet.last.itemId;
+    final addClothes = await _read(clothesRepositoryProvider).fetchAddCloset(
+        userId: _userId,
+        lastItemId: lastItemId,
+        category: 'ALL',
+        isSell: false);
+    final closet = state.closet..addAll(addClothes);
+    state = state.copyWith(closet: closet, isLoading: false);
   }
 
   Future<void> sellClothes() async {

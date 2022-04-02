@@ -26,7 +26,8 @@ class _$SellPageStateTearOff {
       String selling = '',
       String sellingDay = '',
       String sellingMonth = '',
-      String sellingYear = ''}) {
+      String sellingYear = '',
+      bool isLoading = false}) {
     return _SellPageState(
       closet: closet,
       selectClothesId: selectClothesId,
@@ -36,6 +37,7 @@ class _$SellPageStateTearOff {
       sellingDay: sellingDay,
       sellingMonth: sellingMonth,
       sellingYear: sellingYear,
+      isLoading: isLoading,
     );
   }
 }
@@ -53,6 +55,7 @@ mixin _$SellPageState {
   String get sellingDay => throw _privateConstructorUsedError;
   String get sellingMonth => throw _privateConstructorUsedError;
   String get sellingYear => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SellPageStateCopyWith<SellPageState> get copyWith =>
@@ -72,7 +75,8 @@ abstract class $SellPageStateCopyWith<$Res> {
       String selling,
       String sellingDay,
       String sellingMonth,
-      String sellingYear});
+      String sellingYear,
+      bool isLoading});
 
   $ClothesCopyWith<$Res>? get selectedClothes;
 }
@@ -96,6 +100,7 @@ class _$SellPageStateCopyWithImpl<$Res>
     Object? sellingDay = freezed,
     Object? sellingMonth = freezed,
     Object? sellingYear = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       closet: closet == freezed
@@ -130,6 +135,10 @@ class _$SellPageStateCopyWithImpl<$Res>
           ? _value.sellingYear
           : sellingYear // ignore: cast_nullable_to_non_nullable
               as String,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -160,7 +169,8 @@ abstract class _$SellPageStateCopyWith<$Res>
       String selling,
       String sellingDay,
       String sellingMonth,
-      String sellingYear});
+      String sellingYear,
+      bool isLoading});
 
   @override
   $ClothesCopyWith<$Res>? get selectedClothes;
@@ -187,6 +197,7 @@ class __$SellPageStateCopyWithImpl<$Res>
     Object? sellingDay = freezed,
     Object? sellingMonth = freezed,
     Object? sellingYear = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_SellPageState(
       closet: closet == freezed
@@ -221,6 +232,10 @@ class __$SellPageStateCopyWithImpl<$Res>
           ? _value.sellingYear
           : sellingYear // ignore: cast_nullable_to_non_nullable
               as String,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -236,7 +251,8 @@ class _$_SellPageState extends _SellPageState {
       this.selling = '',
       this.sellingDay = '',
       this.sellingMonth = '',
-      this.sellingYear = ''})
+      this.sellingYear = '',
+      this.isLoading = false})
       : super._();
 
   @JsonKey()
@@ -261,10 +277,13 @@ class _$_SellPageState extends _SellPageState {
   @JsonKey()
   @override
   final String sellingYear;
+  @JsonKey()
+  @override
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'SellPageState(closet: $closet, selectClothesId: $selectClothesId, selectedDate: $selectedDate, selectedClothes: $selectedClothes, selling: $selling, sellingDay: $sellingDay, sellingMonth: $sellingMonth, sellingYear: $sellingYear)';
+    return 'SellPageState(closet: $closet, selectClothesId: $selectClothesId, selectedDate: $selectedDate, selectedClothes: $selectedClothes, selling: $selling, sellingDay: $sellingDay, sellingMonth: $sellingMonth, sellingYear: $sellingYear, isLoading: $isLoading)';
   }
 
   @override
@@ -285,7 +304,8 @@ class _$_SellPageState extends _SellPageState {
             const DeepCollectionEquality()
                 .equals(other.sellingMonth, sellingMonth) &&
             const DeepCollectionEquality()
-                .equals(other.sellingYear, sellingYear));
+                .equals(other.sellingYear, sellingYear) &&
+            const DeepCollectionEquality().equals(other.isLoading, isLoading));
   }
 
   @override
@@ -298,7 +318,8 @@ class _$_SellPageState extends _SellPageState {
       const DeepCollectionEquality().hash(selling),
       const DeepCollectionEquality().hash(sellingDay),
       const DeepCollectionEquality().hash(sellingMonth),
-      const DeepCollectionEquality().hash(sellingYear));
+      const DeepCollectionEquality().hash(sellingYear),
+      const DeepCollectionEquality().hash(isLoading));
 
   @JsonKey(ignore: true)
   @override
@@ -315,7 +336,8 @@ abstract class _SellPageState extends SellPageState {
       String selling,
       String sellingDay,
       String sellingMonth,
-      String sellingYear}) = _$_SellPageState;
+      String sellingYear,
+      bool isLoading}) = _$_SellPageState;
   const _SellPageState._() : super._();
 
   @override
@@ -334,6 +356,8 @@ abstract class _SellPageState extends SellPageState {
   String get sellingMonth;
   @override
   String get sellingYear;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$SellPageStateCopyWith<_SellPageState> get copyWith =>
