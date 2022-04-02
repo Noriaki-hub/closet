@@ -1,12 +1,8 @@
-
-
+import 'package:closet_app_xxx/controllers/pages/media_add_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../../controllers/pages/media_add_page_controller.dart';
-
-
-class MediaAddStep2 extends HookConsumerWidget{
+class MediaAddStep2 extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
@@ -19,13 +15,11 @@ class MediaAddStep2 extends HookConsumerWidget{
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
-            )
-        ),
+            )),
         onChanged: (text) {
-          ref.read(MediaAddPageProvider.notifier).name( name: text);
+          ref.read(mediaAddPageProvider.notifier).name(name: text);
         },
       ),
     );
   }
-
 }

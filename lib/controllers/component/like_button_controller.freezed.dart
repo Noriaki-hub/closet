@@ -21,11 +21,11 @@ class _$LikeButtonStateTearOff {
   _LikeButtonState call(
       {List<UserModel> likes = const <UserModel>[],
       List<Like> myLikeState = const <Like>[],
-      bool MyAccountState = false}) {
+      bool myAccountState = false}) {
     return _LikeButtonState(
       likes: likes,
       myLikeState: myLikeState,
-      MyAccountState: MyAccountState,
+      myAccountState: myAccountState,
     );
   }
 }
@@ -37,7 +37,7 @@ const $LikeButtonState = _$LikeButtonStateTearOff();
 mixin _$LikeButtonState {
   List<UserModel> get likes => throw _privateConstructorUsedError;
   List<Like> get myLikeState => throw _privateConstructorUsedError;
-  bool get MyAccountState => throw _privateConstructorUsedError;
+  bool get myAccountState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LikeButtonStateCopyWith<LikeButtonState> get copyWith =>
@@ -50,7 +50,7 @@ abstract class $LikeButtonStateCopyWith<$Res> {
           LikeButtonState value, $Res Function(LikeButtonState) then) =
       _$LikeButtonStateCopyWithImpl<$Res>;
   $Res call(
-      {List<UserModel> likes, List<Like> myLikeState, bool MyAccountState});
+      {List<UserModel> likes, List<Like> myLikeState, bool myAccountState});
 }
 
 /// @nodoc
@@ -66,7 +66,7 @@ class _$LikeButtonStateCopyWithImpl<$Res>
   $Res call({
     Object? likes = freezed,
     Object? myLikeState = freezed,
-    Object? MyAccountState = freezed,
+    Object? myAccountState = freezed,
   }) {
     return _then(_value.copyWith(
       likes: likes == freezed
@@ -77,9 +77,9 @@ class _$LikeButtonStateCopyWithImpl<$Res>
           ? _value.myLikeState
           : myLikeState // ignore: cast_nullable_to_non_nullable
               as List<Like>,
-      MyAccountState: MyAccountState == freezed
-          ? _value.MyAccountState
-          : MyAccountState // ignore: cast_nullable_to_non_nullable
+      myAccountState: myAccountState == freezed
+          ? _value.myAccountState
+          : myAccountState // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -93,7 +93,7 @@ abstract class _$LikeButtonStateCopyWith<$Res>
       __$LikeButtonStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<UserModel> likes, List<Like> myLikeState, bool MyAccountState});
+      {List<UserModel> likes, List<Like> myLikeState, bool myAccountState});
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class __$LikeButtonStateCopyWithImpl<$Res>
   $Res call({
     Object? likes = freezed,
     Object? myLikeState = freezed,
-    Object? MyAccountState = freezed,
+    Object? myAccountState = freezed,
   }) {
     return _then(_LikeButtonState(
       likes: likes == freezed
@@ -122,9 +122,9 @@ class __$LikeButtonStateCopyWithImpl<$Res>
           ? _value.myLikeState
           : myLikeState // ignore: cast_nullable_to_non_nullable
               as List<Like>,
-      MyAccountState: MyAccountState == freezed
-          ? _value.MyAccountState
-          : MyAccountState // ignore: cast_nullable_to_non_nullable
+      myAccountState: myAccountState == freezed
+          ? _value.myAccountState
+          : myAccountState // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -136,7 +136,7 @@ class _$_LikeButtonState extends _LikeButtonState {
   const _$_LikeButtonState(
       {this.likes = const <UserModel>[],
       this.myLikeState = const <Like>[],
-      this.MyAccountState = false})
+      this.myAccountState = false})
       : super._();
 
   @JsonKey()
@@ -147,11 +147,11 @@ class _$_LikeButtonState extends _LikeButtonState {
   final List<Like> myLikeState;
   @JsonKey()
   @override
-  final bool MyAccountState;
+  final bool myAccountState;
 
   @override
   String toString() {
-    return 'LikeButtonState(likes: $likes, myLikeState: $myLikeState, MyAccountState: $MyAccountState)';
+    return 'LikeButtonState(likes: $likes, myLikeState: $myLikeState, myAccountState: $myAccountState)';
   }
 
   @override
@@ -163,7 +163,7 @@ class _$_LikeButtonState extends _LikeButtonState {
             const DeepCollectionEquality()
                 .equals(other.myLikeState, myLikeState) &&
             const DeepCollectionEquality()
-                .equals(other.MyAccountState, MyAccountState));
+                .equals(other.myAccountState, myAccountState));
   }
 
   @override
@@ -171,7 +171,7 @@ class _$_LikeButtonState extends _LikeButtonState {
       runtimeType,
       const DeepCollectionEquality().hash(likes),
       const DeepCollectionEquality().hash(myLikeState),
-      const DeepCollectionEquality().hash(MyAccountState));
+      const DeepCollectionEquality().hash(myAccountState));
 
   @JsonKey(ignore: true)
   @override
@@ -183,7 +183,7 @@ abstract class _LikeButtonState extends LikeButtonState {
   const factory _LikeButtonState(
       {List<UserModel> likes,
       List<Like> myLikeState,
-      bool MyAccountState}) = _$_LikeButtonState;
+      bool myAccountState}) = _$_LikeButtonState;
   const _LikeButtonState._() : super._();
 
   @override
@@ -191,7 +191,7 @@ abstract class _LikeButtonState extends LikeButtonState {
   @override
   List<Like> get myLikeState;
   @override
-  bool get MyAccountState;
+  bool get myAccountState;
   @override
   @JsonKey(ignore: true)
   _$LikeButtonStateCopyWith<_LikeButtonState> get copyWith =>

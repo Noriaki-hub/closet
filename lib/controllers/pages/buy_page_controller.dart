@@ -37,11 +37,11 @@ class BuyPageState with _$BuyPageState {
 
 
 
-final BuyPageProvider =
+final buyPageProvider =
 StateNotifierProvider.autoDispose<BuyPageController, BuyPageState>(
         (ref) {
           final user = ref.watch(userProvider.select((value) => value.user));
-          final date = ref.watch(DateNowProvider);
+          final date = ref.watch(dateNowProvider);
       return BuyPageController(ref.read, user, date);
     });
 
@@ -59,7 +59,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
     if (imageFile == null) {
       return;
     }
-    state = await state.copyWith(imageFile: File(imageFile.path));
+    state = state.copyWith(imageFile: File(imageFile.path));
     state = state.copyWith(
         imageURL: await _uploadImageFile(state.imageFile));
   }

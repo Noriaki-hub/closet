@@ -1,5 +1,4 @@
 import 'package:closet_app_xxx/controllers/global/date_now_controller.dart';
-import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/models/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -64,7 +63,7 @@ class ClosetPageController extends StateNotifier<ClosetPageState> {
   }
 
   Future<void> fetchHomePageData() async {
-    final date = _read(DateNowProvider);
+    final date = _read(dateNowProvider);
 
     final List<Clothes> closet = await _read(clothesRepositoryProvider)
         .fetchCloset(

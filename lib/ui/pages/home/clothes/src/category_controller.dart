@@ -1,7 +1,7 @@
 
+import 'package:closet_app_xxx/controllers/pages/clothes_edit_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../../../controllers/pages/clothes_edit_page_controller.dart';
 
 class CategoryController extends HookConsumerWidget {
 
@@ -17,8 +17,8 @@ class CategoryController extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final categoryState = ref.watch(ClothesEditPageProvider.select((value) => value.category));
-    final firstCategory = ref.watch(ClothesEditPageProvider.select((value) => value.clothes?.category));
+    final categoryState = ref.watch(clothesEditPageProvider.select((value) => value.category));
+    final firstCategory = ref.watch(clothesEditPageProvider.select((value) => value.clothes?.category));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +45,7 @@ class CategoryController extends HookConsumerWidget {
                   child: Text(
                     category.value, style: TextStyle(color: Colors.black),),
                   onPressed: () async{
-                    await ref.read(ClothesEditPageProvider.notifier).category(category: category.key);
+                    await ref.read(clothesEditPageProvider.notifier).category(category: category.key);
                   },
                 );
               }

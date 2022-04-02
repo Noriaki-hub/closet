@@ -1,8 +1,6 @@
-
 import 'package:closet_app_xxx/ui/pages/timeline/clothes/clothes_log_page.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/share/media_log_page.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/share/shop_log_page.dart';
-import 'package:closet_app_xxx/ui/pages/timeline/share/src/media_time_line_list.dart';
 import 'package:flutter/material.dart';
 
 class TabInfo {
@@ -11,11 +9,10 @@ class TabInfo {
   TabInfo(this.label, this.widget);
 }
 
-class TimeLineTab extends StatelessWidget{
-
+class TimeLineTab extends StatelessWidget {
   final List<TabInfo> _tabs = [
     TabInfo("服ログ", ClothesLogPage()),
-    TabInfo("メディア",MediaLogPage()),
+    TabInfo("メディア", MediaLogPage()),
     TabInfo("ショップ", ShopLogPage()),
   ];
 
@@ -26,7 +23,6 @@ class TimeLineTab extends StatelessWidget{
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.brown.shade50,
-
           title: PreferredSize(
             child: TabBar(
               isScrollable: true,
@@ -41,5 +37,4 @@ class TimeLineTab extends StatelessWidget{
       ),
     );
   }
-
 }

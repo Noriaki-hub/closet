@@ -1,26 +1,20 @@
-
 import 'package:closet_app_xxx/controllers/pages/time_line_page_controller.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/clothes/src/time_line_list.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-
 class ClothesLogPage extends HookConsumerWidget {
-
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Size size = MediaQuery
-        .of(context)
-        .size;
-    final isLoading = ref.watch(
-        TimeLinePageProvider.select((value) => value.isLoading));
+    final Size size = MediaQuery.of(context).size;
+    final isLoading =
+        ref.watch(timeLinePageProvider.select((value) => value.isLoading));
     return Scaffold(
       backgroundColor: Colors.brown.shade50,
       body: Center(
         child: RefreshIndicator(
           onRefresh: () async {
-            await ref.read(TimeLinePageProvider.notifier).fetchTimeLine();
+            await ref.read(timeLinePageProvider.notifier).fetchTimeLine();
           },
           child: SingleChildScrollView(
             child: SizedBox(
@@ -29,17 +23,17 @@ class ClothesLogPage extends HookConsumerWidget {
                   onNotification: (notification) {
                     final metrics = notification.metrics;
                     if (!isLoading && metrics.extentAfter == 0) {
-                      ref.read(TimeLinePageProvider.notifier).endScroll();
+                      ref.read(timeLinePageProvider.notifier).endScroll();
                     }
                     return true;
                   },
                   child: RefreshIndicator(
                       onRefresh: () async {
-                        await ref.read(TimeLinePageProvider.notifier)
+                        await ref
+                            .read(timeLinePageProvider.notifier)
                             .fetchTimeLine();
                       },
-                      child: TimeLineList()
-                  )),
+                      child: TimeLineList())),
             ),
           ),
         ),
@@ -47,8 +41,3 @@ class ClothesLogPage extends HookConsumerWidget {
     );
   }
 }
-
-
-
-
-

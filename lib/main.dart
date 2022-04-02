@@ -1,29 +1,22 @@
-
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
-import 'package:closet_app_xxx/ui/pages/Tab.dart';
+import 'package:closet_app_xxx/ui/pages/tab/tab.dart';
 import 'package:closet_app_xxx/ui/pages/tutorial.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'ui/pages/login/login_screen.dart';
 
-
-void main()
-async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-
   runApp(MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -51,31 +44,24 @@ class MyApp extends StatelessWidget {
                 return Loading();
               }
               if (snapshot.hasData) {
-
                 return Consumer(
-                    builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                      final isFirstLogin = ref.watch(userProvider.select((value) => value.isFirstLogin));
-                      final user = ref.watch(userProvider.select((value) => value.user));
-                      return user.uid == '' ? Loading() : isFirstLogin? TutorialPage():BottomTabPage();
-                    },
+                  builder:
+                      (BuildContext context, WidgetRef ref, Widget? child) {
+                    final isFirstLogin = ref.watch(
+                        userProvider.select((value) => value.isFirstLogin));
+                    final user =
+                        ref.watch(userProvider.select((value) => value.user));
+                    return user.uid == ''
+                        ? Loading()
+                        : isFirstLogin
+                            ? TutorialPage()
+                            : BottomTabPage();
+                  },
                 );
               }
               return LoginScreen();
             },
-          )
-      ),
+          )),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-

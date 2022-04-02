@@ -1,14 +1,11 @@
 import 'package:closet_app_xxx/controllers/pages/shop_edit_page_controller.dart';
+import 'package:closet_app_xxx/models/shop.dart';
+import 'package:closet_app_xxx/ui/libs/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
 import 'dart:io';
-
-import '../../../../models/shop.dart';
-
-
-
 
 class ShopEditPage extends HookConsumerWidget {
   ShopEditPage({
@@ -20,25 +17,25 @@ class ShopEditPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final imageFile = ref.watch(
-        ShopEditPageProvider.select((value) => value.imageFile));
+    final imageFile =
+        ref.watch(shopEditPageProvider.select((value) => value.imageFile));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown.shade50,
-        leading: IconButton(onPressed: () {
-          Navigator.pop(context, true);
-        }, icon: Icon(LineIcons.angleLeft),
-
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context, true);
+          },
+          icon: Icon(LineIcons.angleLeft),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Text('変更'),
         backgroundColor: Colors.brown.shade50,
         onPressed: () async {
-          await ref.read(ShopEditPageProvider.notifier).updateShop(shop: shop);
+          await ref.read(shopEditPageProvider.notifier).updateShop(shop: shop);
           Navigator.pop(context, true);
         },
-
       ),
       body: Center(
         child: SizedBox(
@@ -46,7 +43,6 @@ class ShopEditPage extends HookConsumerWidget {
           width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
             children: [
               InkWell(
                 onTap: () {
@@ -58,17 +54,17 @@ class ShopEditPage extends HookConsumerWidget {
                       width: 300,
                       height: 300,
                       color: Colors.white,
-                      child: imageFile == null ?
-                      Image.network(
-                        shop.image,
-                        fit: BoxFit.cover,
-                      ) : Image.file(imageFile, fit: BoxFit.cover,)
-                  ),
+                      child: imageFile == null
+                          ? Image.network(
+                              shop.image,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.file(
+                              imageFile,
+                              fit: BoxFit.cover,
+                            )),
                 ),
-
-
               ),
-
               Container(
                 width: 250,
                 child: TextField(
@@ -79,10 +75,9 @@ class ShopEditPage extends HookConsumerWidget {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide.none,
-                      )
-                  ),
+                      )),
                   onChanged: (text) {
-                    ref.read(ShopEditPageProvider.notifier).name(name: text);
+                    ref.read(shopEditPageProvider.notifier).name(name: text);
                   },
                 ),
               ),
@@ -96,10 +91,9 @@ class ShopEditPage extends HookConsumerWidget {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide.none,
-                      )
-                  ),
+                      )),
                   onChanged: (text) {
-                    ref.read(ShopEditPageProvider.notifier).url(url: text);
+                    ref.read(shopEditPageProvider.notifier).url(url: text);
                   },
                 ),
               )
@@ -110,51 +104,13 @@ class ShopEditPage extends HookConsumerWidget {
     );
   }
 
-  void _showPicker(context,) {
+  void _showPicker(
+    context,
+  ) {
     showModalBottomSheet(
         context: context,
-        builder: (BuildContext) {
-          return SafeArea(
-              child: _pick()
-          );
-        }
-    );
+        builder: (buildContext) {
+          return SafeArea(child: PickImage(page: 'editShop'));
+        });
   }
-}
-
-class _pick extends HookConsumerWidget{
-
-  File? imageFile;
-  final picker = ImagePicker();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      child: new Wrap(
-        children: <Widget>[
-          new ListTile(
-              leading: new Icon(Icons.photo_library),
-              title: new Text('ライブラリ'),
-              onTap: () async{
-                final pickedFile = await ImagePicker()
-                    .pickImage(source: ImageSource.gallery, imageQuality: 0, maxHeight: 1350, maxWidth: 1080);
-                ref.read(ShopEditPageProvider.notifier).imageFile(pickedFile);
-                Navigator.of(context).pop();
-              }),
-          new ListTile(
-            leading: new Icon(Icons.photo_camera),
-            title: new Text('カメラ'),
-            onTap: () async{
-              final pickedFile = await ImagePicker()
-                  .pickImage(source: ImageSource.camera, imageQuality: 0, maxHeight: 1350, maxWidth: 1080);
-              ref.read(ShopEditPageProvider.notifier).imageFile(pickedFile);
-
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
 }

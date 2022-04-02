@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -14,8 +13,5 @@ class Follow with _$Follow {
     @Default('') String uid,
   }) = _Follow;
 
-
-
   factory Follow.fromJson(Map<String, dynamic> json) => _$FollowFromJson(json);
-
 }

@@ -1,12 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:closet_app_xxx/controllers/pages/buy_page_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../../../../controllers/pages/buy_page_controller.dart';
-
-
-
 
 class BuyStep4 extends HookConsumerWidget {
   @override
@@ -22,13 +16,11 @@ class BuyStep4 extends HookConsumerWidget {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
-            )
-        ),
+            )),
         onChanged: (text) {
-          ref.read(BuyPageProvider.notifier).description(text);
+          ref.read(buyPageProvider.notifier).description(text);
         },
       ),
     );
   }
-
 }

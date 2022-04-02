@@ -1,15 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:closet_app_xxx/controllers/pages/buy_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../../controllers/pages/buy_page_controller.dart';
-
-
-
-
-
 class BuyStep3 extends HookConsumerWidget {
-
   final List<MapEntry<String, String>> categories = [
     MapEntry("Tops", 'トップス'),
     MapEntry("Bottoms", 'ボトムス'),
@@ -21,7 +14,8 @@ class BuyStep3 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categoryState = ref.watch(BuyPageProvider.select((value) => value.category));
+    final categoryState =
+        ref.watch(buyPageProvider.select((value) => value.category));
     return Container(
       height: 300,
       width: 200,
@@ -32,20 +26,24 @@ class BuyStep3 extends HookConsumerWidget {
             return OutlinedButton(
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),//角の丸み
+                  borderRadius: BorderRadius.circular(10), //角の丸み
                 ),
                 side: BorderSide(
-                    color: categoryState != category.key ? Colors.black45: Colors.blue
-                ),
+                    color: categoryState != category.key
+                        ? Colors.black45
+                        : Colors.blue),
               ),
               child: Text(
-                category.value, style: TextStyle(color: Colors.black),),
-              onPressed: () async{
-                 await ref.read(BuyPageProvider.notifier).category(category: category.key);
+                category.value,
+                style: TextStyle(color: Colors.black),
+              ),
+              onPressed: () async {
+                await ref
+                    .read(buyPageProvider.notifier)
+                    .category(category: category.key);
               },
             );
-          }
-      ),
+          }),
     );
   }
 }

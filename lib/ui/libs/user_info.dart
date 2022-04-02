@@ -1,8 +1,7 @@
+import 'package:closet_app_xxx/controllers/component/user_info_controller.dart';
+import 'package:closet_app_xxx/ui/pages/home/account/account_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../controllers/component/user_info_controller.dart';
-import '../pages/home/account/account_page.dart';
-import '../pages/home/home_page.dart';
 
 
 

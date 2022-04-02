@@ -19,13 +19,13 @@ class _$FollowButtonStateTearOff {
   const _$FollowButtonStateTearOff();
 
   _FollowButtonState call(
-      {List<Follow> MyFollowState = const <Follow>[],
-      List<Follow> YourFollowerState = const <Follow>[],
-      bool MyAccountState = true}) {
+      {List<Follow> myFollowState = const <Follow>[],
+      List<Follow> yourFollowerState = const <Follow>[],
+      bool myAccountState = true}) {
     return _FollowButtonState(
-      MyFollowState: MyFollowState,
-      YourFollowerState: YourFollowerState,
-      MyAccountState: MyAccountState,
+      myFollowState: myFollowState,
+      yourFollowerState: yourFollowerState,
+      myAccountState: myAccountState,
     );
   }
 }
@@ -35,9 +35,9 @@ const $FollowButtonState = _$FollowButtonStateTearOff();
 
 /// @nodoc
 mixin _$FollowButtonState {
-  List<Follow> get MyFollowState => throw _privateConstructorUsedError;
-  List<Follow> get YourFollowerState => throw _privateConstructorUsedError;
-  bool get MyAccountState => throw _privateConstructorUsedError;
+  List<Follow> get myFollowState => throw _privateConstructorUsedError;
+  List<Follow> get yourFollowerState => throw _privateConstructorUsedError;
+  bool get myAccountState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FollowButtonStateCopyWith<FollowButtonState> get copyWith =>
@@ -50,9 +50,9 @@ abstract class $FollowButtonStateCopyWith<$Res> {
           FollowButtonState value, $Res Function(FollowButtonState) then) =
       _$FollowButtonStateCopyWithImpl<$Res>;
   $Res call(
-      {List<Follow> MyFollowState,
-      List<Follow> YourFollowerState,
-      bool MyAccountState});
+      {List<Follow> myFollowState,
+      List<Follow> yourFollowerState,
+      bool myAccountState});
 }
 
 /// @nodoc
@@ -66,22 +66,22 @@ class _$FollowButtonStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? MyFollowState = freezed,
-    Object? YourFollowerState = freezed,
-    Object? MyAccountState = freezed,
+    Object? myFollowState = freezed,
+    Object? yourFollowerState = freezed,
+    Object? myAccountState = freezed,
   }) {
     return _then(_value.copyWith(
-      MyFollowState: MyFollowState == freezed
-          ? _value.MyFollowState
-          : MyFollowState // ignore: cast_nullable_to_non_nullable
+      myFollowState: myFollowState == freezed
+          ? _value.myFollowState
+          : myFollowState // ignore: cast_nullable_to_non_nullable
               as List<Follow>,
-      YourFollowerState: YourFollowerState == freezed
-          ? _value.YourFollowerState
-          : YourFollowerState // ignore: cast_nullable_to_non_nullable
+      yourFollowerState: yourFollowerState == freezed
+          ? _value.yourFollowerState
+          : yourFollowerState // ignore: cast_nullable_to_non_nullable
               as List<Follow>,
-      MyAccountState: MyAccountState == freezed
-          ? _value.MyAccountState
-          : MyAccountState // ignore: cast_nullable_to_non_nullable
+      myAccountState: myAccountState == freezed
+          ? _value.myAccountState
+          : myAccountState // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -95,9 +95,9 @@ abstract class _$FollowButtonStateCopyWith<$Res>
       __$FollowButtonStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<Follow> MyFollowState,
-      List<Follow> YourFollowerState,
-      bool MyAccountState});
+      {List<Follow> myFollowState,
+      List<Follow> yourFollowerState,
+      bool myAccountState});
 }
 
 /// @nodoc
@@ -113,22 +113,22 @@ class __$FollowButtonStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? MyFollowState = freezed,
-    Object? YourFollowerState = freezed,
-    Object? MyAccountState = freezed,
+    Object? myFollowState = freezed,
+    Object? yourFollowerState = freezed,
+    Object? myAccountState = freezed,
   }) {
     return _then(_FollowButtonState(
-      MyFollowState: MyFollowState == freezed
-          ? _value.MyFollowState
-          : MyFollowState // ignore: cast_nullable_to_non_nullable
+      myFollowState: myFollowState == freezed
+          ? _value.myFollowState
+          : myFollowState // ignore: cast_nullable_to_non_nullable
               as List<Follow>,
-      YourFollowerState: YourFollowerState == freezed
-          ? _value.YourFollowerState
-          : YourFollowerState // ignore: cast_nullable_to_non_nullable
+      yourFollowerState: yourFollowerState == freezed
+          ? _value.yourFollowerState
+          : yourFollowerState // ignore: cast_nullable_to_non_nullable
               as List<Follow>,
-      MyAccountState: MyAccountState == freezed
-          ? _value.MyAccountState
-          : MyAccountState // ignore: cast_nullable_to_non_nullable
+      myAccountState: myAccountState == freezed
+          ? _value.myAccountState
+          : myAccountState // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -138,24 +138,24 @@ class __$FollowButtonStateCopyWithImpl<$Res>
 
 class _$_FollowButtonState extends _FollowButtonState {
   const _$_FollowButtonState(
-      {this.MyFollowState = const <Follow>[],
-      this.YourFollowerState = const <Follow>[],
-      this.MyAccountState = true})
+      {this.myFollowState = const <Follow>[],
+      this.yourFollowerState = const <Follow>[],
+      this.myAccountState = true})
       : super._();
 
   @JsonKey()
   @override
-  final List<Follow> MyFollowState;
+  final List<Follow> myFollowState;
   @JsonKey()
   @override
-  final List<Follow> YourFollowerState;
+  final List<Follow> yourFollowerState;
   @JsonKey()
   @override
-  final bool MyAccountState;
+  final bool myAccountState;
 
   @override
   String toString() {
-    return 'FollowButtonState(MyFollowState: $MyFollowState, YourFollowerState: $YourFollowerState, MyAccountState: $MyAccountState)';
+    return 'FollowButtonState(myFollowState: $myFollowState, yourFollowerState: $yourFollowerState, myAccountState: $myAccountState)';
   }
 
   @override
@@ -164,19 +164,19 @@ class _$_FollowButtonState extends _FollowButtonState {
         (other.runtimeType == runtimeType &&
             other is _FollowButtonState &&
             const DeepCollectionEquality()
-                .equals(other.MyFollowState, MyFollowState) &&
+                .equals(other.myFollowState, myFollowState) &&
             const DeepCollectionEquality()
-                .equals(other.YourFollowerState, YourFollowerState) &&
+                .equals(other.yourFollowerState, yourFollowerState) &&
             const DeepCollectionEquality()
-                .equals(other.MyAccountState, MyAccountState));
+                .equals(other.myAccountState, myAccountState));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(MyFollowState),
-      const DeepCollectionEquality().hash(YourFollowerState),
-      const DeepCollectionEquality().hash(MyAccountState));
+      const DeepCollectionEquality().hash(myFollowState),
+      const DeepCollectionEquality().hash(yourFollowerState),
+      const DeepCollectionEquality().hash(myAccountState));
 
   @JsonKey(ignore: true)
   @override
@@ -186,17 +186,17 @@ class _$_FollowButtonState extends _FollowButtonState {
 
 abstract class _FollowButtonState extends FollowButtonState {
   const factory _FollowButtonState(
-      {List<Follow> MyFollowState,
-      List<Follow> YourFollowerState,
-      bool MyAccountState}) = _$_FollowButtonState;
+      {List<Follow> myFollowState,
+      List<Follow> yourFollowerState,
+      bool myAccountState}) = _$_FollowButtonState;
   const _FollowButtonState._() : super._();
 
   @override
-  List<Follow> get MyFollowState;
+  List<Follow> get myFollowState;
   @override
-  List<Follow> get YourFollowerState;
+  List<Follow> get yourFollowerState;
   @override
-  bool get MyAccountState;
+  bool get myAccountState;
   @override
   @JsonKey(ignore: true)
   _$FollowButtonStateCopyWith<_FollowButtonState> get copyWith =>

@@ -1,19 +1,16 @@
+import 'package:closet_app_xxx/models/date.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../models/date.dart';
 import 'package:intl/intl.dart';
 
-final DateNowProvider =
-StateNotifierProvider<DateNowController, Date>(
-        (ref) {
-      return DateNowController();
-    });
+final dateNowProvider = StateNotifierProvider<DateNowController, Date>((ref) {
+  return DateNowController();
+});
 
 class DateNowController extends StateNotifier<Date> {
-  DateNowController()  :  super(const Date()) {
+  DateNowController() : super(const Date()) {
     _init();
   }
   DateTime now = DateTime.now();
-
 
   String yearNowPicker() {
     DateFormat outputFormat = DateFormat('yyyy');
@@ -38,12 +35,7 @@ class DateNowController extends StateNotifier<Date> {
   }
 
   Future<void> fetchDateNow() async {
-
     state = state.copyWith(
-        day: dayNowPicker(),
-        month: monthNowPicker(),
-        year: yearNowPicker()
-    );
-
+        day: dayNowPicker(), month: monthNowPicker(), year: yearNowPicker());
   }
 }

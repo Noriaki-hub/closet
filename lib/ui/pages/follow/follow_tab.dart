@@ -1,11 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
-
 import 'src/user_search_screen.dart';
 import '../follow/src/follow_screen.dart';
 import '../follow/src/follower_screen.dart';
-
 
 class TabInfo {
   String label;
@@ -13,13 +9,11 @@ class TabInfo {
   TabInfo(this.label, this.widget);
 }
 
-class FollowTab extends StatelessWidget{
-
+class FollowTab extends StatelessWidget {
   final List<TabInfo> _tabs = [
     TabInfo("フォロー", FollowPage()),
     TabInfo("フォロワー", FollowerPage()),
     TabInfo("さがす", UserSearchScreen()),
-
   ];
 
   @override
@@ -29,8 +23,7 @@ class FollowTab extends StatelessWidget{
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.brown.shade50,
-
-         title: PreferredSize(
+          title: PreferredSize(
             child: TabBar(
               isScrollable: true,
               tabs: _tabs.map((TabInfo tab) {
@@ -44,5 +37,4 @@ class FollowTab extends StatelessWidget{
       ),
     );
   }
-
 }

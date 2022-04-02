@@ -1,10 +1,9 @@
 import 'package:closet_app_xxx/controllers/pages/closet_page_controller.dart';
-import 'package:closet_app_xxx/ui/pages/home/account/closet/src/category_controller.dart';
-import 'package:closet_app_xxx/ui/pages/home/account/closet/src/closet.dart';
-import 'package:closet_app_xxx/ui/pages/home/account/closet/src/favorite.dart';
+import 'package:closet_app_xxx/ui/pages/home/account/src/closet/src/category_controller.dart';
+import 'package:closet_app_xxx/ui/pages/home/account/src/closet/src/closet.dart';
+import 'package:closet_app_xxx/ui/pages/home/account/src/closet/src/favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 
 class ClosetPage extends StatelessWidget {
   ClosetPage({
@@ -30,8 +29,6 @@ class ClosetPage extends StatelessWidget {
 }
 
 class _ClosetPage extends HookConsumerWidget {
-
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
@@ -40,8 +37,10 @@ class _ClosetPage extends HookConsumerWidget {
         appBar: AppBar(
           title: Column(
             children: [
-              Text(state.user.name,
-                style: TextStyle(color: Colors.black45, fontSize: 12),),
+              Text(
+                state.user.name,
+                style: TextStyle(color: Colors.black45, fontSize: 12),
+              ),
               Text('さんのクローゼット',
                   style: TextStyle(color: Colors.black45, fontSize: 12))
             ],
@@ -55,8 +54,6 @@ class _ClosetPage extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
-
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: OutlinedButton(
@@ -64,20 +61,15 @@ class _ClosetPage extends HookConsumerWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10), //角の丸み
                         ),
-                        side: const BorderSide(
-                            color: Colors.black45
-                        ),
+                        side: const BorderSide(color: Colors.black45),
                       ),
                       child: Text(
-                        'お気に入り', style: TextStyle(color: Colors.black),),
-                      onPressed: null
-                  ),
+                        'お気に入り',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      onPressed: null),
                 ),
-                SizedBox(height: size.height * 1 / 5,
-                    child: ClosetFavorite()
-                ),
-
-
+                SizedBox(height: size.height * 1 / 5, child: ClosetFavorite()),
                 ClosetController(),
                 NotificationListener<ScrollEndNotification>(
                     onNotification: (notification) {
@@ -86,10 +78,10 @@ class _ClosetPage extends HookConsumerWidget {
                         ref.read(ClosetPageProvider.notifier).endScroll();
                       }
                       return true;
-                    },child: SizedBox(height: size.height * 2 / 5, child: Closet())),
-              ]
-          ),
-        )
-    );
+                    },
+                    child:
+                        SizedBox(height: size.height * 2 / 5, child: Closet())),
+              ]),
+        ));
   }
 }

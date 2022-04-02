@@ -1,17 +1,9 @@
-
-import 'package:flutter/cupertino.dart';
+import 'package:closet_app_xxx/controllers/pages/buy_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../../controllers/pages/buy_page_controller.dart';
-
-
-
-
-class BuyStep6 extends HookConsumerWidget{
-
+class BuyStep6 extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
@@ -29,13 +21,11 @@ class BuyStep6 extends HookConsumerWidget{
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
-            )
-        ),
+            )),
         onChanged: (text) {
-          ref.read(BuyPageProvider.notifier).price(text);
+          ref.read(buyPageProvider.notifier).price(text);
         },
       ),
     );
   }
-
 }

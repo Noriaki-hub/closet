@@ -1,12 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'shop.freezed.dart';
 part 'shop.g.dart';
-
-
-
 
 @freezed
 class Shop with _$Shop {
@@ -17,11 +13,7 @@ class Shop with _$Shop {
     @Default('') String name,
     @Default('') String url,
     @Default('') String image,
+  }) = _Shop;
 
-  })= _Shop;
-
-
-  factory Shop.fromJson(Map<String, dynamic> json) =>
-      _$ShopFromJson(json);
-
+  factory Shop.fromJson(Map<String, dynamic> json) => _$ShopFromJson(json);
 }

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -16,8 +15,5 @@ class Media with _$Media {
     @Default('') String image,
   }) = _Media;
 
-
-  factory Media.fromJson(Map<String, dynamic> json) =>
-      _$MediaFromJson(json);
-
+  factory Media.fromJson(Map<String, dynamic> json) => _$MediaFromJson(json);
 }

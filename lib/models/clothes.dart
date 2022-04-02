@@ -9,32 +9,27 @@ part 'clothes.g.dart';
 class Clothes with _$Clothes {
   const Clothes._();
 
-  const factory Clothes({
-    @FireTimestampConverterNonNull() required DateTime createdBuy,
-    @FireTimestampConverterNonNull() required DateTime createdSell,
-    @Default('') String itemId,
-    @Default('') String brands,
-    @Default('') String price,
-    @Default('') String category,
-    @Default('') String imageURL,
-    @Default('') String selling,
-    @Default('') String description,
-    @Default('') String day,
-    @Default('') String month,
-    @Default('') String year,
-    @Default('') String sellingDay,
-    @Default('') String sellingMonth,
-    @Default('') String sellingYear,
-    @Default(false)bool isSell,
-    @Default(false)bool isFavorite,
-    @Default('') String uid,
-    @Default('') String buyingForm
-  }) = _Clothes;
+  const factory Clothes(
+      {@FireTimestampConverterNonNull() required DateTime createdBuy,
+      @FireTimestampConverterNonNull() required DateTime createdSell,
+      @Default('') String itemId,
+      @Default('') String brands,
+      @Default('') String price,
+      @Default('') String category,
+      @Default('') String imageURL,
+      @Default('') String selling,
+      @Default('') String description,
+      @Default('') String day,
+      @Default('') String month,
+      @Default('') String year,
+      @Default('') String sellingDay,
+      @Default('') String sellingMonth,
+      @Default('') String sellingYear,
+      @Default(false) bool isSell,
+      @Default(false) bool isFavorite,
+      @Default('') String uid,
+      @Default('') String buyingForm}) = _Clothes;
 
-  factory Clothes.fromJson(Map<String, dynamic> json) => _$ClothesFromJson(json);
-
-
-
+  factory Clothes.fromJson(Map<String, dynamic> json) =>
+      _$ClothesFromJson(json);
 }
-
-

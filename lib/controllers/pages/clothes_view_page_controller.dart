@@ -15,13 +15,8 @@ class ClothesViewPageState with _$ClothesViewPageState {
     @Default(false) bool isFavoriteState,
     @Default(false) bool isEdit,
     @Default('') String buyingFormState,
-
   }) = _ClothesViewPageState;
-
 }
-
-
-
 
 class ClothesViewPageProviderArg {
   ClothesViewPageProviderArg({required this.userId, required this.clothes});
@@ -29,13 +24,12 @@ class ClothesViewPageProviderArg {
   final Clothes clothes;
 }
 
-final ClothesViewPageProvider =
-StateNotifierProvider.autoDispose<ClothesViewPageController, ClothesViewPageState>(
-        (ref) {
-      return throw UnimplementedError();
-    });
+final clothesViewPageProvider = StateNotifierProvider.autoDispose<
+    ClothesViewPageController, ClothesViewPageState>((ref) {
+  return throw UnimplementedError();
+});
 
-final ClothesViewPageProviderFamily = StateNotifierProvider.family.autoDispose<
+final clothesViewPageProviderFamily = StateNotifierProvider.family.autoDispose<
     ClothesViewPageController,
     ClothesViewPageState,
     ClothesViewPageProviderArg>((ref, arg) {
@@ -47,52 +41,49 @@ final ClothesViewPageProviderFamily = StateNotifierProvider.family.autoDispose<
   );
 });
 
-
 class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
-  ClothesViewPageController(this._read, {required String userId, required Clothes clothes})
-      :  _clothes = clothes, super(ClothesViewPageState()){
+  ClothesViewPageController(this._read,
+      {required String userId, required Clothes clothes})
+      : _clothes = clothes,
+        super(ClothesViewPageState()) {
     fetchClothes();
   }
 
   final Reader _read;
   final Clothes _clothes;
 
-
   Future<void> fetchClothes() async {
-    final clothes = await _read(clothesRepositoryProvider).fetchClothes(
-        itemId: _clothes.itemId);
+    final clothes = await _read(clothesRepositoryProvider)
+        .fetchClothes(itemId: _clothes.itemId);
 
     if (clothes != null) {
-      state = state.copyWith(clothes:
-      clothes, isFavoriteState: _clothes.isFavorite);
+      state = state.copyWith(
+          clothes: clothes, isFavoriteState: _clothes.isFavorite);
 
-      if(clothes.buyingForm == 'new'){
+      if (clothes.buyingForm == 'new') {
         state = state.copyWith(buyingFormState: '新品');
-      }else if(clothes.buyingForm == 'used'){
+      } else if (clothes.buyingForm == 'used') {
         state = state.copyWith(buyingFormState: '中古');
-      }else if(clothes.buyingForm == 'gift'){
+      } else if (clothes.buyingForm == 'gift') {
         state = state.copyWith(buyingFormState: '貰い物');
       }
-
     }
-
-
   }
 
   Future<void> changeFavoriteStateTrue() async {
-   await _read(clothesRepositoryProvider).updateFavoriteTrue( itemId: _clothes.itemId);
+    await _read(clothesRepositoryProvider)
+        .updateFavoriteTrue(itemId: _clothes.itemId);
 
     state = state.copyWith(isFavoriteState: true);
   }
 
   Future<void> changeFavoriteStateFalse() async {
-    await _read(clothesRepositoryProvider).updateFavoriteFalse(itemId: _clothes.itemId);
+    await _read(clothesRepositoryProvider)
+        .updateFavoriteFalse(itemId: _clothes.itemId);
     state = state.copyWith(isFavoriteState: false);
   }
 
   Future<void> deleteClothes() async {
     await _read(clothesRepositoryProvider).delete(itemId: _clothes.itemId);
   }
-
-
 }

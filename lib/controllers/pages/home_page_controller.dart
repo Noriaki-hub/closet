@@ -15,34 +15,30 @@ part 'home_page_controller.freezed.dart';
 class HomePageState with _$HomePageState {
   const HomePageState._();
 
-  const factory HomePageState({
-    @Default(<Clothes>[]) List<Clothes> closet,
-    @Default(<Clothes>[]) List<Clothes> closetFavorite,
-    @Default('') String buying,
-    @Default('') String selling,
-    @Default('') String year,
-    @Default('') String month,
-    @Default(false) bool isSell,
-    @Default('ALL') String category,
-    @Default(UserModel()) UserModel user,
-    @Default(false) bool isLoading,
-    @Default(true) bool isAddClothes
-  }) = _HomePageState;
-
+  const factory HomePageState(
+      {@Default(<Clothes>[]) List<Clothes> closet,
+      @Default(<Clothes>[]) List<Clothes> closetFavorite,
+      @Default('') String buying,
+      @Default('') String selling,
+      @Default('') String year,
+      @Default('') String month,
+      @Default(false) bool isSell,
+      @Default('ALL') String category,
+      @Default(UserModel()) UserModel user,
+      @Default(false) bool isLoading,
+      @Default(true) bool isAddClothes}) = _HomePageState;
 }
 
-
-
 final HomePageProvider =
-StateNotifierProvider<HomePageController, HomePageState>(
-        (ref) {
-          final userId = ref.watch(userProvider.select((value) => value.user.uid));
-      return HomePageController(ref.read, userId: userId);
-    });
-
+    StateNotifierProvider<HomePageController, HomePageState>((ref) {
+  final userId = ref.watch(userProvider.select((value) => value.user.uid));
+  return HomePageController(ref.read, userId: userId);
+});
 
 class HomePageController extends StateNotifier<HomePageState> {
-  HomePageController(this._read,  {required String userId})  : _userId = userId, super(const HomePageState()) {
+  HomePageController(this._read, {required String userId})
+      : _userId = userId,
+        super(const HomePageState()) {
     _init();
   }
   final String _userId;
@@ -53,17 +49,26 @@ class HomePageController extends StateNotifier<HomePageState> {
   }
 
   Future<void> fetchHomePageData() async {
-    final date = _read(DateNowProvider);
+    final date = _read(dateNowProvider);
 
     final List<Clothes> closet = await _read(clothesRepositoryProvider)
         .fetchCloset(
-        isSell: state.isSell, userId: _userId, category: state.category);
-    final List<Clothes> closetFavorite = await _read(clothesRepositoryProvider)
-        .fetchFavorite(isSell: state.isSell, userId: _userId,);
+            isSell: state.isSell, userId: _userId, category: state.category);
+    final List<Clothes> closetFavorite =
+        await _read(clothesRepositoryProvider).fetchFavorite(
+      isSell: state.isSell,
+      userId: _userId,
+    );
     final buying = await _read(clothesRepositoryProvider).fetchBuying(
-      userId: _userId, month: date.month, year: date.year,);
+      userId: _userId,
+      month: date.month,
+      year: date.year,
+    );
     final selling = await _read(clothesRepositoryProvider).fetchSelling(
-      userId: _userId, month: date.month, year: date.year,);
+      userId: _userId,
+      month: date.month,
+      year: date.year,
+    );
     final user = await _read(userRepositoryProvider).fetchUser(userId: _userId);
     if (user != null) {
       state = state.copyWith(
@@ -77,21 +82,25 @@ class HomePageController extends StateNotifier<HomePageState> {
     }
   }
 
-  Future<void> endScroll()async{
+  Future<void> endScroll() async {
     state = state.copyWith(isLoading: true);
     final lastItemId = state.closet.last.itemId;
-    final addClothes = await _read(clothesRepositoryProvider).fetchAddCloset(userId: _userId, lastItemId: lastItemId, isSell: state.isSell, category: state.category);
+    final addClothes = await _read(clothesRepositoryProvider).fetchAddCloset(
+        userId: _userId,
+        lastItemId: lastItemId,
+        isSell: state.isSell,
+        category: state.category);
     final closet = state.closet..addAll(addClothes);
-    if(addClothes.length < 6){
+    if (addClothes.length < 6) {
       state = state.copyWith(isAddClothes: false);
     }
     state = state.copyWith(closet: closet, isLoading: false);
   }
 
-
   Future<void> changeCategory({required String category}) async {
-    final List<Clothes> closet = await _read(clothesRepositoryProvider).fetchCloset(isSell: state.isSell, userId: _userId, category: category);
-    state = state.copyWith( closet: closet, category: category);
+    final List<Clothes> closet = await _read(clothesRepositoryProvider)
+        .fetchCloset(isSell: state.isSell, userId: _userId, category: category);
+    state = state.copyWith(closet: closet, category: category);
   }
 
   Future<void> isSellTrue() async {
@@ -100,9 +109,19 @@ class HomePageController extends StateNotifier<HomePageState> {
   }
 
   Future<void> isSellFalse() async {
+
+
+
+
     state = state.copyWith(isSell: false);
+
+
+
+
+
+
+
+    
     fetchHomePageData();
   }
-
 }
-

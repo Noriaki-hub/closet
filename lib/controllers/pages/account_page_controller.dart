@@ -26,9 +26,7 @@ class AccountPageState with _$AccountPageState {
     @Default('') String follower,
     @Default(UserModel()) UserModel user,
     @Default(false) bool isMenu,
-
   }) = _AccountPageState;
-
 }
 
 class AccountPageProviderArg {
@@ -36,26 +34,26 @@ class AccountPageProviderArg {
   final String userId;
 }
 
-final AccountPageProvider =
-StateNotifierProvider.autoDispose<AccountPageController, AccountPageState>(
+final accountPageProvider =
+    StateNotifierProvider.autoDispose<AccountPageController, AccountPageState>(
         (ref) {
-      return throw UnimplementedError();
-    });
+  return throw UnimplementedError();
+});
 
-final AccountPageProviderFamily = StateNotifierProvider.family.autoDispose<
+final accountPageProviderFamily = StateNotifierProvider.family.autoDispose<
     AccountPageController,
     AccountPageState,
     AccountPageProviderArg>((ref, arg) {
   final user = ref.watch(userProvider.select((value) => value.user));
-  return AccountPageController(
-    ref.read,
-    userId: arg.userId,
-    user: user
-  );
+  return AccountPageController(ref.read, userId: arg.userId, user: user);
 });
 
 class AccountPageController extends StateNotifier<AccountPageState> {
-  AccountPageController(this._read, {required String userId, required UserModel user})  : _userId = userId,  _user = user,super(const AccountPageState()) {
+  AccountPageController(this._read,
+      {required String userId, required UserModel user})
+      : _userId = userId,
+        _user = user,
+        super(const AccountPageState()) {
     _init();
   }
   final String _userId;
@@ -67,16 +65,27 @@ class AccountPageController extends StateNotifier<AccountPageState> {
   }
 
   Future<void> fetchAccountPageData() async {
-
-
-    final List<Clothes> closet = await _read(clothesRepositoryProvider).fetchClosetRecent(isSell: false, userId: _userId);
-    final List<Clothes> closetFavorite = await _read(clothesRepositoryProvider).fetchFavorite(isSell: false, userId: _userId, );
-    final buying  = await _read(clothesRepositoryProvider).fetchBuyingAll(userId: _userId, );
-    final selling  = await _read(clothesRepositoryProvider).fetchSellingAll(userId: _userId, );
-    final follow = await _read(followRepositoryProvider).fetch(userId: _userId, );
-    final follower = await _read(followerRepositoryProvider).fetch(userId: _userId, );
+    final List<Clothes> closet = await _read(clothesRepositoryProvider)
+        .fetchClosetRecent(isSell: false, userId: _userId);
+    final List<Clothes> closetFavorite =
+        await _read(clothesRepositoryProvider).fetchFavorite(
+      isSell: false,
+      userId: _userId,
+    );
+    final buying = await _read(clothesRepositoryProvider).fetchBuyingAll(
+      userId: _userId,
+    );
+    final selling = await _read(clothesRepositoryProvider).fetchSellingAll(
+      userId: _userId,
+    );
+    final follow = await _read(followRepositoryProvider).fetch(
+      userId: _userId,
+    );
+    final follower = await _read(followerRepositoryProvider).fetch(
+      userId: _userId,
+    );
     final user = await _read(userRepositoryProvider).fetchUser(userId: _userId);
-    if(user != null) {
+    if (user != null) {
       state = state.copyWith(
           closet: closet,
           closetFavorite: closetFavorite,
@@ -85,10 +94,7 @@ class AccountPageController extends StateNotifier<AccountPageState> {
           follow: follow.length.toString(),
           follower: follower.length.toString(),
           user: user,
-          isMenu: _user.uid == _userId ? true : false
-      );
+          isMenu: _user.uid == _userId ? true : false);
     }
   }
-
 }
-

@@ -1,15 +1,16 @@
+import 'package:closet_app_xxx/controllers/pages/shop_add_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/image_picker.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 
-import '../../../../../controllers/pages/shop_add_page_controller.dart';
+
+
 
 
 class ShopAddStep1 extends HookConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final imageFile = ref.watch(ShopAddPageProvider.select((s) => s.imageFile));
+    final imageFile = ref.watch(shopAddPageProvider.select((s) => s.imageFile));
     return GestureDetector(
         onTap: () {
           _showPicker(context,);
@@ -44,48 +45,11 @@ class ShopAddStep1 extends HookConsumerWidget{
   void _showPicker(context,) {
     showModalBottomSheet(
         context: context,
-        builder: (BuildContext ) {
+        builder: (buildContext ) {
           return SafeArea(
-              child: pick()
+              child: PickImage(page: 'addShop')
           );
         }
     );
   }
-}
-
-class pick extends HookConsumerWidget{
-
-  File? imageFile;
-  final picker = ImagePicker();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      child: new Wrap(
-        children: <Widget>[
-          new ListTile(
-              leading: new Icon(Icons.photo_library),
-              title: new Text('ライブラリ'),
-              onTap: () async{
-                final pickedFile = await ImagePicker()
-                    .pickImage(source: ImageSource.gallery, imageQuality: 0, maxHeight: 1350, maxWidth: 1080);
-                ref.read(ShopAddPageProvider.notifier).imageFile(pickedFile);
-                Navigator.of(context).pop();
-              }),
-          new ListTile(
-            leading: new Icon(Icons.photo_camera),
-            title: new Text('カメラ'),
-            onTap: () async{
-              final pickedFile = await ImagePicker()
-                  .pickImage(source: ImageSource.camera, imageQuality: 0, maxHeight: 1350, maxWidth: 1080);
-              ref.read(ShopAddPageProvider.notifier).imageFile(pickedFile);
-
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
 }

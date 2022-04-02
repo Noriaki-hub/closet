@@ -1,3 +1,4 @@
+
 import 'package:closet_app_xxx/controllers/pages/media_log_page_controller.dart';
 import 'package:closet_app_xxx/controllers/pages/shop_log_page_controller.dart';
 import 'package:closet_app_xxx/repositories/share_repository.dart';
@@ -17,9 +18,9 @@ class DeleteShareButton extends HookConsumerWidget{
      if(result){
      await ref.read(shareRepositoryProvider).delete(itemId: itemId);
      if(genre == 'shop'){
-       ref.read(ShopLogPageProvider.notifier).fetchTimeLine();
+       ref.read(shopLogPageProvider.notifier).fetchTimeLine();
      }else if(genre == 'media'){
-       ref.read(MediaLogPageProvider.notifier).fetchTimeLine();
+       ref.read(mediaLogPageProvider.notifier).fetchTimeLine();
      }}
 
    }, icon: Icon(LineIcons.trash));

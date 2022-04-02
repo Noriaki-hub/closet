@@ -1,29 +1,23 @@
-
+import 'package:closet_app_xxx/controllers/pages/user_search_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/follow_button.dart';
+import 'package:closet_app_xxx/ui/pages/home/account/account_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../controllers/pages/user_search_page_controller.dart';
-import '../../home/account/account_page.dart';
-import '../../home/home_page.dart';
-import '../../../libs/follow_button.dart';
-
-
-
-
-class UserSearchScreen extends StatelessWidget{
-
-
+class UserSearchScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context,) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Scaffold(
-      backgroundColor:  Colors.brown.shade50,
-
+      backgroundColor: Colors.brown.shade50,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
           children: [
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(15),
@@ -31,13 +25,16 @@ class UserSearchScreen extends StatelessWidget{
                   width: double.infinity,
                   height: 40,
                   child: Consumer(
-                    builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                    builder:
+                        (BuildContext context, WidgetRef ref, Widget? child) {
                       return TextFormField(
                         textAlignVertical: TextAlignVertical.bottom,
                         onChanged: (text) {
-                          if(text != ''){
-                          ref.read(UserSearchProvider.notifier)
-                              .changeSearchId(searchId: text);}
+                          if (text != '') {
+                            ref
+                                .read(userSearchProvider.notifier)
+                                .changeSearchId(searchId: text);
+                          }
                         },
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -62,14 +59,11 @@ class UserSearchScreen extends StatelessWidget{
                         ),
                       );
                     },
-
                   ),
                 ),
               ),
             ),
-            Expanded(
-              child: _ItemList()
-            )
+            Expanded(child: _ItemList())
           ],
         ),
       ),
@@ -82,40 +76,49 @@ class _ItemList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final searchedUsers = ref.watch(
-        UserSearchProvider.select((value) => value.searchedUsers));
-    return searchedUsers.isEmpty? Center(child: Text('IDから友達をフォローしよう', style: TextStyle(color: Colors.black45),),)
-        :ListView.builder(
-        itemCount: searchedUsers.length,
-        itemBuilder: (BuildContext context, int index) {
-          final user = searchedUsers[index];
+    final searchedUsers =
+        ref.watch(userSearchProvider.select((value) => value.searchedUsers));
+    return searchedUsers.isEmpty
+        ? Center(
+            child: Text(
+              'IDから友達をフォローしよう',
+              style: TextStyle(color: Colors.black45),
+            ),
+          )
+        : ListView.builder(
+            itemCount: searchedUsers.length,
+            itemBuilder: (BuildContext context, int index) {
+              final user = searchedUsers[index];
 
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => AccountPage(userId: user.uid,)));
-              },
-              child: ListTile(
-                title: Text(user.name),
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Container(
-                    decoration: BoxDecoration(
-
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AccountPage(
+                                  userId: user.uid,
+                                )));
+                  },
+                  child: ListTile(
+                    title: Text(user.name),
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Container(
+                        decoration: BoxDecoration(),
+                        child: Image.network(
+                          user.image,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                    child: Image.network(
-                      user.image,
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
-                    ),
+                    trailing: FollowButton(userId: user.uid),
                   ),
                 ),
-                trailing: FollowButton(userId: user.uid),
-              ),
-            ),
-          );
-        });
+              );
+            });
   }
 }

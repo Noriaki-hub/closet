@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'loading.dart';
 
-class CacheImage extends StatelessWidget{
+class CacheImage extends StatelessWidget {
   CacheImage({required this.imageURL});
   final String imageURL;
 
@@ -11,15 +11,14 @@ class CacheImage extends StatelessWidget{
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: imageURL,
-      imageBuilder: (context, imageProvider) =>
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
-            ),
+      imageBuilder: (context, imageProvider) => Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.cover,
           ),
+        ),
+      ),
       placeholder: (context, url) => Loading(),
       errorWidget: (context, url, error) => Icon(Icons.error),
     );

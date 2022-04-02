@@ -1,14 +1,13 @@
-
+import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/models/shop.dart';
 import 'package:closet_app_xxx/models/user.dart';
+import 'package:closet_app_xxx/repositories/shop_page_repository.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:io';
-import '../../models/shop.dart';
-import '../../repositories/shop_page_repository.dart';
-import '../global/user_controller.dart';
 
 part 'shop_add_page_controller.freezed.dart';
 
@@ -21,36 +20,34 @@ class ShopAddPageState with _$ShopAddPageState {
     @Default('') String name,
     @Default('') String url,
     @Default('') String image,
-
   }) = _ShopAddPageState;
 }
 
-
-final ShopAddPageProvider =
-StateNotifierProvider.autoDispose<ShopAddPageController, ShopAddPageState>(
+final shopAddPageProvider =
+    StateNotifierProvider.autoDispose<ShopAddPageController, ShopAddPageState>(
         (ref) {
-      final user = ref.watch(userProvider.select((value) => value.user));
-      return ShopAddPageController(ref.read, user: user,  );
-    });
-
+  final user = ref.watch(userProvider.select((value) => value.user));
+  return ShopAddPageController(
+    ref.read,
+    user: user,
+  );
+});
 
 class ShopAddPageController extends StateNotifier<ShopAddPageState> {
   ShopAddPageController(this._read, {required UserModel user})
-      : user = user, super(ShopAddPageState());
+      : user = user,
+        super(ShopAddPageState());
 
   final Reader _read;
   final UserModel user;
-
 
   Future<void> imageFile(XFile? imageFile) async {
     if (imageFile == null) {
       return;
     }
-    state = await state.copyWith(imageFile: File(imageFile.path));
-    state = state.copyWith(
-        image: await _uploadImageFile( state.imageFile));
+    state = state.copyWith(imageFile: File(imageFile.path));
+    state = state.copyWith(image: await _uploadImageFile(state.imageFile));
   }
-
 
   Future<void> name({required String name}) async {
     state = state.copyWith(name: name);
@@ -69,23 +66,12 @@ class ShopAddPageController extends StateNotifier<ShopAddPageState> {
         .ref()
         .child("userinfo/$userEmail/${uuid.v4()}")
         .putFile(imageFile);
-    final String downloadUrl =
-    await snapshot.ref.getDownloadURL();
+    final String downloadUrl = await snapshot.ref.getDownloadURL();
     return downloadUrl;
   }
 
-
   Future<void> addShop() async {
-    final shop = Shop(
-        image: state.image,
-        url: state.url,
-        name: state.name
-    );
+    final shop = Shop(image: state.image, url: state.url, name: state.name);
     await _read(shopRepositoryProvider).add(shop: shop, userId: user.uid);
   }
 }
-
-
-
-
-

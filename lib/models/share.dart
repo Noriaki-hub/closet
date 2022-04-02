@@ -4,9 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'share.freezed.dart';
 part 'share.g.dart';
 
-
-
-
 @freezed
 class Share with _$Share {
   const Share._();
@@ -18,10 +15,7 @@ class Share with _$Share {
     @Default('') String genre,
     @Default('') String title,
     @Default('') String image,
-  })= _Share;
+  }) = _Share;
 
-
-  factory Share.fromJson(Map<String, dynamic> json) =>
-      _$ShareFromJson(json);
-
+  factory Share.fromJson(Map<String, dynamic> json) => _$ShareFromJson(json);
 }

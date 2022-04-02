@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'libs/timestamp_converter.dart';
 
 part 'buy.freezed.dart';
@@ -26,11 +25,10 @@ class Buy with _$Buy {
     @Default('') String sellingDay,
     @Default('') String sellingMonth,
     @Default('') String sellingYear,
-    @Default(false)bool isSell,
-    @Default(false)bool isFavorite,
+    @Default(false) bool isSell,
+    @Default(false) bool isFavorite,
     @Default('') String uid,
     @Default('') String buyingForm,
   }) = _Buy;
   factory Buy.fromJson(Map<String, dynamic> json) => _$BuyFromJson(json);
 }
-

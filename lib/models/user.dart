@@ -11,13 +11,12 @@ class UserModel with _$UserModel {
   const factory UserModel({
     @Default('') String email,
     @Default('https://firebasestorage.googleapis.com/v0/b/clothes-app-3c8e3.appspot.com/o/loading.gif?alt=media&token=0a4db726-3a1a-4d45-9844-8350e1fda07e')
-    String image,
+        String image,
     @Default('') String uid,
     @Default('') String name,
     @Default('') String id,
   }) = _UserModel;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
-
-  }
-
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
+}

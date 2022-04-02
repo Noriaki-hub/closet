@@ -11,35 +11,31 @@ part 'follow_button_controller.freezed.dart';
 class FollowButtonState with _$FollowButtonState {
   const FollowButtonState._();
 
-  const factory FollowButtonState({
-    @Default(<Follow>[]) List<Follow> MyFollowState,
-    @Default(<Follow>[]) List<Follow> YourFollowerState,
-    @Default(true) bool MyAccountState
-  }) = _FollowButtonState;
-
+  const factory FollowButtonState(
+      {@Default(<Follow>[]) List<Follow> myFollowState,
+      @Default(<Follow>[]) List<Follow> yourFollowerState,
+      @Default(true) bool myAccountState}) = _FollowButtonState;
 }
-
 
 class FollowButtonProviderArg {
   FollowButtonProviderArg({required this.userId});
   final String userId;
 }
 
-final FollowButtonProvider =
-StateNotifierProvider.autoDispose<FollowButtonController, FollowButtonState>(
-        (ref) {
-      return throw UnimplementedError();
-    });
+final followButtonProvider = StateNotifierProvider.autoDispose<
+    FollowButtonController, FollowButtonState>((ref) {
+  return throw UnimplementedError();
+});
 
-final FollowButtonProviderFamily = StateNotifierProvider.family.autoDispose<
+final followButtonProviderFamily = StateNotifierProvider.family.autoDispose<
     FollowButtonController,
     FollowButtonState,
     FollowButtonProviderArg>((ref, arg) {
   final user = ref.watch(userProvider.select((value) => value.user));
   return FollowButtonController(
     ref.read,
-   user.uid,
-   arg.userId,
+    user.uid,
+    arg.userId,
   );
 });
 
@@ -48,31 +44,31 @@ class FollowButtonController extends StateNotifier<FollowButtonState> {
   final String myId;
   final String yourId;
 
-
-  FollowButtonController(this._read, this.myId, this.yourId) : super(FollowButtonState()){
+  FollowButtonController(this._read, this.myId, this.yourId)
+      : super(FollowButtonState()) {
     fetchFollowState();
   }
-  Future<void> fetchFollowState()async {
-    final MyFollowState = await _read(followButtonRepositoryProvider)
+  Future<void> fetchFollowState() async {
+    final myFollowState = await _read(followButtonRepositoryProvider)
         .fetchMyFollow(myId: myId, yourId: yourId);
-    final YourFollowerState = await _read(followButtonRepositoryProvider)
+    final yourFollowerState = await _read(followButtonRepositoryProvider)
         .fetchYourFollower(myId: myId, yourId: yourId);
     state = state.copyWith(
-        MyFollowState: MyFollowState,
-        YourFollowerState: YourFollowerState,
-        MyAccountState: myId == yourId ? true : false
-    );
+        myFollowState: myFollowState,
+        yourFollowerState: yourFollowerState,
+        myAccountState: myId == yourId ? true : false);
   }
 
-  Future<void> addFollowState()async {
-    await _read(followButtonRepositoryProvider)
-        .add(myId: myId, yourId: yourId);
+  Future<void> addFollowState() async {
+    await _read(followButtonRepositoryProvider).add(myId: myId, yourId: yourId);
     fetchFollowState();
   }
 
-  Future<void> deleteFollowState()async {
-    await _read(followButtonRepositoryProvider)
-        .delete(myId: myId, yourId: yourId,);
+  Future<void> deleteFollowState() async {
+    await _read(followButtonRepositoryProvider).delete(
+      myId: myId,
+      yourId: yourId,
+    );
     fetchFollowState();
   }
 }

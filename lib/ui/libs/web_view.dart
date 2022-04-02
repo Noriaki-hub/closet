@@ -5,12 +5,10 @@ import 'package:line_icons/line_icons.dart';
 import 'package:share/share.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-
-
 class WebViewScreen extends StatefulWidget {
   final String url;
   final String genre;
-  WebViewScreen({ required this.url, required this.genre});
+  WebViewScreen({required this.url, required this.genre});
   @override
   _WebViewScreen createState() => _WebViewScreen(url, genre);
 }
@@ -32,7 +30,6 @@ class _WebViewScreen extends State<WebViewScreen> {
       WebView.platform = SurfaceAndroidWebView();
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +53,12 @@ class _WebViewScreen extends State<WebViewScreen> {
                 context: context,
                 barrierDismissible: false, // user must tap button!
                 builder: (BuildContext context) {
-                  return ShareLogPage(currentUrl: currentUrl, genre: genre,);
-                },);
+                  return ShareLogPage(
+                    currentUrl: currentUrl,
+                    genre: genre,
+                  );
+                },
+              );
             }
           }),
       body: Center(
@@ -91,22 +92,33 @@ class _WebViewScreen extends State<WebViewScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-                icon: Icon(LineIcons.shareSquareAlt, color: Colors.grey,),
+                icon: Icon(
+                  LineIcons.shareSquareAlt,
+                  color: Colors.grey,
+                ),
                 onPressed: () async {
                   final currentUrl = await _webViewController?.currentUrl();
                   Share.share(currentUrl!);
-                }
-            ),
+                }),
             IconButton(
-              icon: Icon(LineIcons.home, color: Colors.grey,),
+              icon: Icon(
+                LineIcons.home,
+                color: Colors.grey,
+              ),
               onPressed: () => _webViewController?.loadUrl(url),
             ),
             IconButton(
-              icon: Icon(LineIcons.angleLeft, color: Colors.grey,),
+              icon: Icon(
+                LineIcons.angleLeft,
+                color: Colors.grey,
+              ),
               onPressed: _canGoBack ? _webViewController?.goBack : null,
             ),
             IconButton(
-              icon: Icon(LineIcons.angleRight, color: Colors.grey,),
+              icon: Icon(
+                LineIcons.angleRight,
+                color: Colors.grey,
+              ),
               onPressed: _canGoForward ? _webViewController?.goForward : null,
             ),
           ],
