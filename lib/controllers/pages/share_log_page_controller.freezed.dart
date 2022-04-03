@@ -21,10 +21,10 @@ class _$ShareLogPageStateTearOff {
   _ShareLogPageState call(
       {String currentUrl = '',
       Share share = const Share(),
-      String title = '',
-      String image = '',
-      String description = '',
-      String url = '',
+      String? title,
+      String? image,
+      String? description,
+      String? url,
       String genre = ''}) {
     return _ShareLogPageState(
       currentUrl: currentUrl,
@@ -45,10 +45,10 @@ const $ShareLogPageState = _$ShareLogPageStateTearOff();
 mixin _$ShareLogPageState {
   String get currentUrl => throw _privateConstructorUsedError;
   Share get share => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get url => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get url => throw _privateConstructorUsedError;
   String get genre => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -64,10 +64,10 @@ abstract class $ShareLogPageStateCopyWith<$Res> {
   $Res call(
       {String currentUrl,
       Share share,
-      String title,
-      String image,
-      String description,
-      String url,
+      String? title,
+      String? image,
+      String? description,
+      String? url,
       String genre});
 
   $ShareCopyWith<$Res> get share;
@@ -104,19 +104,19 @@ class _$ShareLogPageStateCopyWithImpl<$Res>
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       url: url == freezed
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       genre: genre == freezed
           ? _value.genre
           : genre // ignore: cast_nullable_to_non_nullable
@@ -142,10 +142,10 @@ abstract class _$ShareLogPageStateCopyWith<$Res>
   $Res call(
       {String currentUrl,
       Share share,
-      String title,
-      String image,
-      String description,
-      String url,
+      String? title,
+      String? image,
+      String? description,
+      String? url,
       String genre});
 
   @override
@@ -185,19 +185,19 @@ class __$ShareLogPageStateCopyWithImpl<$Res>
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       url: url == freezed
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       genre: genre == freezed
           ? _value.genre
           : genre // ignore: cast_nullable_to_non_nullable
@@ -212,10 +212,10 @@ class _$_ShareLogPageState extends _ShareLogPageState {
   const _$_ShareLogPageState(
       {this.currentUrl = '',
       this.share = const Share(),
-      this.title = '',
-      this.image = '',
-      this.description = '',
-      this.url = '',
+      this.title,
+      this.image,
+      this.description,
+      this.url,
       this.genre = ''})
       : super._();
 
@@ -225,18 +225,14 @@ class _$_ShareLogPageState extends _ShareLogPageState {
   @JsonKey()
   @override
   final Share share;
-  @JsonKey()
   @override
-  final String title;
-  @JsonKey()
+  final String? title;
   @override
-  final String image;
-  @JsonKey()
+  final String? image;
   @override
-  final String description;
-  @JsonKey()
+  final String? description;
   @override
-  final String url;
+  final String? url;
   @JsonKey()
   @override
   final String genre;
@@ -283,10 +279,10 @@ abstract class _ShareLogPageState extends ShareLogPageState {
   const factory _ShareLogPageState(
       {String currentUrl,
       Share share,
-      String title,
-      String image,
-      String description,
-      String url,
+      String? title,
+      String? image,
+      String? description,
+      String? url,
       String genre}) = _$_ShareLogPageState;
   const _ShareLogPageState._() : super._();
 
@@ -295,13 +291,13 @@ abstract class _ShareLogPageState extends ShareLogPageState {
   @override
   Share get share;
   @override
-  String get title;
+  String? get title;
   @override
-  String get image;
+  String? get image;
   @override
-  String get description;
+  String? get description;
   @override
-  String get url;
+  String? get url;
   @override
   String get genre;
   @override

@@ -10,5 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^9.6.10"
+  },
+  "devDependencies": {
+    "prettier": "^2.6.1",
+    "prettier-plugin-firestore-rules": "^0.1.5"
   }
 }

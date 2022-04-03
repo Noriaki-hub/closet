@@ -14,10 +14,10 @@ class ShareLogPageState with _$ShareLogPageState {
   const factory ShareLogPageState(
       {@Default('') String currentUrl,
       @Default(Share()) Share share,
-      @Default('') String title,
-      @Default('') String image,
-      @Default('') String description,
-      @Default('') String url,
+      String? title,
+      String? image,
+      String? description,
+      String? url,
       @Default('') String genre}) = _ShareLogPageState;
 }
 
@@ -60,21 +60,19 @@ class ShareLogPageController extends StateNotifier<ShareLogPageState> {
   Future<void> _init() async {
     var data = await MetadataFetch.extract(_currentUrl);
     if (data != null) {
-      state = state.copyWith(
-          title: data.title!,
-          image: data.image!,
-          description: data.description!,
-          url: data.url!);
+      state =
+          state.copyWith(title: data.title, image: data.image, url: data.url);
     }
   }
 
   Future<void> addShare() async {
     final share = Share(
-        url: state.url,
+        url: state.url ?? '',
         uid: _userId,
         genre: _genre,
-        title: state.title,
-        image: state.image);
+        title: state.title ?? '',
+        image: state.image ?? '');
+
     await _read(shareRepositoryProvider).add(share: share);
   }
 }

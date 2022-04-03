@@ -31,7 +31,7 @@ class _ShareLogPage extends HookConsumerWidget {
     final state = ref.watch(shareLogPageProvider);
 
     return AlertDialog(
-      content: state.url == ''
+      content: state.url == null
           ? SizedBox(height: 150, child: Loading())
           : ListTile(
               leading: ClipRRect(
@@ -39,15 +39,16 @@ class _ShareLogPage extends HookConsumerWidget {
                 child: Container(
                   decoration: BoxDecoration(),
                   child: Image.network(
-                    state.image,
+                    state.image ?? "https://firebasestorage.googleapis.com/v0/b/clothes-app-3c8e3.appspot.com/o/loading.gif?alt=media&token=0a4db726-3a1a-4d45-9844-8350e1fda07e" ,
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              title: Text(state.title)),
+              title: Text(state.title ?? 'このURLはシェアできません。')),
       actions: <Widget>[
+        state.url == null ? Container():
         TextButton(
           child: const Text('ログに投稿'),
           onPressed: () async {
