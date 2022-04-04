@@ -53,6 +53,7 @@ class _ItemRepository {
     await _fireStore.collection("users").doc(user.uid).update({
       'image': user.image,
       'name': user.name,
+      'id' : user.id
     });
   }
 }

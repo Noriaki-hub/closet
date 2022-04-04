@@ -10,6 +10,8 @@ class AccountEditPage extends HookConsumerWidget {
     Key? key,
   }) : super(key: key);
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final imageFile =
@@ -32,10 +34,12 @@ class AccountEditPage extends HookConsumerWidget {
           ? Container()
           : FloatingActionButton(
               child: const Text('変更'),
-              backgroundColor: Colors.brown.shade50,
+              backgroundColor: Color.fromRGBO(239, 235, 233, 1),
               onPressed: () async {
-                await ref.read(accountEditPageProvider.notifier).updateUser();
-                Navigator.pop(context, true);
+                if (_formKey.currentState!.validate()) {
+                  await ref.read(accountEditPageProvider.notifier).updateUser();
+                  Navigator.pop(context, true);
+                }
               },
             ),
       body: Center(
@@ -89,6 +93,46 @@ class AccountEditPage extends HookConsumerWidget {
                               .read(accountEditPageProvider.notifier)
                               .name(name: text);
                         },
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('ID',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Container(
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value != null) {
+                              if (value.length < 6) {
+                                return '六文字以上';
+                              } else if (!RegExp(r'^[0-9a-zA-Z]+$')
+                                  .hasMatch(value)) {
+                                return '英数字のみ';
+                              }
+                            }
+                            return null;
+                          },
+                          controller: TextEditingController(text: user.id),
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.grey.shade200,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              )),
+                          onChanged: (text) async {
+                            if (_formKey.currentState!.validate()) {
+                              await ref
+                                  .read(accountEditPageProvider.notifier)
+                                  .id(id: text);
+                            }
+                          },
+                        ),
                       ),
                     ),
                   ],

@@ -33,38 +33,16 @@ class _FollowButton extends HookConsumerWidget {
         ref.watch(followButtonProvider.select((value) => value.myFollowState));
     final myAccountState =
         ref.watch(followButtonProvider.select((value) => value.myAccountState));
-    return myAccountState
-        ? OutlinedButton(
-            child: const Text(
-              '自分',
-              style: TextStyle(color: Colors.black),
-            ),
-            style: OutlinedButton.styleFrom(
-              primary: Colors.black,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              side: const BorderSide(color: Colors.black45),
-            ),
-            onPressed: null)
-        : myFollowState.isEmpty
+    final isLoading =
+        ref.watch(followButtonProvider.select((value) => value.isLoading));
+    return isLoading
+        ? CircularProgressIndicator()
+        : myAccountState
             ? OutlinedButton(
-                child: const Text('フォロー'),
-                style: OutlinedButton.styleFrom(
-                  primary: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  side: const BorderSide(color: Colors.blue),
+                child: const Text(
+                  '自分',
+                  style: TextStyle(color: Colors.black),
                 ),
-                onPressed: () async {
-                  await ref
-                      .read(followButtonProvider.notifier)
-                      .addFollowState();
-                },
-              )
-            : OutlinedButton(
-                child: const Text('アンフォロー'),
                 style: OutlinedButton.styleFrom(
                   primary: Colors.black,
                   shape: RoundedRectangleBorder(
@@ -72,9 +50,37 @@ class _FollowButton extends HookConsumerWidget {
                   ),
                   side: const BorderSide(color: Colors.black45),
                 ),
-                onPressed: () {
-                  ref.read(followButtonProvider.notifier).deleteFollowState();
-                },
-              );
+                onPressed: null)
+            : myFollowState.isEmpty
+                ? OutlinedButton(
+                    child: const Text('フォロー'),
+                    style: OutlinedButton.styleFrom(
+                      primary: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      side: const BorderSide(color: Colors.blue),
+                    ),
+                    onPressed: () async {
+                      await ref
+                          .read(followButtonProvider.notifier)
+                          .addFollowState();
+                    },
+                  )
+                : OutlinedButton(
+                    child: const Text('アンフォロー'),
+                    style: OutlinedButton.styleFrom(
+                      primary: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      side: const BorderSide(color: Colors.black45),
+                    ),
+                    onPressed: () {
+                      ref
+                          .read(followButtonProvider.notifier)
+                          .deleteFollowState();
+                    },
+                  );
   }
 }

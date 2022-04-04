@@ -50,6 +50,10 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
     state = state.copyWith(name: name, isEdit: true);
   }
 
+  Future<void> id({required String id}) async {
+    state = state.copyWith(id: id, isEdit: true);
+  }
+
   Future<String> _uploadImageFile(imageFile) async {
     final Uuid uuid = const Uuid();
     final userEmail = _user.email;
@@ -67,9 +71,9 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
     final user = UserModel(
         image: state.image == '' ? _user.image : state.image,
         name: state.name == '' ? _user.name : state.name,
+        id: state.id == '' ? _user.id : state.id,
         uid: _user.uid);
 
     await _read(userRepositoryProvider).update(user: user);
-    await _read(userProvider.notifier).fetchCurrentUser();
   }
 }

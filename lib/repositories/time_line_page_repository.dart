@@ -15,22 +15,12 @@ class _ItemRepository {
   Future<List<Clothes>> fetchTimeLines({required String userId}) async {
     final _fireStore = _read(firebaseFirestoreProvider);
 
-    final uidList = [userId];
-
-    await _fireStore
-        .collection('users')
-        .doc(userId)
-        .collection('follow')
-        .get()
-        .then((snapshot) => {
-              snapshot.docs.forEach((doc) {
-                uidList.add(doc.data()['uid']);
-              })
-            });
-
     final snap = await _fireStore
-        .collection("clothes")
-        .where('uid', whereIn: uidList)
+        .collection("users")
+        .doc(userId)
+        .collection('timeline')
+        .doc('clothes')
+        .collection('clothes')
         .orderBy('createdBuy', descending: true)
         .limit(5)
         .get();
@@ -42,25 +32,15 @@ class _ItemRepository {
       {required String userId, required String lastItemId}) async {
     final _fireStore = _read(firebaseFirestoreProvider);
 
-    final uidList = [userId];
-
     DocumentSnapshot lastDoc =
         await _fireStore.collection('clothes').doc(lastItemId).get();
 
-    await _fireStore
-        .collection('users')
-        .doc(userId)
-        .collection('follow')
-        .get()
-        .then((snapshot) => {
-              snapshot.docs.forEach((doc) {
-                uidList.add(doc.data()['uid']);
-              })
-            });
-
     final snap = await _fireStore
-        .collection("clothes")
-        .where('uid', whereIn: uidList)
+        .collection("users")
+        .doc(userId)
+        .collection('timeline')
+        .doc('clothes')
+        .collection('clothes')
         .orderBy('createdBuy', descending: true)
         .startAfterDocument(lastDoc)
         .limit(5)
@@ -73,23 +53,13 @@ class _ItemRepository {
       {required String userId, required String genre}) async {
     final _fireStore = _read(firebaseFirestoreProvider);
 
-    final uidList = [userId];
-
-    await _fireStore
-        .collection('users')
-        .doc(userId)
-        .collection('follow')
-        .get()
-        .then((snapshot) => {
-              snapshot.docs.forEach((doc) {
-                uidList.add(doc.data()['uid']);
-              })
-            });
-
     final snap = await _fireStore
-        .collection("share")
+        .collection("users")
+        .doc(userId)
+        .collection('shares')
+        .doc('share')
+        .collection('share')
         .where('genre', isEqualTo: genre)
-        .where('uid', whereIn: uidList)
         .orderBy('created', descending: true)
         .limit(5)
         .get();
@@ -103,26 +73,16 @@ class _ItemRepository {
       required String genre}) async {
     final _fireStore = _read(firebaseFirestoreProvider);
 
-    final uidList = [userId];
-
     DocumentSnapshot lastDoc =
         await _fireStore.collection('share').doc(lastItemId).get();
 
-    await _fireStore
-        .collection('users')
-        .doc(userId)
-        .collection('follow')
-        .get()
-        .then((snapshot) => {
-              snapshot.docs.forEach((doc) {
-                uidList.add(doc.data()['uid']);
-              })
-            });
-
     final snap = await _fireStore
-        .collection("share")
+        .collection("users")
+        .doc(userId)
+        .collection('timeline')
+        .doc('share')
+        .collection('share')
         .where('genre', isEqualTo: genre)
-        .where('uid', whereIn: uidList)
         .orderBy('created', descending: true)
         .startAfterDocument(lastDoc)
         .limit(5)

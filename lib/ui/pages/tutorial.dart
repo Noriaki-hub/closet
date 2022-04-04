@@ -1,31 +1,28 @@
-import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-
 class TutorialPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Consumer(
-
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
           return OverBoard(
             buttonColor: Colors.black45,
             pages: pages,
             showBullets: true,
-            skipCallback: () async{
+            skipCallback: () async {
               await ref.read(userProvider.notifier).changeIsFirstLogin();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyApp()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => MyApp()));
             },
-            finishCallback: () async{
+            finishCallback: () async {
               await ref.read(userProvider.notifier).changeIsFirstLogin();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyApp()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => MyApp()));
             },
           );
         },
@@ -39,7 +36,8 @@ class TutorialPage extends StatelessWidget {
         bodyColor: Colors.black45,
         color: Colors.white,
         imageAssetPath: 'images/closet.png',
-        title: 'Closetへようこそ', body: 'チュートリアルです。左下のSKIPで飛ばすこともできます。',
+        title: 'Closetへようこそ',
+        body: 'チュートリアルです。左下のSKIPで飛ばすこともできます。',
         doAnimateImage: true),
     PageModel(
         titleColor: Colors.black45,
@@ -81,6 +79,14 @@ class TutorialPage extends StatelessWidget {
         title: 'ショップ＆メディア',
         body: '画像、名前、URLの３ステップで簡単にブックマークを作成。ワンタップでお気に入りのオンラインショップなどに飛べます。',
         doAnimateImage: true),
+    PageModel(
+        titleColor: Colors.black45,
+        bodyColor: Colors.black45,
+        color: Colors.white,
+        imageAssetPath: 'images/share.png',
+        title: '気になった記事やアイテムをシェア',
+        body: '気になった記事やアイテムをログに投稿できます。友達とファッション情報をシェアしましょう。',
+        doAnimateImage: true),
     PageModel.withChild(
         child: Padding(
             padding: EdgeInsets.only(bottom: 25.0),
@@ -94,5 +100,4 @@ class TutorialPage extends StatelessWidget {
         color: Colors.white,
         doAnimateChild: true)
   ];
-
 }

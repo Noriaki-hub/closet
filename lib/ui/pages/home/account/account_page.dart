@@ -45,6 +45,12 @@ class _AccountPage extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.brown.shade50,
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () {
+            Navigator.pop(context, true);
+          },
+        ),
         title: Text(
           'プロフィール',
           style: TextStyle(color: Colors.black45),

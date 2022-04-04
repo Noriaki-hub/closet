@@ -21,11 +21,13 @@ class _$FollowButtonStateTearOff {
   _FollowButtonState call(
       {List<Follow> myFollowState = const <Follow>[],
       List<Follow> yourFollowerState = const <Follow>[],
-      bool myAccountState = true}) {
+      bool myAccountState = true,
+      bool isLoading = false}) {
     return _FollowButtonState(
       myFollowState: myFollowState,
       yourFollowerState: yourFollowerState,
       myAccountState: myAccountState,
+      isLoading: isLoading,
     );
   }
 }
@@ -38,6 +40,7 @@ mixin _$FollowButtonState {
   List<Follow> get myFollowState => throw _privateConstructorUsedError;
   List<Follow> get yourFollowerState => throw _privateConstructorUsedError;
   bool get myAccountState => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FollowButtonStateCopyWith<FollowButtonState> get copyWith =>
@@ -52,7 +55,8 @@ abstract class $FollowButtonStateCopyWith<$Res> {
   $Res call(
       {List<Follow> myFollowState,
       List<Follow> yourFollowerState,
-      bool myAccountState});
+      bool myAccountState,
+      bool isLoading});
 }
 
 /// @nodoc
@@ -69,6 +73,7 @@ class _$FollowButtonStateCopyWithImpl<$Res>
     Object? myFollowState = freezed,
     Object? yourFollowerState = freezed,
     Object? myAccountState = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       myFollowState: myFollowState == freezed
@@ -82,6 +87,10 @@ class _$FollowButtonStateCopyWithImpl<$Res>
       myAccountState: myAccountState == freezed
           ? _value.myAccountState
           : myAccountState // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -97,7 +106,8 @@ abstract class _$FollowButtonStateCopyWith<$Res>
   $Res call(
       {List<Follow> myFollowState,
       List<Follow> yourFollowerState,
-      bool myAccountState});
+      bool myAccountState,
+      bool isLoading});
 }
 
 /// @nodoc
@@ -116,6 +126,7 @@ class __$FollowButtonStateCopyWithImpl<$Res>
     Object? myFollowState = freezed,
     Object? yourFollowerState = freezed,
     Object? myAccountState = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_FollowButtonState(
       myFollowState: myFollowState == freezed
@@ -130,6 +141,10 @@ class __$FollowButtonStateCopyWithImpl<$Res>
           ? _value.myAccountState
           : myAccountState // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -140,7 +155,8 @@ class _$_FollowButtonState extends _FollowButtonState {
   const _$_FollowButtonState(
       {this.myFollowState = const <Follow>[],
       this.yourFollowerState = const <Follow>[],
-      this.myAccountState = true})
+      this.myAccountState = true,
+      this.isLoading = false})
       : super._();
 
   @JsonKey()
@@ -152,10 +168,13 @@ class _$_FollowButtonState extends _FollowButtonState {
   @JsonKey()
   @override
   final bool myAccountState;
+  @JsonKey()
+  @override
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'FollowButtonState(myFollowState: $myFollowState, yourFollowerState: $yourFollowerState, myAccountState: $myAccountState)';
+    return 'FollowButtonState(myFollowState: $myFollowState, yourFollowerState: $yourFollowerState, myAccountState: $myAccountState, isLoading: $isLoading)';
   }
 
   @override
@@ -168,7 +187,8 @@ class _$_FollowButtonState extends _FollowButtonState {
             const DeepCollectionEquality()
                 .equals(other.yourFollowerState, yourFollowerState) &&
             const DeepCollectionEquality()
-                .equals(other.myAccountState, myAccountState));
+                .equals(other.myAccountState, myAccountState) &&
+            const DeepCollectionEquality().equals(other.isLoading, isLoading));
   }
 
   @override
@@ -176,7 +196,8 @@ class _$_FollowButtonState extends _FollowButtonState {
       runtimeType,
       const DeepCollectionEquality().hash(myFollowState),
       const DeepCollectionEquality().hash(yourFollowerState),
-      const DeepCollectionEquality().hash(myAccountState));
+      const DeepCollectionEquality().hash(myAccountState),
+      const DeepCollectionEquality().hash(isLoading));
 
   @JsonKey(ignore: true)
   @override
@@ -188,7 +209,8 @@ abstract class _FollowButtonState extends FollowButtonState {
   const factory _FollowButtonState(
       {List<Follow> myFollowState,
       List<Follow> yourFollowerState,
-      bool myAccountState}) = _$_FollowButtonState;
+      bool myAccountState,
+      bool isLoading}) = _$_FollowButtonState;
   const _FollowButtonState._() : super._();
 
   @override
@@ -197,6 +219,8 @@ abstract class _FollowButtonState extends FollowButtonState {
   List<Follow> get yourFollowerState;
   @override
   bool get myAccountState;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$FollowButtonStateCopyWith<_FollowButtonState> get copyWith =>

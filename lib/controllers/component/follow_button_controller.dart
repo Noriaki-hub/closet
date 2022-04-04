@@ -14,7 +14,8 @@ class FollowButtonState with _$FollowButtonState {
   const factory FollowButtonState(
       {@Default(<Follow>[]) List<Follow> myFollowState,
       @Default(<Follow>[]) List<Follow> yourFollowerState,
-      @Default(true) bool myAccountState}) = _FollowButtonState;
+      @Default(true) bool myAccountState,
+      @Default(false) bool isLoading}) = _FollowButtonState;
 }
 
 class FollowButtonProviderArg {
@@ -60,15 +61,19 @@ class FollowButtonController extends StateNotifier<FollowButtonState> {
   }
 
   Future<void> addFollowState() async {
+    state = state.copyWith(isLoading: true);
     await _read(followButtonRepositoryProvider).add(myId: myId, yourId: yourId);
     fetchFollowState();
+    state = state.copyWith(isLoading: false);
   }
 
   Future<void> deleteFollowState() async {
+    state = state.copyWith(isLoading: true);
     await _read(followButtonRepositoryProvider).delete(
       myId: myId,
       yourId: yourId,
     );
     fetchFollowState();
+    state = state.copyWith(isLoading: false);
   }
 }

@@ -12,7 +12,10 @@ class FollowRepository {
   const FollowRepository(this._read);
 
   Future<List<UserModel>> fetch({required String userId}) async {
-    final uidList = [''];
+    List uidList = [''];
+    List<UserModel> userList = [];
+
+    
 
     await _read(firebaseFirestoreProvider)
         .collection('users')
@@ -25,10 +28,15 @@ class FollowRepository {
               })
             });
 
-    final snap = await _read(firebaseFirestoreProvider)
-        .collection('users')
-        .where('uid', whereIn: uidList)
-        .get();
-    return snap.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
+    for (var uid in uidList) {
+      final snap = await _read(firebaseFirestoreProvider)
+          .collection('users')
+          .where('uid', isEqualTo: uid)
+          .get();
+      userList.addAll(
+          snap.docs.map((doc) => UserModel.fromJson(doc.data())).toList());
+    }
+
+    return userList;
   }
 }

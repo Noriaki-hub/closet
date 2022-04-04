@@ -14,11 +14,13 @@ class _ItemRepository {
   Future<List<UserModel>> fetch(
       {required String myId, required String itemId}) async {
     final uidList = [''];
+    List<UserModel> userList = [];
 
     await _read(firebaseFirestoreProvider)
         .collection('clothes')
         .doc(itemId)
         .collection('like')
+        .limit(7)
         .get()
         .then((snapshot) => {
               snapshot.docs.forEach((doc) {
@@ -26,12 +28,16 @@ class _ItemRepository {
               })
             });
 
-    final snap = await _read(firebaseFirestoreProvider)
-        .collection('users')
-        .where('uid', whereIn: uidList)
-        .get();
+    for (var uid in uidList) {
+      final snap = await _read(firebaseFirestoreProvider)
+          .collection('users')
+          .where('uid', isEqualTo: uid)
+          .get();
+      userList.addAll(
+          snap.docs.map((doc) => UserModel.fromJson(doc.data())).toList());
+    }
 
-    return snap.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
+    return userList;
   }
 
   Future<List<Like>> fetchMyState(

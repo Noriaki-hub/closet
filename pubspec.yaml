@@ -61,6 +61,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   metadata_fetch: ^0.4.1
   cached_network_image: ^3.2.0
+  firebase_remote_config: ^2.0.3
 
 
 
