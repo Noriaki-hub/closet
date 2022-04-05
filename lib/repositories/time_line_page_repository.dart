@@ -56,7 +56,7 @@ class _ItemRepository {
     final snap = await _fireStore
         .collection("users")
         .doc(userId)
-        .collection('shares')
+        .collection('timeline')
         .doc('share')
         .collection('share')
         .where('genre', isEqualTo: genre)

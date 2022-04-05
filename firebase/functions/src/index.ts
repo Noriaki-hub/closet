@@ -1,9 +1,5 @@
-import * as functions from "firebase-functions";
+import * as CreateLike from "./trigger/create_like";
+import * as UpdateClothes from "./trigger/update_clothes";
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+export const incrementClothesLike = CreateLike.incrementClothesLike;
+export const updateClothes = UpdateClothes.updateClothes;

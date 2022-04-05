@@ -61,7 +61,8 @@ class _ItemRepository {
                   .collection('timeline')
                   .doc("clothes")
                   .collection('clothes')
-                  .add(element.data());
+                  .doc(element.data()['itemId'])
+                  .set(element.data());
             }));
   }
 
@@ -78,7 +79,8 @@ class _ItemRepository {
                   .collection('timeline')
                   .doc("share")
                   .collection('share')
-                  .add(element.data());
+                  .doc(element.data()['itemId'])
+                  .set(element.data());
             }));
   }
 

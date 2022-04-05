@@ -19,6 +19,7 @@ class ShareRepository {
       'itemId': id,
       'created': Timestamp.fromDate(DateTime.now()),
     });
+    addFollowerTimeLine(userId: share.uid, share: share);
   }
 
   Future<void> delete({required String itemId}) async {
@@ -26,5 +27,33 @@ class ShareRepository {
         .collection('share')
         .doc(itemId)
         .delete();
+  }
+
+//全フォロワーのTL追加
+  Future<void> addFollowerTimeLine(
+      {required String userId, required Share share}) async {
+    await _read(firebaseFirestoreProvider)
+        .collection('users')
+        .doc(userId)
+        .collection('follower')
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              final followerId = element.data()['uid'];
+
+              final ref = _read(firebaseFirestoreProvider)
+                  .collection('users')
+                  .doc(followerId)
+                  .collection('timeline')
+                  .doc('share')
+                  .collection('share');
+
+              final id = ref.doc().id;
+
+              ref.doc(id).set(<String, dynamic>{
+                ...share.toJson(),
+                'itemId': id,
+                'created': Timestamp.fromDate(DateTime.now()),
+              });
+            }));
   }
 }

@@ -237,6 +237,7 @@ class _Repository {
     return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
   }
 
+  //CRUD
   Future<void> add({required Buy clothes, required UserModel user}) async {
     final ref = _read(firebaseFirestoreProvider).collection('clothes');
     final id = ref.doc().id;
@@ -245,6 +246,8 @@ class _Repository {
       'itemId': id,
       'createdBuy': Timestamp.fromDate(clothes.createdBuy),
     });
+
+    addFollowerTimeLine(userId: user.uid, clothes: clothes);
   }
 
   Future<void> sell({
@@ -291,7 +294,37 @@ class _Repository {
       'createdSell': clothes.createdSell
     });
   }
+ 
+ //全フォロワーのTLに追加
+  Future<void> addFollowerTimeLine(
+      {required String userId, required Buy clothes}) async {
+    await _read(firebaseFirestoreProvider)
+        .collection('users')
+        .doc(userId)
+        .collection('follower')
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              final followerId = element.data()['uid'];
 
+              final ref = _read(firebaseFirestoreProvider)
+                  .collection('users')
+                  .doc(followerId)
+                  .collection('timeline')
+                  .doc('clothes')
+                  .collection('clothes');
+
+              final id = ref.doc().id;
+
+              ref.doc(id).set(<String, dynamic>{
+                ...clothes.toJson(),
+                'itemId': id,
+                'createdBuy': Timestamp.fromDate(clothes.createdBuy),
+              });
+            }));
+  }
+
+
+//お気に入り
   Future<void> updateFavoriteTrue({required String itemId}) async {
     await _read(firebaseFirestoreProvider)
         .collection('clothes')
