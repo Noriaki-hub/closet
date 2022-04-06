@@ -17,7 +17,7 @@ class SellPageState with _$SellPageState {
     @Default('') String selectClothesId,
     DateTime? selectedDate,
     Clothes? selectedClothes,
-    @Default('') String selling,
+    @Default(0) int selling,
     @Default('') String sellingDay,
     @Default('') String sellingMonth,
     @Default('') String sellingYear,
@@ -57,7 +57,7 @@ class SellPageController extends StateNotifier<SellPageState> {
     state = state.copyWith(selectedClothes: clothes);
   }
 
-  Future<void> selling({required String selling}) async {
+  Future<void> selling({required int selling}) async {
     state = state.copyWith(selling: selling);
   }
 

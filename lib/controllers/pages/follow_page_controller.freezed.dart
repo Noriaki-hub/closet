@@ -18,9 +18,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$FollowPageStateTearOff {
   const _$FollowPageStateTearOff();
 
-  _FollowPageState call({List<UserModel> follows = const <UserModel>[]}) {
+  _FollowPageState call(
+      {List<UserModel> follows = const <UserModel>[], bool isLoading = false}) {
     return _FollowPageState(
       follows: follows,
+      isLoading: isLoading,
     );
   }
 }
@@ -31,6 +33,7 @@ const $FollowPageState = _$FollowPageStateTearOff();
 /// @nodoc
 mixin _$FollowPageState {
   List<UserModel> get follows => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FollowPageStateCopyWith<FollowPageState> get copyWith =>
@@ -42,7 +45,7 @@ abstract class $FollowPageStateCopyWith<$Res> {
   factory $FollowPageStateCopyWith(
           FollowPageState value, $Res Function(FollowPageState) then) =
       _$FollowPageStateCopyWithImpl<$Res>;
-  $Res call({List<UserModel> follows});
+  $Res call({List<UserModel> follows, bool isLoading});
 }
 
 /// @nodoc
@@ -57,12 +60,17 @@ class _$FollowPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? follows = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       follows: follows == freezed
           ? _value.follows
           : follows // ignore: cast_nullable_to_non_nullable
               as List<UserModel>,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -74,7 +82,7 @@ abstract class _$FollowPageStateCopyWith<$Res>
           _FollowPageState value, $Res Function(_FollowPageState) then) =
       __$FollowPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<UserModel> follows});
+  $Res call({List<UserModel> follows, bool isLoading});
 }
 
 /// @nodoc
@@ -91,12 +99,17 @@ class __$FollowPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? follows = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_FollowPageState(
       follows: follows == freezed
           ? _value.follows
           : follows // ignore: cast_nullable_to_non_nullable
               as List<UserModel>,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -104,15 +117,20 @@ class __$FollowPageStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_FollowPageState extends _FollowPageState with DiagnosticableTreeMixin {
-  const _$_FollowPageState({this.follows = const <UserModel>[]}) : super._();
+  const _$_FollowPageState(
+      {this.follows = const <UserModel>[], this.isLoading = false})
+      : super._();
 
   @JsonKey()
   @override
   final List<UserModel> follows;
+  @JsonKey()
+  @override
+  final bool isLoading;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FollowPageState(follows: $follows)';
+    return 'FollowPageState(follows: $follows, isLoading: $isLoading)';
   }
 
   @override
@@ -120,7 +138,8 @@ class _$_FollowPageState extends _FollowPageState with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'FollowPageState'))
-      ..add(DiagnosticsProperty('follows', follows));
+      ..add(DiagnosticsProperty('follows', follows))
+      ..add(DiagnosticsProperty('isLoading', isLoading));
   }
 
   @override
@@ -128,12 +147,15 @@ class _$_FollowPageState extends _FollowPageState with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _FollowPageState &&
-            const DeepCollectionEquality().equals(other.follows, follows));
+            const DeepCollectionEquality().equals(other.follows, follows) &&
+            const DeepCollectionEquality().equals(other.isLoading, isLoading));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(follows));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(follows),
+      const DeepCollectionEquality().hash(isLoading));
 
   @JsonKey(ignore: true)
   @override
@@ -142,12 +164,14 @@ class _$_FollowPageState extends _FollowPageState with DiagnosticableTreeMixin {
 }
 
 abstract class _FollowPageState extends FollowPageState {
-  const factory _FollowPageState({List<UserModel> follows}) =
+  const factory _FollowPageState({List<UserModel> follows, bool isLoading}) =
       _$_FollowPageState;
   const _FollowPageState._() : super._();
 
   @override
   List<UserModel> get follows;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$FollowPageStateCopyWith<_FollowPageState> get copyWith =>

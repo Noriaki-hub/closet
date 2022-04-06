@@ -14,10 +14,10 @@ class Clothes with _$Clothes {
       @FireTimestampConverterNonNull() required DateTime createdSell,
       @Default('') String itemId,
       @Default('') String brands,
-      @Default('') String price,
+      @Default(0) int price,
       @Default('') String category,
       @Default('') String imageURL,
-      @Default('') String selling,
+      @Default(0) int selling,
       @Default('') String description,
       @Default('') String day,
       @Default('') String month,
@@ -28,7 +28,9 @@ class Clothes with _$Clothes {
       @Default(false) bool isSell,
       @Default(false) bool isFavorite,
       @Default('') String uid,
-      @Default('') String buyingForm}) = _Clothes;
+      @Default('') String buyingForm,
+      @Default(0) int likedCount
+      }) = _Clothes;
 
   factory Clothes.fromJson(Map<String, dynamic> json) =>
       _$ClothesFromJson(json);

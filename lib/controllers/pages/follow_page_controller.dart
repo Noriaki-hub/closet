@@ -12,7 +12,9 @@ class FollowPageState with _$FollowPageState {
   const FollowPageState._();
 
   const factory FollowPageState(
-      {@Default(<UserModel>[]) List<UserModel> follows}) = _FollowPageState;
+      {@Default(<UserModel>[]) List<UserModel> follows,
+      @Default(false) bool isLoading
+      }) = _FollowPageState;
 }
 
 class FollowPageProviderArg {
@@ -52,8 +54,10 @@ class FollowPageController extends StateNotifier<FollowPageState> {
   }
 
   Future<void> fetchFollows() async {
+    state = state.copyWith(isLoading: true);
     final List<UserModel> follows =
         await _read(followRepositoryProvider).fetch(userId: _userId);
-    state = state.copyWith(follows: follows);
+    state = state.copyWith(follows: follows, isLoading: false);
+
   }
 }

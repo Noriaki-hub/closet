@@ -12,7 +12,8 @@ class LikeButtonState with _$LikeButtonState {
   const LikeButtonState._();
 
   const factory LikeButtonState(
-      {@Default(<UserModel>[]) List<UserModel> likes,
+      {@Default(false) bool isLoading,
+      @Default(<UserModel>[]) List<UserModel> likes,
       @Default(<Like>[]) List<Like> myLikeState,
       @Default(false) bool myAccountState}) = _LikeButtonState;
 }
@@ -60,13 +61,17 @@ class LikeButtonController extends StateNotifier<LikeButtonState> {
   }
 
   Future<void> addLike() async {
+    state = state.copyWith(isLoading: true);
     await _read(likeButtonRepositoryProvider).add(itemId: _itemId, myId: _myId);
     fetchLikes();
+    state = state.copyWith(isLoading: false);
   }
 
   Future<void> deleteLike() async {
+    state = state.copyWith(isLoading: true);
     await _read(likeButtonRepositoryProvider)
         .delete(myId: _myId, itemId: _itemId);
     fetchLikes();
+    state = state.copyWith(isLoading: false);
   }
 }

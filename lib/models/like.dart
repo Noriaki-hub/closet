@@ -9,7 +9,7 @@ class Like with _$Like {
   const Like._();
 
   const factory Like({
-    @Default('') String itemId,
+    @Default('') String clothesId,
     @Default('') String uid,
   }) = _Like;
 

@@ -22,9 +22,9 @@ Like _$LikeFromJson(Map<String, dynamic> json) {
 class _$LikeTearOff {
   const _$LikeTearOff();
 
-  _Like call({String itemId = '', String uid = ''}) {
+  _Like call({String clothesId = '', String uid = ''}) {
     return _Like(
-      itemId: itemId,
+      clothesId: clothesId,
       uid: uid,
     );
   }
@@ -39,7 +39,7 @@ const $Like = _$LikeTearOff();
 
 /// @nodoc
 mixin _$Like {
-  String get itemId => throw _privateConstructorUsedError;
+  String get clothesId => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ mixin _$Like {
 abstract class $LikeCopyWith<$Res> {
   factory $LikeCopyWith(Like value, $Res Function(Like) then) =
       _$LikeCopyWithImpl<$Res>;
-  $Res call({String itemId, String uid});
+  $Res call({String clothesId, String uid});
 }
 
 /// @nodoc
@@ -64,13 +64,13 @@ class _$LikeCopyWithImpl<$Res> implements $LikeCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? itemId = freezed,
+    Object? clothesId = freezed,
     Object? uid = freezed,
   }) {
     return _then(_value.copyWith(
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
+      clothesId: clothesId == freezed
+          ? _value.clothesId
+          : clothesId // ignore: cast_nullable_to_non_nullable
               as String,
       uid: uid == freezed
           ? _value.uid
@@ -85,7 +85,7 @@ abstract class _$LikeCopyWith<$Res> implements $LikeCopyWith<$Res> {
   factory _$LikeCopyWith(_Like value, $Res Function(_Like) then) =
       __$LikeCopyWithImpl<$Res>;
   @override
-  $Res call({String itemId, String uid});
+  $Res call({String clothesId, String uid});
 }
 
 /// @nodoc
@@ -99,13 +99,13 @@ class __$LikeCopyWithImpl<$Res> extends _$LikeCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? itemId = freezed,
+    Object? clothesId = freezed,
     Object? uid = freezed,
   }) {
     return _then(_Like(
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
+      clothesId: clothesId == freezed
+          ? _value.clothesId
+          : clothesId // ignore: cast_nullable_to_non_nullable
               as String,
       uid: uid == freezed
           ? _value.uid
@@ -118,20 +118,20 @@ class __$LikeCopyWithImpl<$Res> extends _$LikeCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Like extends _Like with DiagnosticableTreeMixin {
-  const _$_Like({this.itemId = '', this.uid = ''}) : super._();
+  const _$_Like({this.clothesId = '', this.uid = ''}) : super._();
 
   factory _$_Like.fromJson(Map<String, dynamic> json) => _$$_LikeFromJson(json);
 
   @JsonKey()
   @override
-  final String itemId;
+  final String clothesId;
   @JsonKey()
   @override
   final String uid;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Like(itemId: $itemId, uid: $uid)';
+    return 'Like(clothesId: $clothesId, uid: $uid)';
   }
 
   @override
@@ -139,7 +139,7 @@ class _$_Like extends _Like with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Like'))
-      ..add(DiagnosticsProperty('itemId', itemId))
+      ..add(DiagnosticsProperty('clothesId', clothesId))
       ..add(DiagnosticsProperty('uid', uid));
   }
 
@@ -148,14 +148,14 @@ class _$_Like extends _Like with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Like &&
-            const DeepCollectionEquality().equals(other.itemId, itemId) &&
+            const DeepCollectionEquality().equals(other.clothesId, clothesId) &&
             const DeepCollectionEquality().equals(other.uid, uid));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(itemId),
+      const DeepCollectionEquality().hash(clothesId),
       const DeepCollectionEquality().hash(uid));
 
   @JsonKey(ignore: true)
@@ -170,13 +170,13 @@ class _$_Like extends _Like with DiagnosticableTreeMixin {
 }
 
 abstract class _Like extends Like {
-  const factory _Like({String itemId, String uid}) = _$_Like;
+  const factory _Like({String clothesId, String uid}) = _$_Like;
   const _Like._() : super._();
 
   factory _Like.fromJson(Map<String, dynamic> json) = _$_Like.fromJson;
 
   @override
-  String get itemId;
+  String get clothesId;
   @override
   String get uid;
   @override

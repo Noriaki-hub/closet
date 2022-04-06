@@ -1,3 +1,4 @@
+import 'package:closet_app_xxx/models/clothes.dart';
 import 'package:closet_app_xxx/models/libs/Firebase_providers.dart';
 import 'package:closet_app_xxx/models/user.dart';
 
@@ -50,10 +51,26 @@ class _ItemRepository {
 
   Future<void> update({required UserModel user}) async {
     final _fireStore = _read(firebaseFirestoreProvider);
-    await _fireStore.collection("users").doc(user.uid).update({
-      'image': user.image,
-      'name': user.name,
-      'id' : user.id
-    });
+    await _fireStore
+        .collection("users")
+        .doc(user.uid)
+        .update({'image': user.image, 'name': user.name, 'id': user.id});
+  }
+
+  Future<List<UserModel>> fetchUserList(
+      {required List<Clothes> clothesList}) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+
+    List<UserModel> userList = [];
+
+    for (var clothes in clothesList) {
+      final snap = await _fireStore.collection('users').doc(clothes.uid).get();
+      final data = snap.data();
+      if (data == null) {
+        return [];
+      }
+      userList.add(UserModel.fromJson(data));
+    }
+    return userList;
   }
 }

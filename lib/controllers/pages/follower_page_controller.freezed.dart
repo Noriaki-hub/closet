@@ -18,9 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$FollowerPageStateTearOff {
   const _$FollowerPageStateTearOff();
 
-  _FollowerPageState call({List<UserModel> followers = const <UserModel>[]}) {
+  _FollowerPageState call(
+      {List<UserModel> followers = const <UserModel>[],
+      bool isLoading = false}) {
     return _FollowerPageState(
       followers: followers,
+      isLoading: isLoading,
     );
   }
 }
@@ -31,6 +34,7 @@ const $FollowerPageState = _$FollowerPageStateTearOff();
 /// @nodoc
 mixin _$FollowerPageState {
   List<UserModel> get followers => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FollowerPageStateCopyWith<FollowerPageState> get copyWith =>
@@ -42,7 +46,7 @@ abstract class $FollowerPageStateCopyWith<$Res> {
   factory $FollowerPageStateCopyWith(
           FollowerPageState value, $Res Function(FollowerPageState) then) =
       _$FollowerPageStateCopyWithImpl<$Res>;
-  $Res call({List<UserModel> followers});
+  $Res call({List<UserModel> followers, bool isLoading});
 }
 
 /// @nodoc
@@ -57,12 +61,17 @@ class _$FollowerPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? followers = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       followers: followers == freezed
           ? _value.followers
           : followers // ignore: cast_nullable_to_non_nullable
               as List<UserModel>,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -74,7 +83,7 @@ abstract class _$FollowerPageStateCopyWith<$Res>
           _FollowerPageState value, $Res Function(_FollowerPageState) then) =
       __$FollowerPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<UserModel> followers});
+  $Res call({List<UserModel> followers, bool isLoading});
 }
 
 /// @nodoc
@@ -91,12 +100,17 @@ class __$FollowerPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? followers = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_FollowerPageState(
       followers: followers == freezed
           ? _value.followers
           : followers // ignore: cast_nullable_to_non_nullable
               as List<UserModel>,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -105,16 +119,20 @@ class __$FollowerPageStateCopyWithImpl<$Res>
 
 class _$_FollowerPageState extends _FollowerPageState
     with DiagnosticableTreeMixin {
-  const _$_FollowerPageState({this.followers = const <UserModel>[]})
+  const _$_FollowerPageState(
+      {this.followers = const <UserModel>[], this.isLoading = false})
       : super._();
 
   @JsonKey()
   @override
   final List<UserModel> followers;
+  @JsonKey()
+  @override
+  final bool isLoading;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FollowerPageState(followers: $followers)';
+    return 'FollowerPageState(followers: $followers, isLoading: $isLoading)';
   }
 
   @override
@@ -122,7 +140,8 @@ class _$_FollowerPageState extends _FollowerPageState
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'FollowerPageState'))
-      ..add(DiagnosticsProperty('followers', followers));
+      ..add(DiagnosticsProperty('followers', followers))
+      ..add(DiagnosticsProperty('isLoading', isLoading));
   }
 
   @override
@@ -130,12 +149,15 @@ class _$_FollowerPageState extends _FollowerPageState
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _FollowerPageState &&
-            const DeepCollectionEquality().equals(other.followers, followers));
+            const DeepCollectionEquality().equals(other.followers, followers) &&
+            const DeepCollectionEquality().equals(other.isLoading, isLoading));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(followers));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(followers),
+      const DeepCollectionEquality().hash(isLoading));
 
   @JsonKey(ignore: true)
   @override
@@ -144,12 +166,14 @@ class _$_FollowerPageState extends _FollowerPageState
 }
 
 abstract class _FollowerPageState extends FollowerPageState {
-  const factory _FollowerPageState({List<UserModel> followers}) =
-      _$_FollowerPageState;
+  const factory _FollowerPageState(
+      {List<UserModel> followers, bool isLoading}) = _$_FollowerPageState;
   const _FollowerPageState._() : super._();
 
   @override
   List<UserModel> get followers;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$FollowerPageStateCopyWith<_FollowerPageState> get copyWith =>

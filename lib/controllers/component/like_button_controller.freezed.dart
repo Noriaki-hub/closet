@@ -19,10 +19,12 @@ class _$LikeButtonStateTearOff {
   const _$LikeButtonStateTearOff();
 
   _LikeButtonState call(
-      {List<UserModel> likes = const <UserModel>[],
+      {bool isLoading = false,
+      List<UserModel> likes = const <UserModel>[],
       List<Like> myLikeState = const <Like>[],
       bool myAccountState = false}) {
     return _LikeButtonState(
+      isLoading: isLoading,
       likes: likes,
       myLikeState: myLikeState,
       myAccountState: myAccountState,
@@ -35,6 +37,7 @@ const $LikeButtonState = _$LikeButtonStateTearOff();
 
 /// @nodoc
 mixin _$LikeButtonState {
+  bool get isLoading => throw _privateConstructorUsedError;
   List<UserModel> get likes => throw _privateConstructorUsedError;
   List<Like> get myLikeState => throw _privateConstructorUsedError;
   bool get myAccountState => throw _privateConstructorUsedError;
@@ -50,7 +53,10 @@ abstract class $LikeButtonStateCopyWith<$Res> {
           LikeButtonState value, $Res Function(LikeButtonState) then) =
       _$LikeButtonStateCopyWithImpl<$Res>;
   $Res call(
-      {List<UserModel> likes, List<Like> myLikeState, bool myAccountState});
+      {bool isLoading,
+      List<UserModel> likes,
+      List<Like> myLikeState,
+      bool myAccountState});
 }
 
 /// @nodoc
@@ -64,11 +70,16 @@ class _$LikeButtonStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? isLoading = freezed,
     Object? likes = freezed,
     Object? myLikeState = freezed,
     Object? myAccountState = freezed,
   }) {
     return _then(_value.copyWith(
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       likes: likes == freezed
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
@@ -93,7 +104,10 @@ abstract class _$LikeButtonStateCopyWith<$Res>
       __$LikeButtonStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<UserModel> likes, List<Like> myLikeState, bool myAccountState});
+      {bool isLoading,
+      List<UserModel> likes,
+      List<Like> myLikeState,
+      bool myAccountState});
 }
 
 /// @nodoc
@@ -109,11 +123,16 @@ class __$LikeButtonStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? isLoading = freezed,
     Object? likes = freezed,
     Object? myLikeState = freezed,
     Object? myAccountState = freezed,
   }) {
     return _then(_LikeButtonState(
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       likes: likes == freezed
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
@@ -134,11 +153,15 @@ class __$LikeButtonStateCopyWithImpl<$Res>
 
 class _$_LikeButtonState extends _LikeButtonState {
   const _$_LikeButtonState(
-      {this.likes = const <UserModel>[],
+      {this.isLoading = false,
+      this.likes = const <UserModel>[],
       this.myLikeState = const <Like>[],
       this.myAccountState = false})
       : super._();
 
+  @JsonKey()
+  @override
+  final bool isLoading;
   @JsonKey()
   @override
   final List<UserModel> likes;
@@ -151,7 +174,7 @@ class _$_LikeButtonState extends _LikeButtonState {
 
   @override
   String toString() {
-    return 'LikeButtonState(likes: $likes, myLikeState: $myLikeState, myAccountState: $myAccountState)';
+    return 'LikeButtonState(isLoading: $isLoading, likes: $likes, myLikeState: $myLikeState, myAccountState: $myAccountState)';
   }
 
   @override
@@ -159,6 +182,7 @@ class _$_LikeButtonState extends _LikeButtonState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LikeButtonState &&
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality().equals(other.likes, likes) &&
             const DeepCollectionEquality()
                 .equals(other.myLikeState, myLikeState) &&
@@ -169,6 +193,7 @@ class _$_LikeButtonState extends _LikeButtonState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(likes),
       const DeepCollectionEquality().hash(myLikeState),
       const DeepCollectionEquality().hash(myAccountState));
@@ -181,11 +206,14 @@ class _$_LikeButtonState extends _LikeButtonState {
 
 abstract class _LikeButtonState extends LikeButtonState {
   const factory _LikeButtonState(
-      {List<UserModel> likes,
+      {bool isLoading,
+      List<UserModel> likes,
       List<Like> myLikeState,
       bool myAccountState}) = _$_LikeButtonState;
   const _LikeButtonState._() : super._();
 
+  @override
+  bool get isLoading;
   @override
   List<UserModel> get likes;
   @override

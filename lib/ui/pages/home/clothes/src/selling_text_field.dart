@@ -17,7 +17,7 @@ class SellingTextField extends HookConsumerWidget {
         Container(
           width: 250,
           child: TextField(
-            controller: TextEditingController(text: selling),
+            controller: TextEditingController(text: selling.toString()),
             decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.grey.shade200,
@@ -28,7 +28,7 @@ class SellingTextField extends HookConsumerWidget {
             onChanged: (text) async {
               await ref
                   .read(clothesEditPageProvider.notifier)
-                  .selling(selling: text);
+                  .selling(selling: int.parse(text));
             },
           ),
         ),

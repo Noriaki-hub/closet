@@ -34,43 +34,47 @@ class _LikeButton extends HookConsumerWidget {
     final likes = ref.watch(likeButtonProvider.select((value) => value.likes));
     final myLikeState =
         ref.watch(likeButtonProvider.select((value) => value.myLikeState));
-    return Column(
-      children: [
-        Row(
-          children: [
-            myLikeState.isNotEmpty
-                ? IconButton(
-                    onPressed: () {
-                      ref.read(likeButtonProvider.notifier).deleteLike();
-                    },
-                    icon: Icon(
-                      LineIcons.heartAlt,
-                      color: Colors.red,
-                    ))
-                : IconButton(
-                    onPressed: () {
-                      ref.read(likeButtonProvider.notifier).addLike();
-                    },
-                    icon: Icon(
-                      LineIcons.heartAlt,
-                      color: Colors.grey,
-                    ),
-                  ),
-            Text(likes.length.toString())
-          ],
-        ),
-        InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => LikeUsers(likes: likes)));
-            },
-            child: Text(
-              'いいねした人',
-              style: TextStyle(fontSize: 10),
-            ))
-      ],
-    );
+    final isLoading =
+        ref.watch(likeButtonProvider.select((value) => value.isLoading));
+    return isLoading
+        ? CircularProgressIndicator()
+        : Column(
+            children: [
+              Row(
+                children: [
+                  myLikeState.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            ref.read(likeButtonProvider.notifier).deleteLike();
+                          },
+                          icon: Icon(
+                            LineIcons.heartAlt,
+                            color: Colors.red,
+                          ))
+                      : IconButton(
+                          onPressed: () {
+                            ref.read(likeButtonProvider.notifier).addLike();
+                          },
+                          icon: Icon(
+                            LineIcons.heartAlt,
+                            color: Colors.grey,
+                          ),
+                        ),
+                  Text(likes.length.toString())
+                ],
+              ),
+              InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LikeUsers(likes: likes)));
+                  },
+                  child: Text(
+                    'いいねした人',
+                    style: TextStyle(fontSize: 10),
+                  ))
+            ],
+          );
   }
 }

@@ -14,10 +14,10 @@ _$_Buy _$$_BuyFromJson(Map<String, dynamic> json) => _$_Buy(
           : DateTime.parse(json['createdSell'] as String),
       itemId: json['itemId'] as String? ?? '',
       brands: json['brands'] as String? ?? '',
-      price: json['price'] as String? ?? '',
+      price: json['price'] as int? ?? 0,
       category: json['category'] as String? ?? '',
       imageURL: json['imageURL'] as String? ?? '',
-      selling: json['selling'] as String? ?? '',
+      selling: json['selling'] as int? ?? 0,
       description: json['description'] as String? ?? '',
       day: json['day'] as String? ?? '',
       month: json['month'] as String? ?? '',
@@ -29,6 +29,7 @@ _$_Buy _$$_BuyFromJson(Map<String, dynamic> json) => _$_Buy(
       isFavorite: json['isFavorite'] as bool? ?? false,
       uid: json['uid'] as String? ?? '',
       buyingForm: json['buyingForm'] as String? ?? '',
+      likedCount: json['likedCount'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$_BuyToJson(_$_Buy instance) => <String, dynamic>{
@@ -52,4 +53,5 @@ Map<String, dynamic> _$$_BuyToJson(_$_Buy instance) => <String, dynamic>{
       'isFavorite': instance.isFavorite,
       'uid': instance.uid,
       'buyingForm': instance.buyingForm,
+      'likedCount': instance.likedCount,
     };

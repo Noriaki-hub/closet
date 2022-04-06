@@ -24,5 +24,5 @@ const incrementLikedCount = async (data: DocumentData) => {
   await clothesRef.update({
     likedCount: firestore.FieldValue.increment(1),
   });
-  console.log("いいねトリガー２");
+  console.log("いいねトリガー");
 };

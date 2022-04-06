@@ -21,7 +21,7 @@ class _$SellTearOff {
   _Sell call(
       {@FireTimestampConverterNonNull() required DateTime createdSell,
       String itemId = '',
-      String selling = '',
+      int selling = 0,
       String sellingDay = '',
       String sellingMonth = '',
       String sellingYear = '',
@@ -46,7 +46,7 @@ mixin _$Sell {
   @FireTimestampConverterNonNull()
   DateTime get createdSell => throw _privateConstructorUsedError;
   String get itemId => throw _privateConstructorUsedError;
-  String get selling => throw _privateConstructorUsedError;
+  int get selling => throw _privateConstructorUsedError;
   String get sellingDay => throw _privateConstructorUsedError;
   String get sellingMonth => throw _privateConstructorUsedError;
   String get sellingYear => throw _privateConstructorUsedError;
@@ -63,7 +63,7 @@ abstract class $SellCopyWith<$Res> {
   $Res call(
       {@FireTimestampConverterNonNull() DateTime createdSell,
       String itemId,
-      String selling,
+      int selling,
       String sellingDay,
       String sellingMonth,
       String sellingYear,
@@ -100,7 +100,7 @@ class _$SellCopyWithImpl<$Res> implements $SellCopyWith<$Res> {
       selling: selling == freezed
           ? _value.selling
           : selling // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       sellingDay: sellingDay == freezed
           ? _value.sellingDay
           : sellingDay // ignore: cast_nullable_to_non_nullable
@@ -129,7 +129,7 @@ abstract class _$SellCopyWith<$Res> implements $SellCopyWith<$Res> {
   $Res call(
       {@FireTimestampConverterNonNull() DateTime createdSell,
       String itemId,
-      String selling,
+      int selling,
       String sellingDay,
       String sellingMonth,
       String sellingYear,
@@ -167,7 +167,7 @@ class __$SellCopyWithImpl<$Res> extends _$SellCopyWithImpl<$Res>
       selling: selling == freezed
           ? _value.selling
           : selling // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       sellingDay: sellingDay == freezed
           ? _value.sellingDay
           : sellingDay // ignore: cast_nullable_to_non_nullable
@@ -194,7 +194,7 @@ class _$_Sell extends _Sell with DiagnosticableTreeMixin {
   const _$_Sell(
       {@FireTimestampConverterNonNull() required this.createdSell,
       this.itemId = '',
-      this.selling = '',
+      this.selling = 0,
       this.sellingDay = '',
       this.sellingMonth = '',
       this.sellingYear = '',
@@ -209,7 +209,7 @@ class _$_Sell extends _Sell with DiagnosticableTreeMixin {
   final String itemId;
   @JsonKey()
   @override
-  final String selling;
+  final int selling;
   @JsonKey()
   @override
   final String sellingDay;
@@ -281,7 +281,7 @@ abstract class _Sell extends Sell {
   const factory _Sell(
       {@FireTimestampConverterNonNull() required DateTime createdSell,
       String itemId,
-      String selling,
+      int selling,
       String sellingDay,
       String sellingMonth,
       String sellingYear,
@@ -294,7 +294,7 @@ abstract class _Sell extends Sell {
   @override
   String get itemId;
   @override
-  String get selling;
+  int get selling;
   @override
   String get sellingDay;
   @override

@@ -12,7 +12,8 @@ class FollowerPageState with _$FollowerPageState {
   const FollowerPageState._();
 
   const factory FollowerPageState(
-      {@Default(<UserModel>[]) List<UserModel> followers}) = _FollowerPageState;
+      {@Default(<UserModel>[]) List<UserModel> followers,
+      @Default(false) bool isLoading}) = _FollowerPageState;
 }
 
 class FollowerPageProviderArg {
@@ -52,8 +53,9 @@ class FollowerPageController extends StateNotifier<FollowerPageState> {
   }
 
   Future<void> fetchUserFollowers() async {
+    state = state.copyWith(isLoading: true);
     final List<UserModel> followers =
         await _read(followerRepositoryProvider).fetch(userId: _userId);
-    state = state.copyWith(followers: followers);
+    state = state.copyWith(followers: followers, isLoading: false);
   }
 }

@@ -250,7 +250,7 @@ class _ClothesViewScreen extends HookConsumerWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      clothes.price,
+                                      clothes.price.toString(),
                                       style: TextStyle(
                                         fontSize: 20,
                                       ),
@@ -294,7 +294,7 @@ class _ClothesViewScreen extends HookConsumerWidget {
                                             Row(
                                               children: [
                                                 Text(
-                                                  clothes.selling,
+                                                  clothes.selling.toString(),
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                   ),

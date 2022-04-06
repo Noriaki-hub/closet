@@ -36,7 +36,7 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
 
     return isMaintenance == null
         ? Loading()
-        : isMaintenance
+        : !isMaintenance
             ? MaintenancePage()
             : Scaffold(
                 body: _pageWidgets.elementAt(_currentIndex),

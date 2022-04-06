@@ -45,7 +45,7 @@ class SellStep1 extends HookConsumerWidget {
                 ),
                 trailing: Column(
                   children: [
-                    Text(selectedClothes.price),
+                    Text(selectedClothes.price.toString()),
                     Text(
                       selectedClothes.year +
                           '/' +

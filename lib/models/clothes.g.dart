@@ -13,10 +13,10 @@ _$_Clothes _$$_ClothesFromJson(Map<String, dynamic> json) => _$_Clothes(
           const FireTimestampConverterNonNull().fromJson(json['createdSell']),
       itemId: json['itemId'] as String? ?? '',
       brands: json['brands'] as String? ?? '',
-      price: json['price'] as String? ?? '',
+      price: json['price'] as int? ?? 0,
       category: json['category'] as String? ?? '',
       imageURL: json['imageURL'] as String? ?? '',
-      selling: json['selling'] as String? ?? '',
+      selling: json['selling'] as int? ?? 0,
       description: json['description'] as String? ?? '',
       day: json['day'] as String? ?? '',
       month: json['month'] as String? ?? '',
@@ -28,6 +28,7 @@ _$_Clothes _$$_ClothesFromJson(Map<String, dynamic> json) => _$_Clothes(
       isFavorite: json['isFavorite'] as bool? ?? false,
       uid: json['uid'] as String? ?? '',
       buyingForm: json['buyingForm'] as String? ?? '',
+      likedCount: json['likedCount'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$_ClothesToJson(_$_Clothes instance) =>
@@ -53,4 +54,5 @@ Map<String, dynamic> _$$_ClothesToJson(_$_Clothes instance) =>
       'isFavorite': instance.isFavorite,
       'uid': instance.uid,
       'buyingForm': instance.buyingForm,
+      'likedCount': instance.likedCount,
     };

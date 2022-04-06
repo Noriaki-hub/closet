@@ -26,11 +26,11 @@ class _$ClothesEditPageStateTearOff {
       String description = '',
       String brands = '',
       String category = '',
-      String price = '',
+      int price = 0,
       String day = '',
       String month = '',
       String year = '',
-      String selling = '',
+      int selling = 0,
       String sellingDay = '',
       String sellingMonth = '',
       String sellingYear = '',
@@ -70,11 +70,11 @@ mixin _$ClothesEditPageState {
   String get description => throw _privateConstructorUsedError;
   String get brands => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
-  String get price => throw _privateConstructorUsedError;
+  int get price => throw _privateConstructorUsedError;
   String get day => throw _privateConstructorUsedError;
   String get month => throw _privateConstructorUsedError;
   String get year => throw _privateConstructorUsedError;
-  String get selling => throw _privateConstructorUsedError;
+  int get selling => throw _privateConstructorUsedError;
   String get sellingDay => throw _privateConstructorUsedError;
   String get sellingMonth => throw _privateConstructorUsedError;
   String get sellingYear => throw _privateConstructorUsedError;
@@ -99,11 +99,11 @@ abstract class $ClothesEditPageStateCopyWith<$Res> {
       String description,
       String brands,
       String category,
-      String price,
+      int price,
       String day,
       String month,
       String year,
-      String selling,
+      int selling,
       String sellingDay,
       String sellingMonth,
       String sellingYear,
@@ -174,7 +174,7 @@ class _$ClothesEditPageStateCopyWithImpl<$Res>
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       day: day == freezed
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
@@ -190,7 +190,7 @@ class _$ClothesEditPageStateCopyWithImpl<$Res>
       selling: selling == freezed
           ? _value.selling
           : selling // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       sellingDay: sellingDay == freezed
           ? _value.sellingDay
           : sellingDay // ignore: cast_nullable_to_non_nullable
@@ -241,11 +241,11 @@ abstract class _$ClothesEditPageStateCopyWith<$Res>
       String description,
       String brands,
       String category,
-      String price,
+      int price,
       String day,
       String month,
       String year,
-      String selling,
+      int selling,
       String sellingDay,
       String sellingMonth,
       String sellingYear,
@@ -319,7 +319,7 @@ class __$ClothesEditPageStateCopyWithImpl<$Res>
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       day: day == freezed
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
@@ -335,7 +335,7 @@ class __$ClothesEditPageStateCopyWithImpl<$Res>
       selling: selling == freezed
           ? _value.selling
           : selling // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       sellingDay: sellingDay == freezed
           ? _value.sellingDay
           : sellingDay // ignore: cast_nullable_to_non_nullable
@@ -371,11 +371,11 @@ class _$_ClothesEditPageState extends _ClothesEditPageState {
       this.description = '',
       this.brands = '',
       this.category = '',
-      this.price = '',
+      this.price = 0,
       this.day = '',
       this.month = '',
       this.year = '',
-      this.selling = '',
+      this.selling = 0,
       this.sellingDay = '',
       this.sellingMonth = '',
       this.sellingYear = '',
@@ -402,7 +402,7 @@ class _$_ClothesEditPageState extends _ClothesEditPageState {
   final String category;
   @JsonKey()
   @override
-  final String price;
+  final int price;
   @JsonKey()
   @override
   final String day;
@@ -414,7 +414,7 @@ class _$_ClothesEditPageState extends _ClothesEditPageState {
   final String year;
   @JsonKey()
   @override
-  final String selling;
+  final int selling;
   @JsonKey()
   @override
   final String sellingDay;
@@ -503,11 +503,11 @@ abstract class _ClothesEditPageState extends ClothesEditPageState {
       String description,
       String brands,
       String category,
-      String price,
+      int price,
       String day,
       String month,
       String year,
-      String selling,
+      int selling,
       String sellingDay,
       String sellingMonth,
       String sellingYear,
@@ -530,7 +530,7 @@ abstract class _ClothesEditPageState extends ClothesEditPageState {
   @override
   String get category;
   @override
-  String get price;
+  int get price;
   @override
   String get day;
   @override
@@ -538,7 +538,7 @@ abstract class _ClothesEditPageState extends ClothesEditPageState {
   @override
   String get year;
   @override
-  String get selling;
+  int get selling;
   @override
   String get sellingDay;
   @override

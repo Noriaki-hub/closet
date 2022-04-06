@@ -7,11 +7,11 @@ part of 'like.dart';
 // **************************************************************************
 
 _$_Like _$$_LikeFromJson(Map<String, dynamic> json) => _$_Like(
-      itemId: json['itemId'] as String? ?? '',
+      clothesId: json['clothesId'] as String? ?? '',
       uid: json['uid'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$_LikeToJson(_$_Like instance) => <String, dynamic>{
-      'itemId': instance.itemId,
+      'clothesId': instance.clothesId,
       'uid': instance.uid,
     };

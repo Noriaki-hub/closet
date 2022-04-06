@@ -57,7 +57,7 @@ class _ItemRepository {
         .collection('clothes')
         .doc(itemId)
         .collection('like')
-        .add({'uid': myId});
+        .add({'uid': myId, 'clothesId': itemId});
   }
 
   Future<void> delete({

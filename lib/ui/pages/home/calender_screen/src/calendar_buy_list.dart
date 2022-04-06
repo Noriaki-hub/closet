@@ -28,7 +28,7 @@ class CalenderBuyList extends HookConsumerWidget {
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(clothes.price + '円'),
+                  Text(clothes.price.toString() + '円'),
                   Text(
                     clothes.month + '/' + clothes.day,
                     style: TextStyle(fontWeight: FontWeight.w100),

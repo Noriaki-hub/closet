@@ -24,11 +24,11 @@ class ClothesEditPageState with _$ClothesEditPageState {
     @Default('') String description,
     @Default('') String brands,
     @Default('') String category,
-    @Default('') String price,
+    @Default(0) int price,
     @Default('') String day,
     @Default('') String month,
     @Default('') String year,
-    @Default('') String selling,
+    @Default(0) int selling,
     @Default('') String sellingDay,
     @Default('') String sellingMonth,
     @Default('') String sellingYear,
@@ -50,7 +50,7 @@ class ClothesEditPageController extends StateNotifier<ClothesEditPageState> {
   ClothesEditPageController(
     this._read,
     this._user,
-  ) : super(ClothesEditPageState()) {}
+  ) : super(ClothesEditPageState());
 
   final Reader _read;
   final UserModel _user;
@@ -67,7 +67,7 @@ class ClothesEditPageController extends StateNotifier<ClothesEditPageState> {
     if (imageFile == null) {
       return;
     }
-    state = await state.copyWith(imageFile: File(imageFile.path));
+    state = state.copyWith(imageFile: File(imageFile.path));
     state = state.copyWith(
       imageURL: await _uploadImageFile(state.imageFile),
       isEdit: true,
@@ -95,7 +95,7 @@ class ClothesEditPageController extends StateNotifier<ClothesEditPageState> {
     );
   }
 
-  Future<void> price({required String price}) async {
+  Future<void> price({required int price}) async {
     state = state.copyWith(
       price: price,
       isEdit: true,
@@ -119,7 +119,7 @@ class ClothesEditPageController extends StateNotifier<ClothesEditPageState> {
     state = state.copyWith(day: dayFormat.format(selectedDate));
   }
 
-  Future<void> selling({required String selling}) async {
+  Future<void> selling({required int selling}) async {
     state = state.copyWith(selling: selling);
   }
 

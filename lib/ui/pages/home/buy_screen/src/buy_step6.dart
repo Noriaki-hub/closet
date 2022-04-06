@@ -23,7 +23,7 @@ class BuyStep6 extends HookConsumerWidget {
               borderSide: BorderSide.none,
             )),
         onChanged: (text) {
-          ref.read(buyPageProvider.notifier).price(text);
+          ref.read(buyPageProvider.notifier).price(price: int.parse(text));
         },
       ),
     );

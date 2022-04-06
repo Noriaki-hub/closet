@@ -19,12 +19,16 @@ class _$MediaLogPageStateTearOff {
   const _$MediaLogPageStateTearOff();
 
   _MediaLogPageState call(
-      {List<Share> timeLineList = const <Share>[],
+      {Map<Share, UserModel> logMap = const <Share, UserModel>{},
       bool isLoading = false,
+      List<Share> logList = const <Share>[],
+      String lastItemId = '',
       bool isAddClothes = true}) {
     return _MediaLogPageState(
-      timeLineList: timeLineList,
+      logMap: logMap,
       isLoading: isLoading,
+      logList: logList,
+      lastItemId: lastItemId,
       isAddClothes: isAddClothes,
     );
   }
@@ -35,8 +39,10 @@ const $MediaLogPageState = _$MediaLogPageStateTearOff();
 
 /// @nodoc
 mixin _$MediaLogPageState {
-  List<Share> get timeLineList => throw _privateConstructorUsedError;
+  Map<Share, UserModel> get logMap => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  List<Share> get logList => throw _privateConstructorUsedError;
+  String get lastItemId => throw _privateConstructorUsedError;
   bool get isAddClothes => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -49,7 +55,12 @@ abstract class $MediaLogPageStateCopyWith<$Res> {
   factory $MediaLogPageStateCopyWith(
           MediaLogPageState value, $Res Function(MediaLogPageState) then) =
       _$MediaLogPageStateCopyWithImpl<$Res>;
-  $Res call({List<Share> timeLineList, bool isLoading, bool isAddClothes});
+  $Res call(
+      {Map<Share, UserModel> logMap,
+      bool isLoading,
+      List<Share> logList,
+      String lastItemId,
+      bool isAddClothes});
 }
 
 /// @nodoc
@@ -63,19 +74,29 @@ class _$MediaLogPageStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? timeLineList = freezed,
+    Object? logMap = freezed,
     Object? isLoading = freezed,
+    Object? logList = freezed,
+    Object? lastItemId = freezed,
     Object? isAddClothes = freezed,
   }) {
     return _then(_value.copyWith(
-      timeLineList: timeLineList == freezed
-          ? _value.timeLineList
-          : timeLineList // ignore: cast_nullable_to_non_nullable
-              as List<Share>,
+      logMap: logMap == freezed
+          ? _value.logMap
+          : logMap // ignore: cast_nullable_to_non_nullable
+              as Map<Share, UserModel>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      logList: logList == freezed
+          ? _value.logList
+          : logList // ignore: cast_nullable_to_non_nullable
+              as List<Share>,
+      lastItemId: lastItemId == freezed
+          ? _value.lastItemId
+          : lastItemId // ignore: cast_nullable_to_non_nullable
+              as String,
       isAddClothes: isAddClothes == freezed
           ? _value.isAddClothes
           : isAddClothes // ignore: cast_nullable_to_non_nullable
@@ -91,7 +112,12 @@ abstract class _$MediaLogPageStateCopyWith<$Res>
           _MediaLogPageState value, $Res Function(_MediaLogPageState) then) =
       __$MediaLogPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Share> timeLineList, bool isLoading, bool isAddClothes});
+  $Res call(
+      {Map<Share, UserModel> logMap,
+      bool isLoading,
+      List<Share> logList,
+      String lastItemId,
+      bool isAddClothes});
 }
 
 /// @nodoc
@@ -107,19 +133,29 @@ class __$MediaLogPageStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? timeLineList = freezed,
+    Object? logMap = freezed,
     Object? isLoading = freezed,
+    Object? logList = freezed,
+    Object? lastItemId = freezed,
     Object? isAddClothes = freezed,
   }) {
     return _then(_MediaLogPageState(
-      timeLineList: timeLineList == freezed
-          ? _value.timeLineList
-          : timeLineList // ignore: cast_nullable_to_non_nullable
-              as List<Share>,
+      logMap: logMap == freezed
+          ? _value.logMap
+          : logMap // ignore: cast_nullable_to_non_nullable
+              as Map<Share, UserModel>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      logList: logList == freezed
+          ? _value.logList
+          : logList // ignore: cast_nullable_to_non_nullable
+              as List<Share>,
+      lastItemId: lastItemId == freezed
+          ? _value.lastItemId
+          : lastItemId // ignore: cast_nullable_to_non_nullable
+              as String,
       isAddClothes: isAddClothes == freezed
           ? _value.isAddClothes
           : isAddClothes // ignore: cast_nullable_to_non_nullable
@@ -132,24 +168,32 @@ class __$MediaLogPageStateCopyWithImpl<$Res>
 
 class _$_MediaLogPageState extends _MediaLogPageState {
   const _$_MediaLogPageState(
-      {this.timeLineList = const <Share>[],
+      {this.logMap = const <Share, UserModel>{},
       this.isLoading = false,
+      this.logList = const <Share>[],
+      this.lastItemId = '',
       this.isAddClothes = true})
       : super._();
 
   @JsonKey()
   @override
-  final List<Share> timeLineList;
+  final Map<Share, UserModel> logMap;
   @JsonKey()
   @override
   final bool isLoading;
+  @JsonKey()
+  @override
+  final List<Share> logList;
+  @JsonKey()
+  @override
+  final String lastItemId;
   @JsonKey()
   @override
   final bool isAddClothes;
 
   @override
   String toString() {
-    return 'MediaLogPageState(timeLineList: $timeLineList, isLoading: $isLoading, isAddClothes: $isAddClothes)';
+    return 'MediaLogPageState(logMap: $logMap, isLoading: $isLoading, logList: $logList, lastItemId: $lastItemId, isAddClothes: $isAddClothes)';
   }
 
   @override
@@ -157,9 +201,11 @@ class _$_MediaLogPageState extends _MediaLogPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _MediaLogPageState &&
-            const DeepCollectionEquality()
-                .equals(other.timeLineList, timeLineList) &&
+            const DeepCollectionEquality().equals(other.logMap, logMap) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
+            const DeepCollectionEquality().equals(other.logList, logList) &&
+            const DeepCollectionEquality()
+                .equals(other.lastItemId, lastItemId) &&
             const DeepCollectionEquality()
                 .equals(other.isAddClothes, isAddClothes));
   }
@@ -167,8 +213,10 @@ class _$_MediaLogPageState extends _MediaLogPageState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(timeLineList),
+      const DeepCollectionEquality().hash(logMap),
       const DeepCollectionEquality().hash(isLoading),
+      const DeepCollectionEquality().hash(logList),
+      const DeepCollectionEquality().hash(lastItemId),
       const DeepCollectionEquality().hash(isAddClothes));
 
   @JsonKey(ignore: true)
@@ -179,15 +227,21 @@ class _$_MediaLogPageState extends _MediaLogPageState {
 
 abstract class _MediaLogPageState extends MediaLogPageState {
   const factory _MediaLogPageState(
-      {List<Share> timeLineList,
+      {Map<Share, UserModel> logMap,
       bool isLoading,
+      List<Share> logList,
+      String lastItemId,
       bool isAddClothes}) = _$_MediaLogPageState;
   const _MediaLogPageState._() : super._();
 
   @override
-  List<Share> get timeLineList;
+  Map<Share, UserModel> get logMap;
   @override
   bool get isLoading;
+  @override
+  List<Share> get logList;
+  @override
+  String get lastItemId;
   @override
   bool get isAddClothes;
   @override

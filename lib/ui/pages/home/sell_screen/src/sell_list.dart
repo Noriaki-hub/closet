@@ -61,7 +61,7 @@ class SellList extends HookConsumerWidget {
                   ),
                   trailing: Column(
                     children: [
-                      Text(clothes.price),
+                      Text(clothes.price.toString()),
                       Text(
                         clothes.year + '/' + clothes.month + '/' + clothes.day,
                         style: TextStyle(fontWeight: FontWeight.w100),

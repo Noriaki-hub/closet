@@ -1,4 +1,5 @@
 import 'package:closet_app_xxx/controllers/pages/follower_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/home/account/account_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,24 +32,30 @@ class _FollowerPage extends HookConsumerWidget {
   final String? userId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      backgroundColor: Colors.brown.shade50,
-      appBar: userId != null
-          ? AppBar(
-              title: Text(
-                'フォロワー',
-                style: TextStyle(color: Colors.black45),
-              ),
-              backgroundColor: Colors.brown.shade50,
-            )
-          : null,
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await ref.read(followerPageProvider.notifier).fetchUserFollowers();
-        },
-        child: ItemList(),
-      ),
-    );
+    final isLoading =
+        ref.watch(followerPageProvider.select((value) => value.isLoading));
+    return isLoading
+        ? Loading()
+        : Scaffold(
+            backgroundColor: Colors.brown.shade50,
+            appBar: userId != null
+                ? AppBar(
+                    title: Text(
+                      'フォロワー',
+                      style: TextStyle(color: Colors.black45),
+                    ),
+                    backgroundColor: Colors.brown.shade50,
+                  )
+                : null,
+            body: RefreshIndicator(
+              onRefresh: () async {
+                await ref
+                    .read(followerPageProvider.notifier)
+                    .fetchUserFollowers();
+              },
+              child: ItemList(),
+            ),
+          );
   }
 }
 

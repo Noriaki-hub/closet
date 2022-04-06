@@ -22,9 +22,9 @@ class _$BuyPageStateTearOff {
       {DateTime? selectedDate,
       File? imageFile,
       String description = '',
-      String brands = 'No brand',
+      String brands = '',
       String category = '',
-      String price = '',
+      int price = 0,
       String day = '',
       String month = '',
       String year = '',
@@ -56,7 +56,7 @@ mixin _$BuyPageState {
   String get description => throw _privateConstructorUsedError;
   String get brands => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
-  String get price => throw _privateConstructorUsedError;
+  int get price => throw _privateConstructorUsedError;
   String get day => throw _privateConstructorUsedError;
   String get month => throw _privateConstructorUsedError;
   String get year => throw _privateConstructorUsedError;
@@ -79,7 +79,7 @@ abstract class $BuyPageStateCopyWith<$Res> {
       String description,
       String brands,
       String category,
-      String price,
+      int price,
       String day,
       String month,
       String year,
@@ -133,7 +133,7 @@ class _$BuyPageStateCopyWithImpl<$Res> implements $BuyPageStateCopyWith<$Res> {
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       day: day == freezed
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
@@ -171,7 +171,7 @@ abstract class _$BuyPageStateCopyWith<$Res>
       String description,
       String brands,
       String category,
-      String price,
+      int price,
       String day,
       String month,
       String year,
@@ -227,7 +227,7 @@ class __$BuyPageStateCopyWithImpl<$Res> extends _$BuyPageStateCopyWithImpl<$Res>
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       day: day == freezed
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
@@ -259,9 +259,9 @@ class _$_BuyPageState extends _BuyPageState {
       {this.selectedDate,
       this.imageFile,
       this.description = '',
-      this.brands = 'No brand',
+      this.brands = '',
       this.category = '',
-      this.price = '',
+      this.price = 0,
       this.day = '',
       this.month = '',
       this.year = '',
@@ -284,7 +284,7 @@ class _$_BuyPageState extends _BuyPageState {
   final String category;
   @JsonKey()
   @override
-  final String price;
+  final int price;
   @JsonKey()
   @override
   final String day;
@@ -355,7 +355,7 @@ abstract class _BuyPageState extends BuyPageState {
       String description,
       String brands,
       String category,
-      String price,
+      int price,
       String day,
       String month,
       String year,
@@ -374,7 +374,7 @@ abstract class _BuyPageState extends BuyPageState {
   @override
   String get category;
   @override
-  String get price;
+  int get price;
   @override
   String get day;
   @override

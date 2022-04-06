@@ -23,9 +23,9 @@ class BuyPageState with _$BuyPageState {
     DateTime? selectedDate,
     File? imageFile,
     @Default('')String description,
-    @Default('No brand')String brands,
+    @Default('')String brands,
     @Default('')String category,
-    @Default('')String price,
+    @Default(0) int price,
     @Default('')String day,
     @Default('')String month,
     @Default('')String year,
@@ -77,7 +77,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
     state = state.copyWith(description: description);
   }
 
-  Future<void> price(String price) async {
+  Future<void> price({required int price}) async {
     state = state.copyWith(price: price);
   }
 

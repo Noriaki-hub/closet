@@ -11,7 +11,7 @@ class Sell with _$Sell {
   const factory Sell({
     @FireTimestampConverterNonNull() required DateTime createdSell,
     @Default('') String itemId,
-    @Default('') String selling,
+    @Default(0) int selling,
     @Default('') String sellingDay,
     @Default('') String sellingMonth,
     @Default('') String sellingYear,

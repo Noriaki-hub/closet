@@ -27,10 +27,10 @@ class _$ClothesTearOff {
       @FireTimestampConverterNonNull() required DateTime createdSell,
       String itemId = '',
       String brands = '',
-      String price = '',
+      int price = 0,
       String category = '',
       String imageURL = '',
-      String selling = '',
+      int selling = 0,
       String description = '',
       String day = '',
       String month = '',
@@ -41,7 +41,8 @@ class _$ClothesTearOff {
       bool isSell = false,
       bool isFavorite = false,
       String uid = '',
-      String buyingForm = ''}) {
+      String buyingForm = '',
+      int likedCount = 0}) {
     return _Clothes(
       createdBuy: createdBuy,
       createdSell: createdSell,
@@ -62,6 +63,7 @@ class _$ClothesTearOff {
       isFavorite: isFavorite,
       uid: uid,
       buyingForm: buyingForm,
+      likedCount: likedCount,
     );
   }
 
@@ -81,10 +83,10 @@ mixin _$Clothes {
   DateTime get createdSell => throw _privateConstructorUsedError;
   String get itemId => throw _privateConstructorUsedError;
   String get brands => throw _privateConstructorUsedError;
-  String get price => throw _privateConstructorUsedError;
+  int get price => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get imageURL => throw _privateConstructorUsedError;
-  String get selling => throw _privateConstructorUsedError;
+  int get selling => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get day => throw _privateConstructorUsedError;
   String get month => throw _privateConstructorUsedError;
@@ -96,6 +98,7 @@ mixin _$Clothes {
   bool get isFavorite => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   String get buyingForm => throw _privateConstructorUsedError;
+  int get likedCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -111,10 +114,10 @@ abstract class $ClothesCopyWith<$Res> {
       @FireTimestampConverterNonNull() DateTime createdSell,
       String itemId,
       String brands,
-      String price,
+      int price,
       String category,
       String imageURL,
-      String selling,
+      int selling,
       String description,
       String day,
       String month,
@@ -125,7 +128,8 @@ abstract class $ClothesCopyWith<$Res> {
       bool isSell,
       bool isFavorite,
       String uid,
-      String buyingForm});
+      String buyingForm,
+      int likedCount});
 }
 
 /// @nodoc
@@ -157,6 +161,7 @@ class _$ClothesCopyWithImpl<$Res> implements $ClothesCopyWith<$Res> {
     Object? isFavorite = freezed,
     Object? uid = freezed,
     Object? buyingForm = freezed,
+    Object? likedCount = freezed,
   }) {
     return _then(_value.copyWith(
       createdBuy: createdBuy == freezed
@@ -178,7 +183,7 @@ class _$ClothesCopyWithImpl<$Res> implements $ClothesCopyWith<$Res> {
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -190,7 +195,7 @@ class _$ClothesCopyWithImpl<$Res> implements $ClothesCopyWith<$Res> {
       selling: selling == freezed
           ? _value.selling
           : selling // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -235,6 +240,10 @@ class _$ClothesCopyWithImpl<$Res> implements $ClothesCopyWith<$Res> {
           ? _value.buyingForm
           : buyingForm // ignore: cast_nullable_to_non_nullable
               as String,
+      likedCount: likedCount == freezed
+          ? _value.likedCount
+          : likedCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -249,10 +258,10 @@ abstract class _$ClothesCopyWith<$Res> implements $ClothesCopyWith<$Res> {
       @FireTimestampConverterNonNull() DateTime createdSell,
       String itemId,
       String brands,
-      String price,
+      int price,
       String category,
       String imageURL,
-      String selling,
+      int selling,
       String description,
       String day,
       String month,
@@ -263,7 +272,8 @@ abstract class _$ClothesCopyWith<$Res> implements $ClothesCopyWith<$Res> {
       bool isSell,
       bool isFavorite,
       String uid,
-      String buyingForm});
+      String buyingForm,
+      int likedCount});
 }
 
 /// @nodoc
@@ -296,6 +306,7 @@ class __$ClothesCopyWithImpl<$Res> extends _$ClothesCopyWithImpl<$Res>
     Object? isFavorite = freezed,
     Object? uid = freezed,
     Object? buyingForm = freezed,
+    Object? likedCount = freezed,
   }) {
     return _then(_Clothes(
       createdBuy: createdBuy == freezed
@@ -317,7 +328,7 @@ class __$ClothesCopyWithImpl<$Res> extends _$ClothesCopyWithImpl<$Res>
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -329,7 +340,7 @@ class __$ClothesCopyWithImpl<$Res> extends _$ClothesCopyWithImpl<$Res>
       selling: selling == freezed
           ? _value.selling
           : selling // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -374,6 +385,10 @@ class __$ClothesCopyWithImpl<$Res> extends _$ClothesCopyWithImpl<$Res>
           ? _value.buyingForm
           : buyingForm // ignore: cast_nullable_to_non_nullable
               as String,
+      likedCount: likedCount == freezed
+          ? _value.likedCount
+          : likedCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -386,10 +401,10 @@ class _$_Clothes extends _Clothes with DiagnosticableTreeMixin {
       @FireTimestampConverterNonNull() required this.createdSell,
       this.itemId = '',
       this.brands = '',
-      this.price = '',
+      this.price = 0,
       this.category = '',
       this.imageURL = '',
-      this.selling = '',
+      this.selling = 0,
       this.description = '',
       this.day = '',
       this.month = '',
@@ -400,7 +415,8 @@ class _$_Clothes extends _Clothes with DiagnosticableTreeMixin {
       this.isSell = false,
       this.isFavorite = false,
       this.uid = '',
-      this.buyingForm = ''})
+      this.buyingForm = '',
+      this.likedCount = 0})
       : super._();
 
   factory _$_Clothes.fromJson(Map<String, dynamic> json) =>
@@ -420,7 +436,7 @@ class _$_Clothes extends _Clothes with DiagnosticableTreeMixin {
   final String brands;
   @JsonKey()
   @override
-  final String price;
+  final int price;
   @JsonKey()
   @override
   final String category;
@@ -429,7 +445,7 @@ class _$_Clothes extends _Clothes with DiagnosticableTreeMixin {
   final String imageURL;
   @JsonKey()
   @override
-  final String selling;
+  final int selling;
   @JsonKey()
   @override
   final String description;
@@ -463,10 +479,13 @@ class _$_Clothes extends _Clothes with DiagnosticableTreeMixin {
   @JsonKey()
   @override
   final String buyingForm;
+  @JsonKey()
+  @override
+  final int likedCount;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Clothes(createdBuy: $createdBuy, createdSell: $createdSell, itemId: $itemId, brands: $brands, price: $price, category: $category, imageURL: $imageURL, selling: $selling, description: $description, day: $day, month: $month, year: $year, sellingDay: $sellingDay, sellingMonth: $sellingMonth, sellingYear: $sellingYear, isSell: $isSell, isFavorite: $isFavorite, uid: $uid, buyingForm: $buyingForm)';
+    return 'Clothes(createdBuy: $createdBuy, createdSell: $createdSell, itemId: $itemId, brands: $brands, price: $price, category: $category, imageURL: $imageURL, selling: $selling, description: $description, day: $day, month: $month, year: $year, sellingDay: $sellingDay, sellingMonth: $sellingMonth, sellingYear: $sellingYear, isSell: $isSell, isFavorite: $isFavorite, uid: $uid, buyingForm: $buyingForm, likedCount: $likedCount)';
   }
 
   @override
@@ -492,7 +511,8 @@ class _$_Clothes extends _Clothes with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('isSell', isSell))
       ..add(DiagnosticsProperty('isFavorite', isFavorite))
       ..add(DiagnosticsProperty('uid', uid))
-      ..add(DiagnosticsProperty('buyingForm', buyingForm));
+      ..add(DiagnosticsProperty('buyingForm', buyingForm))
+      ..add(DiagnosticsProperty('likedCount', likedCount));
   }
 
   @override
@@ -526,7 +546,9 @@ class _$_Clothes extends _Clothes with DiagnosticableTreeMixin {
                 .equals(other.isFavorite, isFavorite) &&
             const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality()
-                .equals(other.buyingForm, buyingForm));
+                .equals(other.buyingForm, buyingForm) &&
+            const DeepCollectionEquality()
+                .equals(other.likedCount, likedCount));
   }
 
   @override
@@ -550,7 +572,8 @@ class _$_Clothes extends _Clothes with DiagnosticableTreeMixin {
         const DeepCollectionEquality().hash(isSell),
         const DeepCollectionEquality().hash(isFavorite),
         const DeepCollectionEquality().hash(uid),
-        const DeepCollectionEquality().hash(buyingForm)
+        const DeepCollectionEquality().hash(buyingForm),
+        const DeepCollectionEquality().hash(likedCount)
       ]);
 
   @JsonKey(ignore: true)
@@ -570,10 +593,10 @@ abstract class _Clothes extends Clothes {
       @FireTimestampConverterNonNull() required DateTime createdSell,
       String itemId,
       String brands,
-      String price,
+      int price,
       String category,
       String imageURL,
-      String selling,
+      int selling,
       String description,
       String day,
       String month,
@@ -584,7 +607,8 @@ abstract class _Clothes extends Clothes {
       bool isSell,
       bool isFavorite,
       String uid,
-      String buyingForm}) = _$_Clothes;
+      String buyingForm,
+      int likedCount}) = _$_Clothes;
   const _Clothes._() : super._();
 
   factory _Clothes.fromJson(Map<String, dynamic> json) = _$_Clothes.fromJson;
@@ -600,13 +624,13 @@ abstract class _Clothes extends Clothes {
   @override
   String get brands;
   @override
-  String get price;
+  int get price;
   @override
   String get category;
   @override
   String get imageURL;
   @override
-  String get selling;
+  int get selling;
   @override
   String get description;
   @override
@@ -629,6 +653,8 @@ abstract class _Clothes extends Clothes {
   String get uid;
   @override
   String get buyingForm;
+  @override
+  int get likedCount;
   @override
   @JsonKey(ignore: true)
   _$ClothesCopyWith<_Clothes> get copyWith =>

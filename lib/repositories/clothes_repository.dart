@@ -108,7 +108,7 @@ class _Repository {
       {required String userId,
       required String month,
       required String year}) async {
-    List<String> list = [];
+    List<int> list = [];
     double sum = 0;
 
     await _read(firebaseFirestoreProvider)
@@ -125,7 +125,7 @@ class _Repository {
 
     if (list.isNotEmpty) {
       sum = list
-          .map<double>((clothes) => double.parse(clothes))
+          .map<double>((clothes) => clothes.toDouble())
           .reduce((curr, next) => curr + next);
     }
     return sum.floor().toString();
@@ -134,7 +134,7 @@ class _Repository {
   Future<String> fetchBuyingAll({
     required String userId,
   }) async {
-    List<String> list = [];
+    List<int> list = [];
     double sum = 0;
 
     await _read(firebaseFirestoreProvider)
@@ -149,9 +149,10 @@ class _Repository {
 
     if (list.isNotEmpty) {
       sum = list
-          .map<double>((clothes) => double.parse(clothes))
+          .map<double>((clothes) => clothes.toDouble())
           .reduce((curr, next) => curr + next);
     }
+
     return sum.floor().toString();
   }
 
@@ -159,7 +160,7 @@ class _Repository {
       {required String userId,
       required String month,
       required String year}) async {
-    List list = [];
+    List<int> list = [];
     double sum = 0;
 
     await _read(firebaseFirestoreProvider)
@@ -176,7 +177,7 @@ class _Repository {
             });
     if (list.isNotEmpty) {
       sum = list
-          .map<double>((clothes) => double.parse(clothes))
+          .map<double>((clothes) => clothes.toDouble())
           .reduce((curr, next) => curr + next);
     }
 
@@ -184,7 +185,7 @@ class _Repository {
   }
 
   Future<String> fetchSellingAll({required String userId}) async {
-    List list = [];
+    List<int> list = [];
     double sum = 0;
 
     await _read(firebaseFirestoreProvider)
@@ -199,7 +200,7 @@ class _Repository {
             });
     if (list.isNotEmpty) {
       sum = list
-          .map<double>((clothes) => double.parse(clothes))
+          .map<double>((clothes) => clothes.toDouble())
           .reduce((curr, next) => curr + next);
     }
 
@@ -294,8 +295,8 @@ class _Repository {
       'createdSell': clothes.createdSell
     });
   }
- 
- //全フォロワーのTLに追加
+
+  //全フォロワーのTLに追加
   Future<void> addFollowerTimeLine(
       {required String userId, required Buy clothes}) async {
     await _read(firebaseFirestoreProvider)
@@ -323,7 +324,6 @@ class _Repository {
             }));
   }
 
-
 //お気に入り
   Future<void> updateFavoriteTrue({required String itemId}) async {
     await _read(firebaseFirestoreProvider)
@@ -337,5 +337,88 @@ class _Repository {
         .collection('clothes')
         .doc(itemId)
         .update({'isFavorite': false});
+  }
+
+  //ランキング
+  Future<List<Clothes>> fetchPriceRanking({required String category}) async {
+    final snap = category == 'ALL'
+        ? await _read(firebaseFirestoreProvider)
+            .collection('clothes')
+            .orderBy('price', descending: true)
+            .limit(12)
+            .get()
+        : await _read(firebaseFirestoreProvider)
+            .collection('clothes')
+            .where('category', isEqualTo: category)
+            .orderBy('price', descending: true)
+            .limit(12)
+            .get();
+
+    return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
+  }
+
+  Future<List<Clothes>> fetchAddPriceRanking(
+      {required String category, required String lastItemId}) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+    DocumentSnapshot lastDoc =
+        await _fireStore.collection('clothes').doc(lastItemId).get();
+
+    final snap = category == 'ALL'
+        ? await _read(firebaseFirestoreProvider)
+            .collection('clothes')
+            .orderBy('price', descending: true)
+            .startAfterDocument(lastDoc)
+            .limit(12)
+            .get()
+        : await _read(firebaseFirestoreProvider)
+            .collection('clothes')
+            .where('category', isEqualTo: category)
+            .orderBy('price', descending: true)
+            .startAfterDocument(lastDoc)
+            .limit(12)
+            .get();
+
+    return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
+  }
+
+  Future<List<Clothes>> fetchLikeRanking({required String category}) async {
+    final snap = category == 'ALL'
+        ? await _read(firebaseFirestoreProvider)
+            .collection('clothes')
+            .orderBy('likedCount', descending: true)
+            .limit(12)
+            .get()
+        : await _read(firebaseFirestoreProvider)
+            .collection('clothes')
+            .where('category', isEqualTo: category)
+            .orderBy('likedCount', descending: true)
+            .limit(12)
+            .get();
+
+    return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
+  }
+
+  Future<List<Clothes>> fetchAddLikeRanking(
+      {required String category, required String lastItemId}) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+    DocumentSnapshot lastDoc =
+        await _fireStore.collection('clothes').doc(lastItemId).get();
+
+    final snap = category == 'ALL'
+        ? await _read(firebaseFirestoreProvider)
+            .collection('clothes')
+            .orderBy('likedCount', descending: true)
+            .startAfterDocument(lastDoc)
+            .limit(12)
+            .get()
+        : await _read(firebaseFirestoreProvider)
+            .collection('clothes')
+            .where('category', isEqualTo: category)
+            .orderBy('likedCount', descending: true)
+            .startAfterDocument(lastDoc)
+            .limit(12)
+            .get();
+
+    return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
   }
 }
