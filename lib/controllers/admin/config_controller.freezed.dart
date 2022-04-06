@@ -18,9 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ConfigStateTearOff {
   const _$ConfigStateTearOff();
 
-  _ConfigState call({bool? isMaintenance}) {
+  _ConfigState call({bool? isMaintenance, bool? isUpdateCheck}) {
     return _ConfigState(
       isMaintenance: isMaintenance,
+      isUpdateCheck: isUpdateCheck,
     );
   }
 }
@@ -31,6 +32,7 @@ const $ConfigState = _$ConfigStateTearOff();
 /// @nodoc
 mixin _$ConfigState {
   bool? get isMaintenance => throw _privateConstructorUsedError;
+  bool? get isUpdateCheck => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ConfigStateCopyWith<ConfigState> get copyWith =>
@@ -42,7 +44,7 @@ abstract class $ConfigStateCopyWith<$Res> {
   factory $ConfigStateCopyWith(
           ConfigState value, $Res Function(ConfigState) then) =
       _$ConfigStateCopyWithImpl<$Res>;
-  $Res call({bool? isMaintenance});
+  $Res call({bool? isMaintenance, bool? isUpdateCheck});
 }
 
 /// @nodoc
@@ -56,11 +58,16 @@ class _$ConfigStateCopyWithImpl<$Res> implements $ConfigStateCopyWith<$Res> {
   @override
   $Res call({
     Object? isMaintenance = freezed,
+    Object? isUpdateCheck = freezed,
   }) {
     return _then(_value.copyWith(
       isMaintenance: isMaintenance == freezed
           ? _value.isMaintenance
           : isMaintenance // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isUpdateCheck: isUpdateCheck == freezed
+          ? _value.isUpdateCheck
+          : isUpdateCheck // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
   }
@@ -73,7 +80,7 @@ abstract class _$ConfigStateCopyWith<$Res>
           _ConfigState value, $Res Function(_ConfigState) then) =
       __$ConfigStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool? isMaintenance});
+  $Res call({bool? isMaintenance, bool? isUpdateCheck});
 }
 
 /// @nodoc
@@ -89,11 +96,16 @@ class __$ConfigStateCopyWithImpl<$Res> extends _$ConfigStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isMaintenance = freezed,
+    Object? isUpdateCheck = freezed,
   }) {
     return _then(_ConfigState(
       isMaintenance: isMaintenance == freezed
           ? _value.isMaintenance
           : isMaintenance // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isUpdateCheck: isUpdateCheck == freezed
+          ? _value.isUpdateCheck
+          : isUpdateCheck // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
   }
@@ -102,14 +114,16 @@ class __$ConfigStateCopyWithImpl<$Res> extends _$ConfigStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ConfigState implements _ConfigState {
-  const _$_ConfigState({this.isMaintenance});
+  const _$_ConfigState({this.isMaintenance, this.isUpdateCheck});
 
   @override
   final bool? isMaintenance;
+  @override
+  final bool? isUpdateCheck;
 
   @override
   String toString() {
-    return 'ConfigState(isMaintenance: $isMaintenance)';
+    return 'ConfigState(isMaintenance: $isMaintenance, isUpdateCheck: $isUpdateCheck)';
   }
 
   @override
@@ -118,12 +132,16 @@ class _$_ConfigState implements _ConfigState {
         (other.runtimeType == runtimeType &&
             other is _ConfigState &&
             const DeepCollectionEquality()
-                .equals(other.isMaintenance, isMaintenance));
+                .equals(other.isMaintenance, isMaintenance) &&
+            const DeepCollectionEquality()
+                .equals(other.isUpdateCheck, isUpdateCheck));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(isMaintenance));
+      runtimeType,
+      const DeepCollectionEquality().hash(isMaintenance),
+      const DeepCollectionEquality().hash(isUpdateCheck));
 
   @JsonKey(ignore: true)
   @override
@@ -132,10 +150,13 @@ class _$_ConfigState implements _ConfigState {
 }
 
 abstract class _ConfigState implements ConfigState {
-  const factory _ConfigState({bool? isMaintenance}) = _$_ConfigState;
+  const factory _ConfigState({bool? isMaintenance, bool? isUpdateCheck}) =
+      _$_ConfigState;
 
   @override
   bool? get isMaintenance;
+  @override
+  bool? get isUpdateCheck;
   @override
   @JsonKey(ignore: true)
   _$ConfigStateCopyWith<_ConfigState> get copyWith =>

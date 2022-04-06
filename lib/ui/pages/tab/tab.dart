@@ -6,6 +6,7 @@ import 'package:closet_app_xxx/ui/pages/maintenance_page.dart';
 import 'package:closet_app_xxx/ui/pages/media/media_screen.dart';
 import 'package:closet_app_xxx/ui/pages/shop/shop_page.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/timeline_tab.dart';
+import 'package:closet_app_xxx/ui/pages/update_message_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -25,6 +26,8 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
   Widget build(BuildContext context) {
     final isMaintenance =
         ref.watch(configProvider.select((value) => value.isMaintenance));
+    final isUpdateCheck =
+        ref.watch(configProvider.select((value) => value.isUpdateCheck));
 
     final _pageWidgets = [
       TimeLineTab(),
@@ -34,32 +37,40 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
       ShopScreen(),
     ];
 
-    return isMaintenance == null
+    return isUpdateCheck == null
         ? Loading()
-        : !isMaintenance
-            ? MaintenancePage()
-            : Scaffold(
-                body: _pageWidgets.elementAt(_currentIndex),
-                bottomNavigationBar: BottomNavigationBar(
-                  backgroundColor: Colors.grey.shade200,
-                  items: <BottomNavigationBarItem>[
-                    BottomNavigationBarItem(
-                        icon: const Icon(LineIcons.stream), label: 'ログ'),
-                    BottomNavigationBarItem(
-                        icon: const Icon(LineIcons.userFriends), label: 'フォロー'),
-                    BottomNavigationBarItem(icon: AccountImage(), label: 'ホーム'),
-                    BottomNavigationBarItem(
-                        icon: const Icon(LineIcons.newspaper), label: 'メディア'),
-                    BottomNavigationBarItem(
-                        icon: const Icon(LineIcons.shoppingCart),
-                        label: 'ショップ'),
-                  ],
-                  currentIndex: _currentIndex,
-                  fixedColor: Colors.white,
-                  onTap: _onItemTapped,
-                  type: BottomNavigationBarType.fixed,
-                ),
-              );
+        : isUpdateCheck
+            ? UpdatePage()
+            : isMaintenance == null
+                ? Loading()
+                : !isMaintenance
+                    ? MaintenancePage()
+                    : Scaffold(
+                        body: _pageWidgets.elementAt(_currentIndex),
+                        bottomNavigationBar: BottomNavigationBar(
+                          backgroundColor: Colors.grey.shade200,
+                          items: <BottomNavigationBarItem>[
+                            BottomNavigationBarItem(
+                                icon: const Icon(LineIcons.stream),
+                                label: 'ログ'),
+                            BottomNavigationBarItem(
+                                icon: const Icon(LineIcons.userFriends),
+                                label: 'フォロー'),
+                            BottomNavigationBarItem(
+                                icon: AccountImage(), label: 'ホーム'),
+                            BottomNavigationBarItem(
+                                icon: const Icon(LineIcons.newspaper),
+                                label: 'メディア'),
+                            BottomNavigationBarItem(
+                                icon: const Icon(LineIcons.shoppingCart),
+                                label: 'ショップ'),
+                          ],
+                          currentIndex: _currentIndex,
+                          fixedColor: Colors.white,
+                          onTap: _onItemTapped,
+                          type: BottomNavigationBarType.fixed,
+                        ),
+                      );
   }
 
   _onItemTapped(int index) => setState(() => _currentIndex = index);
