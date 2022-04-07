@@ -1,4 +1,5 @@
 import 'package:closet_app_xxx/models/clothes.dart';
+import 'package:closet_app_xxx/models/user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../repositories/clothes_repository.dart';
@@ -37,13 +38,13 @@ final clothesViewPageProviderFamily = StateNotifierProvider.family.autoDispose<
   return ClothesViewPageController(
     ref.read,
     clothes: arg.clothes,
-    userId: arg.userId ?? user.uid,
+    userId: arg.userId ?? user.uid, user: user,
   );
 });
 
 class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
   ClothesViewPageController(this._read,
-      {required String userId, required Clothes clothes})
+      {required String userId, required Clothes clothes, required this.user})
       : _clothes = clothes,
         super(ClothesViewPageState()) {
     fetchClothes();
@@ -51,6 +52,7 @@ class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
 
   final Reader _read;
   final Clothes _clothes;
+  final UserModel user;
 
   Future<void> fetchClothes() async {
     final clothes = await _read(clothesRepositoryProvider)
@@ -84,6 +86,6 @@ class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
   }
 
   Future<void> deleteClothes() async {
-    await _read(clothesRepositoryProvider).delete(itemId: _clothes.itemId);
+    await _read(clothesRepositoryProvider).delete(itemId: _clothes.itemId, user: user);
   }
 }

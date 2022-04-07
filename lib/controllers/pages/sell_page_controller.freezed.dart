@@ -23,7 +23,7 @@ class _$SellPageStateTearOff {
       String selectClothesId = '',
       DateTime? selectedDate,
       Clothes? selectedClothes,
-      int selling = 0,
+      String selling = '',
       String sellingDay = '',
       String sellingMonth = '',
       String sellingYear = '',
@@ -51,7 +51,7 @@ mixin _$SellPageState {
   String get selectClothesId => throw _privateConstructorUsedError;
   DateTime? get selectedDate => throw _privateConstructorUsedError;
   Clothes? get selectedClothes => throw _privateConstructorUsedError;
-  int get selling => throw _privateConstructorUsedError;
+  String get selling => throw _privateConstructorUsedError;
   String get sellingDay => throw _privateConstructorUsedError;
   String get sellingMonth => throw _privateConstructorUsedError;
   String get sellingYear => throw _privateConstructorUsedError;
@@ -72,7 +72,7 @@ abstract class $SellPageStateCopyWith<$Res> {
       String selectClothesId,
       DateTime? selectedDate,
       Clothes? selectedClothes,
-      int selling,
+      String selling,
       String sellingDay,
       String sellingMonth,
       String sellingYear,
@@ -122,7 +122,7 @@ class _$SellPageStateCopyWithImpl<$Res>
       selling: selling == freezed
           ? _value.selling
           : selling // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       sellingDay: sellingDay == freezed
           ? _value.sellingDay
           : sellingDay // ignore: cast_nullable_to_non_nullable
@@ -166,7 +166,7 @@ abstract class _$SellPageStateCopyWith<$Res>
       String selectClothesId,
       DateTime? selectedDate,
       Clothes? selectedClothes,
-      int selling,
+      String selling,
       String sellingDay,
       String sellingMonth,
       String sellingYear,
@@ -219,7 +219,7 @@ class __$SellPageStateCopyWithImpl<$Res>
       selling: selling == freezed
           ? _value.selling
           : selling // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       sellingDay: sellingDay == freezed
           ? _value.sellingDay
           : sellingDay // ignore: cast_nullable_to_non_nullable
@@ -248,7 +248,7 @@ class _$_SellPageState extends _SellPageState {
       this.selectClothesId = '',
       this.selectedDate,
       this.selectedClothes,
-      this.selling = 0,
+      this.selling = '',
       this.sellingDay = '',
       this.sellingMonth = '',
       this.sellingYear = '',
@@ -267,7 +267,7 @@ class _$_SellPageState extends _SellPageState {
   final Clothes? selectedClothes;
   @JsonKey()
   @override
-  final int selling;
+  final String selling;
   @JsonKey()
   @override
   final String sellingDay;
@@ -333,7 +333,7 @@ abstract class _SellPageState extends SellPageState {
       String selectClothesId,
       DateTime? selectedDate,
       Clothes? selectedClothes,
-      int selling,
+      String selling,
       String sellingDay,
       String sellingMonth,
       String sellingYear,
@@ -349,7 +349,7 @@ abstract class _SellPageState extends SellPageState {
   @override
   Clothes? get selectedClothes;
   @override
-  int get selling;
+  String get selling;
   @override
   String get sellingDay;
   @override

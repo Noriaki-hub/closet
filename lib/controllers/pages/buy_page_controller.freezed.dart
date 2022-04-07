@@ -24,7 +24,7 @@ class _$BuyPageStateTearOff {
       String description = '',
       String brands = '',
       String category = '',
-      int price = 0,
+      String price = '',
       String day = '',
       String month = '',
       String year = '',
@@ -56,7 +56,7 @@ mixin _$BuyPageState {
   String get description => throw _privateConstructorUsedError;
   String get brands => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
-  int get price => throw _privateConstructorUsedError;
+  String get price => throw _privateConstructorUsedError;
   String get day => throw _privateConstructorUsedError;
   String get month => throw _privateConstructorUsedError;
   String get year => throw _privateConstructorUsedError;
@@ -79,7 +79,7 @@ abstract class $BuyPageStateCopyWith<$Res> {
       String description,
       String brands,
       String category,
-      int price,
+      String price,
       String day,
       String month,
       String year,
@@ -133,7 +133,7 @@ class _$BuyPageStateCopyWithImpl<$Res> implements $BuyPageStateCopyWith<$Res> {
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       day: day == freezed
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
@@ -171,7 +171,7 @@ abstract class _$BuyPageStateCopyWith<$Res>
       String description,
       String brands,
       String category,
-      int price,
+      String price,
       String day,
       String month,
       String year,
@@ -227,7 +227,7 @@ class __$BuyPageStateCopyWithImpl<$Res> extends _$BuyPageStateCopyWithImpl<$Res>
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       day: day == freezed
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
@@ -261,7 +261,7 @@ class _$_BuyPageState extends _BuyPageState {
       this.description = '',
       this.brands = '',
       this.category = '',
-      this.price = 0,
+      this.price = '',
       this.day = '',
       this.month = '',
       this.year = '',
@@ -284,7 +284,7 @@ class _$_BuyPageState extends _BuyPageState {
   final String category;
   @JsonKey()
   @override
-  final int price;
+  final String price;
   @JsonKey()
   @override
   final String day;
@@ -355,7 +355,7 @@ abstract class _BuyPageState extends BuyPageState {
       String description,
       String brands,
       String category,
-      int price,
+      String price,
       String day,
       String month,
       String year,
@@ -374,7 +374,7 @@ abstract class _BuyPageState extends BuyPageState {
   @override
   String get category;
   @override
-  int get price;
+  String get price;
   @override
   String get day;
   @override

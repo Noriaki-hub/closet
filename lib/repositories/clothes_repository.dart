@@ -248,7 +248,7 @@ class _Repository {
       'createdBuy': Timestamp.fromDate(clothes.createdBuy),
     });
 
-    addFollowerTimeLine(userId: user.uid, clothes: clothes);
+    addFollowerTimeLine(userId: user.uid, clothes: clothes, itemId: id);
   }
 
   Future<void> sell({
@@ -268,11 +268,12 @@ class _Repository {
     });
   }
 
-  Future<void> delete({required String itemId}) async {
+  Future<void> delete({required String itemId, required UserModel user}) async {
     await _read(firebaseFirestoreProvider)
         .collection('clothes')
         .doc(itemId)
         .delete();
+    deleteFollowerTimeLine(userId: user.uid, itemId: itemId);
   }
 
   Future<void> update({required Clothes clothes}) async {
@@ -298,7 +299,7 @@ class _Repository {
 
   //全フォロワーのTLに追加
   Future<void> addFollowerTimeLine(
-      {required String userId, required Buy clothes}) async {
+      {required String userId, required Buy clothes, required String itemId}) async {
     await _read(firebaseFirestoreProvider)
         .collection('users')
         .doc(userId)
@@ -314,13 +315,32 @@ class _Repository {
                   .doc('clothes')
                   .collection('clothes');
 
-              final id = ref.doc().id;
-
-              ref.doc(id).set(<String, dynamic>{
+              ref.doc(itemId).set(<String, dynamic>{
                 ...clothes.toJson(),
-                'itemId': id,
+                'itemId': itemId,
                 'createdBuy': Timestamp.fromDate(clothes.createdBuy),
               });
+            }));
+  }
+
+  Future<void> deleteFollowerTimeLine(
+      {required String userId, required String itemId}) async {
+    await _read(firebaseFirestoreProvider)
+        .collection('users')
+        .doc(userId)
+        .collection('follower')
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              final followerId = element.data()['uid'];
+
+              _read(firebaseFirestoreProvider)
+                  .collection('users')
+                  .doc(followerId)
+                  .collection('timeline')
+                  .doc('clothes')
+                  .collection('clothes')
+                  .doc(itemId)
+                  .delete();
             }));
   }
 

@@ -25,7 +25,7 @@ class BuyPageState with _$BuyPageState {
     @Default('')String description,
     @Default('')String brands,
     @Default('')String category,
-    @Default(0) int price,
+    @Default('')String price,
     @Default('')String day,
     @Default('')String month,
     @Default('')String year,
@@ -77,7 +77,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
     state = state.copyWith(description: description);
   }
 
-  Future<void> price({required int price}) async {
+  Future<void> price({required String price}) async {
     state = state.copyWith(price: price);
   }
 
@@ -122,7 +122,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
       brands: state.brands,
       category: state.category,
       description: state.description,
-      price: state.price,
+      price: int.parse(state.price),
       day: state.day,
       month: state.month,
       year: state.year,

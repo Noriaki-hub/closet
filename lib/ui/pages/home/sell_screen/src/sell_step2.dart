@@ -23,7 +23,7 @@ class SellStep2 extends HookConsumerWidget {
               borderSide: BorderSide.none,
             )),
         onChanged: (text) {
-          ref.read(sellPageProvider.notifier).selling(selling: int.parse(text));
+          ref.read(sellPageProvider.notifier).selling(selling: text);
         },
       ),
     );
