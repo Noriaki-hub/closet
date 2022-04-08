@@ -19,7 +19,7 @@ final adminProvider = StateNotifierProvider<AdminStateController, AdminState>(
 class AdminStateController extends StateNotifier<AdminState> {
   final Reader _read;
 
-  AdminStateController(this._read) : super(const AdminState()) {}
+  AdminStateController(this._read) : super(const AdminState());
 
   Future<void> email({required String email}) async {
     state = state.copyWith(email: email);

@@ -18,10 +18,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ConfigStateTearOff {
   const _$ConfigStateTearOff();
 
-  _ConfigState call({bool? isMaintenance, bool? isUpdateCheck}) {
+  _ConfigState call(
+      {bool? isMaintenance,
+      bool? isUpdateCheck,
+      AppConfig appConfig = const AppConfig()}) {
     return _ConfigState(
       isMaintenance: isMaintenance,
       isUpdateCheck: isUpdateCheck,
+      appConfig: appConfig,
     );
   }
 }
@@ -33,6 +37,7 @@ const $ConfigState = _$ConfigStateTearOff();
 mixin _$ConfigState {
   bool? get isMaintenance => throw _privateConstructorUsedError;
   bool? get isUpdateCheck => throw _privateConstructorUsedError;
+  AppConfig get appConfig => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ConfigStateCopyWith<ConfigState> get copyWith =>
@@ -44,7 +49,9 @@ abstract class $ConfigStateCopyWith<$Res> {
   factory $ConfigStateCopyWith(
           ConfigState value, $Res Function(ConfigState) then) =
       _$ConfigStateCopyWithImpl<$Res>;
-  $Res call({bool? isMaintenance, bool? isUpdateCheck});
+  $Res call({bool? isMaintenance, bool? isUpdateCheck, AppConfig appConfig});
+
+  $AppConfigCopyWith<$Res> get appConfig;
 }
 
 /// @nodoc
@@ -59,6 +66,7 @@ class _$ConfigStateCopyWithImpl<$Res> implements $ConfigStateCopyWith<$Res> {
   $Res call({
     Object? isMaintenance = freezed,
     Object? isUpdateCheck = freezed,
+    Object? appConfig = freezed,
   }) {
     return _then(_value.copyWith(
       isMaintenance: isMaintenance == freezed
@@ -69,7 +77,18 @@ class _$ConfigStateCopyWithImpl<$Res> implements $ConfigStateCopyWith<$Res> {
           ? _value.isUpdateCheck
           : isUpdateCheck // ignore: cast_nullable_to_non_nullable
               as bool?,
+      appConfig: appConfig == freezed
+          ? _value.appConfig
+          : appConfig // ignore: cast_nullable_to_non_nullable
+              as AppConfig,
     ));
+  }
+
+  @override
+  $AppConfigCopyWith<$Res> get appConfig {
+    return $AppConfigCopyWith<$Res>(_value.appConfig, (value) {
+      return _then(_value.copyWith(appConfig: value));
+    });
   }
 }
 
@@ -80,7 +99,10 @@ abstract class _$ConfigStateCopyWith<$Res>
           _ConfigState value, $Res Function(_ConfigState) then) =
       __$ConfigStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool? isMaintenance, bool? isUpdateCheck});
+  $Res call({bool? isMaintenance, bool? isUpdateCheck, AppConfig appConfig});
+
+  @override
+  $AppConfigCopyWith<$Res> get appConfig;
 }
 
 /// @nodoc
@@ -97,6 +119,7 @@ class __$ConfigStateCopyWithImpl<$Res> extends _$ConfigStateCopyWithImpl<$Res>
   $Res call({
     Object? isMaintenance = freezed,
     Object? isUpdateCheck = freezed,
+    Object? appConfig = freezed,
   }) {
     return _then(_ConfigState(
       isMaintenance: isMaintenance == freezed
@@ -107,6 +130,10 @@ class __$ConfigStateCopyWithImpl<$Res> extends _$ConfigStateCopyWithImpl<$Res>
           ? _value.isUpdateCheck
           : isUpdateCheck // ignore: cast_nullable_to_non_nullable
               as bool?,
+      appConfig: appConfig == freezed
+          ? _value.appConfig
+          : appConfig // ignore: cast_nullable_to_non_nullable
+              as AppConfig,
     ));
   }
 }
@@ -114,16 +141,22 @@ class __$ConfigStateCopyWithImpl<$Res> extends _$ConfigStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ConfigState implements _ConfigState {
-  const _$_ConfigState({this.isMaintenance, this.isUpdateCheck});
+  const _$_ConfigState(
+      {this.isMaintenance,
+      this.isUpdateCheck,
+      this.appConfig = const AppConfig()});
 
   @override
   final bool? isMaintenance;
   @override
   final bool? isUpdateCheck;
+  @JsonKey()
+  @override
+  final AppConfig appConfig;
 
   @override
   String toString() {
-    return 'ConfigState(isMaintenance: $isMaintenance, isUpdateCheck: $isUpdateCheck)';
+    return 'ConfigState(isMaintenance: $isMaintenance, isUpdateCheck: $isUpdateCheck, appConfig: $appConfig)';
   }
 
   @override
@@ -134,14 +167,16 @@ class _$_ConfigState implements _ConfigState {
             const DeepCollectionEquality()
                 .equals(other.isMaintenance, isMaintenance) &&
             const DeepCollectionEquality()
-                .equals(other.isUpdateCheck, isUpdateCheck));
+                .equals(other.isUpdateCheck, isUpdateCheck) &&
+            const DeepCollectionEquality().equals(other.appConfig, appConfig));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isMaintenance),
-      const DeepCollectionEquality().hash(isUpdateCheck));
+      const DeepCollectionEquality().hash(isUpdateCheck),
+      const DeepCollectionEquality().hash(appConfig));
 
   @JsonKey(ignore: true)
   @override
@@ -150,13 +185,17 @@ class _$_ConfigState implements _ConfigState {
 }
 
 abstract class _ConfigState implements ConfigState {
-  const factory _ConfigState({bool? isMaintenance, bool? isUpdateCheck}) =
-      _$_ConfigState;
+  const factory _ConfigState(
+      {bool? isMaintenance,
+      bool? isUpdateCheck,
+      AppConfig appConfig}) = _$_ConfigState;
 
   @override
   bool? get isMaintenance;
   @override
   bool? get isUpdateCheck;
+  @override
+  AppConfig get appConfig;
   @override
   @JsonKey(ignore: true)
   _$ConfigStateCopyWith<_ConfigState> get copyWith =>
