@@ -92,7 +92,7 @@ class ClosetPageController extends StateNotifier<ClosetPageState> {
     final lastItemId = state.closet.last.itemId;
     final addClothes = await _read(clothesRepositoryProvider).fetchAddCloset(userId: _userId, lastItemId: lastItemId, isSell: state.isSell, category: state.category);
     final closet = state.closet..addAll(addClothes);
-    if(addClothes.length < 5){
+    if(addClothes.length < 12){
       state = state.copyWith(isAddClothes: false);
     }
     state = state.copyWith(closet: closet, isLoading: false);

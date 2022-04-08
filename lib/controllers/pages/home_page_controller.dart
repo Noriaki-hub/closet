@@ -91,7 +91,7 @@ class HomePageController extends StateNotifier<HomePageState> {
         isSell: state.isSell,
         category: state.category);
     final closet = state.closet..addAll(addClothes);
-    if (addClothes.length < 6) {
+    if (addClothes.length < 12) {
       state = state.copyWith(isAddClothes: false);
     }
     state = state.copyWith(closet: closet, isLoading: false);

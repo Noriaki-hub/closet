@@ -24,7 +24,7 @@ class _Repository {
             .where('isSell', isEqualTo: isSell)
             .where('uid', isEqualTo: userId)
             .orderBy('createdBuy', descending: true)
-            .limit(6)
+            .limit(12)
             .get()
         : await _read(firebaseFirestoreProvider)
             .collection('clothes')
@@ -32,7 +32,7 @@ class _Repository {
             .where('category', isEqualTo: category)
             .where('uid', isEqualTo: userId)
             .orderBy('createdBuy', descending: true)
-            .limit(6)
+            .limit(12)
             .get();
 
     return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
@@ -55,7 +55,7 @@ class _Repository {
             .where('uid', isEqualTo: userId)
             .orderBy('createdBuy', descending: true)
             .startAfterDocument(lastDoc)
-            .limit(6)
+            .limit(12)
             .get()
         : await _read(firebaseFirestoreProvider)
             .collection('clothes')
@@ -64,7 +64,7 @@ class _Repository {
             .where('uid', isEqualTo: userId)
             .orderBy('createdBuy', descending: true)
             .startAfterDocument(lastDoc)
-            .limit(6)
+            .limit(12)
             .get();
 
     return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
