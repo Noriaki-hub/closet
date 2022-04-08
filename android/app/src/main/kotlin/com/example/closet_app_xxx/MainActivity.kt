@@ -1,4 +1,4 @@
-package com.example.closet_app_xxx
+package com.noriaki.closet_app_xxx
 
 import io.flutter.embedding.android.FlutterActivity
 
