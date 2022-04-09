@@ -1,7 +1,7 @@
 
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/media_log_page_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/shop_log_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/timeline/media_log_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/timeline/shop_log_page_controller.dart';
 import 'package:closet_app_xxx/repositories/share_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,9 +1,9 @@
-import 'package:closet_app_xxx/controllers/pages/buy_page_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/clothes_edit_page_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/media_add_page_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/media_edit_page_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/shop_add_page_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/shop_edit_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/home/buy_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/home/clothes_edit_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/web/media_add_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/web/media_edit_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/web/shop_add_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/web/shop_edit_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';

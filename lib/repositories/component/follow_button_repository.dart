@@ -120,6 +120,7 @@ class _ItemRepository {
         .collection('timeline')
         .doc('clothes')
         .collection('clothes')
+        .where('uid', isEqualTo: myId)
         .get();
 
     for (var doc in snap.docs) {
@@ -135,6 +136,7 @@ class _ItemRepository {
         .collection('timeline')
         .doc('share')
         .collection('share')
+        .where('uid', isEqualTo: myId)
         .get();
 
     for (var doc in snap.docs) {

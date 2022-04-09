@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/ranking_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/timeline/ranking_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/ranking/src/priceRankingList%20copy.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,5 @@
 import 'package:closet_app_xxx/ui/pages/timeline/clothes/clothes_log_tab.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/media/media_log_tab.dart';
-import 'package:closet_app_xxx/ui/pages/timeline/notice_page.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/ranking/ranking_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
@@ -15,10 +14,9 @@ class TabInfo {
 class TimeLineTab extends StatelessWidget {
   final List<TabInfo> _tabs = [
     TabInfo("ランキング",RankingTab()),
-    TabInfo("服ログ", ClothesLogTab()),
+    TabInfo("新着", ClothesLogTab()),
     TabInfo("メディア", MediaLogTab()),
     TabInfo("ショップ", ShopLogTab()),
-    TabInfo("お知らせ", NoticePage()),
   ];
 
   @override

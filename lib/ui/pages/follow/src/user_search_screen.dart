@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/user_search_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/follow/user_search_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/follow_button.dart';
 import 'package:closet_app_xxx/ui/pages/home/account/account_page.dart';
 import 'package:flutter/material.dart';

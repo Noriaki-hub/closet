@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/log_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/timeline/log_page_controller.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/clothes/src/grid_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

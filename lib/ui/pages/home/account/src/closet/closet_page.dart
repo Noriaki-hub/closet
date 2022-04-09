@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/closet_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/home/closet_page_controller.dart';
 import 'package:closet_app_xxx/ui/pages/home/account/src/closet/src/category_controller.dart';
 import 'package:closet_app_xxx/ui/pages/home/account/src/closet/src/closet.dart';
 import 'package:closet_app_xxx/ui/pages/home/account/src/closet/src/favorite.dart';

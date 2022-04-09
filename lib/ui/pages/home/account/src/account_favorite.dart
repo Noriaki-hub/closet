@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/account_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/home/account_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/clothes_view_screen.dart';
 import 'package:flutter/material.dart';

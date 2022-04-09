@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/buy_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/home/buy_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

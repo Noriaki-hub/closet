@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/buy_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/home/buy_page_controller.dart';
 import 'package:closet_app_xxx/ui/pages/home/buy_screen/src/buy_step7.dart';
 import 'package:flutter/material.dart';
 import 'package:cupertino_stepper/cupertino_stepper.dart';

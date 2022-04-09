@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/clothes_edit_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/home/clothes_edit_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/src/brands_text_field.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/src/category_controller.dart';

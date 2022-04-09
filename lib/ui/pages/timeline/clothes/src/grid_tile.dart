@@ -1,6 +1,5 @@
-import 'package:closet_app_xxx/controllers/pages/ranking_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/timeline/ranking_page_controller.dart';
 import 'package:closet_app_xxx/models/clothes.dart';
-import 'package:closet_app_xxx/models/share.dart';
 import 'package:closet_app_xxx/models/user.dart';
 import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
@@ -8,7 +7,6 @@ import 'package:closet_app_xxx/ui/pages/home/account/account_page.dart';
 import 'package:closet_app_xxx/ui/pages/home/clothes/clothes_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:line_icons/line_icons.dart';
 
 class Tile extends HookConsumerWidget {
   Tile({

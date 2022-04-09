@@ -1,5 +1,5 @@
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/clothes_view_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/home/clothes_view_page_controller.dart';
 import 'package:closet_app_xxx/models/clothes.dart';
 import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:closet_app_xxx/ui/libs/floating_action_button_animation.dart';

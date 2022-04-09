@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/ranking_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/timeline/ranking_page_controller.dart';
 import 'package:closet_app_xxx/models/clothes.dart';
 import 'package:closet_app_xxx/models/user.dart';
 import 'package:closet_app_xxx/ui/libs/cache_image.dart';

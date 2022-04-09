@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/sell_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/home/sell_page_controller.dart';
 import 'package:closet_app_xxx/ui/pages/home/sell_screen/src/sell_step1.dart';
 import 'package:closet_app_xxx/ui/pages/home/sell_screen/src/sell_step2.dart';
 import 'package:closet_app_xxx/ui/pages/home/sell_screen/src/sell_step3.dart';

@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/log_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/timeline/log_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/clothes/src/time_line_list.dart';
 import 'package:flutter/material.dart';

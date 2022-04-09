@@ -1,4 +1,4 @@
-import 'package:closet_app_xxx/controllers/pages/like_ranking_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/timeline/like_ranking_page_controller.dart';
 
 import 'package:closet_app_xxx/ui/pages/timeline/ranking/src/gridtile.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/ranking/src/ranking_list_model.dart';

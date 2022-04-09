@@ -1,5 +1,5 @@
 
-import 'package:closet_app_xxx/controllers/pages/shop_log_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/timeline/shop_log_page_controller.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/media/src/grid_tile.dart';
 import 'package:closet_app_xxx/ui/pages/timeline/media/src/log_model.dart';
 import 'package:flutter/material.dart';

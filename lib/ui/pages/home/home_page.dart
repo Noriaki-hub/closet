@@ -10,7 +10,7 @@ import '../../../ui/pages/home/src/category_controller.dart';
 import '../../../ui/pages/home/src/closet.dart';
 import '../../../ui/pages/home/src/favorite.dart';
 import '../../libs/floating_action_button_animation.dart';
-import '../../../controllers/pages/home_page_controller.dart';
+import '../../../controllers/pages/home/home_page_controller.dart';
 import 'calender_screen/calender_screen.dart';
 
 class HomePage extends ConsumerWidget {
