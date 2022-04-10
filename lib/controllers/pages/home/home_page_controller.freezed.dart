@@ -21,6 +21,7 @@ class _$HomePageStateTearOff {
   _HomePageState call(
       {List<Clothes> closet = const <Clothes>[],
       List<Clothes> closetFavorite = const <Clothes>[],
+      String instaUrl = '',
       String buying = '',
       String selling = '',
       String year = '',
@@ -33,6 +34,7 @@ class _$HomePageStateTearOff {
     return _HomePageState(
       closet: closet,
       closetFavorite: closetFavorite,
+      instaUrl: instaUrl,
       buying: buying,
       selling: selling,
       year: year,
@@ -53,6 +55,7 @@ const $HomePageState = _$HomePageStateTearOff();
 mixin _$HomePageState {
   List<Clothes> get closet => throw _privateConstructorUsedError;
   List<Clothes> get closetFavorite => throw _privateConstructorUsedError;
+  String get instaUrl => throw _privateConstructorUsedError;
   String get buying => throw _privateConstructorUsedError;
   String get selling => throw _privateConstructorUsedError;
   String get year => throw _privateConstructorUsedError;
@@ -76,6 +79,7 @@ abstract class $HomePageStateCopyWith<$Res> {
   $Res call(
       {List<Clothes> closet,
       List<Clothes> closetFavorite,
+      String instaUrl,
       String buying,
       String selling,
       String year,
@@ -102,6 +106,7 @@ class _$HomePageStateCopyWithImpl<$Res>
   $Res call({
     Object? closet = freezed,
     Object? closetFavorite = freezed,
+    Object? instaUrl = freezed,
     Object? buying = freezed,
     Object? selling = freezed,
     Object? year = freezed,
@@ -121,6 +126,10 @@ class _$HomePageStateCopyWithImpl<$Res>
           ? _value.closetFavorite
           : closetFavorite // ignore: cast_nullable_to_non_nullable
               as List<Clothes>,
+      instaUrl: instaUrl == freezed
+          ? _value.instaUrl
+          : instaUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       buying: buying == freezed
           ? _value.buying
           : buying // ignore: cast_nullable_to_non_nullable
@@ -178,6 +187,7 @@ abstract class _$HomePageStateCopyWith<$Res>
   $Res call(
       {List<Clothes> closet,
       List<Clothes> closetFavorite,
+      String instaUrl,
       String buying,
       String selling,
       String year,
@@ -207,6 +217,7 @@ class __$HomePageStateCopyWithImpl<$Res>
   $Res call({
     Object? closet = freezed,
     Object? closetFavorite = freezed,
+    Object? instaUrl = freezed,
     Object? buying = freezed,
     Object? selling = freezed,
     Object? year = freezed,
@@ -226,6 +237,10 @@ class __$HomePageStateCopyWithImpl<$Res>
           ? _value.closetFavorite
           : closetFavorite // ignore: cast_nullable_to_non_nullable
               as List<Clothes>,
+      instaUrl: instaUrl == freezed
+          ? _value.instaUrl
+          : instaUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       buying: buying == freezed
           ? _value.buying
           : buying // ignore: cast_nullable_to_non_nullable
@@ -272,6 +287,7 @@ class _$_HomePageState extends _HomePageState with DiagnosticableTreeMixin {
   const _$_HomePageState(
       {this.closet = const <Clothes>[],
       this.closetFavorite = const <Clothes>[],
+      this.instaUrl = '',
       this.buying = '',
       this.selling = '',
       this.year = '',
@@ -289,6 +305,9 @@ class _$_HomePageState extends _HomePageState with DiagnosticableTreeMixin {
   @JsonKey()
   @override
   final List<Clothes> closetFavorite;
+  @JsonKey()
+  @override
+  final String instaUrl;
   @JsonKey()
   @override
   final String buying;
@@ -319,7 +338,7 @@ class _$_HomePageState extends _HomePageState with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomePageState(closet: $closet, closetFavorite: $closetFavorite, buying: $buying, selling: $selling, year: $year, month: $month, isSell: $isSell, category: $category, user: $user, isLoading: $isLoading, isAddClothes: $isAddClothes)';
+    return 'HomePageState(closet: $closet, closetFavorite: $closetFavorite, instaUrl: $instaUrl, buying: $buying, selling: $selling, year: $year, month: $month, isSell: $isSell, category: $category, user: $user, isLoading: $isLoading, isAddClothes: $isAddClothes)';
   }
 
   @override
@@ -329,6 +348,7 @@ class _$_HomePageState extends _HomePageState with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('type', 'HomePageState'))
       ..add(DiagnosticsProperty('closet', closet))
       ..add(DiagnosticsProperty('closetFavorite', closetFavorite))
+      ..add(DiagnosticsProperty('instaUrl', instaUrl))
       ..add(DiagnosticsProperty('buying', buying))
       ..add(DiagnosticsProperty('selling', selling))
       ..add(DiagnosticsProperty('year', year))
@@ -348,6 +368,7 @@ class _$_HomePageState extends _HomePageState with DiagnosticableTreeMixin {
             const DeepCollectionEquality().equals(other.closet, closet) &&
             const DeepCollectionEquality()
                 .equals(other.closetFavorite, closetFavorite) &&
+            const DeepCollectionEquality().equals(other.instaUrl, instaUrl) &&
             const DeepCollectionEquality().equals(other.buying, buying) &&
             const DeepCollectionEquality().equals(other.selling, selling) &&
             const DeepCollectionEquality().equals(other.year, year) &&
@@ -365,6 +386,7 @@ class _$_HomePageState extends _HomePageState with DiagnosticableTreeMixin {
       runtimeType,
       const DeepCollectionEquality().hash(closet),
       const DeepCollectionEquality().hash(closetFavorite),
+      const DeepCollectionEquality().hash(instaUrl),
       const DeepCollectionEquality().hash(buying),
       const DeepCollectionEquality().hash(selling),
       const DeepCollectionEquality().hash(year),
@@ -385,6 +407,7 @@ abstract class _HomePageState extends HomePageState {
   const factory _HomePageState(
       {List<Clothes> closet,
       List<Clothes> closetFavorite,
+      String instaUrl,
       String buying,
       String selling,
       String year,
@@ -400,6 +423,8 @@ abstract class _HomePageState extends HomePageState {
   List<Clothes> get closet;
   @override
   List<Clothes> get closetFavorite;
+  @override
+  String get instaUrl;
   @override
   String get buying;
   @override

@@ -17,6 +17,7 @@ class HomePageState with _$HomePageState {
   const factory HomePageState(
       {@Default(<Clothes>[]) List<Clothes> closet,
       @Default(<Clothes>[]) List<Clothes> closetFavorite,
+      @Default('') String instaUrl,
       @Default('') String buying,
       @Default('') String selling,
       @Default('') String year,
@@ -71,13 +72,14 @@ class HomePageController extends StateNotifier<HomePageState> {
     final user = await _read(userRepositoryProvider).fetchUser(userId: _userId);
     if (user != null) {
       state = state.copyWith(
-          closet: closet,
-          closetFavorite: closetFavorite,
-          buying: buying,
-          selling: selling,
-          year: date.year,
-          month: date.month,
-          user: user);
+        closet: closet,
+        closetFavorite: closetFavorite,
+        buying: buying,
+        selling: selling,
+        year: date.year,
+        month: date.month,
+        user: user,
+      );
     }
   }
 
@@ -108,19 +110,8 @@ class HomePageController extends StateNotifier<HomePageState> {
   }
 
   Future<void> isSellFalse() async {
-
-
-
-
     state = state.copyWith(isSell: false);
 
-
-
-
-
-
-
-    
     fetchHomePageData();
   }
 }

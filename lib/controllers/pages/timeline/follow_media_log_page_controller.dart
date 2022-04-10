@@ -17,6 +17,7 @@ class FollowMediaLogPageState with _$FollowMediaLogPageState {
       @Default(false) bool isLoading,
       @Default(<Share>[]) List<Share> logList,
       @Default('') String lastItemId,
+      @Default(false) bool isScrollLoading,
       @Default(true) bool isAddClothes}) = _FollowMediaLogPageState;
 }
 
@@ -80,7 +81,7 @@ class FollowMediaLogPageController extends StateNotifier<FollowMediaLogPageState
   }
 
   Future<void> endScroll() async {
-    state = state.copyWith(isLoading: true);
+    state = state.copyWith(isScrollLoading: true);
     final lastItemId = state.lastItemId;
     final addLogList = await _read(timeLineRepositoryProvider)
         .fetchAddFollowShares(lastItemId: lastItemId, genre: 'media', userId: _userId);
@@ -92,6 +93,11 @@ class FollowMediaLogPageController extends StateNotifier<FollowMediaLogPageState
         logMap..addAll({share: user});
       }
     }
-    state = state.copyWith(logMap: logMap, isLoading: false);
+
+     if (addLogList.length < 12) {
+      state = state.copyWith(isAddClothes: false);
+    }
+
+    state = state.copyWith(logMap: logMap, isScrollLoading: false);
   }
 }

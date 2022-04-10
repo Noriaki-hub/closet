@@ -23,12 +23,14 @@ class _$FollowMediaLogPageStateTearOff {
       bool isLoading = false,
       List<Share> logList = const <Share>[],
       String lastItemId = '',
+      bool isScrollLoading = false,
       bool isAddClothes = true}) {
     return _FollowMediaLogPageState(
       logMap: logMap,
       isLoading: isLoading,
       logList: logList,
       lastItemId: lastItemId,
+      isScrollLoading: isScrollLoading,
       isAddClothes: isAddClothes,
     );
   }
@@ -43,6 +45,7 @@ mixin _$FollowMediaLogPageState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<Share> get logList => throw _privateConstructorUsedError;
   String get lastItemId => throw _privateConstructorUsedError;
+  bool get isScrollLoading => throw _privateConstructorUsedError;
   bool get isAddClothes => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -60,6 +63,7 @@ abstract class $FollowMediaLogPageStateCopyWith<$Res> {
       bool isLoading,
       List<Share> logList,
       String lastItemId,
+      bool isScrollLoading,
       bool isAddClothes});
 }
 
@@ -78,6 +82,7 @@ class _$FollowMediaLogPageStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? logList = freezed,
     Object? lastItemId = freezed,
+    Object? isScrollLoading = freezed,
     Object? isAddClothes = freezed,
   }) {
     return _then(_value.copyWith(
@@ -97,6 +102,10 @@ class _$FollowMediaLogPageStateCopyWithImpl<$Res>
           ? _value.lastItemId
           : lastItemId // ignore: cast_nullable_to_non_nullable
               as String,
+      isScrollLoading: isScrollLoading == freezed
+          ? _value.isScrollLoading
+          : isScrollLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       isAddClothes: isAddClothes == freezed
           ? _value.isAddClothes
           : isAddClothes // ignore: cast_nullable_to_non_nullable
@@ -117,6 +126,7 @@ abstract class _$FollowMediaLogPageStateCopyWith<$Res>
       bool isLoading,
       List<Share> logList,
       String lastItemId,
+      bool isScrollLoading,
       bool isAddClothes});
 }
 
@@ -138,6 +148,7 @@ class __$FollowMediaLogPageStateCopyWithImpl<$Res>
     Object? isLoading = freezed,
     Object? logList = freezed,
     Object? lastItemId = freezed,
+    Object? isScrollLoading = freezed,
     Object? isAddClothes = freezed,
   }) {
     return _then(_FollowMediaLogPageState(
@@ -157,6 +168,10 @@ class __$FollowMediaLogPageStateCopyWithImpl<$Res>
           ? _value.lastItemId
           : lastItemId // ignore: cast_nullable_to_non_nullable
               as String,
+      isScrollLoading: isScrollLoading == freezed
+          ? _value.isScrollLoading
+          : isScrollLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       isAddClothes: isAddClothes == freezed
           ? _value.isAddClothes
           : isAddClothes // ignore: cast_nullable_to_non_nullable
@@ -173,6 +188,7 @@ class _$_FollowMediaLogPageState extends _FollowMediaLogPageState {
       this.isLoading = false,
       this.logList = const <Share>[],
       this.lastItemId = '',
+      this.isScrollLoading = false,
       this.isAddClothes = true})
       : super._();
 
@@ -190,11 +206,14 @@ class _$_FollowMediaLogPageState extends _FollowMediaLogPageState {
   final String lastItemId;
   @JsonKey()
   @override
+  final bool isScrollLoading;
+  @JsonKey()
+  @override
   final bool isAddClothes;
 
   @override
   String toString() {
-    return 'FollowMediaLogPageState(logMap: $logMap, isLoading: $isLoading, logList: $logList, lastItemId: $lastItemId, isAddClothes: $isAddClothes)';
+    return 'FollowMediaLogPageState(logMap: $logMap, isLoading: $isLoading, logList: $logList, lastItemId: $lastItemId, isScrollLoading: $isScrollLoading, isAddClothes: $isAddClothes)';
   }
 
   @override
@@ -208,6 +227,8 @@ class _$_FollowMediaLogPageState extends _FollowMediaLogPageState {
             const DeepCollectionEquality()
                 .equals(other.lastItemId, lastItemId) &&
             const DeepCollectionEquality()
+                .equals(other.isScrollLoading, isScrollLoading) &&
+            const DeepCollectionEquality()
                 .equals(other.isAddClothes, isAddClothes));
   }
 
@@ -218,6 +239,7 @@ class _$_FollowMediaLogPageState extends _FollowMediaLogPageState {
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(logList),
       const DeepCollectionEquality().hash(lastItemId),
+      const DeepCollectionEquality().hash(isScrollLoading),
       const DeepCollectionEquality().hash(isAddClothes));
 
   @JsonKey(ignore: true)
@@ -233,6 +255,7 @@ abstract class _FollowMediaLogPageState extends FollowMediaLogPageState {
       bool isLoading,
       List<Share> logList,
       String lastItemId,
+      bool isScrollLoading,
       bool isAddClothes}) = _$_FollowMediaLogPageState;
   const _FollowMediaLogPageState._() : super._();
 
@@ -244,6 +267,8 @@ abstract class _FollowMediaLogPageState extends FollowMediaLogPageState {
   List<Share> get logList;
   @override
   String get lastItemId;
+  @override
+  bool get isScrollLoading;
   @override
   bool get isAddClothes;
   @override

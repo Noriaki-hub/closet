@@ -9,7 +9,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-
 part 'account_page_controller.freezed.dart';
 
 @freezed
@@ -24,6 +23,7 @@ class AccountPageState with _$AccountPageState {
     @Default('') String follow,
     @Default('') String follower,
     @Default(UserModel()) UserModel user,
+    @Default('') String instaUrl,
     @Default(false) bool isMenu,
   }) = _AccountPageState;
 }
@@ -64,6 +64,9 @@ class AccountPageController extends StateNotifier<AccountPageState> {
   }
 
   Future<void> fetchAccountPageData() async {
+    final instaUrl =
+        await _read(userRepositoryProvider).fetchInsta(userId: _userId);
+
     final List<Clothes> closet = await _read(clothesRepositoryProvider)
         .fetchClosetRecent(isSell: false, userId: _userId);
     final List<Clothes> closetFavorite =
@@ -93,6 +96,7 @@ class AccountPageController extends StateNotifier<AccountPageState> {
           follow: follow.length.toString(),
           follower: follower.length.toString(),
           user: user,
+          instaUrl: instaUrl,
           isMenu: _user.uid == _userId ? true : false);
     }
   }

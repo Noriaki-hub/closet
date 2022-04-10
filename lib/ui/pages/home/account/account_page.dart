@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'account_edit_page.dart';
 import 'src/closet/closet_page.dart';
 
@@ -52,7 +53,7 @@ class _AccountPage extends HookConsumerWidget {
           },
         ),
         title: Text(
-          'プロフィール',
+          state.user.id,
           style: TextStyle(color: Colors.black45),
         ),
         backgroundColor: Colors.brown.shade50,
@@ -243,18 +244,8 @@ class _AccountPage extends HookConsumerWidget {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  const Text(
-                                    'ID',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(state.user.id),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                  Wrap(
+                                    spacing: 10,
                                     children: [
                                       FollowButton(userId: state.user.uid),
                                       OutlinedButton(
@@ -268,7 +259,8 @@ class _AccountPage extends HookConsumerWidget {
                                         ),
                                         child: const Text(
                                           'クローゼットをみる',
-                                          style: TextStyle(color: Colors.black),
+                                          style:
+                                              TextStyle(color: Colors.black54),
                                         ),
                                         onPressed: () {
                                           Navigator.push(context,
@@ -280,6 +272,38 @@ class _AccountPage extends HookConsumerWidget {
                                           }));
                                         },
                                       ),
+                                      state.instaUrl == ''
+                                          ? Container()
+                                          : OutlinedButton(
+                                              style: OutlinedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10), //角の丸み
+                                                ),
+                                                side: const BorderSide(
+                                                    color: Colors.black45),
+                                              ),
+                                              child: SizedBox(
+                                                width: 100,
+                                                child: Row(
+                                                  children: [
+                                                    Icon(LineIcons.instagram),
+                                                    const Text(
+                                                      'Instagram',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.black54),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              onPressed: () async {
+                                                if (!await launch(
+                                                    state.instaUrl))
+                                                  throw 'Could not launch $state.instaUrl';
+                                              },
+                                            ),
                                     ],
                                   ),
                                   const Text(

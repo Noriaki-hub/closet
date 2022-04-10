@@ -8,8 +8,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
-
-
 part 'account_edit_page_controller.freezed.dart';
 
 @freezed
@@ -18,9 +16,12 @@ class AccountEditPageState with _$AccountEditPageState {
 
   const factory AccountEditPageState(
       {File? imageFile,
+      UserModel? currentUser,
+      String? currentInstaUrl,
       @Default('') String image,
       @Default('') String id,
       @Default('') String name,
+      @Default('') String instaUrl,
       @Default(false) bool isEdit}) = _AccountEditPageState;
 }
 
@@ -33,10 +34,18 @@ final accountEditPageProvider = StateNotifierProvider.autoDispose<
 class AccountEditPageController extends StateNotifier<AccountEditPageState> {
   AccountEditPageController(this._read, {required UserModel user})
       : _user = user,
-        super(AccountEditPageState());
+        super(AccountEditPageState()) {
+    _init();
+  }
 
   final Reader _read;
   final UserModel _user;
+
+  Future<void> _init() async {
+    final instaUrl =
+        await _read(userRepositoryProvider).fetchInsta(userId: _user.uid);
+    state = state.copyWith(currentInstaUrl: instaUrl, currentUser: _user);
+  }
 
   Future<void> imageFile(XFile? imageFile) async {
     if (imageFile == null) {
@@ -53,6 +62,10 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
 
   Future<void> id({required String id}) async {
     state = state.copyWith(id: id, isEdit: true);
+  }
+
+  Future<void> instaUrl({required String instaUrl}) async {
+    state = state.copyWith(instaUrl: instaUrl, isEdit: true);
   }
 
   Future<String> _uploadImageFile(imageFile) async {
@@ -76,5 +89,9 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
         uid: _user.uid);
 
     await _read(userRepositoryProvider).update(user: user);
+    if (state.instaUrl != '') {
+      await _read(userRepositoryProvider)
+          .addInsta(userId: user.uid, url: state.instaUrl);
+    }
   }
 }

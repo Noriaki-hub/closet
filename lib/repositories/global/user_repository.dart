@@ -73,4 +73,28 @@ class _ItemRepository {
     }
     return userList;
   }
+
+  Future<void> addInsta({required String userId, required String url}) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+    await _fireStore
+        .collection('users')
+        .doc(userId)
+        .collection('sns')
+        .doc('instagram')
+        .set({'url': url});
+  }
+
+  Future<String> fetchInsta(
+      {required String userId}) async {
+    final _fireStore = _read(firebaseFirestoreProvider);
+    final snap = await _fireStore
+        .collection('users')
+        .doc(userId)
+        .collection('sns')
+        .doc('instagram')
+        .get();
+    final data = snap.data();
+
+    return data != null ? data['url'] : '';
+  }
 }

@@ -22,12 +22,14 @@ class _$ShopLogPageStateTearOff {
       {Map<Share, UserModel> logMap = const <Share, UserModel>{},
       bool isLoading = false,
       List<Share> logList = const <Share>[],
+      bool isScrollLoading = false,
       String lastItemId = '',
       bool isAddClothes = true}) {
     return _ShopLogPageState(
       logMap: logMap,
       isLoading: isLoading,
       logList: logList,
+      isScrollLoading: isScrollLoading,
       lastItemId: lastItemId,
       isAddClothes: isAddClothes,
     );
@@ -42,6 +44,7 @@ mixin _$ShopLogPageState {
   Map<Share, UserModel> get logMap => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   List<Share> get logList => throw _privateConstructorUsedError;
+  bool get isScrollLoading => throw _privateConstructorUsedError;
   String get lastItemId => throw _privateConstructorUsedError;
   bool get isAddClothes => throw _privateConstructorUsedError;
 
@@ -59,6 +62,7 @@ abstract class $ShopLogPageStateCopyWith<$Res> {
       {Map<Share, UserModel> logMap,
       bool isLoading,
       List<Share> logList,
+      bool isScrollLoading,
       String lastItemId,
       bool isAddClothes});
 }
@@ -77,6 +81,7 @@ class _$ShopLogPageStateCopyWithImpl<$Res>
     Object? logMap = freezed,
     Object? isLoading = freezed,
     Object? logList = freezed,
+    Object? isScrollLoading = freezed,
     Object? lastItemId = freezed,
     Object? isAddClothes = freezed,
   }) {
@@ -93,6 +98,10 @@ class _$ShopLogPageStateCopyWithImpl<$Res>
           ? _value.logList
           : logList // ignore: cast_nullable_to_non_nullable
               as List<Share>,
+      isScrollLoading: isScrollLoading == freezed
+          ? _value.isScrollLoading
+          : isScrollLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       lastItemId: lastItemId == freezed
           ? _value.lastItemId
           : lastItemId // ignore: cast_nullable_to_non_nullable
@@ -116,6 +125,7 @@ abstract class _$ShopLogPageStateCopyWith<$Res>
       {Map<Share, UserModel> logMap,
       bool isLoading,
       List<Share> logList,
+      bool isScrollLoading,
       String lastItemId,
       bool isAddClothes});
 }
@@ -136,6 +146,7 @@ class __$ShopLogPageStateCopyWithImpl<$Res>
     Object? logMap = freezed,
     Object? isLoading = freezed,
     Object? logList = freezed,
+    Object? isScrollLoading = freezed,
     Object? lastItemId = freezed,
     Object? isAddClothes = freezed,
   }) {
@@ -152,6 +163,10 @@ class __$ShopLogPageStateCopyWithImpl<$Res>
           ? _value.logList
           : logList // ignore: cast_nullable_to_non_nullable
               as List<Share>,
+      isScrollLoading: isScrollLoading == freezed
+          ? _value.isScrollLoading
+          : isScrollLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       lastItemId: lastItemId == freezed
           ? _value.lastItemId
           : lastItemId // ignore: cast_nullable_to_non_nullable
@@ -171,6 +186,7 @@ class _$_ShopLogPageState extends _ShopLogPageState {
       {this.logMap = const <Share, UserModel>{},
       this.isLoading = false,
       this.logList = const <Share>[],
+      this.isScrollLoading = false,
       this.lastItemId = '',
       this.isAddClothes = true})
       : super._();
@@ -186,6 +202,9 @@ class _$_ShopLogPageState extends _ShopLogPageState {
   final List<Share> logList;
   @JsonKey()
   @override
+  final bool isScrollLoading;
+  @JsonKey()
+  @override
   final String lastItemId;
   @JsonKey()
   @override
@@ -193,7 +212,7 @@ class _$_ShopLogPageState extends _ShopLogPageState {
 
   @override
   String toString() {
-    return 'ShopLogPageState(logMap: $logMap, isLoading: $isLoading, logList: $logList, lastItemId: $lastItemId, isAddClothes: $isAddClothes)';
+    return 'ShopLogPageState(logMap: $logMap, isLoading: $isLoading, logList: $logList, isScrollLoading: $isScrollLoading, lastItemId: $lastItemId, isAddClothes: $isAddClothes)';
   }
 
   @override
@@ -204,6 +223,8 @@ class _$_ShopLogPageState extends _ShopLogPageState {
             const DeepCollectionEquality().equals(other.logMap, logMap) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality().equals(other.logList, logList) &&
+            const DeepCollectionEquality()
+                .equals(other.isScrollLoading, isScrollLoading) &&
             const DeepCollectionEquality()
                 .equals(other.lastItemId, lastItemId) &&
             const DeepCollectionEquality()
@@ -216,6 +237,7 @@ class _$_ShopLogPageState extends _ShopLogPageState {
       const DeepCollectionEquality().hash(logMap),
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(logList),
+      const DeepCollectionEquality().hash(isScrollLoading),
       const DeepCollectionEquality().hash(lastItemId),
       const DeepCollectionEquality().hash(isAddClothes));
 
@@ -230,6 +252,7 @@ abstract class _ShopLogPageState extends ShopLogPageState {
       {Map<Share, UserModel> logMap,
       bool isLoading,
       List<Share> logList,
+      bool isScrollLoading,
       String lastItemId,
       bool isAddClothes}) = _$_ShopLogPageState;
   const _ShopLogPageState._() : super._();
@@ -240,6 +263,8 @@ abstract class _ShopLogPageState extends ShopLogPageState {
   bool get isLoading;
   @override
   List<Share> get logList;
+  @override
+  bool get isScrollLoading;
   @override
   String get lastItemId;
   @override

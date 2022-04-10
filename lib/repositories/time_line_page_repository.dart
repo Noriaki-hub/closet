@@ -87,7 +87,7 @@ class _ItemRepository {
         .collection("share")
         .where('genre', isEqualTo: genre)
         .orderBy('created', descending: true)
-        .limit(5)
+        .limit(12)
         .get();
 
     return snap.docs.map((doc) => Share.fromJson(doc.data())).toList();
@@ -105,7 +105,7 @@ class _ItemRepository {
         .where('genre', isEqualTo: genre)
         .orderBy('created', descending: true)
         .startAfterDocument(lastDoc)
-        .limit(5)
+        .limit(12)
         .get();
 
     return snap.docs.map((doc) => Share.fromJson(doc.data())).toList();
@@ -124,7 +124,7 @@ class _ItemRepository {
         .collection('share')
         .where('genre', isEqualTo: genre)
         .orderBy('created', descending: true)
-        .limit(5)
+        .limit(12)
         .get();
 
     return snap.docs.map((doc) => Share.fromJson(doc.data())).toList();
@@ -148,7 +148,7 @@ class _ItemRepository {
         .where('genre', isEqualTo: genre)
         .orderBy('created', descending: true)
         .startAfterDocument(lastDoc)
-        .limit(5)
+        .limit(12)
         .get();
 
     return snap.docs.map((doc) => Share.fromJson(doc.data())).toList();

@@ -17,6 +17,7 @@ class FollowShopLogPageState with _$FollowShopLogPageState {
       @Default(false) bool isLoading,
       @Default(<Share>[]) List<Share> logList,
       @Default('') String lastItemId,
+      @Default(false) bool isScrollLoading,
       @Default(true) bool isAddClothes}) = _FollowShopLogPageState;
 }
 
@@ -84,7 +85,7 @@ class FollowShopLogPageController
   }
 
   Future<void> endScroll() async {
-    state = state.copyWith(isLoading: true);
+    state = state.copyWith(isScrollLoading: true);
     final lastItemId = state.lastItemId;
     final addLogList = await _read(timeLineRepositoryProvider)
         .fetchAddFollowShares(
@@ -97,6 +98,11 @@ class FollowShopLogPageController
         logMap..addAll({share: user});
       }
     }
-    state = state.copyWith(logMap: logMap, isLoading: false);
+
+    if (addLogList.length < 12) {
+      state = state.copyWith(isAddClothes: false);
+    }
+
+    state = state.copyWith(logMap: logMap, isScrollLoading: false);
   }
 }

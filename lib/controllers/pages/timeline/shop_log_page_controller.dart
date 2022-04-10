@@ -16,6 +16,7 @@ class ShopLogPageState with _$ShopLogPageState {
       {@Default(<Share, UserModel>{}) Map<Share, UserModel> logMap,
       @Default(false) bool isLoading,
       @Default(<Share>[]) List<Share> logList,
+      @Default(false) bool isScrollLoading,
       @Default('') String lastItemId,
       @Default(true) bool isAddClothes}) = _ShopLogPageState;
 }
@@ -67,7 +68,7 @@ class ShopLogPageController extends StateNotifier<ShopLogPageState> {
   }
 
   Future<void> endScroll() async {
-    state = state.copyWith(isLoading: true);
+    state = state.copyWith(isScrollLoading: true);
     final lastItemId = state.lastItemId;
     final addLogList = await _read(timeLineRepositoryProvider)
         .fetchAddShares(lastItemId: lastItemId, genre: 'shop');
@@ -79,6 +80,10 @@ class ShopLogPageController extends StateNotifier<ShopLogPageState> {
         logMap..addAll({share: user});
       }
     }
-    state = state.copyWith(logMap: logMap, isLoading: false);
+
+    if (addLogList.length < 12) {
+      state = state.copyWith(isAddClothes: false);
+    }
+    state = state.copyWith(logMap: logMap, isScrollLoading: false);
   }
 }

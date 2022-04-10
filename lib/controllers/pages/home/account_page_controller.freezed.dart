@@ -26,6 +26,7 @@ class _$AccountPageStateTearOff {
       String follow = '',
       String follower = '',
       UserModel user = const UserModel(),
+      String instaUrl = '',
       bool isMenu = false}) {
     return _AccountPageState(
       closet: closet,
@@ -35,6 +36,7 @@ class _$AccountPageStateTearOff {
       follow: follow,
       follower: follower,
       user: user,
+      instaUrl: instaUrl,
       isMenu: isMenu,
     );
   }
@@ -52,6 +54,7 @@ mixin _$AccountPageState {
   String get follow => throw _privateConstructorUsedError;
   String get follower => throw _privateConstructorUsedError;
   UserModel get user => throw _privateConstructorUsedError;
+  String get instaUrl => throw _privateConstructorUsedError;
   bool get isMenu => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -72,6 +75,7 @@ abstract class $AccountPageStateCopyWith<$Res> {
       String follow,
       String follower,
       UserModel user,
+      String instaUrl,
       bool isMenu});
 
   $UserModelCopyWith<$Res> get user;
@@ -95,6 +99,7 @@ class _$AccountPageStateCopyWithImpl<$Res>
     Object? follow = freezed,
     Object? follower = freezed,
     Object? user = freezed,
+    Object? instaUrl = freezed,
     Object? isMenu = freezed,
   }) {
     return _then(_value.copyWith(
@@ -126,6 +131,10 @@ class _$AccountPageStateCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserModel,
+      instaUrl: instaUrl == freezed
+          ? _value.instaUrl
+          : instaUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       isMenu: isMenu == freezed
           ? _value.isMenu
           : isMenu // ignore: cast_nullable_to_non_nullable
@@ -156,6 +165,7 @@ abstract class _$AccountPageStateCopyWith<$Res>
       String follow,
       String follower,
       UserModel user,
+      String instaUrl,
       bool isMenu});
 
   @override
@@ -182,6 +192,7 @@ class __$AccountPageStateCopyWithImpl<$Res>
     Object? follow = freezed,
     Object? follower = freezed,
     Object? user = freezed,
+    Object? instaUrl = freezed,
     Object? isMenu = freezed,
   }) {
     return _then(_AccountPageState(
@@ -213,6 +224,10 @@ class __$AccountPageStateCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserModel,
+      instaUrl: instaUrl == freezed
+          ? _value.instaUrl
+          : instaUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       isMenu: isMenu == freezed
           ? _value.isMenu
           : isMenu // ignore: cast_nullable_to_non_nullable
@@ -233,6 +248,7 @@ class _$_AccountPageState extends _AccountPageState
       this.follow = '',
       this.follower = '',
       this.user = const UserModel(),
+      this.instaUrl = '',
       this.isMenu = false})
       : super._();
 
@@ -259,11 +275,14 @@ class _$_AccountPageState extends _AccountPageState
   final UserModel user;
   @JsonKey()
   @override
+  final String instaUrl;
+  @JsonKey()
+  @override
   final bool isMenu;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AccountPageState(closet: $closet, closetFavorite: $closetFavorite, buying: $buying, selling: $selling, follow: $follow, follower: $follower, user: $user, isMenu: $isMenu)';
+    return 'AccountPageState(closet: $closet, closetFavorite: $closetFavorite, buying: $buying, selling: $selling, follow: $follow, follower: $follower, user: $user, instaUrl: $instaUrl, isMenu: $isMenu)';
   }
 
   @override
@@ -278,6 +297,7 @@ class _$_AccountPageState extends _AccountPageState
       ..add(DiagnosticsProperty('follow', follow))
       ..add(DiagnosticsProperty('follower', follower))
       ..add(DiagnosticsProperty('user', user))
+      ..add(DiagnosticsProperty('instaUrl', instaUrl))
       ..add(DiagnosticsProperty('isMenu', isMenu));
   }
 
@@ -294,6 +314,7 @@ class _$_AccountPageState extends _AccountPageState
             const DeepCollectionEquality().equals(other.follow, follow) &&
             const DeepCollectionEquality().equals(other.follower, follower) &&
             const DeepCollectionEquality().equals(other.user, user) &&
+            const DeepCollectionEquality().equals(other.instaUrl, instaUrl) &&
             const DeepCollectionEquality().equals(other.isMenu, isMenu));
   }
 
@@ -307,6 +328,7 @@ class _$_AccountPageState extends _AccountPageState
       const DeepCollectionEquality().hash(follow),
       const DeepCollectionEquality().hash(follower),
       const DeepCollectionEquality().hash(user),
+      const DeepCollectionEquality().hash(instaUrl),
       const DeepCollectionEquality().hash(isMenu));
 
   @JsonKey(ignore: true)
@@ -324,6 +346,7 @@ abstract class _AccountPageState extends AccountPageState {
       String follow,
       String follower,
       UserModel user,
+      String instaUrl,
       bool isMenu}) = _$_AccountPageState;
   const _AccountPageState._() : super._();
 
@@ -341,6 +364,8 @@ abstract class _AccountPageState extends AccountPageState {
   String get follower;
   @override
   UserModel get user;
+  @override
+  String get instaUrl;
   @override
   bool get isMenu;
   @override
