@@ -47,7 +47,7 @@ class ShopLogPageController extends StateNotifier<ShopLogPageState> {
   Future<void> fetchTimeLine() async {
     state = state.copyWith(isLoading: true);
     final logList = await _read(timeLineRepositoryProvider).fetchShares(
-      genre: 'shop',
+      genre: 'shop', limit: 12,
     );
 
     final logMap = {...state.logMap};

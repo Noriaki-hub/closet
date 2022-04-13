@@ -45,7 +45,7 @@ class MediaLogPageController extends StateNotifier<MediaLogPageState> {
 
   Future<void> fetchTimeLine() async {
     state = state.copyWith(isLoading: true);
-    final logList = await _read(timeLineRepositoryProvider).fetchShares(genre: 'media', );
+    final logList = await _read(timeLineRepositoryProvider).fetchShares(genre: 'media', limit: 12, );
 
     final logMap = {...state.logMap};
     for (var share in logList) {

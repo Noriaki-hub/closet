@@ -17,14 +17,15 @@ class _Repository {
   Future<List<Clothes>> fetchCloset(
       {required String userId,
       required bool isSell,
-      required String category}) async {
+      required String category,
+      required int limit}) async {
     final snap = category == 'ALL'
         ? await _read(firebaseFirestoreProvider)
             .collection('clothes')
             .where('isSell', isEqualTo: isSell)
             .where('uid', isEqualTo: userId)
             .orderBy('createdBuy', descending: true)
-            .limit(12)
+            .limit(limit)
             .get()
         : await _read(firebaseFirestoreProvider)
             .collection('clothes')
@@ -32,7 +33,7 @@ class _Repository {
             .where('category', isEqualTo: category)
             .where('uid', isEqualTo: userId)
             .orderBy('createdBuy', descending: true)
-            .limit(12)
+            .limit(limit)
             .get();
 
     return snap.docs.map((doc) => Clothes.fromJson(doc.data())).toList();
@@ -299,7 +300,9 @@ class _Repository {
 
   //全フォロワーのTLに追加
   Future<void> addFollowerTimeLine(
-      {required String userId, required Buy clothes, required String itemId}) async {
+      {required String userId,
+      required Buy clothes,
+      required String itemId}) async {
     await _read(firebaseFirestoreProvider)
         .collection('users')
         .doc(userId)

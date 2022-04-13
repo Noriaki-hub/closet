@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:closet_app_xxx/models/app_config.dart';
+import 'package:closet_app_xxx/repositories/admin/config_repository.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -18,14 +19,16 @@ class ConfigState with _$ConfigState {
 
 final configProvider =
     StateNotifierProvider<ConfigStateController, ConfigState>(
-        (ref) => ConfigStateController());
+        (ref) => ConfigStateController(ref.read));
 
 class ConfigStateController extends StateNotifier<ConfigState> {
   FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
 
-  ConfigStateController() : super(const ConfigState()) {
+  ConfigStateController(this._read) : super(const ConfigState()) {
     _init();
   }
+
+  Reader _read;
 
   Future<void> _init() async {
     await maintenanceCheck();
@@ -46,8 +49,8 @@ class ConfigStateController extends StateNotifier<ConfigState> {
   Future<void> updateCheck() async {
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     final String buildNumber = packageInfo.buildNumber;
-    state = state.copyWith(isUpdateCheck: false);
-
+    final appConfig = await _read(configRepositoryProvider).fetchConfigs();
+    state = state.copyWith(appConfig: appConfig, isUpdateCheck: false);
     try {
       if (Platform.isIOS) {
         if (int.parse(buildNumber) < state.appConfig.minBuildNumberIos) {

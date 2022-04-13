@@ -17,11 +17,13 @@ class AccountEditPageState with _$AccountEditPageState {
   const factory AccountEditPageState(
       {File? imageFile,
       UserModel? currentUser,
-      String? currentInstaUrl,
+      String? currentInstaUserName,
+      String? currentIntro,
       @Default('') String image,
       @Default('') String id,
       @Default('') String name,
-      @Default('') String instaUrl,
+      @Default('') String instaUerName,
+      @Default('') String intro,
       @Default(false) bool isEdit}) = _AccountEditPageState;
 }
 
@@ -42,9 +44,12 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
   final UserModel _user;
 
   Future<void> _init() async {
-    final instaUrl =
+    final instaUserName =
         await _read(userRepositoryProvider).fetchInsta(userId: _user.uid);
-    state = state.copyWith(currentInstaUrl: instaUrl, currentUser: _user);
+    final intro =
+        await _read(userRepositoryProvider).fetchIntro(userId: _user.uid);
+    state = state.copyWith(
+        currentInstaUserName: instaUserName, currentUser: _user, currentIntro: intro);
   }
 
   Future<void> imageFile(XFile? imageFile) async {
@@ -64,8 +69,12 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
     state = state.copyWith(id: id, isEdit: true);
   }
 
-  Future<void> instaUrl({required String instaUrl}) async {
-    state = state.copyWith(instaUrl: instaUrl, isEdit: true);
+  Future<void> instaUserName({required String instaUerName}) async {
+    state = state.copyWith(instaUerName: instaUerName, isEdit: true);
+  }
+
+  Future<void> intro({required String intro}) async {
+    state = state.copyWith(intro: intro, isEdit: true);
   }
 
   Future<String> _uploadImageFile(imageFile) async {
@@ -89,9 +98,14 @@ class AccountEditPageController extends StateNotifier<AccountEditPageState> {
         uid: _user.uid);
 
     await _read(userRepositoryProvider).update(user: user);
-    if (state.instaUrl != '') {
+
+    if (state.instaUerName != '') {
       await _read(userRepositoryProvider)
-          .addInsta(userId: user.uid, url: state.instaUrl);
+          .addInsta(userId: user.uid, userName: state.instaUerName);
+    }
+    if (state.intro != '') {
+      await _read(userRepositoryProvider)
+          .addIntro(userId: user.uid, intro: state.intro);
     }
   }
 }

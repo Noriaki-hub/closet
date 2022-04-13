@@ -53,7 +53,7 @@ class HomePageController extends StateNotifier<HomePageState> {
 
     final List<Clothes> closet = await _read(clothesRepositoryProvider)
         .fetchCloset(
-            isSell: state.isSell, userId: _userId, category: state.category);
+            isSell: state.isSell, userId: _userId, category: state.category, limit: 12);
     final List<Clothes> closetFavorite =
         await _read(clothesRepositoryProvider).fetchFavorite(
       isSell: state.isSell,
@@ -100,7 +100,7 @@ class HomePageController extends StateNotifier<HomePageState> {
 
   Future<void> changeCategory({required String category}) async {
     final List<Clothes> closet = await _read(clothesRepositoryProvider)
-        .fetchCloset(isSell: state.isSell, userId: _userId, category: category);
+        .fetchCloset(isSell: state.isSell, userId: _userId, category: category, limit: 12);
     state = state.copyWith(closet: closet, category: category);
   }
 

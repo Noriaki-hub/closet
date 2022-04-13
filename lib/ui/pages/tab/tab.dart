@@ -1,10 +1,10 @@
 import 'package:closet_app_xxx/controllers/admin/config_controller.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
+import 'package:closet_app_xxx/ui/pages/closet/closet_page.dart';
 import 'package:closet_app_xxx/ui/pages/follow/follow_tab.dart';
 import 'package:closet_app_xxx/ui/pages/home/home_page.dart';
 import 'package:closet_app_xxx/ui/pages/maintenance_page.dart';
 import 'package:closet_app_xxx/ui/pages/notice/notice_page.dart';
-import 'package:closet_app_xxx/ui/pages/timeline/timeline_tab.dart';
 import 'package:closet_app_xxx/ui/pages/update_message_page.dart';
 import 'package:closet_app_xxx/ui/pages/web/web_page.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +30,10 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
         ref.watch(configProvider.select((value) => value.isUpdateCheck));
 
     final _pageWidgets = [
-      TimeLineTab(),
-      FollowTab(),
+      // DevelopPage(),
       HomePage(),
+      FollowTab(),
+      ClosetPage(),
       WebTab(),
       NoticePage(),
     ];
@@ -43,7 +44,7 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
             ? UpdatePage()
             : isMaintenance == null
                 ? Loading()
-                : isMaintenance
+                : !isMaintenance
                     ? MaintenancePage()
                     : Scaffold(
                         body: _pageWidgets.elementAt(_currentIndex),
@@ -51,13 +52,12 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
                           backgroundColor: Colors.grey.shade200,
                           items: <BottomNavigationBarItem>[
                             BottomNavigationBarItem(
-                                icon: const Icon(LineIcons.stream),
-                                label: 'ログ'),
+                                icon: const Icon(LineIcons.home), label: 'ホーム'),
                             BottomNavigationBarItem(
                                 icon: const Icon(LineIcons.userFriends),
                                 label: 'フォロー'),
                             BottomNavigationBarItem(
-                                icon: AccountImage(), label: 'ホーム'),
+                                icon: AccountImage(), label: 'クローゼット'),
                             BottomNavigationBarItem(
                                 icon: const Icon(LineIcons.shoppingCart),
                                 label: 'ウェブ'),

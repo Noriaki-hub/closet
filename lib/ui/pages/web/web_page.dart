@@ -1,4 +1,5 @@
-import 'package:closet_app_xxx/ui/pages/timeline/src/tab_info.dart';
+
+import 'package:closet_app_xxx/ui/libs/tab_info.dart';
 import 'package:closet_app_xxx/ui/pages/web/media/media_screen.dart';
 import 'package:flutter/material.dart';
 

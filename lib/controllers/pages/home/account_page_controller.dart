@@ -24,6 +24,7 @@ class AccountPageState with _$AccountPageState {
     @Default('') String follower,
     @Default(UserModel()) UserModel user,
     @Default('') String instaUrl,
+    @Default('') String intro,
     @Default(false) bool isMenu,
   }) = _AccountPageState;
 }
@@ -66,6 +67,8 @@ class AccountPageController extends StateNotifier<AccountPageState> {
   Future<void> fetchAccountPageData() async {
     final instaUrl =
         await _read(userRepositoryProvider).fetchInsta(userId: _userId);
+    final intro =
+        await _read(userRepositoryProvider).fetchIntro(userId: _userId);
 
     final List<Clothes> closet = await _read(clothesRepositoryProvider)
         .fetchClosetRecent(isSell: false, userId: _userId);
@@ -97,6 +100,7 @@ class AccountPageController extends StateNotifier<AccountPageState> {
           follower: follower.length.toString(),
           user: user,
           instaUrl: instaUrl,
+          intro: intro,
           isMenu: _user.uid == _userId ? true : false);
     }
   }

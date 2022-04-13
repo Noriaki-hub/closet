@@ -80,14 +80,14 @@ class _ItemRepository {
   }
 
 //全てのユーザー
-  Future<List<Share>> fetchShares({required String genre}) async {
+  Future<List<Share>> fetchShares({required String genre, required int limit}) async {
     final _fireStore = _read(firebaseFirestoreProvider);
 
     final snap = await _fireStore
         .collection("share")
         .where('genre', isEqualTo: genre)
         .orderBy('created', descending: true)
-        .limit(12)
+        .limit(limit)
         .get();
 
     return snap.docs.map((doc) => Share.fromJson(doc.data())).toList();

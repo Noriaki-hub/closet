@@ -47,7 +47,7 @@ class SellPageController extends StateNotifier<SellPageState> {
 
   Future<void> fetchClothesList() async {
     final closet = await _read(clothesRepositoryProvider)
-        .fetchCloset(userId: _userId, category: 'ALL', isSell: false);
+        .fetchCloset(userId: _userId, category: 'ALL', isSell: false, limit: 12);
     state = state.copyWith(
       closet: closet,
     );

@@ -1,20 +1,32 @@
 import * as functions from "firebase-functions";
 import {db} from "../firebase";
-import {Clothes} from "../types";
 import {DocumentData} from "@google-cloud/firestore";
 
 export const updateClothes = functions
     .region("asia-northeast1")
     .firestore.document("clothes/{clothesId}")
     .onUpdate(async (change) => {
-      const data: Clothes = change.after.data() as Clothes;
-      console.log("編集トリガー1");
-      await copyToUsersPublic(data);
+      const afterData: DocumentData = change.after.data();
+      await copyToUserCloset(afterData);
+      copyToFollowerTimeline(afterData);
       return Promise.resolve();
     });
 
+// closetにコピー
+const copyToUserCloset = async (data: DocumentData) => {
+  const timelineRef = db
+      .collection("users")
+      .doc(data.uid)
+      .collection("status")
+      .doc("status")
+      .collection("closet")
+      .doc(data.itemId);
+  timelineRef.set(data);
+  console.log("編集トリガー1");
+};
+
 // フォロワー取得
-const copyToUsersPublic = async (data: Clothes) => {
+const copyToFollowerTimeline = async (data: DocumentData) => {
   const followerRef = db
       .collection("users")
       .doc(data.uid)
@@ -25,13 +37,12 @@ const copyToUsersPublic = async (data: Clothes) => {
       console.log("編集トリガー2");
       const user: DocumentData = doc.data() as DocumentData;
 
-      copyToFollowerTimeline(user.uid, data);
+      copyToTimeLine(user.uid, data);
     });
   });
 };
 // 各タイムラインにコピー
-const copyToFollowerTimeline = async (userId: string, data: Clothes) => {
-  console.log("編集トリガー3");
+const copyToTimeLine = async (userId: string, data: DocumentData) => {
   const timelineRef = db
       .collection("users")
       .doc(userId)
@@ -40,5 +51,5 @@ const copyToFollowerTimeline = async (userId: string, data: Clothes) => {
       .collection("clothes")
       .doc(data.itemId);
   timelineRef.set(data);
-  console.log("編集トリガー4");
+  console.log("編集トリガー3");
 };

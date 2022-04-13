@@ -1,6 +1,6 @@
 import 'package:closet_app_xxx/controllers/pages/follow/follow_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
-import 'package:closet_app_xxx/ui/pages/home/account/account_page.dart';
+import 'package:closet_app_xxx/ui/pages/global/account/account_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

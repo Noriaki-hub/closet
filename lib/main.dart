@@ -1,5 +1,6 @@
 import 'package:closet_app_xxx/controllers/admin/config_controller.dart';
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/ui/develop/develop_page.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/maintenance_page.dart';
 import 'package:closet_app_xxx/ui/pages/tab/tab.dart';
@@ -16,6 +17,7 @@ void main() async {
   await Firebase.initializeApp();
 
   runApp(MyApp());
+  
 }
 
 class MyApp extends StatelessWidget {

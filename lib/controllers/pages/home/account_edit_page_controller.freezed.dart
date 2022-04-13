@@ -21,20 +21,24 @@ class _$AccountEditPageStateTearOff {
   _AccountEditPageState call(
       {File? imageFile,
       UserModel? currentUser,
-      String? currentInstaUrl,
+      String? currentInstaUserName,
+      String? currentIntro,
       String image = '',
       String id = '',
       String name = '',
-      String instaUrl = '',
+      String instaUerName = '',
+      String intro = '',
       bool isEdit = false}) {
     return _AccountEditPageState(
       imageFile: imageFile,
       currentUser: currentUser,
-      currentInstaUrl: currentInstaUrl,
+      currentInstaUserName: currentInstaUserName,
+      currentIntro: currentIntro,
       image: image,
       id: id,
       name: name,
-      instaUrl: instaUrl,
+      instaUerName: instaUerName,
+      intro: intro,
       isEdit: isEdit,
     );
   }
@@ -47,11 +51,13 @@ const $AccountEditPageState = _$AccountEditPageStateTearOff();
 mixin _$AccountEditPageState {
   File? get imageFile => throw _privateConstructorUsedError;
   UserModel? get currentUser => throw _privateConstructorUsedError;
-  String? get currentInstaUrl => throw _privateConstructorUsedError;
+  String? get currentInstaUserName => throw _privateConstructorUsedError;
+  String? get currentIntro => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get instaUrl => throw _privateConstructorUsedError;
+  String get instaUerName => throw _privateConstructorUsedError;
+  String get intro => throw _privateConstructorUsedError;
   bool get isEdit => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -67,11 +73,13 @@ abstract class $AccountEditPageStateCopyWith<$Res> {
   $Res call(
       {File? imageFile,
       UserModel? currentUser,
-      String? currentInstaUrl,
+      String? currentInstaUserName,
+      String? currentIntro,
       String image,
       String id,
       String name,
-      String instaUrl,
+      String instaUerName,
+      String intro,
       bool isEdit});
 
   $UserModelCopyWith<$Res>? get currentUser;
@@ -90,11 +98,13 @@ class _$AccountEditPageStateCopyWithImpl<$Res>
   $Res call({
     Object? imageFile = freezed,
     Object? currentUser = freezed,
-    Object? currentInstaUrl = freezed,
+    Object? currentInstaUserName = freezed,
+    Object? currentIntro = freezed,
     Object? image = freezed,
     Object? id = freezed,
     Object? name = freezed,
-    Object? instaUrl = freezed,
+    Object? instaUerName = freezed,
+    Object? intro = freezed,
     Object? isEdit = freezed,
   }) {
     return _then(_value.copyWith(
@@ -106,9 +116,13 @@ class _$AccountEditPageStateCopyWithImpl<$Res>
           ? _value.currentUser
           : currentUser // ignore: cast_nullable_to_non_nullable
               as UserModel?,
-      currentInstaUrl: currentInstaUrl == freezed
-          ? _value.currentInstaUrl
-          : currentInstaUrl // ignore: cast_nullable_to_non_nullable
+      currentInstaUserName: currentInstaUserName == freezed
+          ? _value.currentInstaUserName
+          : currentInstaUserName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      currentIntro: currentIntro == freezed
+          ? _value.currentIntro
+          : currentIntro // ignore: cast_nullable_to_non_nullable
               as String?,
       image: image == freezed
           ? _value.image
@@ -122,9 +136,13 @@ class _$AccountEditPageStateCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      instaUrl: instaUrl == freezed
-          ? _value.instaUrl
-          : instaUrl // ignore: cast_nullable_to_non_nullable
+      instaUerName: instaUerName == freezed
+          ? _value.instaUerName
+          : instaUerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      intro: intro == freezed
+          ? _value.intro
+          : intro // ignore: cast_nullable_to_non_nullable
               as String,
       isEdit: isEdit == freezed
           ? _value.isEdit
@@ -155,11 +173,13 @@ abstract class _$AccountEditPageStateCopyWith<$Res>
   $Res call(
       {File? imageFile,
       UserModel? currentUser,
-      String? currentInstaUrl,
+      String? currentInstaUserName,
+      String? currentIntro,
       String image,
       String id,
       String name,
-      String instaUrl,
+      String instaUerName,
+      String intro,
       bool isEdit});
 
   @override
@@ -181,11 +201,13 @@ class __$AccountEditPageStateCopyWithImpl<$Res>
   $Res call({
     Object? imageFile = freezed,
     Object? currentUser = freezed,
-    Object? currentInstaUrl = freezed,
+    Object? currentInstaUserName = freezed,
+    Object? currentIntro = freezed,
     Object? image = freezed,
     Object? id = freezed,
     Object? name = freezed,
-    Object? instaUrl = freezed,
+    Object? instaUerName = freezed,
+    Object? intro = freezed,
     Object? isEdit = freezed,
   }) {
     return _then(_AccountEditPageState(
@@ -197,9 +219,13 @@ class __$AccountEditPageStateCopyWithImpl<$Res>
           ? _value.currentUser
           : currentUser // ignore: cast_nullable_to_non_nullable
               as UserModel?,
-      currentInstaUrl: currentInstaUrl == freezed
-          ? _value.currentInstaUrl
-          : currentInstaUrl // ignore: cast_nullable_to_non_nullable
+      currentInstaUserName: currentInstaUserName == freezed
+          ? _value.currentInstaUserName
+          : currentInstaUserName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      currentIntro: currentIntro == freezed
+          ? _value.currentIntro
+          : currentIntro // ignore: cast_nullable_to_non_nullable
               as String?,
       image: image == freezed
           ? _value.image
@@ -213,9 +239,13 @@ class __$AccountEditPageStateCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      instaUrl: instaUrl == freezed
-          ? _value.instaUrl
-          : instaUrl // ignore: cast_nullable_to_non_nullable
+      instaUerName: instaUerName == freezed
+          ? _value.instaUerName
+          : instaUerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      intro: intro == freezed
+          ? _value.intro
+          : intro // ignore: cast_nullable_to_non_nullable
               as String,
       isEdit: isEdit == freezed
           ? _value.isEdit
@@ -231,11 +261,13 @@ class _$_AccountEditPageState extends _AccountEditPageState {
   const _$_AccountEditPageState(
       {this.imageFile,
       this.currentUser,
-      this.currentInstaUrl,
+      this.currentInstaUserName,
+      this.currentIntro,
       this.image = '',
       this.id = '',
       this.name = '',
-      this.instaUrl = '',
+      this.instaUerName = '',
+      this.intro = '',
       this.isEdit = false})
       : super._();
 
@@ -244,7 +276,9 @@ class _$_AccountEditPageState extends _AccountEditPageState {
   @override
   final UserModel? currentUser;
   @override
-  final String? currentInstaUrl;
+  final String? currentInstaUserName;
+  @override
+  final String? currentIntro;
   @JsonKey()
   @override
   final String image;
@@ -256,14 +290,17 @@ class _$_AccountEditPageState extends _AccountEditPageState {
   final String name;
   @JsonKey()
   @override
-  final String instaUrl;
+  final String instaUerName;
+  @JsonKey()
+  @override
+  final String intro;
   @JsonKey()
   @override
   final bool isEdit;
 
   @override
   String toString() {
-    return 'AccountEditPageState(imageFile: $imageFile, currentUser: $currentUser, currentInstaUrl: $currentInstaUrl, image: $image, id: $id, name: $name, instaUrl: $instaUrl, isEdit: $isEdit)';
+    return 'AccountEditPageState(imageFile: $imageFile, currentUser: $currentUser, currentInstaUserName: $currentInstaUserName, currentIntro: $currentIntro, image: $image, id: $id, name: $name, instaUerName: $instaUerName, intro: $intro, isEdit: $isEdit)';
   }
 
   @override
@@ -275,11 +312,15 @@ class _$_AccountEditPageState extends _AccountEditPageState {
             const DeepCollectionEquality()
                 .equals(other.currentUser, currentUser) &&
             const DeepCollectionEquality()
-                .equals(other.currentInstaUrl, currentInstaUrl) &&
+                .equals(other.currentInstaUserName, currentInstaUserName) &&
+            const DeepCollectionEquality()
+                .equals(other.currentIntro, currentIntro) &&
             const DeepCollectionEquality().equals(other.image, image) &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.instaUrl, instaUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.instaUerName, instaUerName) &&
+            const DeepCollectionEquality().equals(other.intro, intro) &&
             const DeepCollectionEquality().equals(other.isEdit, isEdit));
   }
 
@@ -288,11 +329,13 @@ class _$_AccountEditPageState extends _AccountEditPageState {
       runtimeType,
       const DeepCollectionEquality().hash(imageFile),
       const DeepCollectionEquality().hash(currentUser),
-      const DeepCollectionEquality().hash(currentInstaUrl),
+      const DeepCollectionEquality().hash(currentInstaUserName),
+      const DeepCollectionEquality().hash(currentIntro),
       const DeepCollectionEquality().hash(image),
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(instaUrl),
+      const DeepCollectionEquality().hash(instaUerName),
+      const DeepCollectionEquality().hash(intro),
       const DeepCollectionEquality().hash(isEdit));
 
   @JsonKey(ignore: true)
@@ -306,11 +349,13 @@ abstract class _AccountEditPageState extends AccountEditPageState {
   const factory _AccountEditPageState(
       {File? imageFile,
       UserModel? currentUser,
-      String? currentInstaUrl,
+      String? currentInstaUserName,
+      String? currentIntro,
       String image,
       String id,
       String name,
-      String instaUrl,
+      String instaUerName,
+      String intro,
       bool isEdit}) = _$_AccountEditPageState;
   const _AccountEditPageState._() : super._();
 
@@ -319,7 +364,9 @@ abstract class _AccountEditPageState extends AccountEditPageState {
   @override
   UserModel? get currentUser;
   @override
-  String? get currentInstaUrl;
+  String? get currentInstaUserName;
+  @override
+  String? get currentIntro;
   @override
   String get image;
   @override
@@ -327,7 +374,9 @@ abstract class _AccountEditPageState extends AccountEditPageState {
   @override
   String get name;
   @override
-  String get instaUrl;
+  String get instaUerName;
+  @override
+  String get intro;
   @override
   bool get isEdit;
   @override
