@@ -44,12 +44,12 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
             ? UpdatePage()
             : isMaintenance == null
                 ? Loading()
-                : !isMaintenance
+                : isMaintenance
                     ? MaintenancePage()
                     : Scaffold(
                         body: _pageWidgets.elementAt(_currentIndex),
                         bottomNavigationBar: BottomNavigationBar(
-                          backgroundColor: Colors.grey.shade200,
+                          backgroundColor: Colors.grey.shade100,
                           items: <BottomNavigationBarItem>[
                             BottomNavigationBarItem(
                                 icon: const Icon(LineIcons.home), label: 'ホーム'),
@@ -66,7 +66,7 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
                                 label: 'お知らせ'),
                           ],
                           currentIndex: _currentIndex,
-                          fixedColor: Colors.white,
+                          fixedColor: Colors.black,
                           onTap: _onItemTapped,
                           type: BottomNavigationBarType.fixed,
                         ),

@@ -134,7 +134,7 @@ class _ExpandableFabState extends State<ExpandableFab>
           duration: const Duration(milliseconds: 250),
           child: FloatingActionButton(
             heroTag: '',
-            backgroundColor: Colors.brown.shade50,
+            backgroundColor: Colors.grey.shade100,
             onPressed: _toggle,
             child: const Icon(LineIcons.bars),
           ),
@@ -202,7 +202,7 @@ class ActionButton extends StatelessWidget {
     return Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
-      color: Colors.brown.shade50,
+      color: Colors.grey.shade100,
       elevation: 4.0,
       child: IconButton(
         onPressed: onPressed,

@@ -33,13 +33,8 @@ class _FollowPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Colors.brown.shade50,
-      appBar: userId != null
-          ? AppBar(
-              title: Text('フォロー', style: TextStyle(color: Colors.black45)),
-              backgroundColor: Colors.brown.shade50,
-            )
-          : null,
+      backgroundColor: Colors.grey.shade50,
+
       body: RefreshIndicator(
         onRefresh: () async {
           await ref.read(followPageProvider.notifier).fetchFollows();

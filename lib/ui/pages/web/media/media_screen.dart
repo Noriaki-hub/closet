@@ -14,7 +14,7 @@ class MediaPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.brown.shade50,
+        backgroundColor: Colors.grey.shade50,
         floatingActionButton: ExpandableFab(
           distance: 112.0,
           children: [

@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -84,6 +85,33 @@ class _LoginScreen extends State<LoginScreen> {
                         )
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'ご利用の前に',
+                    style: TextStyle(fontSize: 10),
+                  ),
+                  InkWell(
+                      onTap: () async {
+                        final url =
+                            'https://noriakisakata.github.io/Closet-privacy-policy/';
+                        if (await canLaunch(url)) {
+                          await launch(
+                            url,
+                            forceSafariVC: true,
+                            forceWebView: true,
+                          );
+                        } else {
+                          throw 'このURLにはアクセスできません';
+                        }
+                      },
+                      child: Text('利用規約',
+                          style: TextStyle(fontSize: 10, color: Colors.blue))),
+                  Text('をお読みになり同意いただいた上でご利用ください。',
+                      style: TextStyle(fontSize: 10)),
+                ],
+              )
             ],
           )),
         );

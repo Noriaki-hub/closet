@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
           ? Loading()
           : Scaffold(
               appBar: AppBar(
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.grey.shade100,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -39,16 +39,16 @@ class HomePage extends StatelessWidget {
               ),
               floatingActionButton: FloatingActionButton(
                 child: Icon(LineIcons.stream),
-                backgroundColor: Colors.brown.shade50,
+                backgroundColor: Colors.grey.shade100,
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => TimeLineTab()));
                 },
               ),
               body: RefreshIndicator(
-                  onRefresh: () async{
-                    ref.read(rankingPageProvider.notifier).fetch();
-                  },
+                onRefresh: () async {
+                  ref.read(rankingPageProvider.notifier).fetch();
+                },
                 child: SingleChildScrollView(
                   child: SizedBox(
                     height: 2500,
@@ -75,6 +75,9 @@ class HomePage extends StatelessWidget {
                           Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: _buildLikedCountRankingList()),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(right: 10, left: 10),
                             child: _buildUserLikedCountRankingList(),

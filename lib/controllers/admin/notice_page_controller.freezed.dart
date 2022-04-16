@@ -18,9 +18,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NoticeStateTearOff {
   const _$NoticeStateTearOff();
 
-  _NoticeState call({List<Notice> notices = const <Notice>[]}) {
+  _NoticeState call(
+      {List<Notice> notices = const <Notice>[], String version = ''}) {
     return _NoticeState(
       notices: notices,
+      version: version,
     );
   }
 }
@@ -31,6 +33,7 @@ const $NoticeState = _$NoticeStateTearOff();
 /// @nodoc
 mixin _$NoticeState {
   List<Notice> get notices => throw _privateConstructorUsedError;
+  String get version => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NoticeStateCopyWith<NoticeState> get copyWith =>
@@ -42,7 +45,7 @@ abstract class $NoticeStateCopyWith<$Res> {
   factory $NoticeStateCopyWith(
           NoticeState value, $Res Function(NoticeState) then) =
       _$NoticeStateCopyWithImpl<$Res>;
-  $Res call({List<Notice> notices});
+  $Res call({List<Notice> notices, String version});
 }
 
 /// @nodoc
@@ -56,12 +59,17 @@ class _$NoticeStateCopyWithImpl<$Res> implements $NoticeStateCopyWith<$Res> {
   @override
   $Res call({
     Object? notices = freezed,
+    Object? version = freezed,
   }) {
     return _then(_value.copyWith(
       notices: notices == freezed
           ? _value.notices
           : notices // ignore: cast_nullable_to_non_nullable
               as List<Notice>,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -73,7 +81,7 @@ abstract class _$NoticeStateCopyWith<$Res>
           _NoticeState value, $Res Function(_NoticeState) then) =
       __$NoticeStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Notice> notices});
+  $Res call({List<Notice> notices, String version});
 }
 
 /// @nodoc
@@ -89,12 +97,17 @@ class __$NoticeStateCopyWithImpl<$Res> extends _$NoticeStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? notices = freezed,
+    Object? version = freezed,
   }) {
     return _then(_NoticeState(
       notices: notices == freezed
           ? _value.notices
           : notices // ignore: cast_nullable_to_non_nullable
               as List<Notice>,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -102,15 +115,18 @@ class __$NoticeStateCopyWithImpl<$Res> extends _$NoticeStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_NoticeState implements _NoticeState {
-  const _$_NoticeState({this.notices = const <Notice>[]});
+  const _$_NoticeState({this.notices = const <Notice>[], this.version = ''});
 
   @JsonKey()
   @override
   final List<Notice> notices;
+  @JsonKey()
+  @override
+  final String version;
 
   @override
   String toString() {
-    return 'NoticeState(notices: $notices)';
+    return 'NoticeState(notices: $notices, version: $version)';
   }
 
   @override
@@ -118,12 +134,15 @@ class _$_NoticeState implements _NoticeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _NoticeState &&
-            const DeepCollectionEquality().equals(other.notices, notices));
+            const DeepCollectionEquality().equals(other.notices, notices) &&
+            const DeepCollectionEquality().equals(other.version, version));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(notices));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(notices),
+      const DeepCollectionEquality().hash(version));
 
   @JsonKey(ignore: true)
   @override
@@ -132,10 +151,13 @@ class _$_NoticeState implements _NoticeState {
 }
 
 abstract class _NoticeState implements NoticeState {
-  const factory _NoticeState({List<Notice> notices}) = _$_NoticeState;
+  const factory _NoticeState({List<Notice> notices, String version}) =
+      _$_NoticeState;
 
   @override
   List<Notice> get notices;
+  @override
+  String get version;
   @override
   @JsonKey(ignore: true)
   _$NoticeStateCopyWith<_NoticeState> get copyWith =>

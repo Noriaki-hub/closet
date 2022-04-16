@@ -10,7 +10,7 @@ class UserSearchScreen extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      backgroundColor: Colors.brown.shade50,
+      backgroundColor: Colors.grey.shade50,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

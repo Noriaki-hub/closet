@@ -9,7 +9,7 @@ class Loading extends StatelessWidget {
       size: 50.0,
     );
     return Scaffold(
-      backgroundColor: Colors.brown.shade50,
+      backgroundColor: Colors.grey.shade50,
       body: Center(
         child: spinkit,
       ),

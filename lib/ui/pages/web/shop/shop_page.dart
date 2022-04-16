@@ -43,7 +43,7 @@ class ShopPage extends HookConsumerWidget {
             ),
           ],
         ),
-        backgroundColor: Colors.brown.shade50,
+        backgroundColor: Colors.grey.shade50,
         body: RefreshIndicator(
             onRefresh: () async {
               await ref.read(shopPageProvider.notifier).fetchShops();

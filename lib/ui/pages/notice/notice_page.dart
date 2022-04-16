@@ -1,6 +1,10 @@
 import 'package:closet_app_xxx/controllers/admin/notice_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/floating_action_button_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:line_icons/line_icons.dart';
+
+import 'infomation_page.dart';
 
 class NoticePage extends HookConsumerWidget {
   @override
@@ -10,9 +14,20 @@ class NoticePage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('お知らせ'),
-        backgroundColor: Colors.brown.shade50,
+        backgroundColor: Colors.grey.shade200,
       ),
-      backgroundColor: Colors.brown.shade50,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.grey.shade100,
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => InfomationPage()));
+        },
+        child: const Icon(
+          LineIcons.info,
+          color: Colors.black45,
+        ),
+      ),
+      backgroundColor: Colors.grey.shade50,
       body: Center(
         child: ListView.builder(
             itemCount: notices.length,

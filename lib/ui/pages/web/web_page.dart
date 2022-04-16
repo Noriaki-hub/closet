@@ -17,7 +17,7 @@ class WebTab extends StatelessWidget {
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.brown.shade50,
+          backgroundColor: Colors.grey.shade50,
           title: PreferredSize(
             child: TabBar(
               indicatorWeight: 1,

@@ -24,7 +24,7 @@ class ClosetPage extends ConsumerWidget {
     return state.user.uid == ''
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.brown.shade50,
+            backgroundColor: Colors.grey.shade100,
             floatingActionButton: ExpandableFab(
               distance: 112.0,
               children: [

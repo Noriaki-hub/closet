@@ -22,7 +22,7 @@ class FollowTab extends StatelessWidget {
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.brown.shade50,
+          backgroundColor: Colors.grey.shade200,
           title: PreferredSize(
             child: TabBar(
               isScrollable: true,
