@@ -1,5 +1,5 @@
 
-import 'package:closet_app_xxx/ui/pages/home/timeline/ranking/timeline_tab.dart';
+import 'package:closet_app_xxx/ui/libs/tab_info.dart';
 import 'package:flutter/material.dart';
 
 import 'follow_media_log.dart';
@@ -17,8 +17,8 @@ class MediaLogTab extends StatelessWidget {
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-           leading: Container(),
-          backgroundColor: Colors.brown.shade50,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.grey.shade100,
           title: PreferredSize(
             child: TabBar(
               indicatorWeight: 1,

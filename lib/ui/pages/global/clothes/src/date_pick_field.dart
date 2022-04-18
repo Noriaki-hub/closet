@@ -54,8 +54,8 @@ class DatePickField extends HookConsumerWidget {
                             final pickedDate = await showDatePicker(
                               context: context,
                               initialDate: selectedDate,
-                              firstDate: DateTime(2018),
-                              lastDate: DateTime(2030),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime.now(),
                             );
                             if (pickedDate != null) {
                               await ref

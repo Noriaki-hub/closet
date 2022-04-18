@@ -4,9 +4,6 @@ import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/libs/web_view.dart';
 import 'package:closet_app_xxx/ui/pages/global/account/account_page.dart';
 import 'package:closet_app_xxx/ui/pages/global/clothes/clothes_view_screen.dart';
-import 'package:closet_app_xxx/ui/pages/home/timeline/media/media_log_tab.dart';
-import 'package:closet_app_xxx/ui/pages/home/timeline/ranking/ranking_tab.dart';
-import 'package:closet_app_xxx/ui/pages/home/timeline/shop/shop_log_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -15,7 +12,7 @@ import 'src/ranking_list_model.dart';
 import 'src/share_tile_model.dart';
 import 'src/status_map_model.dart';
 import 'src/user_tile.dart';
-import 'timeline/ranking/timeline_tab.dart';
+import 'timeline/timeline_tab.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -28,6 +25,7 @@ class HomePage extends StatelessWidget {
       return isloading
           ? Loading()
           : Scaffold(
+            backgroundColor: Colors.grey.shade100,
               appBar: AppBar(
                 backgroundColor: Colors.grey.shade100,
                 title: Row(
@@ -36,14 +34,6 @@ class HomePage extends StatelessWidget {
                     SizedBox(height: 30, child: Image.asset('images/logo.png')),
                   ],
                 ),
-              ),
-              floatingActionButton: FloatingActionButton(
-                child: Icon(LineIcons.stream),
-                backgroundColor: Colors.grey.shade100,
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => TimeLineTab()));
-                },
               ),
               body: RefreshIndicator(
                 onRefresh: () async {
@@ -151,7 +141,10 @@ class HomePage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => RankingTab()));
+                                builder: (context) =>
+                                    TimelineTabPage(currentIndex: 0),
+                                fullscreenDialog: true,
+                              ));
                         },
                         child: Text(
                           '全て見る',
@@ -317,7 +310,10 @@ class HomePage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => RankingTab()));
+                                builder: (context) =>
+                                    TimelineTabPage(currentIndex: 1),
+                                fullscreenDialog: true,
+                              ));
                         },
                         child: Text(
                           '全て見る',
@@ -469,9 +465,30 @@ class HomePage extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '所持数',
-              style: TextStyle(color: Colors.black45),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '所持数',
+                  style: TextStyle(color: Colors.black45),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TimelineTabPage(
+                            currentIndex: 3,
+                          ),
+                          fullscreenDialog: true,
+                        ));
+                  },
+                  child: Text(
+                    '全て見る',
+                    style: TextStyle(color: Colors.black45),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 300,
@@ -562,8 +579,13 @@ class HomePage extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MediaLogTab()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              TimelineTabPage(currentIndex: 2),
+                          fullscreenDialog: true,
+                        ));
                   },
                   child: Text(
                     '全て見る',
@@ -682,8 +704,14 @@ class HomePage extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ShopLogTab()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TimelineTabPage(
+                            currentIndex: 3,
+                          ),
+                          fullscreenDialog: true,
+                        ));
                   },
                   child: Text(
                     '全て見る',

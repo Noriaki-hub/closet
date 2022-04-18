@@ -1,6 +1,8 @@
 import 'package:closet_app_xxx/controllers/pages/timeline/ranking_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
+import 'package:closet_app_xxx/ui/pages/global/account/account_page.dart';
+import 'package:closet_app_xxx/ui/pages/global/clothes/clothes_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -30,10 +32,19 @@ class NewClothesList extends HookConsumerWidget {
                   child: Stack(
                     alignment: Alignment.bottomLeft,
                     children: [
-                      SizedBox(
-                        height: 400,
-                        child:
-                            CacheImage(imageURL: clothesMap.clothes.imageURL),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ClothesViewScreen(
+                                      clothes: clothesMap.clothes)));
+                        },
+                        child: SizedBox(
+                          height: 400,
+                          child:
+                              CacheImage(imageURL: clothesMap.clothes.imageURL),
+                        ),
                       ),
                       Container(
                         decoration: BoxDecoration(
@@ -49,23 +60,36 @@ class NewClothesList extends HookConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: SizedBox(
-                                      height: 30,
-                                      width: 30,
-                                      child: Image.network(
-                                        clothesMap.user.image,
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(clothesMap.user.name,   style: TextStyle(color: Colors.white),),
-                              ],
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AccountPage(
+                                              userId: clothesMap.user.uid,
+                                            )));
+                              },
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: SizedBox(
+                                        height: 30,
+                                        width: 30,
+                                        child: Image.network(
+                                          clothesMap.user.image,
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    clothesMap.user.name,
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
                             Text(
                               '購入日' +

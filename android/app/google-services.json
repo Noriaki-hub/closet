@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1042958058092:android:ffeaa578d7ac043def0e49",
+        "mobilesdk_app_id": "1:1042958058092:android:260f172752f43b42ef0e49",
         "android_client_info": {
           "package_name": "com.noriaki.closet_app_xxx"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1042958058092-h5blu9mkrmsa21vp09krn2h9unmc7vhf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.noriaki.closet_app_xxx",
+            "certificate_hash": "d56c76d2873296c4306be7d8f69dfb1a40bd61e0"
+          }
+        },
         {
           "client_id": "1042958058092-t3q9r4okssfp2da5llisi650bsf66m17.apps.googleusercontent.com",
           "client_type": 3

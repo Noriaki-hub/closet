@@ -1,5 +1,6 @@
 import 'package:closet_app_xxx/controllers/admin/notice_page_controller.dart';
-import 'package:closet_app_xxx/ui/libs/floating_action_button_animation.dart';
+import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/ui/pages/notice/add_notice_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -11,12 +12,15 @@ class NoticePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notices =
         ref.watch(noticePageProvider.select((value) => value.notices));
+        final userId =
+        ref.watch(userProvider.select((value) => value.user.uid));
     return Scaffold(
       appBar: AppBar(
         title: Text('お知らせ'),
-        backgroundColor: Colors.grey.shade200,
+        backgroundColor: Colors.grey.shade100,
+        
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: userId != 'H7YUdyEcCPepJP3SP5iA3SzE7ws1' ? FloatingActionButton(
         backgroundColor: Colors.grey.shade100,
         onPressed: () {
           Navigator.push(
@@ -26,7 +30,16 @@ class NoticePage extends HookConsumerWidget {
           LineIcons.info,
           color: Colors.black45,
         ),
-      ),
+      ): FloatingActionButton(
+        backgroundColor: Colors.grey.shade100,
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddNoticePage()));
+        },
+        child: const Icon(
+          LineIcons.plus,
+          color: Colors.black45,
+        )),
       backgroundColor: Colors.grey.shade50,
       body: Center(
         child: ListView.builder(
@@ -55,4 +68,5 @@ class NoticePage extends HookConsumerWidget {
       ),
     );
   }
+
 }

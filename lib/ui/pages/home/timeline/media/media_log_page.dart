@@ -15,7 +15,7 @@ class MediaLogPage extends HookConsumerWidget {
     return isLoading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.brown.shade50,
+           backgroundColor: Colors.grey.shade100,
             body: Center(
               child: RefreshIndicator(
                 onRefresh: () async {

@@ -1,4 +1,3 @@
-
 import 'package:closet_app_xxx/ui/libs/tab_info.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +16,8 @@ class ShopLogTab extends StatelessWidget {
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-           leading: Container(),
-          backgroundColor: Colors.brown.shade50,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.grey.shade100,
           title: PreferredSize(
             child: TabBar(
               indicatorWeight: 1,
