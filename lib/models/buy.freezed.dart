@@ -26,7 +26,7 @@ class _$BuyTearOff {
       {@FireTimestampConverterNonNull() required DateTime createdBuy,
       @FireTimestampConverterNonNull() DateTime? createdSell,
       String itemId = '',
-      String brands = '',
+      int brandId = 0,
       int price = 0,
       String category = '',
       String imageURL = '',
@@ -47,7 +47,7 @@ class _$BuyTearOff {
       createdBuy: createdBuy,
       createdSell: createdSell,
       itemId: itemId,
-      brands: brands,
+      brandId: brandId,
       price: price,
       category: category,
       imageURL: imageURL,
@@ -82,7 +82,7 @@ mixin _$Buy {
   @FireTimestampConverterNonNull()
   DateTime? get createdSell => throw _privateConstructorUsedError;
   String get itemId => throw _privateConstructorUsedError;
-  String get brands => throw _privateConstructorUsedError;
+  int get brandId => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get imageURL => throw _privateConstructorUsedError;
@@ -113,7 +113,7 @@ abstract class $BuyCopyWith<$Res> {
       {@FireTimestampConverterNonNull() DateTime createdBuy,
       @FireTimestampConverterNonNull() DateTime? createdSell,
       String itemId,
-      String brands,
+      int brandId,
       int price,
       String category,
       String imageURL,
@@ -145,7 +145,7 @@ class _$BuyCopyWithImpl<$Res> implements $BuyCopyWith<$Res> {
     Object? createdBuy = freezed,
     Object? createdSell = freezed,
     Object? itemId = freezed,
-    Object? brands = freezed,
+    Object? brandId = freezed,
     Object? price = freezed,
     Object? category = freezed,
     Object? imageURL = freezed,
@@ -176,10 +176,10 @@ class _$BuyCopyWithImpl<$Res> implements $BuyCopyWith<$Res> {
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
               as String,
-      brands: brands == freezed
-          ? _value.brands
-          : brands // ignore: cast_nullable_to_non_nullable
-              as String,
+      brandId: brandId == freezed
+          ? _value.brandId
+          : brandId // ignore: cast_nullable_to_non_nullable
+              as int,
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -257,7 +257,7 @@ abstract class _$BuyCopyWith<$Res> implements $BuyCopyWith<$Res> {
       {@FireTimestampConverterNonNull() DateTime createdBuy,
       @FireTimestampConverterNonNull() DateTime? createdSell,
       String itemId,
-      String brands,
+      int brandId,
       int price,
       String category,
       String imageURL,
@@ -290,7 +290,7 @@ class __$BuyCopyWithImpl<$Res> extends _$BuyCopyWithImpl<$Res>
     Object? createdBuy = freezed,
     Object? createdSell = freezed,
     Object? itemId = freezed,
-    Object? brands = freezed,
+    Object? brandId = freezed,
     Object? price = freezed,
     Object? category = freezed,
     Object? imageURL = freezed,
@@ -321,10 +321,10 @@ class __$BuyCopyWithImpl<$Res> extends _$BuyCopyWithImpl<$Res>
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
               as String,
-      brands: brands == freezed
-          ? _value.brands
-          : brands // ignore: cast_nullable_to_non_nullable
-              as String,
+      brandId: brandId == freezed
+          ? _value.brandId
+          : brandId // ignore: cast_nullable_to_non_nullable
+              as int,
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -400,7 +400,7 @@ class _$_Buy extends _Buy with DiagnosticableTreeMixin {
       {@FireTimestampConverterNonNull() required this.createdBuy,
       @FireTimestampConverterNonNull() this.createdSell,
       this.itemId = '',
-      this.brands = '',
+      this.brandId = 0,
       this.price = 0,
       this.category = '',
       this.imageURL = '',
@@ -432,7 +432,7 @@ class _$_Buy extends _Buy with DiagnosticableTreeMixin {
   final String itemId;
   @JsonKey()
   @override
-  final String brands;
+  final int brandId;
   @JsonKey()
   @override
   final int price;
@@ -484,7 +484,7 @@ class _$_Buy extends _Buy with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Buy(createdBuy: $createdBuy, createdSell: $createdSell, itemId: $itemId, brands: $brands, price: $price, category: $category, imageURL: $imageURL, selling: $selling, description: $description, day: $day, month: $month, year: $year, sellingDay: $sellingDay, sellingMonth: $sellingMonth, sellingYear: $sellingYear, isSell: $isSell, isFavorite: $isFavorite, uid: $uid, buyingForm: $buyingForm, likedCount: $likedCount)';
+    return 'Buy(createdBuy: $createdBuy, createdSell: $createdSell, itemId: $itemId, brandId: $brandId, price: $price, category: $category, imageURL: $imageURL, selling: $selling, description: $description, day: $day, month: $month, year: $year, sellingDay: $sellingDay, sellingMonth: $sellingMonth, sellingYear: $sellingYear, isSell: $isSell, isFavorite: $isFavorite, uid: $uid, buyingForm: $buyingForm, likedCount: $likedCount)';
   }
 
   @override
@@ -495,7 +495,7 @@ class _$_Buy extends _Buy with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('createdBuy', createdBuy))
       ..add(DiagnosticsProperty('createdSell', createdSell))
       ..add(DiagnosticsProperty('itemId', itemId))
-      ..add(DiagnosticsProperty('brands', brands))
+      ..add(DiagnosticsProperty('brandId', brandId))
       ..add(DiagnosticsProperty('price', price))
       ..add(DiagnosticsProperty('category', category))
       ..add(DiagnosticsProperty('imageURL', imageURL))
@@ -524,7 +524,7 @@ class _$_Buy extends _Buy with DiagnosticableTreeMixin {
             const DeepCollectionEquality()
                 .equals(other.createdSell, createdSell) &&
             const DeepCollectionEquality().equals(other.itemId, itemId) &&
-            const DeepCollectionEquality().equals(other.brands, brands) &&
+            const DeepCollectionEquality().equals(other.brandId, brandId) &&
             const DeepCollectionEquality().equals(other.price, price) &&
             const DeepCollectionEquality().equals(other.category, category) &&
             const DeepCollectionEquality().equals(other.imageURL, imageURL) &&
@@ -556,7 +556,7 @@ class _$_Buy extends _Buy with DiagnosticableTreeMixin {
         const DeepCollectionEquality().hash(createdBuy),
         const DeepCollectionEquality().hash(createdSell),
         const DeepCollectionEquality().hash(itemId),
-        const DeepCollectionEquality().hash(brands),
+        const DeepCollectionEquality().hash(brandId),
         const DeepCollectionEquality().hash(price),
         const DeepCollectionEquality().hash(category),
         const DeepCollectionEquality().hash(imageURL),
@@ -591,7 +591,7 @@ abstract class _Buy extends Buy {
       {@FireTimestampConverterNonNull() required DateTime createdBuy,
       @FireTimestampConverterNonNull() DateTime? createdSell,
       String itemId,
-      String brands,
+      int brandId,
       int price,
       String category,
       String imageURL,
@@ -621,7 +621,7 @@ abstract class _Buy extends Buy {
   @override
   String get itemId;
   @override
-  String get brands;
+  int get brandId;
   @override
   int get price;
   @override

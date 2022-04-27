@@ -67,6 +67,7 @@ dependencies:
   url_launcher: ^6.0.20
   carousel_slider: ^4.0.0
   like_button: ^2.0.4
+  cloud_functions: ^3.2.13
 
 
 

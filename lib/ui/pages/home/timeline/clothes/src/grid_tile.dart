@@ -71,7 +71,7 @@ class Tile extends HookConsumerWidget {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(clothes.brands,
+                    Text(clothes.brandId.toString(),
                         style: TextStyle(color: Colors.black45)),
                     Text(clothes.year + '/' + clothes.month + '/' + clothes.day,
                         style: TextStyle(color: Colors.black45)),

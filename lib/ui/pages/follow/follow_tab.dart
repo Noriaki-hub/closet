@@ -1,7 +1,6 @@
+import 'package:closet_app_xxx/ui/pages/follow/src/follow_web.dart';
 import 'package:flutter/material.dart';
-import 'src/user_search_screen.dart';
 import '../follow/src/follow_screen.dart';
-import '../follow/src/follower_screen.dart';
 
 class TabInfo {
   String label;
@@ -11,9 +10,8 @@ class TabInfo {
 
 class FollowTab extends StatelessWidget {
   final List<TabInfo> _tabs = [
-    TabInfo("フォロー", FollowPage()),
-    TabInfo("フォロワー", FollowerPage()),
-    TabInfo("さがす", UserSearchScreen()),
+    TabInfo("ユーザー", FollowPage()),
+    TabInfo("ブランド", FollowBrandPage()),
   ];
 
   @override

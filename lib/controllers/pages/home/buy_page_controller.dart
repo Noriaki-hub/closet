@@ -1,5 +1,6 @@
 import 'package:closet_app_xxx/controllers/global/date_now_controller.dart';
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/models/brand.dart';
 import 'package:closet_app_xxx/models/buy.dart';
 import 'package:closet_app_xxx/models/date.dart';
 import 'package:closet_app_xxx/models/user.dart';
@@ -22,8 +23,9 @@ class BuyPageState with _$BuyPageState {
   const factory BuyPageState({
     DateTime? selectedDate,
     File? imageFile,
+    @Default(<Brand>[]) List<Brand> brandList,
     @Default('')String description,
-    @Default('')String brands,
+    @Default(Brand()) Brand selectedBrand,
     @Default('')String category,
     @Default('')String price,
     @Default('')String day,
@@ -69,8 +71,8 @@ class BuyPageController extends StateNotifier<BuyPageState> {
     state = state.copyWith(category: category);
   }
 
-  Future<void> brands(String brands) async {
-    state = state.copyWith(brands: brands);
+  Future<void> brands({required Brand selectedBrand}) async {
+    state = state.copyWith(selectedBrand: selectedBrand);
   }
 
   Future<void> description(String description) async {
@@ -119,7 +121,7 @@ class BuyPageController extends StateNotifier<BuyPageState> {
 
   Future<void> addCloset() async {
     final clothes = Buy(
-      brands: state.brands,
+      brandId: state.selectedBrand.brandId,
       category: state.category,
       description: state.description,
       price: int.parse(state.price),

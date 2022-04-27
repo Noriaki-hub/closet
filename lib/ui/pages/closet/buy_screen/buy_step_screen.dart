@@ -34,8 +34,7 @@ class _BuyStepScreen extends State<BuyStepScreen> {
     return Consumer(builder: (context, ref, _) {
       final items = ref.watch(buyPageProvider);
       if (items.imageFile != null &&
-          items.brands != 'No brand' &&
-          items.brands != '' &&
+          items.selectedBrand.brandId != 0 &&
           items.category != '' &&
           items.description != '' &&
           items.buyingForm != '' &&
@@ -106,8 +105,7 @@ class _BuyStepScreen extends State<BuyStepScreen> {
                       title: Text('写真'),
                       content: BuyStep1()),
                   Step(
-                      isActive:
-                          items.brands != 'No brand' && items.brands != '',
+                      isActive: items.selectedBrand.brandId != 0,
                       title: Text('ブランド'),
                       content: BuyStep2()),
                   Step(

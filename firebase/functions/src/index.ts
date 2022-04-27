@@ -6,6 +6,8 @@ import * as DeleteClothes from "./trigger/delete_clothes";
 import * as UpdateCloset from "./trigger/update_closet";
 import * as DeleteCloset from "./trigger/delete_closet";
 import * as CreateCloset from "./trigger/create_closet";
+import * as ScrapinfBrands from "./scraping/scrapingBrands";
+import * as  BrandFollower from "./trigger/brand_follower";
 
 // like
 export const incrementClothesLike = CreateLike.incrementClothesLike;
@@ -20,4 +22,13 @@ export const deleteClothes = DeleteClothes.deleteClothes;
 export const updateCloset = UpdateCloset.updateCloset;
 export const createCloset = CreateCloset.createCloset;
 export const deleteCloset = DeleteCloset.deleteCloset;
+
+// brands
+export const incrementBrandFollower = BrandFollower.incrementBrandFollower;
+export const decrementBrandFollower = BrandFollower.decrementBrandFollower;
+
+// scraping
+export const scrapingBrands = ScrapinfBrands.scrapingBrands;
+
+
 

@@ -1,5 +1,5 @@
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/home/clothes_view_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/global/clothes_view_page_controller.dart';
 import 'package:closet_app_xxx/models/clothes.dart';
 import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:closet_app_xxx/ui/libs/floating_action_button_animation.dart';
@@ -107,7 +107,7 @@ class _ClothesViewScreen extends HookConsumerWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ClothesEditPage(
-                                          itemId: clothes.itemId,
+                                          itemId: clothes.itemId, brandId: clothes.brandId,
                                         )));
                             if (result) {
                               ref
@@ -149,7 +149,7 @@ class _ClothesViewScreen extends HookConsumerWidget {
                                   child: Row(
                                     children: [
                                       Text(
-                                        clothes.brands,
+                                        clothes.brandId.toString(),
                                         style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold),

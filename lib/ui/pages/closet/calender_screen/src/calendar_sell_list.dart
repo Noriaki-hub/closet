@@ -30,7 +30,7 @@ class CalenderSellList extends HookConsumerWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    Text(clothes.brands),
+                    Text(clothes.brandId.toString()),
                   ],
                 ),
               ),

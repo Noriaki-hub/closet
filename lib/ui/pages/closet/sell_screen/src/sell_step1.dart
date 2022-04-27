@@ -31,7 +31,7 @@ class SellStep1 extends HookConsumerWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      Text(selectedClothes.brands),
+                      Text(selectedClothes.brandId.toString()),
                     ],
                   ),
                 ),

@@ -13,7 +13,7 @@ class Clothes with _$Clothes {
       {@FireTimestampConverterNonNull() required DateTime createdBuy,
       @FireTimestampConverterNonNull() required DateTime createdSell,
       @Default('') String itemId,
-      @Default('') String brands,
+      @Default(0) int brandId,
       @Default(0) int price,
       @Default('') String category,
       @Default('') String imageURL,

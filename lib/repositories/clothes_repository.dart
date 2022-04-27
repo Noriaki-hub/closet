@@ -281,7 +281,7 @@ class _Repository {
     final _fireStore = _read(firebaseFirestoreProvider);
 
     await _fireStore.collection('clothes').doc(clothes.itemId).update({
-      "brands": clothes.brands,
+      "brandId": clothes.brandId,
       'imageURL': clothes.imageURL,
       "description": clothes.description,
       "category": clothes.category,

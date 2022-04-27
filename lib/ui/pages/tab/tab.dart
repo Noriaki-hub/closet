@@ -1,12 +1,15 @@
 import 'package:closet_app_xxx/controllers/admin/config_controller.dart';
+import 'package:closet_app_xxx/ui/develop/develop_page.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/closet/closet_page.dart';
-import 'package:closet_app_xxx/ui/pages/follow/follow_tab.dart';
+import 'package:closet_app_xxx/ui/pages/global/brand/brand_view_page.dart';
 import 'package:closet_app_xxx/ui/pages/home/home_page.dart';
 import 'package:closet_app_xxx/ui/pages/maintenance_page.dart';
+import 'package:closet_app_xxx/ui/pages/media/media_tab.dart';
+import 'package:closet_app_xxx/ui/pages/message/message_page.dart';
 import 'package:closet_app_xxx/ui/pages/notice/notice_page.dart';
+import 'package:closet_app_xxx/ui/pages/search/serach_tab.dart';
 import 'package:closet_app_xxx/ui/pages/update_message_page.dart';
-import 'package:closet_app_xxx/ui/pages/web/web_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -32,9 +35,9 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
     final _pageWidgets = [
       // DevelopPage(),
       HomePage(),
-      FollowTab(),
+      SearchTab(),
       ClosetPage(),
-      WebTab(),
+      MediaTab(),
       NoticePage(),
     ];
 
@@ -54,13 +57,13 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
                             BottomNavigationBarItem(
                                 icon: const Icon(LineIcons.home), label: 'ホーム'),
                             BottomNavigationBarItem(
-                                icon: const Icon(LineIcons.userFriends),
-                                label: 'フォロー'),
+                                icon: const Icon(LineIcons.search),
+                                label: 'さがす'),
                             BottomNavigationBarItem(
-                                icon: AccountImage(), label: 'クローゼット'),
+                                icon: AccountImage(), label: 'アカウント'),
                             BottomNavigationBarItem(
-                                icon: const Icon(LineIcons.shoppingCart),
-                                label: 'ウェブ'),
+                                icon: const Icon(LineIcons.newspaperAlt),
+                                label: 'メディア'),
                             BottomNavigationBarItem(
                                 icon: const Icon(LineIcons.bellAlt),
                                 label: 'お知らせ'),

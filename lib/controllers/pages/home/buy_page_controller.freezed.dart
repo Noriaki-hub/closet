@@ -21,8 +21,9 @@ class _$BuyPageStateTearOff {
   _BuyPageState call(
       {DateTime? selectedDate,
       File? imageFile,
+      List<Brand> brandList = const <Brand>[],
       String description = '',
-      String brands = '',
+      Brand selectedBrand = const Brand(),
       String category = '',
       String price = '',
       String day = '',
@@ -33,8 +34,9 @@ class _$BuyPageStateTearOff {
     return _BuyPageState(
       selectedDate: selectedDate,
       imageFile: imageFile,
+      brandList: brandList,
       description: description,
-      brands: brands,
+      selectedBrand: selectedBrand,
       category: category,
       price: price,
       day: day,
@@ -53,8 +55,9 @@ const $BuyPageState = _$BuyPageStateTearOff();
 mixin _$BuyPageState {
   DateTime? get selectedDate => throw _privateConstructorUsedError;
   File? get imageFile => throw _privateConstructorUsedError;
+  List<Brand> get brandList => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get brands => throw _privateConstructorUsedError;
+  Brand get selectedBrand => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   String get day => throw _privateConstructorUsedError;
@@ -76,8 +79,9 @@ abstract class $BuyPageStateCopyWith<$Res> {
   $Res call(
       {DateTime? selectedDate,
       File? imageFile,
+      List<Brand> brandList,
       String description,
-      String brands,
+      Brand selectedBrand,
       String category,
       String price,
       String day,
@@ -85,6 +89,8 @@ abstract class $BuyPageStateCopyWith<$Res> {
       String year,
       String imageURL,
       String buyingForm});
+
+  $BrandCopyWith<$Res> get selectedBrand;
 }
 
 /// @nodoc
@@ -99,8 +105,9 @@ class _$BuyPageStateCopyWithImpl<$Res> implements $BuyPageStateCopyWith<$Res> {
   $Res call({
     Object? selectedDate = freezed,
     Object? imageFile = freezed,
+    Object? brandList = freezed,
     Object? description = freezed,
-    Object? brands = freezed,
+    Object? selectedBrand = freezed,
     Object? category = freezed,
     Object? price = freezed,
     Object? day = freezed,
@@ -118,14 +125,18 @@ class _$BuyPageStateCopyWithImpl<$Res> implements $BuyPageStateCopyWith<$Res> {
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
               as File?,
+      brandList: brandList == freezed
+          ? _value.brandList
+          : brandList // ignore: cast_nullable_to_non_nullable
+              as List<Brand>,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      brands: brands == freezed
-          ? _value.brands
-          : brands // ignore: cast_nullable_to_non_nullable
-              as String,
+      selectedBrand: selectedBrand == freezed
+          ? _value.selectedBrand
+          : selectedBrand // ignore: cast_nullable_to_non_nullable
+              as Brand,
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -156,6 +167,13 @@ class _$BuyPageStateCopyWithImpl<$Res> implements $BuyPageStateCopyWith<$Res> {
               as String,
     ));
   }
+
+  @override
+  $BrandCopyWith<$Res> get selectedBrand {
+    return $BrandCopyWith<$Res>(_value.selectedBrand, (value) {
+      return _then(_value.copyWith(selectedBrand: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -168,8 +186,9 @@ abstract class _$BuyPageStateCopyWith<$Res>
   $Res call(
       {DateTime? selectedDate,
       File? imageFile,
+      List<Brand> brandList,
       String description,
-      String brands,
+      Brand selectedBrand,
       String category,
       String price,
       String day,
@@ -177,6 +196,9 @@ abstract class _$BuyPageStateCopyWith<$Res>
       String year,
       String imageURL,
       String buyingForm});
+
+  @override
+  $BrandCopyWith<$Res> get selectedBrand;
 }
 
 /// @nodoc
@@ -193,8 +215,9 @@ class __$BuyPageStateCopyWithImpl<$Res> extends _$BuyPageStateCopyWithImpl<$Res>
   $Res call({
     Object? selectedDate = freezed,
     Object? imageFile = freezed,
+    Object? brandList = freezed,
     Object? description = freezed,
-    Object? brands = freezed,
+    Object? selectedBrand = freezed,
     Object? category = freezed,
     Object? price = freezed,
     Object? day = freezed,
@@ -212,14 +235,18 @@ class __$BuyPageStateCopyWithImpl<$Res> extends _$BuyPageStateCopyWithImpl<$Res>
           ? _value.imageFile
           : imageFile // ignore: cast_nullable_to_non_nullable
               as File?,
+      brandList: brandList == freezed
+          ? _value.brandList
+          : brandList // ignore: cast_nullable_to_non_nullable
+              as List<Brand>,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      brands: brands == freezed
-          ? _value.brands
-          : brands // ignore: cast_nullable_to_non_nullable
-              as String,
+      selectedBrand: selectedBrand == freezed
+          ? _value.selectedBrand
+          : selectedBrand // ignore: cast_nullable_to_non_nullable
+              as Brand,
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -258,8 +285,9 @@ class _$_BuyPageState extends _BuyPageState {
   const _$_BuyPageState(
       {this.selectedDate,
       this.imageFile,
+      this.brandList = const <Brand>[],
       this.description = '',
-      this.brands = '',
+      this.selectedBrand = const Brand(),
       this.category = '',
       this.price = '',
       this.day = '',
@@ -275,10 +303,13 @@ class _$_BuyPageState extends _BuyPageState {
   final File? imageFile;
   @JsonKey()
   @override
+  final List<Brand> brandList;
+  @JsonKey()
+  @override
   final String description;
   @JsonKey()
   @override
-  final String brands;
+  final Brand selectedBrand;
   @JsonKey()
   @override
   final String category;
@@ -303,7 +334,7 @@ class _$_BuyPageState extends _BuyPageState {
 
   @override
   String toString() {
-    return 'BuyPageState(selectedDate: $selectedDate, imageFile: $imageFile, description: $description, brands: $brands, category: $category, price: $price, day: $day, month: $month, year: $year, imageURL: $imageURL, buyingForm: $buyingForm)';
+    return 'BuyPageState(selectedDate: $selectedDate, imageFile: $imageFile, brandList: $brandList, description: $description, selectedBrand: $selectedBrand, category: $category, price: $price, day: $day, month: $month, year: $year, imageURL: $imageURL, buyingForm: $buyingForm)';
   }
 
   @override
@@ -314,9 +345,11 @@ class _$_BuyPageState extends _BuyPageState {
             const DeepCollectionEquality()
                 .equals(other.selectedDate, selectedDate) &&
             const DeepCollectionEquality().equals(other.imageFile, imageFile) &&
+            const DeepCollectionEquality().equals(other.brandList, brandList) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.brands, brands) &&
+            const DeepCollectionEquality()
+                .equals(other.selectedBrand, selectedBrand) &&
             const DeepCollectionEquality().equals(other.category, category) &&
             const DeepCollectionEquality().equals(other.price, price) &&
             const DeepCollectionEquality().equals(other.day, day) &&
@@ -332,8 +365,9 @@ class _$_BuyPageState extends _BuyPageState {
       runtimeType,
       const DeepCollectionEquality().hash(selectedDate),
       const DeepCollectionEquality().hash(imageFile),
+      const DeepCollectionEquality().hash(brandList),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(brands),
+      const DeepCollectionEquality().hash(selectedBrand),
       const DeepCollectionEquality().hash(category),
       const DeepCollectionEquality().hash(price),
       const DeepCollectionEquality().hash(day),
@@ -352,8 +386,9 @@ abstract class _BuyPageState extends BuyPageState {
   const factory _BuyPageState(
       {DateTime? selectedDate,
       File? imageFile,
+      List<Brand> brandList,
       String description,
-      String brands,
+      Brand selectedBrand,
       String category,
       String price,
       String day,
@@ -368,9 +403,11 @@ abstract class _BuyPageState extends BuyPageState {
   @override
   File? get imageFile;
   @override
+  List<Brand> get brandList;
+  @override
   String get description;
   @override
-  String get brands;
+  Brand get selectedBrand;
   @override
   String get category;
   @override

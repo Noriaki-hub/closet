@@ -1,5 +1,5 @@
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/home/account_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/global/account_page_controller.dart';
 import 'package:closet_app_xxx/controllers/pages/tab_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/floating_action_button_animation.dart';
 import 'package:closet_app_xxx/ui/libs/follow_button.dart';

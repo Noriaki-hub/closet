@@ -1,3 +1,4 @@
+import 'package:closet_app_xxx/models/brand.dart';
 import 'package:closet_app_xxx/models/clothes.dart';
 import 'package:closet_app_xxx/models/libs/Firebase_providers.dart';
 import 'package:closet_app_xxx/models/status.dart';
@@ -55,10 +56,7 @@ class _ItemRepository {
         .doc(user.uid)
         .collection('status')
         .doc('status')
-        .set(<String, dynamic>{
-      ...status.toJson(),
-      'uid': user.uid
-    });
+        .set(<String, dynamic>{...status.toJson(), 'uid': user.uid});
   }
 
   Future<void> update({required UserModel user}) async {
@@ -147,5 +145,20 @@ class _ItemRepository {
           })
         });
     return list;
+  }
+
+  Future<List<String>> fetchBrandIdList({required String userId}) async {
+    List<String> brandIdList = [];
+    final snap = await _read(firebaseFirestoreProvider)
+        .collection('users')
+        .doc(userId)
+        .collection('brandFollows')
+        .get();
+
+    snap.docs.forEach((element) {
+      String brandId = element.data()['brandId'];
+      brandIdList.add(brandId);
+    });
+    return brandIdList;
   }
 }

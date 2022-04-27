@@ -1,4 +1,5 @@
-import 'package:closet_app_xxx/controllers/pages/home/clothes_edit_page_controller.dart';
+import 'package:closet_app_xxx/controllers/pages/global/clothes_edit_page_controller.dart';
+import 'package:closet_app_xxx/models/brand.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/global/clothes/src/brands_text_field.dart';
 import 'package:closet_app_xxx/ui/pages/global/clothes/src/category_controller.dart';
@@ -15,10 +16,12 @@ import 'package:line_icons/line_icons.dart';
 class ClothesEditPage extends HookConsumerWidget {
   ClothesEditPage({
     required this.itemId,
+    required this.brandId,
     Key? key,
   }) : super(key: key);
 
   final String itemId;
+  final int brandId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +31,7 @@ class ClothesEditPage extends HookConsumerWidget {
         ref.watch(clothesEditPageProvider.select((value) => value.isEdit));
     return Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          ref.read(clothesEditPageProvider.notifier).fetch(itemId: itemId);
+          ref.read(clothesEditPageProvider.notifier).fetch(itemId: itemId, brandId: brandId);
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.brown.shade50,

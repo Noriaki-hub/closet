@@ -2,6 +2,7 @@ import 'package:closet_app_xxx/controllers/pages/timeline/ranking_page_controlle
 import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/libs/web_view.dart';
+import 'package:closet_app_xxx/ui/pages/follow/follow_tab.dart';
 import 'package:closet_app_xxx/ui/pages/global/account/account_page.dart';
 import 'package:closet_app_xxx/ui/pages/global/clothes/clothes_view_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class HomePage extends StatelessWidget {
       return isloading
           ? Loading()
           : Scaffold(
-            backgroundColor: Colors.grey.shade100,
+              backgroundColor: Colors.grey.shade100,
               appBar: AppBar(
                 backgroundColor: Colors.grey.shade100,
                 title: Row(
@@ -34,6 +35,32 @@ class HomePage extends StatelessWidget {
                     SizedBox(height: 30, child: Image.asset('images/logo.png')),
                   ],
                 ),
+                leading: InkWell(
+                  onTap: (() {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              FollowTab(),
+                          fullscreenDialog: true,
+                        ));
+                  }),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(LineIcons.bars),
+                      Text(
+                        'フォロー済み',
+                        style: TextStyle(fontSize: 8),
+                      ),
+                    ],
+                  ),
+                ),
+                actions: [
+                  Container(
+                    width: 50,
+                  )
+                ],
               ),
               body: RefreshIndicator(
                 onRefresh: () async {

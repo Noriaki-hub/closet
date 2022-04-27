@@ -12,7 +12,7 @@ _$_Clothes _$$_ClothesFromJson(Map<String, dynamic> json) => _$_Clothes(
       createdSell:
           const FireTimestampConverterNonNull().fromJson(json['createdSell']),
       itemId: json['itemId'] as String? ?? '',
-      brands: json['brands'] as String? ?? '',
+      brandId: json['brandId'] as int? ?? 0,
       price: json['price'] as int? ?? 0,
       category: json['category'] as String? ?? '',
       imageURL: json['imageURL'] as String? ?? '',
@@ -38,7 +38,7 @@ Map<String, dynamic> _$$_ClothesToJson(_$_Clothes instance) =>
       'createdSell':
           const FireTimestampConverterNonNull().toJson(instance.createdSell),
       'itemId': instance.itemId,
-      'brands': instance.brands,
+      'brandId': instance.brandId,
       'price': instance.price,
       'category': instance.category,
       'imageURL': instance.imageURL,

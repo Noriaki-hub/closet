@@ -13,7 +13,7 @@ _$_Buy _$$_BuyFromJson(Map<String, dynamic> json) => _$_Buy(
           ? null
           : DateTime.parse(json['createdSell'] as String),
       itemId: json['itemId'] as String? ?? '',
-      brands: json['brands'] as String? ?? '',
+      brandId: json['brandId'] as int? ?? 0,
       price: json['price'] as int? ?? 0,
       category: json['category'] as String? ?? '',
       imageURL: json['imageURL'] as String? ?? '',
@@ -37,7 +37,7 @@ Map<String, dynamic> _$$_BuyToJson(_$_Buy instance) => <String, dynamic>{
           const FireTimestampConverterNonNull().toJson(instance.createdBuy),
       'createdSell': instance.createdSell?.toIso8601String(),
       'itemId': instance.itemId,
-      'brands': instance.brands,
+      'brandId': instance.brandId,
       'price': instance.price,
       'category': instance.category,
       'imageURL': instance.imageURL,

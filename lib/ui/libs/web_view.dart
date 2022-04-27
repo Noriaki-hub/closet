@@ -35,7 +35,7 @@ class _WebViewScreen extends State<WebViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.brown.shade50,
+        backgroundColor: Colors.grey.shade50,
         actions: [
           IconButton(
             icon: Icon(LineIcons.alternateRedo),

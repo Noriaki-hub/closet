@@ -20,7 +20,7 @@ class _LoginScreen extends State<LoginScreen> {
   void initState() {
     super.initState();
     // Can't show a dialog in initState, delaying initialization
-    WidgetsBinding.instance?.addPostFrameCallback((_) => initPlugin());
+    WidgetsBinding.instance.addPostFrameCallback((_) => initPlugin());
   }
 
   Future<void> initPlugin() async {

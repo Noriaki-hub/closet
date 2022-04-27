@@ -23,7 +23,7 @@ class CalenderBuyList extends HookConsumerWidget {
                         clothes.imageURL,
                         fit: BoxFit.cover,
                       ))),
-              title: Text(clothes.brands),
+              title: Text(clothes.brandId.toString()),
               subtitle: Text(clothes.description),
               trailing: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
