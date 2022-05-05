@@ -1,7 +1,10 @@
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:closet_app_xxx/models/brand.dart';
 import 'package:closet_app_xxx/models/clothes.dart';
 import 'package:closet_app_xxx/models/user.dart';
+import 'package:closet_app_xxx/repositories/brand_repository.dart';
 import 'package:closet_app_xxx/repositories/clothes_repository.dart';
+import 'package:closet_app_xxx/repositories/global/user_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,6 +16,9 @@ class ClothesViewPageState with _$ClothesViewPageState {
 
   const factory ClothesViewPageState({
     Clothes? clothes,
+    Brand? brand,
+    @Default(<Clothes>[]) List<Clothes> clothesList,
+    @Default(UserModel()) UserModel user,
     @Default(false) bool isFavoriteState,
     @Default(false) bool isEdit,
     @Default('') String buyingFormState,
@@ -38,7 +44,8 @@ final clothesViewPageProviderFamily = StateNotifierProvider.family.autoDispose<
   return ClothesViewPageController(
     ref.read,
     clothes: arg.clothes,
-    userId: arg.userId ?? user.uid, user: user,
+    userId: arg.userId ?? user.uid,
+    user: user,
   );
 });
 
@@ -59,8 +66,21 @@ class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
         .fetchClothes(itemId: _clothes.itemId);
 
     if (clothes != null) {
+      final brand = await _read(brandRepositoryProvider)
+          .fetchBrand(brandId: clothes.brandId.toString());
+
+      final clothesList = await _read(clothesRepositoryProvider).fetchCloset(
+          userId: clothes.uid, isSell: false, category: 'ALL', limit: 5);
+
+      final user =
+          await _read(userRepositoryProvider).fetchUser(userId: clothes.uid);
+
       state = state.copyWith(
-          clothes: clothes, isFavoriteState: _clothes.isFavorite);
+          clothes: clothes,
+          isFavoriteState: _clothes.isFavorite,
+          brand: brand,
+          clothesList: clothesList,
+          user: user ?? UserModel());
 
       if (clothes.buyingForm == 'new') {
         state = state.copyWith(buyingFormState: '新品');
@@ -86,6 +106,7 @@ class ClothesViewPageController extends StateNotifier<ClothesViewPageState> {
   }
 
   Future<void> deleteClothes() async {
-    await _read(clothesRepositoryProvider).delete(itemId: _clothes.itemId, user: user);
+    await _read(clothesRepositoryProvider)
+        .delete(itemId: _clothes.itemId, user: user);
   }
 }

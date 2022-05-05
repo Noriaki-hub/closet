@@ -1,10 +1,12 @@
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/models/clothes.dart';
+import 'package:closet_app_xxx/models/libs/Firebase_providers.dart';
 import 'package:closet_app_xxx/models/user.dart';
 import 'package:closet_app_xxx/repositories/clothes_repository.dart';
 import 'package:closet_app_xxx/repositories/follow_page_repository.dart';
 import 'package:closet_app_xxx/repositories/follower_page_repository.dart';
 import 'package:closet_app_xxx/repositories/global/user_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -26,6 +28,7 @@ class AccountPageState with _$AccountPageState {
     @Default('') String instaUrl,
     @Default('') String intro,
     @Default(false) bool isMenu,
+    @Default(false) bool isBlock,
   }) = _AccountPageState;
 }
 
@@ -69,6 +72,13 @@ class AccountPageController extends StateNotifier<AccountPageState> {
         await _read(userRepositoryProvider).fetchInsta(userId: _userId);
     final intro =
         await _read(userRepositoryProvider).fetchIntro(userId: _userId);
+    final blockList =
+        await _read(userRepositoryProvider).fetchBlockIdList(userId: _user.uid);
+    for (var userId in blockList) {
+      if (_userId == userId) {
+        state = state.copyWith(isBlock: true);
+      }
+    }
 
     final List<Clothes> closet = await _read(clothesRepositoryProvider)
         .fetchClosetRecent(isSell: false, userId: _userId);
@@ -103,5 +113,24 @@ class AccountPageController extends StateNotifier<AccountPageState> {
           intro: intro,
           isMenu: _user.uid == _userId ? true : false);
     }
+  }
+
+  Future<void> blockUser() async {
+    await _read(userRepositoryProvider)
+        .blockUser(userId: _user.uid, yourId: _userId);
+    fetchAccountPageData();
+  }
+
+  Future<void> reblockUser() async {
+    await _read(userRepositoryProvider)
+        .reblockUser(userId: _user.uid, yourId: _userId);
+    state = state.copyWith(isBlock: false);
+    fetchAccountPageData();
+  }
+
+  Future<void> flagUser() async {
+    await _read(firebaseFirestoreProvider)
+        .collection('flag')
+        .add({'uid': _userId, 'created': Timestamp.fromDate(DateTime.now())});
   }
 }

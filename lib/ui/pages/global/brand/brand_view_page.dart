@@ -51,7 +51,7 @@ class _BrandViewPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 10, right: 20, left: 20),
                 child: Container(
                   width: double.infinity,
-                  height: 200,
+                  height: 250,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

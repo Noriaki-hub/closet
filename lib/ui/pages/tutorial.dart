@@ -45,7 +45,7 @@ class TutorialPage extends StatelessWidget {
         color: Colors.white,
         imageAssetPath: 'images/home.png',
         title: 'クローゼットを管理',
-        body: 'ホームでは自分のクローゼットが管理できます。友達のクローゼットを覗くこともできます。',
+        body: '自分のクローゼットが管理できます。友達のクローゼットを覗くこともできます。',
         doAnimateImage: true),
     PageModel(
         titleColor: Colors.black45,
@@ -54,38 +54,6 @@ class TutorialPage extends StatelessWidget {
         imageAssetPath: 'images/calendar.png',
         title: '収支を管理',
         body: '今までの購入額と売却額、また具体的な詳細リストが閲覧できます',
-        doAnimateImage: true),
-    PageModel(
-        titleColor: Colors.black45,
-        bodyColor: Colors.black45,
-        color: Colors.white,
-        imageAssetPath: 'images/follow.png',
-        title: '友達をさがす',
-        body: 'IDを入力することでユーザーの検索ができます。自分のIDはプロフィールで確認できます。',
-        doAnimateImage: true),
-    PageModel(
-        titleColor: Colors.black45,
-        bodyColor: Colors.black45,
-        color: Colors.white,
-        imageAssetPath: 'images/timeline.png',
-        title: '服ログ',
-        body: 'フォローしている友達の新着購入品がタイムライン形式で見れます。',
-        doAnimateImage: true),
-    PageModel(
-        titleColor: Colors.black45,
-        bodyColor: Colors.black45,
-        color: Colors.white,
-        imageAssetPath: 'images/shop.png',
-        title: 'ショップ＆メディア',
-        body: '画像、名前、URLの３ステップで簡単にブックマークを作成。ワンタップでお気に入りのオンラインショップなどに飛べます。',
-        doAnimateImage: true),
-    PageModel(
-        titleColor: Colors.black45,
-        bodyColor: Colors.black45,
-        color: Colors.white,
-        imageAssetPath: 'images/share.png',
-        title: '気になった記事やアイテムをシェア',
-        body: '気になった記事やアイテムをログに投稿できます。友達とファッション情報をシェアしましょう。',
         doAnimateImage: true),
     PageModel.withChild(
         child: Padding(

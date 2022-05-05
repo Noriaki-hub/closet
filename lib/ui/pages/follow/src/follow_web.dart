@@ -84,7 +84,7 @@ class ItemList extends HookConsumerWidget {
                       },
                       child: ListTile(
                         title: Text(brand.brand_name_en),
-                        subtitle: Text(brand.brand_name_en),
+                        subtitle: Text(brand.brand_name_ja),
                       ),
                     ),
                   );

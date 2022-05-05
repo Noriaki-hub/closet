@@ -161,4 +161,41 @@ class _ItemRepository {
     });
     return brandIdList;
   }
+
+  Future<List<String>> fetchBlockIdList({required String userId}) async {
+    List<String> blockList = [];
+    final snap = await _read(firebaseFirestoreProvider)
+        .collection('users')
+        .doc(userId)
+        .collection('blockUsers')
+        .get();
+
+    snap.docs.forEach((element) {
+      String brandId = element.data()['uid'];
+      blockList.add(brandId);
+    });
+    return blockList;
+  }
+
+  Future<void> blockUser(
+      {required String userId, required String yourId}) async {
+    final snap = _read(firebaseFirestoreProvider)
+        .collection('users')
+        .doc(userId)
+        .collection('blockUsers')
+        .doc(yourId);
+
+    await snap.set({'uid': yourId});
+  }
+
+  Future<void> reblockUser(
+      {required String userId, required String yourId}) async {
+    final snap = _read(firebaseFirestoreProvider)
+        .collection('users')
+        .doc(userId)
+        .collection('blockUsers')
+        .doc(yourId);
+
+    await snap.delete();
+  }
 }

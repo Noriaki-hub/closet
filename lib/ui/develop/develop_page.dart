@@ -24,7 +24,7 @@ class DevelopPage extends HookConsumerWidget {
           OutlinedButton(
               onPressed: () async {
                 List<int> startNumberList = [
-                  1653
+                  4644
                   // 1,
                   // 101,
                   // 201,
@@ -88,7 +88,7 @@ class DevelopPage extends HookConsumerWidget {
                   final functions = FirebaseFunctions.instanceFor(
                       app: Firebase.app(), region: 'asia-northeast1');
                   final callable = functions.httpsCallable('scrapingBrands');
-                  callable({"startNumber": startNumber, 'getNumber': 46});
+                  callable({"startNumber": startNumber, 'getNumber': 55});
                 }
               },
               child: Text('brands scraping')),

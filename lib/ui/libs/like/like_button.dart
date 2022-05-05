@@ -40,29 +40,25 @@ class _LikeButton extends HookConsumerWidget {
         ? CircularProgressIndicator()
         : Column(
             children: [
-              Row(
-                children: [
-                  myLikeState.isNotEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            ref.read(likeButtonProvider.notifier).deleteLike();
-                          },
-                          icon: Icon(
-                            LineIcons.heartAlt,
-                            color: Colors.red,
-                          ))
-                      : IconButton(
-                          onPressed: () {
-                            ref.read(likeButtonProvider.notifier).addLike();
-                          },
-                          icon: Icon(
-                            LineIcons.heartAlt,
-                            color: Colors.grey,
-                          ),
-                        ),
-                  Text(likes.length.toString())
-                ],
-              ),
+              myLikeState.isNotEmpty
+                  ? IconButton(
+                      onPressed: () {
+                        ref.read(likeButtonProvider.notifier).deleteLike();
+                      },
+                      icon: Icon(
+                        LineIcons.heartAlt,
+                        size: 35,
+                        color: Colors.red,
+                      ))
+                  : IconButton(
+                      onPressed: () {
+                        ref.read(likeButtonProvider.notifier).addLike();
+                      },
+                      icon: Icon(
+                        LineIcons.heart,
+                        size: 35,
+                      ),
+                    ),
               InkWell(
                   onTap: () {
                     Navigator.push(
@@ -71,8 +67,8 @@ class _LikeButton extends HookConsumerWidget {
                             builder: (context) => LikeUsers(likes: likes)));
                   },
                   child: Text(
-                    'いいねした人',
-                    style: TextStyle(fontSize: 10),
+                    likes.length.toString(),
+                    style: TextStyle(fontSize: 15),
                   ))
             ],
           );
