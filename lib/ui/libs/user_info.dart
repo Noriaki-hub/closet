@@ -3,6 +3,8 @@ import 'package:closet_app_xxx/ui/pages/global/account/account_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'navigation.dart';
+
 class UserInfo extends StatelessWidget {
   UserInfo({Key? key, required this.userId, required this.width})
       : super(key: key);
@@ -30,13 +32,11 @@ class _UserInfo extends HookConsumerWidget {
     return SizedBox(
       width: width,
       child: InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AccountPage(userId: user.uid),
-              ));
-        },
+        onTap: () => Navigation().transition(
+            context: context,
+            widget: AccountPage(
+              userId: user.uid,
+            )),
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Row(

@@ -1,6 +1,9 @@
 import 'package:closet_app_xxx/controllers/pages/timeline/ranking_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/app_colors.dart';
 import 'package:closet_app_xxx/ui/libs/cache_image.dart';
+import 'package:closet_app_xxx/ui/libs/widgets.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
+import 'package:closet_app_xxx/ui/libs/navigation.dart';
 import 'package:closet_app_xxx/ui/libs/web_view.dart';
 import 'package:closet_app_xxx/ui/pages/follow/follow_tab.dart';
 import 'package:closet_app_xxx/ui/pages/global/account/account_page.dart';
@@ -13,7 +16,6 @@ import 'src/ranking_list_model.dart';
 import 'src/share_tile_model.dart';
 import 'src/status_map_model.dart';
 import 'src/user_tile.dart';
-import 'timeline/timeline_tab.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -25,14 +27,17 @@ class HomePage extends StatelessWidget {
           ref.watch(rankingPageProvider.select((value) => value.isLoading));
       return isloading
           ? Loading()
-          : Scaffold(
-              backgroundColor: Colors.grey.shade100,
-              appBar: AppBar(
-                backgroundColor: Colors.grey.shade100,
+          : GlassScaffold(
+              appBar: GlassAppBar(
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 30, child: Image.asset('images/logo.png')),
+                    SizedBox(
+                        height: 30,
+                        child: Image.asset(
+                          'images/logo.png',
+                          color: AppColors.text,
+                        )),
                   ],
                 ),
                 leading: InkWell(
@@ -40,18 +45,20 @@ class HomePage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              FollowTab(),
+                          builder: (context) => FollowTab(),
                           fullscreenDialog: true,
                         ));
                   }),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(LineIcons.bars),
+                      Icon(
+                        LineIcons.bars,
+                        color: AppColors.text,
+                      ),
                       Text(
                         'フォロー済み',
-                        style: TextStyle(fontSize: 8),
+                        style: TextStyle(fontSize: 8, color: AppColors.text),
                       ),
                     ],
                   ),
@@ -67,11 +74,16 @@ class HomePage extends StatelessWidget {
                   ref.read(rankingPageProvider.notifier).fetch();
                 },
                 child: SingleChildScrollView(
-                  child: SizedBox(
-                    height: 2500,
+                  child: GlassContainer(
+                    borderRadius: BorderRadius.zero,
+                    height: 3000,
+                    width: double.infinity,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          SizedBox(
+                            height: 120,
+                          ),
                           _buildnewList(),
                           SizedBox(
                             height: 40,
@@ -80,7 +92,7 @@ class HomePage extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 10),
                               child: _buildPriceRankingList()),
                           SizedBox(
-                            height: 10,
+                            height: 40,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 10, left: 10),
@@ -93,7 +105,7 @@ class HomePage extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 10),
                               child: _buildLikedCountRankingList()),
                           SizedBox(
-                            height: 10,
+                            height: 40,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 10, left: 10),
@@ -134,10 +146,11 @@ class HomePage extends StatelessWidget {
   Widget _buildnewList() {
     return Consumer(
       builder: (context, ref, _) {
-        return Container(
-          height: 400,
-          color: Colors.white,
-          child: NewClothesList(),
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(width: 380, child: NewClothesList()),
+          ],
         );
       },
     );
@@ -151,6 +164,7 @@ class HomePage extends StatelessWidget {
         final priceRankingList = priceRankingMaps.entries
             .map((e) => Ranking(e.key, e.value))
             .toList();
+        priceRankingList.shuffle();
 
         return priceRankingList.isEmpty
             ? Loading()
@@ -159,110 +173,58 @@ class HomePage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '購入額',
-                        style: TextStyle(color: Colors.black45),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    TimelineTabPage(currentIndex: 0),
-                                fullscreenDialog: true,
-                              ));
-                        },
-                        child: Text(
-                          '全て見る',
-                          style: TextStyle(color: Colors.black45),
+                      GlassContainer(
+                        borderRadius: BorderRadius.circular(12),
+                        width: 120,
+                        height: 30,
+                        child: Center(
+                          child: Text(
+                            '金額が高いもの',
+                            style: TextStyle(color: AppColors.text),
+                          ),
                         ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 250,
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 150,
                     child: GridView.builder(
                         scrollDirection: Axis.horizontal,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1,
                           mainAxisSpacing: 15,
                           crossAxisSpacing: 15,
-                          childAspectRatio: (4 / 3),
+                          childAspectRatio: (1 / 1),
                         ),
                         itemCount: priceRankingList.length,
                         itemBuilder: (BuildContext context, int index) {
                           final ranking = priceRankingList[index];
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
+                          return InkWell(
+                            onTap: () => Navigation().transition(
+                                context: context,
+                                widget: ClothesViewScreen(
+                                    clothes: ranking.clothes)),
+                            child: GlassContainer(
+                                borderRadius: BorderRadius.circular(15),
+                                width: 150,
+                                height: 150,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(LineIcons.crown,
-                                        color: index == 0
-                                            ? Colors.yellow
-                                            : index == 1
-                                                ? Colors.grey
-                                                : index == 2
-                                                    ? Colors.brown
-                                                    : Colors.white),
-                                    Text((index + 1).toString()),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Container(
+                                        width: 140,
+                                        height: 140,
+                                        child: CacheImage(
+                                            imageURL: ranking.clothes.imageURL),
+                                      ),
+                                    ),
                                   ],
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ClothesViewScreen(
-                                                  clothes: ranking.clothes,
-                                                )));
-                                  },
-                                  child: SizedBox(
-                                    height: 180,
-                                    width: 180,
-                                    child: CacheImage(
-                                        imageURL: ranking.clothes.imageURL),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => AccountPage(
-                                                userId: ranking.user.uid)));
-                                  },
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: SizedBox(
-                                            height: 20,
-                                            width: 20,
-                                            child: Image.network(
-                                              ranking.user.image,
-                                              fit: BoxFit.cover,
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(ranking.user.name),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                                )),
                           );
                         }),
                   ),
@@ -284,7 +246,22 @@ class HomePage extends StatelessWidget {
         return statusBuyingList.isEmpty
             ? Container()
             : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  GlassContainer(
+                    borderRadius: BorderRadius.circular(12),
+                    width: 120,
+                    height: 30,
+                    child: Center(
+                      child: Text('総購入額',
+                          style: TextStyle(
+                            color: AppColors.text,
+                          )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   UserTile(
                     statusMap: statusBuyingList[0],
                     islike: false,
@@ -320,118 +297,63 @@ class HomePage extends StatelessWidget {
         final likeRankingList = likeRankingMaps.entries
             .map((e) => Ranking(e.key, e.value))
             .toList();
+        likeRankingList.shuffle();
 
         return likeRankingList.isEmpty
             ? Loading()
             : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'いいね数',
-                        style: TextStyle(color: Colors.black45),
+                  GlassContainer(
+                    borderRadius: BorderRadius.circular(12),
+                    width: 130,
+                    height: 30,
+                    child: Center(
+                      child: Text(
+                        'いいねが多いもの',
+                        style: TextStyle(color: AppColors.text),
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    TimelineTabPage(currentIndex: 1),
-                                fullscreenDialog: true,
-                              ));
-                        },
-                        child: Text(
-                          '全て見る',
-                          style: TextStyle(color: Colors.black45),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                   SizedBox(
-                    height: 250,
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 150,
                     child: GridView.builder(
                         scrollDirection: Axis.horizontal,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1,
                           mainAxisSpacing: 15,
                           crossAxisSpacing: 15,
-                          childAspectRatio: (4 / 3),
+                          // childAspectRatio: (1 / 1),
                         ),
                         itemCount: likeRankingList.length,
                         itemBuilder: (BuildContext context, int index) {
                           final ranking = likeRankingList[index];
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
+                          return InkWell(
+                            onTap: () => Navigation().transition(
+                                context: context,
+                                widget: ClothesViewScreen(
+                                    clothes: ranking.clothes)),
+                            child: GlassContainer(
+                                borderRadius: BorderRadius.circular(15),
+                                width: 150,
+                                height: 150,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(LineIcons.crown,
-                                        color: index == 0
-                                            ? Colors.yellow
-                                            : index == 1
-                                                ? Colors.grey
-                                                : index == 2
-                                                    ? Colors.brown
-                                                    : Colors.white),
-                                    Text((index + 1).toString()),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Container(
+                                        width: 140,
+                                        height: 140,
+                                        child: CacheImage(
+                                            imageURL: ranking.clothes.imageURL),
+                                      ),
+                                    ),
                                   ],
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ClothesViewScreen(
-                                                  clothes: ranking.clothes,
-                                                )));
-                                  },
-                                  child: SizedBox(
-                                    height: 180,
-                                    width: 180,
-                                    child: CacheImage(
-                                        imageURL: ranking.clothes.imageURL),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => AccountPage(
-                                                userId: ranking.user.uid)));
-                                  },
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: SizedBox(
-                                            height: 20,
-                                            width: 20,
-                                            child: Image.network(
-                                              ranking.user.image,
-                                              fit: BoxFit.cover,
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(ranking.user.name),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                                )),
                           );
                         }),
                   ),
@@ -453,7 +375,22 @@ class HomePage extends StatelessWidget {
         return statusLikedCountList.isEmpty
             ? Container()
             : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  GlassContainer(
+                    borderRadius: BorderRadius.circular(12),
+                    width: 120,
+                    height: 30,
+                    child: Center(
+                      child: Text(
+                        '総いいね数',
+                        style: TextStyle(color: AppColors.text),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   UserTile(
                     statusMap: statusLikedCountList[0],
                     islike: true,
@@ -489,94 +426,47 @@ class HomePage extends StatelessWidget {
         final statusClothesCountList = statusClothesCountMaps.entries
             .map((e) => StatusMapModel(e.key, e.value))
             .toList();
+        statusClothesCountList.shuffle();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '所持数',
-                  style: TextStyle(color: Colors.black45),
+            GlassContainer(
+              borderRadius: BorderRadius.circular(12),
+              width: 150,
+              height: 30,
+              child: Center(
+                child: Text(
+                  'おすすめのユーザー',
+                  style: TextStyle(color: AppColors.text),
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TimelineTabPage(
-                            currentIndex: 3,
-                          ),
-                          fullscreenDialog: true,
-                        ));
-                  },
-                  child: Text(
-                    '全て見る',
-                    style: TextStyle(color: Colors.black45),
-                  ),
-                ),
-              ],
+              ),
             ),
             SizedBox(
-              height: 300,
+              height: 10,
+            ),
+            SizedBox(
+              height: 500,
+              width: 350,
               child: GridView.builder(
-                  scrollDirection: Axis.horizontal,
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(0),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 15,
-                    childAspectRatio: (4 / 3),
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 30,
+                    crossAxisSpacing: 30,
+                    childAspectRatio: (1 / 1),
                   ),
                   itemCount: statusClothesCountList.length,
                   itemBuilder: (BuildContext context, int index) {
                     final map = statusClothesCountList[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(LineIcons.crown,
-                                  color: index == 0
-                                      ? Colors.yellow
-                                      : index == 1
-                                          ? Colors.grey
-                                          : index == 2
-                                              ? Colors.brown
-                                              : Colors.white),
-                              Text((index + 1).toString()),
-                            ],
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          AccountPage(userId: map.user.uid)));
-                            },
-                            child: SizedBox(
-                              height: 220,
-                              width: 220,
-                              child: CacheImage(imageURL: map.user.image),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: [
-                              Text(map.user.name),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(map.status.clothesCount.toString() + '着'),
-                            ],
-                          ),
-                        ],
+                    return InkWell(
+                      onTap: () => Navigation().transition(
+                          context: context,
+                          widget: AccountPage(userId: map.user.uid)),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          map.user.image,
+                        ),
                       ),
                     );
                   }),
@@ -596,30 +486,20 @@ class HomePage extends StatelessWidget {
             newMediaMaps.entries.map((e) => ShareTile(e.key, e.value)).toList();
 
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '最新のシェアされたニュース',
-                  style: TextStyle(color: Colors.black45),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              TimelineTabPage(currentIndex: 2),
-                          fullscreenDialog: true,
-                        ));
-                  },
+            GlassContainer(
+              borderRadius: BorderRadius.circular(12),
+              width: 180,
+              height: 30,
+              child: Center(
                   child: Text(
-                    '全て見る',
-                    style: TextStyle(color: Colors.black45),
-                  ),
-                ),
-              ],
+                'シェアされたニュース',
+                style: TextStyle(color: AppColors.text),
+              )),
+            ),
+            SizedBox(
+              height: 10,
             ),
             SizedBox(
               height: 250,
@@ -650,6 +530,7 @@ class HomePage extends StatelessWidget {
                                       MaterialPageRoute(
                                           builder: (context) => WebViewScreen(
                                               url: shareMap.share.url,
+                                              isNavigation: true,
                                               genre: shareMap.share.genre)));
                                 },
                                 child: SizedBox(
@@ -721,31 +602,20 @@ class HomePage extends StatelessWidget {
             newShopMaps.entries.map((e) => ShareTile(e.key, e.value)).toList();
 
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '最新のシェアされたアイテム',
-                  style: TextStyle(color: Colors.black45),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TimelineTabPage(
-                            currentIndex: 3,
-                          ),
-                          fullscreenDialog: true,
-                        ));
-                  },
+            GlassContainer(
+              borderRadius: BorderRadius.circular(12),
+              width: 180,
+              height: 30,
+              child: Center(
                   child: Text(
-                    '全て見る',
-                    style: TextStyle(color: Colors.black45),
-                  ),
-                ),
-              ],
+                'シェアされたアイテム',
+                style: TextStyle(color: AppColors.text),
+              )),
+            ),
+            SizedBox(
+              height: 10,
             ),
             SizedBox(
               height: 250,
@@ -775,8 +645,10 @@ class HomePage extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => WebViewScreen(
-                                              url: shareMap.share.url,
-                                              genre: shareMap.share.genre)));
+                                                url: shareMap.share.url,
+                                                isNavigation: true,
+                                                genre: shareMap.share.genre,
+                                              )));
                                 },
                                 child: SizedBox(
                                   height: 180,

@@ -1,8 +1,11 @@
 import 'package:closet_app_xxx/controllers/component/like_button_controller.dart';
 import 'package:closet_app_xxx/ui/libs/like/src/like_users.dart';
+import 'package:closet_app_xxx/ui/libs/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
+
+
 
 class LikeButton extends StatelessWidget {
   LikeButton({
@@ -60,12 +63,8 @@ class _LikeButton extends HookConsumerWidget {
                       ),
                     ),
               InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LikeUsers(likes: likes)));
-                  },
+                  onTap: () => Navigation().transition(
+                      context: context, widget: LikeUsers(likes: likes)),
                   child: Text(
                     likes.length.toString(),
                     style: TextStyle(fontSize: 15),

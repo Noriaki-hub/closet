@@ -1,16 +1,19 @@
 import 'package:closet_app_xxx/controllers/pages/home/calendar_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CalenderSellList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sellClothesList = ref
-        .watch(calendarPageProvider.select((value) => value.sellClothesList));
+     final sellClothesMap =
+        ref.watch(calendarPageProvider.select((value) => value.sellClothesMap));
+         final sellClothesList =
+        sellClothesMap.entries.map((e) => ClothesBrand(e.key, e.value)).toList();
     return ListView.builder(
         itemCount: sellClothesList.length,
         itemBuilder: (BuildContext context, int index) {
-          final clothes = sellClothesList[index];
+          final map = sellClothesList[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
@@ -21,7 +24,7 @@ class CalenderSellList extends HookConsumerWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.network(
-                    clothes.imageURL,
+                    map.clothes.imageURL,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -30,7 +33,7 @@ class CalenderSellList extends HookConsumerWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    Text(clothes.brandId.toString()),
+                    Text(map.clothes.brandId.toString()),
                   ],
                 ),
               ),
@@ -38,15 +41,15 @@ class CalenderSellList extends HookConsumerWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    Text(clothes.description),
+                    Text(map.clothes.description),
                   ],
                 ),
               ),
               trailing: Column(
                 children: [
-                  Text(clothes.price.toString()),
+                  Text(map.clothes.price.toString()),
                   Text(
-                    clothes.year + '/' + clothes.month + '/' + clothes.day,
+                    map.clothes.year + '/' + map.clothes.month + '/' + map.clothes.day,
                     style: TextStyle(fontWeight: FontWeight.w100),
                   ),
                 ],

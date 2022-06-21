@@ -20,10 +20,12 @@ class _$BrandViewPageStateTearOff {
 
   _BrandViewPageState call(
       {bool isMyFollow = false,
+      bool isLoading = false,
       List<Clothes> clothesList = const <Clothes>[],
       bool isLoadingForFollowState = false}) {
     return _BrandViewPageState(
       isMyFollow: isMyFollow,
+      isLoading: isLoading,
       clothesList: clothesList,
       isLoadingForFollowState: isLoadingForFollowState,
     );
@@ -36,6 +38,7 @@ const $BrandViewPageState = _$BrandViewPageStateTearOff();
 /// @nodoc
 mixin _$BrandViewPageState {
   bool get isMyFollow => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
   List<Clothes> get clothesList => throw _privateConstructorUsedError;
   bool get isLoadingForFollowState => throw _privateConstructorUsedError;
 
@@ -51,6 +54,7 @@ abstract class $BrandViewPageStateCopyWith<$Res> {
       _$BrandViewPageStateCopyWithImpl<$Res>;
   $Res call(
       {bool isMyFollow,
+      bool isLoading,
       List<Clothes> clothesList,
       bool isLoadingForFollowState});
 }
@@ -67,6 +71,7 @@ class _$BrandViewPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isMyFollow = freezed,
+    Object? isLoading = freezed,
     Object? clothesList = freezed,
     Object? isLoadingForFollowState = freezed,
   }) {
@@ -74,6 +79,10 @@ class _$BrandViewPageStateCopyWithImpl<$Res>
       isMyFollow: isMyFollow == freezed
           ? _value.isMyFollow
           : isMyFollow // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       clothesList: clothesList == freezed
           ? _value.clothesList
@@ -96,6 +105,7 @@ abstract class _$BrandViewPageStateCopyWith<$Res>
   @override
   $Res call(
       {bool isMyFollow,
+      bool isLoading,
       List<Clothes> clothesList,
       bool isLoadingForFollowState});
 }
@@ -114,6 +124,7 @@ class __$BrandViewPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isMyFollow = freezed,
+    Object? isLoading = freezed,
     Object? clothesList = freezed,
     Object? isLoadingForFollowState = freezed,
   }) {
@@ -121,6 +132,10 @@ class __$BrandViewPageStateCopyWithImpl<$Res>
       isMyFollow: isMyFollow == freezed
           ? _value.isMyFollow
           : isMyFollow // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       clothesList: clothesList == freezed
           ? _value.clothesList
@@ -140,6 +155,7 @@ class _$_BrandViewPageState extends _BrandViewPageState
     with DiagnosticableTreeMixin {
   const _$_BrandViewPageState(
       {this.isMyFollow = false,
+      this.isLoading = false,
       this.clothesList = const <Clothes>[],
       this.isLoadingForFollowState = false})
       : super._();
@@ -149,6 +165,9 @@ class _$_BrandViewPageState extends _BrandViewPageState
   final bool isMyFollow;
   @JsonKey()
   @override
+  final bool isLoading;
+  @JsonKey()
+  @override
   final List<Clothes> clothesList;
   @JsonKey()
   @override
@@ -156,7 +175,7 @@ class _$_BrandViewPageState extends _BrandViewPageState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'BrandViewPageState(isMyFollow: $isMyFollow, clothesList: $clothesList, isLoadingForFollowState: $isLoadingForFollowState)';
+    return 'BrandViewPageState(isMyFollow: $isMyFollow, isLoading: $isLoading, clothesList: $clothesList, isLoadingForFollowState: $isLoadingForFollowState)';
   }
 
   @override
@@ -165,6 +184,7 @@ class _$_BrandViewPageState extends _BrandViewPageState
     properties
       ..add(DiagnosticsProperty('type', 'BrandViewPageState'))
       ..add(DiagnosticsProperty('isMyFollow', isMyFollow))
+      ..add(DiagnosticsProperty('isLoading', isLoading))
       ..add(DiagnosticsProperty('clothesList', clothesList))
       ..add(DiagnosticsProperty(
           'isLoadingForFollowState', isLoadingForFollowState));
@@ -177,6 +197,7 @@ class _$_BrandViewPageState extends _BrandViewPageState
             other is _BrandViewPageState &&
             const DeepCollectionEquality()
                 .equals(other.isMyFollow, isMyFollow) &&
+            const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality()
                 .equals(other.clothesList, clothesList) &&
             const DeepCollectionEquality().equals(
@@ -187,6 +208,7 @@ class _$_BrandViewPageState extends _BrandViewPageState
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isMyFollow),
+      const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(clothesList),
       const DeepCollectionEquality().hash(isLoadingForFollowState));
 
@@ -199,12 +221,15 @@ class _$_BrandViewPageState extends _BrandViewPageState
 abstract class _BrandViewPageState extends BrandViewPageState {
   const factory _BrandViewPageState(
       {bool isMyFollow,
+      bool isLoading,
       List<Clothes> clothesList,
       bool isLoadingForFollowState}) = _$_BrandViewPageState;
   const _BrandViewPageState._() : super._();
 
   @override
   bool get isMyFollow;
+  @override
+  bool get isLoading;
   @override
   List<Clothes> get clothesList;
   @override

@@ -1,5 +1,6 @@
 import 'package:closet_app_xxx/controllers/pages/search/user_search_page_controller.dart';
-import 'package:closet_app_xxx/ui/libs/follow_button.dart';
+import 'package:closet_app_xxx/ui/libs/app_colors.dart';
+import 'package:closet_app_xxx/ui/libs/widgets.dart';
 import 'package:closet_app_xxx/ui/pages/global/account/account_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,10 +11,16 @@ class UserSearchScreen extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
-      body: Center(
+      backgroundColor: Colors.transparent,
+      body: GlassContainer(
+        borderRadius: BorderRadius.zero,
+        height: double.infinity,
+        width: double.infinity,
         child: Column(
           children: [
+            SizedBox(
+              height: 120,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
@@ -32,22 +39,18 @@ class UserSearchScreen extends StatelessWidget {
                       },
                       decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                          ),
+                          borderSide: BorderSide(color: AppColors.white),
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colors.blueGrey,
+                            color: AppColors.theme,
                           ),
                           borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         hintText: 'IDを入力',
                         hintStyle: TextStyle(fontWeight: FontWeight.w100),
-                        prefixIcon: Icon(
-                          Icons.search,
-                        ),
+                        prefixIcon: Icon(Icons.search),
                         border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.redAccent)),
                       ),
@@ -74,11 +77,12 @@ class _ItemList extends HookConsumerWidget {
     return searchedUsers.isEmpty
         ? Center(
             child: Text(
-              'IDから友達をフォローしよう',
-              style: TextStyle(color: Colors.black45),
+              '',
+              style: TextStyle(color: AppColors.text),
             ),
           )
         : ListView.builder(
+            padding: const EdgeInsets.all(0.0),
             itemCount: searchedUsers.length,
             itemBuilder: (BuildContext context, int index) {
               final user = searchedUsers[index];

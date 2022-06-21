@@ -1,4 +1,6 @@
 import 'package:closet_app_xxx/controllers/admin/notice_page_controller.dart';
+import 'package:closet_app_xxx/controllers/global/user_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -61,6 +63,22 @@ class InfomationPage extends ConsumerWidget {
                 title: Text('バージョン情報'),
                 trailing: Text(version),
               ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () async {
+                final result = await _showDialog(context, value: 'logout');
+                if (result) {
+                  await ref.read(userProvider.notifier).logout();
+                  Navigator.pop(context);
+                }
+              },
+              child: ListTile(
+                tileColor: Colors.white,
+                title: Text('ログアウト'),
+              ),
             )
           ]),
         ),
@@ -71,11 +89,10 @@ class InfomationPage extends ConsumerWidget {
   void _openMailApp() async {
     final title = Uri.encodeComponent('お問い合わせ');
 
-     String mailUrl = "mailto:noriaki.sakata.app@gmail.com?subject=News&body=$title";
+    String mailUrl =
+        "mailto:noriaki.sakata.app@gmail.com?subject=News&body=$title";
 
-    return _launchURL(
-      mailUrl
-    );
+    return _launchURL(mailUrl);
   }
 
   Future<void> _launchURL(String url) async {
@@ -85,5 +102,36 @@ class InfomationPage extends ConsumerWidget {
       final Error error = ArgumentError('Could not launch $url');
       throw error;
     }
+  }
+
+  _showDialog(context, {required String value}) {
+    return showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: value == 'logout'
+              ? Text('ログアウトしますか？')
+              : value == 'block'
+                  ? Text('ブロックしますか？')
+                  : value == 'flag'
+                      ? Text('報告しますか？')
+                      : Text('ブロックを解除しますか？'),
+          actions: [
+            CupertinoDialogAction(
+              child: Text('はい'),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+            CupertinoDialogAction(
+              child: Text('いいえ'),
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

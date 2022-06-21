@@ -19,7 +19,7 @@ class CacheImage extends StatelessWidget {
           ),
         ),
       ),
-      placeholder: (context, url) => Loading(),
+      placeholder: (context, url) => ImageLoading(),
       errorWidget: (context, url, error) => Icon(Icons.error),
     );
   }

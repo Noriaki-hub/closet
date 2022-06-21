@@ -1,12 +1,12 @@
+import 'dart:ui';
+
 import 'package:closet_app_xxx/controllers/admin/config_controller.dart';
-import 'package:closet_app_xxx/ui/develop/develop_page.dart';
+import 'package:closet_app_xxx/ui/libs/app_colors.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
-import 'package:closet_app_xxx/ui/pages/closet/closet_page.dart';
-import 'package:closet_app_xxx/ui/pages/global/brand/brand_view_page.dart';
+import 'package:closet_app_xxx/ui/pages/closet/closet_tab.dart';
 import 'package:closet_app_xxx/ui/pages/home/home_page.dart';
 import 'package:closet_app_xxx/ui/pages/maintenance_page.dart';
 import 'package:closet_app_xxx/ui/pages/media/media_tab.dart';
-import 'package:closet_app_xxx/ui/pages/message/message_page.dart';
 import 'package:closet_app_xxx/ui/pages/notice/notice_page.dart';
 import 'package:closet_app_xxx/ui/pages/search/serach_tab.dart';
 import 'package:closet_app_xxx/ui/pages/update_message_page.dart';
@@ -36,7 +36,7 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
       // DevelopPage(),
       HomePage(),
       SearchTab(),
-      ClosetPage(),
+      ClosetTab(),
       MediaTab(),
       NoticePage(),
     ];
@@ -50,28 +50,41 @@ class _BottomTabPageState extends ConsumerState<BottomTabPage> {
                 : isMaintenance
                     ? MaintenancePage()
                     : Scaffold(
+                        extendBody: true,
                         body: _pageWidgets.elementAt(_currentIndex),
-                        bottomNavigationBar: BottomNavigationBar(
-                          backgroundColor: Colors.grey.shade100,
-                          items: <BottomNavigationBarItem>[
-                            BottomNavigationBarItem(
-                                icon: const Icon(LineIcons.home), label: 'ホーム'),
-                            BottomNavigationBarItem(
-                                icon: const Icon(LineIcons.search),
-                                label: 'さがす'),
-                            BottomNavigationBarItem(
-                                icon: AccountImage(), label: 'アカウント'),
-                            BottomNavigationBarItem(
-                                icon: const Icon(LineIcons.newspaperAlt),
-                                label: 'メディア'),
-                            BottomNavigationBarItem(
-                                icon: const Icon(LineIcons.bellAlt),
-                                label: 'お知らせ'),
-                          ],
-                          currentIndex: _currentIndex,
-                          fixedColor: Colors.black,
-                          onTap: _onItemTapped,
-                          type: BottomNavigationBarType.fixed,
+                        bottomNavigationBar: PreferredSize(
+                          preferredSize: Size(
+                            double.infinity,
+                            56.0,
+                          ),
+                          child: ClipRRect(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                              child: BottomNavigationBar(
+                                backgroundColor: Colors.transparent,
+                                elevation: 0,
+                                items: <BottomNavigationBarItem>[
+                                  BottomNavigationBarItem(
+                                      icon: Icon(LineIcons.home), label: 'ホーム'),
+                                  BottomNavigationBarItem(
+                                      icon: const Icon(LineIcons.search),
+                                      label: 'さがす'),
+                                  BottomNavigationBarItem(
+                                      icon: AccountImage(), label: 'アカウント'),
+                                  BottomNavigationBarItem(
+                                      icon: const Icon(LineIcons.newspaperAlt),
+                                      label: 'メディア'),
+                                  BottomNavigationBarItem(
+                                      icon: const Icon(LineIcons.bellAlt),
+                                      label: 'お知らせ'),
+                                ],
+                                currentIndex: _currentIndex,
+                                fixedColor: AppColors.theme,
+                                onTap: _onItemTapped,
+                                type: BottomNavigationBarType.fixed,
+                              ),
+                            ),
+                          ),
                         ),
                       );
   }

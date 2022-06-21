@@ -1,11 +1,9 @@
 import 'package:closet_app_xxx/controllers/pages/follow/follow_brand_page_controller.dart';
-import 'package:closet_app_xxx/controllers/pages/follow/follow_page_controller.dart';
 import 'package:closet_app_xxx/ui/libs/loading.dart';
+import 'package:closet_app_xxx/ui/libs/widgets.dart';
 import 'package:closet_app_xxx/ui/pages/global/brand/brand_view_page.dart';
-import 'package:closet_app_xxx/ui/pages/search/user/user_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:line_icons/line_icons.dart';
 
 class FollowBrandPage extends StatelessWidget {
   FollowBrandPage({
@@ -35,9 +33,7 @@ class _FollowBrandPage extends HookConsumerWidget {
   final String? userId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade50,
-     
+    return GlassScaffold(
       body: RefreshIndicator(
         onRefresh: () async {
           await ref.read(followBrandPageProvider.notifier).fetchFollows();

@@ -19,15 +19,15 @@ class _$CalendarPageStateTearOff {
   const _$CalendarPageStateTearOff();
 
   _CalendarPageState call(
-      {List<Clothes> buyClothesList = const <Clothes>[],
-      List<Clothes> sellClothesList = const <Clothes>[],
+      {Map<Clothes, Brand> buyClothesMap = const <Clothes, Brand>{},
+      Map<Clothes, Brand> sellClothesMap = const <Clothes, Brand>{},
       String buying = '',
       String selling = '',
       String year = '',
       String month = ''}) {
     return _CalendarPageState(
-      buyClothesList: buyClothesList,
-      sellClothesList: sellClothesList,
+      buyClothesMap: buyClothesMap,
+      sellClothesMap: sellClothesMap,
       buying: buying,
       selling: selling,
       year: year,
@@ -41,8 +41,8 @@ const $CalendarPageState = _$CalendarPageStateTearOff();
 
 /// @nodoc
 mixin _$CalendarPageState {
-  List<Clothes> get buyClothesList => throw _privateConstructorUsedError;
-  List<Clothes> get sellClothesList => throw _privateConstructorUsedError;
+  Map<Clothes, Brand> get buyClothesMap => throw _privateConstructorUsedError;
+  Map<Clothes, Brand> get sellClothesMap => throw _privateConstructorUsedError;
   String get buying => throw _privateConstructorUsedError;
   String get selling => throw _privateConstructorUsedError;
   String get year => throw _privateConstructorUsedError;
@@ -59,8 +59,8 @@ abstract class $CalendarPageStateCopyWith<$Res> {
           CalendarPageState value, $Res Function(CalendarPageState) then) =
       _$CalendarPageStateCopyWithImpl<$Res>;
   $Res call(
-      {List<Clothes> buyClothesList,
-      List<Clothes> sellClothesList,
+      {Map<Clothes, Brand> buyClothesMap,
+      Map<Clothes, Brand> sellClothesMap,
       String buying,
       String selling,
       String year,
@@ -78,22 +78,22 @@ class _$CalendarPageStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? buyClothesList = freezed,
-    Object? sellClothesList = freezed,
+    Object? buyClothesMap = freezed,
+    Object? sellClothesMap = freezed,
     Object? buying = freezed,
     Object? selling = freezed,
     Object? year = freezed,
     Object? month = freezed,
   }) {
     return _then(_value.copyWith(
-      buyClothesList: buyClothesList == freezed
-          ? _value.buyClothesList
-          : buyClothesList // ignore: cast_nullable_to_non_nullable
-              as List<Clothes>,
-      sellClothesList: sellClothesList == freezed
-          ? _value.sellClothesList
-          : sellClothesList // ignore: cast_nullable_to_non_nullable
-              as List<Clothes>,
+      buyClothesMap: buyClothesMap == freezed
+          ? _value.buyClothesMap
+          : buyClothesMap // ignore: cast_nullable_to_non_nullable
+              as Map<Clothes, Brand>,
+      sellClothesMap: sellClothesMap == freezed
+          ? _value.sellClothesMap
+          : sellClothesMap // ignore: cast_nullable_to_non_nullable
+              as Map<Clothes, Brand>,
       buying: buying == freezed
           ? _value.buying
           : buying // ignore: cast_nullable_to_non_nullable
@@ -122,8 +122,8 @@ abstract class _$CalendarPageStateCopyWith<$Res>
       __$CalendarPageStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<Clothes> buyClothesList,
-      List<Clothes> sellClothesList,
+      {Map<Clothes, Brand> buyClothesMap,
+      Map<Clothes, Brand> sellClothesMap,
       String buying,
       String selling,
       String year,
@@ -143,22 +143,22 @@ class __$CalendarPageStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? buyClothesList = freezed,
-    Object? sellClothesList = freezed,
+    Object? buyClothesMap = freezed,
+    Object? sellClothesMap = freezed,
     Object? buying = freezed,
     Object? selling = freezed,
     Object? year = freezed,
     Object? month = freezed,
   }) {
     return _then(_CalendarPageState(
-      buyClothesList: buyClothesList == freezed
-          ? _value.buyClothesList
-          : buyClothesList // ignore: cast_nullable_to_non_nullable
-              as List<Clothes>,
-      sellClothesList: sellClothesList == freezed
-          ? _value.sellClothesList
-          : sellClothesList // ignore: cast_nullable_to_non_nullable
-              as List<Clothes>,
+      buyClothesMap: buyClothesMap == freezed
+          ? _value.buyClothesMap
+          : buyClothesMap // ignore: cast_nullable_to_non_nullable
+              as Map<Clothes, Brand>,
+      sellClothesMap: sellClothesMap == freezed
+          ? _value.sellClothesMap
+          : sellClothesMap // ignore: cast_nullable_to_non_nullable
+              as Map<Clothes, Brand>,
       buying: buying == freezed
           ? _value.buying
           : buying // ignore: cast_nullable_to_non_nullable
@@ -184,8 +184,8 @@ class __$CalendarPageStateCopyWithImpl<$Res>
 class _$_CalendarPageState extends _CalendarPageState
     with DiagnosticableTreeMixin {
   const _$_CalendarPageState(
-      {this.buyClothesList = const <Clothes>[],
-      this.sellClothesList = const <Clothes>[],
+      {this.buyClothesMap = const <Clothes, Brand>{},
+      this.sellClothesMap = const <Clothes, Brand>{},
       this.buying = '',
       this.selling = '',
       this.year = '',
@@ -194,10 +194,10 @@ class _$_CalendarPageState extends _CalendarPageState
 
   @JsonKey()
   @override
-  final List<Clothes> buyClothesList;
+  final Map<Clothes, Brand> buyClothesMap;
   @JsonKey()
   @override
-  final List<Clothes> sellClothesList;
+  final Map<Clothes, Brand> sellClothesMap;
   @JsonKey()
   @override
   final String buying;
@@ -213,7 +213,7 @@ class _$_CalendarPageState extends _CalendarPageState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CalendarPageState(buyClothesList: $buyClothesList, sellClothesList: $sellClothesList, buying: $buying, selling: $selling, year: $year, month: $month)';
+    return 'CalendarPageState(buyClothesMap: $buyClothesMap, sellClothesMap: $sellClothesMap, buying: $buying, selling: $selling, year: $year, month: $month)';
   }
 
   @override
@@ -221,8 +221,8 @@ class _$_CalendarPageState extends _CalendarPageState
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'CalendarPageState'))
-      ..add(DiagnosticsProperty('buyClothesList', buyClothesList))
-      ..add(DiagnosticsProperty('sellClothesList', sellClothesList))
+      ..add(DiagnosticsProperty('buyClothesMap', buyClothesMap))
+      ..add(DiagnosticsProperty('sellClothesMap', sellClothesMap))
       ..add(DiagnosticsProperty('buying', buying))
       ..add(DiagnosticsProperty('selling', selling))
       ..add(DiagnosticsProperty('year', year))
@@ -235,9 +235,9 @@ class _$_CalendarPageState extends _CalendarPageState
         (other.runtimeType == runtimeType &&
             other is _CalendarPageState &&
             const DeepCollectionEquality()
-                .equals(other.buyClothesList, buyClothesList) &&
+                .equals(other.buyClothesMap, buyClothesMap) &&
             const DeepCollectionEquality()
-                .equals(other.sellClothesList, sellClothesList) &&
+                .equals(other.sellClothesMap, sellClothesMap) &&
             const DeepCollectionEquality().equals(other.buying, buying) &&
             const DeepCollectionEquality().equals(other.selling, selling) &&
             const DeepCollectionEquality().equals(other.year, year) &&
@@ -247,8 +247,8 @@ class _$_CalendarPageState extends _CalendarPageState
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(buyClothesList),
-      const DeepCollectionEquality().hash(sellClothesList),
+      const DeepCollectionEquality().hash(buyClothesMap),
+      const DeepCollectionEquality().hash(sellClothesMap),
       const DeepCollectionEquality().hash(buying),
       const DeepCollectionEquality().hash(selling),
       const DeepCollectionEquality().hash(year),
@@ -262,8 +262,8 @@ class _$_CalendarPageState extends _CalendarPageState
 
 abstract class _CalendarPageState extends CalendarPageState {
   const factory _CalendarPageState(
-      {List<Clothes> buyClothesList,
-      List<Clothes> sellClothesList,
+      {Map<Clothes, Brand> buyClothesMap,
+      Map<Clothes, Brand> sellClothesMap,
       String buying,
       String selling,
       String year,
@@ -271,9 +271,9 @@ abstract class _CalendarPageState extends CalendarPageState {
   const _CalendarPageState._() : super._();
 
   @override
-  List<Clothes> get buyClothesList;
+  Map<Clothes, Brand> get buyClothesMap;
   @override
-  List<Clothes> get sellClothesList;
+  Map<Clothes, Brand> get sellClothesMap;
   @override
   String get buying;
   @override

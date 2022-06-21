@@ -2,10 +2,6 @@ import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/models/clothes.dart';
 import 'package:closet_app_xxx/models/user.dart';
 import 'package:closet_app_xxx/repositories/brand_repository.dart';
-import 'package:closet_app_xxx/repositories/clothes_repository.dart';
-import 'package:closet_app_xxx/repositories/follow_page_repository.dart';
-import 'package:closet_app_xxx/repositories/follower_page_repository.dart';
-import 'package:closet_app_xxx/repositories/global/user_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -18,6 +14,7 @@ class BrandViewPageState with _$BrandViewPageState {
 
   const factory BrandViewPageState(
       {@Default(false) bool isMyFollow,
+      @Default(false) bool isLoading,
       @Default(<Clothes>[]) List<Clothes> clothesList,
       @Default(false) bool isLoadingForFollowState}) = _BrandViewPageState;
 }
@@ -55,8 +52,10 @@ class BrandViewPageController extends StateNotifier<BrandViewPageState> {
   final int _brandId;
 
   Future<void> _init() async {
+    state = state.copyWith(isLoading: true);
     await fetchMyFollowState();
     fetchBrandClothesList();
+    state = state.copyWith(isLoading: false);
   }
 
   Future<void> fetchBrandClothesList() async {

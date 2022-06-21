@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:closet_app_xxx/ui/libs/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -82,14 +83,12 @@ class _ExpandableFabState extends State<ExpandableFab>
           shape: const CircleBorder(),
           clipBehavior: Clip.antiAlias,
           elevation: 4.0,
+          color: Colors.white.withOpacity(0.5),
           child: InkWell(
             onTap: _toggle,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.close,
-                color: Theme.of(context).primaryColor,
-              ),
+              child: Icon(Icons.close, color: AppColors.text),
             ),
           ),
         ),
@@ -134,7 +133,7 @@ class _ExpandableFabState extends State<ExpandableFab>
           duration: const Duration(milliseconds: 250),
           child: FloatingActionButton(
             heroTag: '',
-            backgroundColor: Colors.grey.shade100,
+            backgroundColor: AppColors.theme,
             onPressed: _toggle,
             child: const Icon(LineIcons.bars),
           ),
@@ -202,13 +201,10 @@ class ActionButton extends StatelessWidget {
     return Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
-      color: Colors.grey.shade100,
+      color: Colors.white.withOpacity(0.5),
       elevation: 4.0,
-      child: IconButton(
-        onPressed: onPressed,
-        icon: icon,
-        color: theme.colorScheme.secondary,
-      ),
+      child:
+          IconButton(onPressed: onPressed, icon: icon, color: AppColors.text),
     );
   }
 }
@@ -229,7 +225,7 @@ class FakeItem extends StatelessWidget {
       height: isBig ? 128.0 : 36.0,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        color: Colors.grey.shade300,
+        color: Colors.white.withOpacity(0.5),
       ),
     );
   }

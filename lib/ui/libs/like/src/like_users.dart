@@ -1,4 +1,5 @@
 import 'package:closet_app_xxx/models/user.dart';
+import 'package:closet_app_xxx/ui/libs/navigation.dart';
 import 'package:closet_app_xxx/ui/pages/global/account/account_page.dart';
 import 'package:flutter/material.dart';
 
@@ -21,13 +22,11 @@ class LikeUsers extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  onTap: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AccountPage(userId: user.uid),
-                        ));
-                  },
+                  onTap: () => Navigation().transition(
+                      context: context,
+                      widget: AccountPage(
+                        userId: user.uid,
+                      )),
                   child: ListTile(
                     key: ValueKey(user.uid),
                     leading: ClipRRect(

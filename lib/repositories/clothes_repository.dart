@@ -54,7 +54,11 @@ class _Repository {
     final _fireStore = _read(firebaseFirestoreProvider);
 
     DocumentSnapshot lastDoc =
-        await _fireStore.collection('clothes').doc(lastItemId).get();
+        await _fireStore.collection('users')
+            .doc(userId)
+            .collection('status')
+            .doc('status')
+            .collection('closet').doc(lastItemId).get();
 
     final snap = category == 'ALL'
         ? await _read(firebaseFirestoreProvider)

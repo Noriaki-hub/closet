@@ -1,9 +1,11 @@
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/controllers/pages/global/account_page_controller.dart';
 import 'package:closet_app_xxx/controllers/pages/tab_page_controller.dart';
+import 'package:closet_app_xxx/ui/libs/app_colors.dart';
+import 'package:closet_app_xxx/ui/libs/widgets.dart';
 import 'package:closet_app_xxx/ui/libs/divider.dart';
 import 'package:closet_app_xxx/ui/libs/floating_action_button_animation.dart';
-import 'package:closet_app_xxx/ui/libs/follow_button.dart';
+
 import 'package:closet_app_xxx/ui/libs/loading.dart';
 import 'package:closet_app_xxx/ui/pages/follow/src/follow_screen.dart';
 import 'package:closet_app_xxx/ui/pages/follow/src/follower_screen.dart';
@@ -44,9 +46,8 @@ class _AccountPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(accountPageProvider);
-    return Scaffold(
-      backgroundColor: Colors.grey.shade50,
-      appBar: AppBar(
+    return GlassScaffold(
+      appBar: GlassAppBar(
         leading: IconButton(
           icon: Icon(Icons.close),
           onPressed: () {
@@ -55,9 +56,8 @@ class _AccountPage extends HookConsumerWidget {
         ),
         title: Text(
           state.user.id,
-          style: TextStyle(color: Colors.black45),
+          style: TextStyle(color: AppColors.text),
         ),
-        backgroundColor: Colors.brown.shade50,
       ),
       floatingActionButton: state.isMenu
           ? buildFABMyAccount()
@@ -69,18 +69,21 @@ class _AccountPage extends HookConsumerWidget {
           : SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
-                      height: 1200,
+                  GlassContainer(
+                      height: 1500,
+                      width: double.infinity,
+                      borderRadius: BorderRadius.zero,
                       child: Column(
                         children: [
-                          Container(
+                          SizedBox(
+                            height: 100,
+                          ),
+                          GlassContainer(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30)),
+                            width: double.infinity,
                             height: 280,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(30),
-                                  bottomRight: Radius.circular(30)),
-                              color: Colors.white.withOpacity(0.5),
-                            ),
                             child: Stack(
                               children: [
                                 SizedBox(
@@ -124,6 +127,7 @@ class _AccountPage extends HookConsumerWidget {
                                           child: Text(
                                             state.user.name,
                                             style: TextStyle(
+                                                color: AppColors.text,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 20),
                                           ),
@@ -284,10 +288,18 @@ class _AccountPage extends HookConsumerWidget {
                                         const SizedBox(
                                           height: 20,
                                         ),
-                                        const Text(
-                                          'お気に入り',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                        GlassContainer(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          width: 120,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(
+                                              'お気に入り',
+                                              style: TextStyle(
+                                                  color: AppColors.text),
+                                            ),
+                                          ),
                                         ),
                                         state.user.uid == ''
                                             ? Container()
@@ -295,17 +307,41 @@ class _AccountPage extends HookConsumerWidget {
                                                 width: double.infinity,
                                                 height: 200,
                                                 child: AccountFavorite()),
-                                        const Text('最近購入したもの',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold)),
+                                        const SizedBox(
+                                          height: 40,
+                                        ),
+                                        GlassContainer(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          width: 160,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(
+                                              '最近購入したもの',
+                                              style: TextStyle(
+                                                  color: AppColors.text),
+                                            ),
+                                          ),
+                                        ),
                                         SizedBox(
                                             width: double.infinity,
                                             height: 200,
                                             child: AccountCloset()),
-                                        const Text(
-                                          '今までの収支額',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                        const SizedBox(
+                                          height: 40,
+                                        ),
+                                        GlassContainer(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          width: 120,
+                                          height: 30,
+                                          child: Center(
+                                            child: Text(
+                                              '収支',
+                                              style: TextStyle(
+                                                  color: AppColors.text),
+                                            ),
+                                          ),
                                         ),
                                         const SizedBox(
                                           height: 20,

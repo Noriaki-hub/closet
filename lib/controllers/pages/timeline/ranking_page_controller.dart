@@ -136,8 +136,8 @@ class RankingPageController extends StateNotifier<RankingPageState> {
       }
     }
 
-    final statusClothesCountList =
-        await _read(statusRepositoryProvider).fetchClothesCountStatus(limit: 4);
+    final statusClothesCountList = await _read(statusRepositoryProvider)
+        .fetchClothesCountStatus(limit: 12);
 
     final statusClothesCountMap = {...state.statusClothesCountMap};
     for (var status in statusClothesCountList) {

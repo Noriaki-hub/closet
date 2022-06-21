@@ -1,6 +1,8 @@
 import 'package:closet_app_xxx/controllers/global/user_controller.dart';
 import 'package:closet_app_xxx/controllers/pages/global/clothes_view_page_controller.dart';
 import 'package:closet_app_xxx/models/clothes.dart';
+import 'package:closet_app_xxx/ui/libs/app_colors.dart';
+import 'package:closet_app_xxx/ui/libs/widgets.dart';
 import 'package:closet_app_xxx/ui/libs/cache_image.dart';
 import 'package:closet_app_xxx/ui/libs/floating_action_button_animation.dart';
 import 'package:closet_app_xxx/ui/libs/like/like_button.dart';
@@ -55,9 +57,9 @@ class _ClothesViewScreen extends HookConsumerWidget {
 
     return clothes == null || brand == null
         ? Loading()
-        : Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.brown.shade50,
+        : GlassScaffold(
+            image: clothes.imageURL,
+            appBar: GlassAppBar(
               leading: IconButton(
                 onPressed: () {
                   Navigator.pop(context, false);
@@ -125,13 +127,17 @@ class _ClothesViewScreen extends HookConsumerWidget {
                     ],
                   )
                 : Container(),
-            backgroundColor: Colors.grey.shade50,
-            body: SingleChildScrollView(
-              child: SizedBox(
-                height: 1100,
+            body: GlassContainer(
+              height: size.height,
+              borderRadius: BorderRadius.zero,
+              width: double.infinity,
+              child: SingleChildScrollView(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 100,
+                      ),
                       SizedBox(
                         height: size.height * 2 / 3,
                         child: GestureDetector(
@@ -189,7 +195,10 @@ class _ClothesViewScreen extends HookConsumerWidget {
                         builder: (context) => BrandViewPage(brand: brand)));
               }
             },
-            child: Text(brand?.brand_name_en ?? '')),
+            child: Text(
+              brand?.brand_name_en ?? '',
+              style: TextStyle(color: AppColors.subText),
+            )),
         SizedBox(
           height: 5,
         ),
